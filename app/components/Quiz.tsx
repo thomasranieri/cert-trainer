@@ -10,19 +10,48 @@ import {
 } from 'react-native';
 import { databaseService, Question } from '../../services/DatabaseService';
 import questionsData from '../data/questions.json';
+import QuizFilters from './QuizFilters';
 
 const Quiz: React.FC = () => {
-  const [questions] = useState<Question[]>(questionsData as Question[]);
+  const [allQuestions] = useState<Question[]>(questionsData as Question[]);
+  const [filteredQuestions, setFilteredQuestions] = useState<Question[]>(questionsData as Question[]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [stats, setStats] = useState({ total: 0, correct: 0, percentage: 0 });
+  
+  // Filter states
+  const [selectedTaskStatement, setSelectedTaskStatement] = useState<string | null>(null);
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
+  
+  // Get available task statements
+  const availableTaskStatements = [...new Set(allQuestions.map(q => q.taskStatement))].sort();
 
   useEffect(() => {
     initializeDatabase();
     loadStats();
   }, []);
+
+  // Filter questions based on selected criteria
+  useEffect(() => {
+    let filtered = allQuestions;
+    
+    if (selectedTaskStatement) {
+      filtered = filtered.filter(q => q.taskStatement === selectedTaskStatement);
+    }
+    
+    if (selectedDifficulty) {
+      filtered = filtered.filter(q => q.difficulty === selectedDifficulty);
+    }
+    
+    setFilteredQuestions(filtered);
+    setCurrentQuestionIndex(0);
+    setSelectedAnswer(null);
+    setShowResult(false);
+    setIsCorrect(false);
+  }, [selectedTaskStatement, selectedDifficulty, allQuestions]);
 
   const initializeDatabase = async () => {
     await databaseService.initialize();
@@ -32,8 +61,58 @@ const Quiz: React.FC = () => {
     const currentStats = await databaseService.getStats();
     setStats(currentStats);
   };
+  const currentQuestion = filteredQuestions[currentQuestionIndex];
 
-  const currentQuestion = questions[currentQuestionIndex];
+  // Handle case when no questions match the filter
+  if (filteredQuestions.length === 0) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+          <QuizFilters
+            selectedTaskStatement={selectedTaskStatement}
+            selectedDifficulty={selectedDifficulty}
+            onTaskStatementChange={setSelectedTaskStatement}
+            onDifficultyChange={setSelectedDifficulty}
+            availableTaskStatements={availableTaskStatements}
+            isVisible={showFilters}
+            onToggleVisibility={() => setShowFilters(!showFilters)}
+          />
+          <View style={styles.noQuestionsContainer}>
+            <Text style={styles.noQuestionsText}>
+              No questions match the selected filters.
+            </Text>
+            <Text style={styles.noQuestionsSubtext}>
+              Try adjusting your filter settings.
+            </Text>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+
+  // Handle case when currentQuestion is undefined
+  if (!currentQuestion) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+          <QuizFilters
+            selectedTaskStatement={selectedTaskStatement}
+            selectedDifficulty={selectedDifficulty}
+            onTaskStatementChange={setSelectedTaskStatement}
+            onDifficultyChange={setSelectedDifficulty}
+            availableTaskStatements={availableTaskStatements}
+            isVisible={showFilters}
+            onToggleVisibility={() => setShowFilters(!showFilters)}
+          />
+          <View style={styles.noQuestionsContainer}>
+            <Text style={styles.noQuestionsText}>
+              Loading questions...
+            </Text>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
 
   const handleAnswerSelect = (answer: string) => {
     if (showResult) return;
@@ -66,7 +145,7 @@ const Quiz: React.FC = () => {
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
+    if (currentQuestionIndex < filteredQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedAnswer(null);
       setShowResult(false);
@@ -118,21 +197,40 @@ const Quiz: React.FC = () => {
 
     return styles.answer;
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+        {/* Filters */}
+        <QuizFilters
+          selectedTaskStatement={selectedTaskStatement}
+          selectedDifficulty={selectedDifficulty}
+          onTaskStatementChange={setSelectedTaskStatement}
+          onDifficultyChange={setSelectedDifficulty}
+          availableTaskStatements={availableTaskStatements}
+          isVisible={showFilters}
+          onToggleVisibility={() => setShowFilters(!showFilters)}
+        />
+
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.questionCounter}>
-            Question {currentQuestionIndex + 1} of {questions.length}
+            Question {currentQuestionIndex + 1} of {filteredQuestions.length}
           </Text>
           <View style={styles.statsContainer}>
             <Text style={styles.stats}>
               Score: {stats.correct}/{stats.total} ({stats.percentage}%)
             </Text>
+          </View>        </View>        {/* Filter Summary */}
+        {(selectedTaskStatement || selectedDifficulty) && (
+          <View style={styles.filterSummary}>
+            <Text style={styles.filterSummaryText}>
+              Filters: {[
+                selectedTaskStatement ? `Task ${selectedTaskStatement}` : null,
+                selectedDifficulty ? selectedDifficulty : null
+              ].filter(Boolean).join(', ')}
+            </Text>
           </View>
-        </View>
+        )}
 
         {/* Question Card */}
         <View style={styles.questionCard}>
@@ -156,7 +254,7 @@ const Quiz: React.FC = () => {
               disabled={showResult}
             >
               <Text style={styles.answerLabel}>{key}.</Text>
-              <Text style={styles.answerText}>{value}</Text>
+              <Text style={styles.answerText}>{String(value)}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -192,7 +290,7 @@ const Quiz: React.FC = () => {
               onPress={handleNextQuestion}
             >
               <Text style={styles.buttonText}>
-                {currentQuestionIndex < questions.length - 1 ? 'Next Question' : 'Complete Quiz'}
+                {currentQuestionIndex < filteredQuestions.length - 1 ? 'Next Question' : 'Complete Quiz'}
               </Text>
             </TouchableOpacity>
           )}
@@ -399,11 +497,39 @@ const styles = StyleSheet.create({
   },
   nextButton: {
     backgroundColor: '#4CAF50',
-  },
-  buttonText: {
+  },  buttonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
+  },
+  noQuestionsContainer: {
+    padding: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  noQuestionsText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 8,
+  },  noQuestionsSubtext: {
+    fontSize: 14,
+    color: '#999',
+    textAlign: 'center',
+  },
+  filterSummary: {
+    backgroundColor: '#E3F2FD',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+    marginBottom: 16,
+  },
+  filterSummaryText: {
+    fontSize: 14,
+    color: '#1976D2',
+    textAlign: 'center',
+    fontWeight: '500',
   },
 });
 
