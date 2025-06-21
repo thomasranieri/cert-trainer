@@ -11,8 +11,8 @@ export default function Index() {
       }}
     >
       <Text>cert-trainer</Text>
-      <Link href="/setup/">
-        <Text style={{ color: "blue" }}>Go to Setup</Text>
+      <Link href="/setup">
+        Go to Setup
       </Link>
     </View>
   );
