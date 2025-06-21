@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
-import * as Storage from '../utils/Storage';
+import * as Storage from '../../utils/Storage';
 
 export default function Setup() {
   let [apiKey, setApiKey] = useState("");

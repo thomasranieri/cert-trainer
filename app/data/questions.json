@@ -1,0 +1,132 @@
+[
+  {
+    "taskStatement": "1.1",
+    "stem": "Which of the following is the most cost-effective AWS storage option for storing large volumes of raw, unstructured ML training data?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Amazon S3",
+      "B": "Amazon EFS",
+      "C": "Amazon EBS",
+      "D": "Amazon FSx for NetApp ONTAP"
+    },
+    "explanation": "Amazon S3 is an object storage service ideal for large volumes of unstructured data and is generally more cost-effective for ML storage compared to file and block storage solutions."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "Which data format is columnar and provides efficient storage and retrieval for analytical workloads?",
+    "correct": "C",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "JSON",
+      "B": "CSV",
+      "C": "Apache Parquet",
+      "D": "RecordIO"
+    },
+    "explanation": "Apache Parquet is a columnar storage format designed for efficient storage and analytical queries, making it well-suited for ML and big data workloads."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "Amazon Kinesis Data Streams is best used for which of the following scenarios?",
+    "correct": "B",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Batch data uploads",
+      "B": "Real-time streaming data ingestion",
+      "C": "Archiving unused data",
+      "D": "Managing access permissions"
+    },
+    "explanation": "Amazon Kinesis Data Streams is designed for real-time streaming data ingestion, enabling real-time analytics, and ML workflows."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "You need to ingest structured data from an RDS database into SageMaker for training. Which AWS service could automate this extraction and ingestion process?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon QuickSight",
+      "B": "Amazon S3 Glacier",
+      "C": "Amazon SNS",
+      "D": "AWS Glue"
+    },
+    "explanation": "AWS Glue is a managed ETL (extract, transform, load) service that can automate the extraction of data from sources like Amazon RDS and load it into destinations such as Amazon S3 for ML modeling."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A data engineer is tasked with merging clickstream data from Kinesis and customer data residing in DynamoDB for an ML pipeline. Which tool is most suited for merging these data sources at scale?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon Redshift Spectrum",
+      "B": "AWS CodePipeline",
+      "C": "Apache Spark on Amazon EMR",
+      "D": "Amazon S3 Transfer Acceleration"
+    },
+    "explanation": "Apache Spark on Amazon EMR is well-suited for scalable data processing tasks such as merging large sets of data from different sources."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "When deciding between storing training data in Amazon S3 vs. Amazon EFS for a SageMaker training job, which key factor favors S3?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Requirement for a POSIX-compliant filesystem",
+      "B": "Low-latency, shared access across many training instances",
+      "C": "Continuous file locking and synchronization",
+      "D": "Cost-effective, scalable object storage for large, static datasets"
+    },
+    "explanation": "Amazon S3 is optimized for cost-effective, scalable storage of large, static objects—making it ideal for many ML training workflows."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "Which service is recommended for high-performance, parallel access to shared training data from multiple ML instances, with POSIX compatibility?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon S3",
+      "B": "Amazon EFS",
+      "C": "Amazon S3 Glacier",
+      "D": "Amazon DynamoDB"
+    },
+    "explanation": "Amazon EFS is a scalable, elastic, cloud-native NFS file system providing high-performance, parallel access to shared data and making it POSIX-compliant."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "What is the primary purpose of Amazon S3 Transfer Acceleration?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Encrypt objects at rest in S3",
+      "B": "Decrease S3 storage costs",
+      "C": "Speed up data transfers to and from S3 over long distances using edge locations",
+      "D": "Optimize batch SQL queries against S3 data"
+    },
+    "explanation": "S3 Transfer Acceleration speeds up uploads and downloads to S3 by routing traffic through AWS edge locations, reducing latency over long distances."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "Which of the following best describes a use case where Amazon FSx for NetApp ONTAP is preferred over Amazon S3?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Performance-intensive ML workloads requiring NFS/CIFS protocol access and advanced data management",
+      "B": "Long-term, infrequently accessed data archiving",
+      "C": "Storing static website assets",
+      "D": "Ingesting streaming IoT sensor data"
+    },
+    "explanation": "FSx for NetApp ONTAP is ideal for performance-intensive, file-based workloads needing compatibility with NFS/CIFS and advanced data management features."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "You are troubleshooting a data ingestion pipeline that intermittently fails when transferring large files to Amazon S3. Which feature can help you mitigate issues caused by unstable network connections during uploads?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Enable S3 versioning",
+      "B": "Use S3 multipart upload",
+      "C": "Enable S3 Static Website Hosting",
+      "D": "Turn on S3 Intelligent-Tiering"
+    },
+    "explanation": "S3 multipart upload splits large files into parts, letting you upload each part independently and resume failed uploads, mitigating network instability issues."
+  }
+]

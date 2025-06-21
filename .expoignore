@@ -1,0 +1,5 @@
+# Ignore service and utility files from expo-router
+app/services/
+app/utils/
+services/
+utils/
