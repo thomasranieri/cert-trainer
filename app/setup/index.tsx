@@ -1,11 +1,6 @@
-import { Button, Text, TextInput, View } from 'react-native';
-
-import * as SecureStore from 'expo-secure-store';
 import { useState } from 'react';
-
-async function save(key: string, value: string) {
-    await SecureStore.setItemAsync(key, value);
-}
+import { Button, Text, TextInput, View } from 'react-native';
+import * as Storage from '../utils/Storage';
 
 export default function Setup() {
   let [apiKey, setApiKey] = useState("");
@@ -18,8 +13,9 @@ export default function Setup() {
         onChangeText={setApiKey}
       />
       <Button
-      title="Save API Key"
-       onPress={() => save("OPENAI_API_KEY", apiKey)} />
+        title="Save API Key"
+        onPress={() => Storage.set("OPENAI_API_KEY", apiKey)} />
     </View>
   );
 }
+  
