@@ -1,132 +1,2030 @@
 [
-  {
-    "taskStatement": "1.1",
-    "stem": "Which of the following is the most cost-effective AWS storage option for storing large volumes of raw, unstructured ML training data?",
-    "correct": "A",
-    "difficulty": "EASY",
-    "answers": {
-      "A": "Amazon S3",
-      "B": "Amazon EFS",
-      "C": "Amazon EBS",
-      "D": "Amazon FSx for NetApp ONTAP"
+    {
+        "taskStatement": "1.1",
+        "stem": "Which AWS service is most commonly used for storing large-scale, unstructured datasets for ML preparation?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Amazon S3",
+            "B": "Amazon EC2",
+            "C": "Amazon SageMaker",
+            "D": "Amazon DynamoDB"
+        },
+        "explanation": "Amazon S3 is designed to store and retrieve any amount of data, making it ideal for storing large-scale, unstructured ML datasets."
     },
-    "explanation": "Amazon S3 is an object storage service ideal for large volumes of unstructured data and is generally more cost-effective for ML storage compared to file and block storage solutions."
-  },
-  {
-    "taskStatement": "1.1",
-    "stem": "Which data format is columnar and provides efficient storage and retrieval for analytical workloads?",
-    "correct": "C",
-    "difficulty": "EASY",
-    "answers": {
-      "A": "JSON",
-      "B": "CSV",
-      "C": "Apache Parquet",
-      "D": "RecordIO"
+    {
+        "taskStatement": "1.1",
+        "stem": "Which data format is best suited for columnar storage and efficient analytics queries in big data ML environments?",
+        "correct": "B",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "JSON",
+            "B": "Apache Parquet",
+            "C": "CSV",
+            "D": "TXT"
+        },
+        "explanation": "Apache Parquet is a columnar storage format optimized for efficient analytics queries, frequently used in big data processing."
     },
-    "explanation": "Apache Parquet is a columnar storage format designed for efficient storage and analytical queries, making it well-suited for ML and big data workloads."
-  },
-  {
-    "taskStatement": "1.1",
-    "stem": "Amazon Kinesis Data Streams is best used for which of the following scenarios?",
-    "correct": "B",
-    "difficulty": "EASY",
-    "answers": {
-      "A": "Batch data uploads",
-      "B": "Real-time streaming data ingestion",
-      "C": "Archiving unused data",
-      "D": "Managing access permissions"
+    {
+        "taskStatement": "1.1",
+        "stem": "Which AWS service enables high-throughput, low-latency data streaming ingestion for real-time ML applications?",
+        "correct": "C",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "AWS Glue",
+            "B": "Amazon S3",
+            "C": "Amazon Kinesis",
+            "D": "Amazon RDS"
+        },
+        "explanation": "Amazon Kinesis is designed to ingest, process, and analyze real-time streaming data at scale."
     },
-    "explanation": "Amazon Kinesis Data Streams is designed for real-time streaming data ingestion, enabling real-time analytics, and ML workflows."
-  },
-  {
-    "taskStatement": "1.1",
-    "stem": "You need to ingest structured data from an RDS database into SageMaker for training. Which AWS service could automate this extraction and ingestion process?",
-    "correct": "D",
-    "difficulty": "MEDIUM",
-    "answers": {
-      "A": "Amazon QuickSight",
-      "B": "Amazon S3 Glacier",
-      "C": "Amazon SNS",
-      "D": "AWS Glue"
+    {
+        "taskStatement": "1.1",
+        "stem": "What is the primary benefit of using Amazon EFS for storing ML data?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "It provides scalable, shared file storage for use with multiple compute instances.",
+            "B": "It automatically transforms data for ML workflows.",
+            "C": "It is optimized only for block storage.",
+            "D": "It provides serverless data analytics."
+        },
+        "explanation": "Amazon EFS is a scalable NFS file system that can be shared across multiple EC2 instances, making it well-suited for collaborative ML projects."
     },
-    "explanation": "AWS Glue is a managed ETL (extract, transform, load) service that can automate the extraction of data from sources like Amazon RDS and load it into destinations such as Amazon S3 for ML modeling."
-  },
-  {
-    "taskStatement": "1.1",
-    "stem": "A data engineer is tasked with merging clickstream data from Kinesis and customer data residing in DynamoDB for an ML pipeline. Which tool is most suited for merging these data sources at scale?",
-    "correct": "C",
-    "difficulty": "MEDIUM",
-    "answers": {
-      "A": "Amazon Redshift Spectrum",
-      "B": "AWS CodePipeline",
-      "C": "Apache Spark on Amazon EMR",
-      "D": "Amazon S3 Transfer Acceleration"
+    {
+        "taskStatement": "1.1",
+        "stem": "Which of the following is a record-oriented binary format for serializing data for ML ingestion?",
+        "correct": "D",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "JSON",
+            "B": "CSV",
+            "C": "Apache ORC",
+            "D": "RecordIO"
+        },
+        "explanation": "RecordIO is a binary format commonly used in MXNet and SageMaker for storing and efficiently streaming large datasets."
     },
-    "explanation": "Apache Spark on Amazon EMR is well-suited for scalable data processing tasks such as merging large sets of data from different sources."
-  },
-  {
-    "taskStatement": "1.1",
-    "stem": "When deciding between storing training data in Amazon S3 vs. Amazon EFS for a SageMaker training job, which key factor favors S3?",
-    "correct": "D",
-    "difficulty": "MEDIUM",
-    "answers": {
-      "A": "Requirement for a POSIX-compliant filesystem",
-      "B": "Low-latency, shared access across many training instances",
-      "C": "Continuous file locking and synchronization",
-      "D": "Cost-effective, scalable object storage for large, static datasets"
+    {
+        "taskStatement": "1.1",
+        "stem": "A data scientist needs to ingest streaming sensor data for analysis. Which service is best to use?",
+        "correct": "B",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Amazon Glue",
+            "B": "Amazon Kinesis Data Streams",
+            "C": "Amazon RDS",
+            "D": "Amazon S3"
+        },
+        "explanation": "Amazon Kinesis Data Streams specializes in ingesting streaming, real-time data, such as sensor logs."
     },
-    "explanation": "Amazon S3 is optimized for cost-effective, scalable storage of large, static objects—making it ideal for many ML training workflows."
-  },
-  {
-    "taskStatement": "1.1",
-    "stem": "Which service is recommended for high-performance, parallel access to shared training data from multiple ML instances, with POSIX compatibility?",
-    "correct": "B",
-    "difficulty": "HARD",
-    "answers": {
-      "A": "Amazon S3",
-      "B": "Amazon EFS",
-      "C": "Amazon S3 Glacier",
-      "D": "Amazon DynamoDB"
+    {
+        "taskStatement": "1.1",
+        "stem": "Which is a key tradeoff when choosing Amazon S3 Standard vs. S3 Glacier for ML data storage?",
+        "correct": "C",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Durability vs. scalability",
+            "B": "Object size limit",
+            "C": "Access speed vs. storage cost",
+            "D": "Data format compatibility"
+        },
+        "explanation": "S3 Standard offers quicker access at higher cost, while S3 Glacier is cheaper but has slower retrieval speeds."
     },
-    "explanation": "Amazon EFS is a scalable, elastic, cloud-native NFS file system providing high-performance, parallel access to shared data and making it POSIX-compliant."
-  },
-  {
-    "taskStatement": "1.1",
-    "stem": "What is the primary purpose of Amazon S3 Transfer Acceleration?",
-    "correct": "C",
-    "difficulty": "HARD",
-    "answers": {
-      "A": "Encrypt objects at rest in S3",
-      "B": "Decrease S3 storage costs",
-      "C": "Speed up data transfers to and from S3 over long distances using edge locations",
-      "D": "Optimize batch SQL queries against S3 data"
+    {
+        "taskStatement": "1.1",
+        "stem": "Which AWS service is best for mounting an NFS file system to multiple SageMaker notebook instances?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon S3",
+            "B": "Amazon EFS",
+            "C": "Amazon Glacier",
+            "D": "Amazon RDS"
+        },
+        "explanation": "Amazon EFS can be mounted as a file system to multiple compute environments, including SageMaker notebooks."
     },
-    "explanation": "S3 Transfer Acceleration speeds up uploads and downloads to S3 by routing traffic through AWS edge locations, reducing latency over long distances."
-  },
-  {
-    "taskStatement": "1.1",
-    "stem": "Which of the following best describes a use case where Amazon FSx for NetApp ONTAP is preferred over Amazon S3?",
-    "correct": "A",
-    "difficulty": "HARD",
-    "answers": {
-      "A": "Performance-intensive ML workloads requiring NFS/CIFS protocol access and advanced data management",
-      "B": "Long-term, infrequently accessed data archiving",
-      "C": "Storing static website assets",
-      "D": "Ingesting streaming IoT sensor data"
+    {
+        "taskStatement": "1.1",
+        "stem": "Which format is commonly used for row-based storage, better suited for streaming data ingestion?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Apache Parquet",
+            "B": "Apache ORC",
+            "C": "JSON",
+            "D": "Avro"
+        },
+        "explanation": "JSON stores data in row-based format and is human-readable, making it suitable for streaming ingestion."
     },
-    "explanation": "FSx for NetApp ONTAP is ideal for performance-intensive, file-based workloads needing compatibility with NFS/CIFS and advanced data management features."
-  },
-  {
-    "taskStatement": "1.1",
-    "stem": "You are troubleshooting a data ingestion pipeline that intermittently fails when transferring large files to Amazon S3. Which feature can help you mitigate issues caused by unstable network connections during uploads?",
-    "correct": "B",
-    "difficulty": "HARD",
-    "answers": {
-      "A": "Enable S3 versioning",
-      "B": "Use S3 multipart upload",
-      "C": "Enable S3 Static Website Hosting",
-      "D": "Turn on S3 Intelligent-Tiering"
+    {
+        "taskStatement": "1.1",
+        "stem": "How can you enable faster uploads over long distances to an S3 bucket?",
+        "correct": "D",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Enable S3 lifecycle policies",
+            "B": "Use Amazon EC2 Spot Instances",
+            "C": "Use multipart uploads",
+            "D": "Enable Amazon S3 Transfer Acceleration"
+        },
+        "explanation": "S3 Transfer Acceleration uses the AWS global network to speed up uploads to S3 buckets from remote locations."
     },
-    "explanation": "S3 multipart upload splits large files into parts, letting you upload each part independently and resume failed uploads, mitigating network instability issues."
-  }
+    {
+        "taskStatement": "1.1",
+        "stem": "An ML team wants a low-latency network file system for their training jobs with Windows apps support. Which is the most appropriate?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon S3",
+            "B": "Amazon EFS",
+            "C": "Amazon FSx for NetApp ONTAP",
+            "D": "AWS Lambda"
+        },
+        "explanation": "Amazon FSx for NetApp ONTAP provides fully managed, high-performance storage compatible with Windows and Linux."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which feature of Amazon S3 helps optimize data transfer speed for globally distributed teams?",
+        "correct": "D",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "S3 bucket versioning",
+            "B": "S3 Intelligent-Tiering",
+            "C": "Server-side encryption",
+            "D": "S3 Transfer Acceleration"
+        },
+        "explanation": "S3 Transfer Acceleration improves upload speed by routing traffic through optimized AWS edge locations."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which AWS database is best for storing semi-structured data obtained from ML pipeline logs?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon RDS",
+            "B": "Amazon DynamoDB",
+            "C": "Amazon Athena",
+            "D": "Amazon EBS"
+        },
+        "explanation": "Amazon DynamoDB is a NoSQL database that efficiently stores and retrieves semi-structured data at high scale."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "When troubleshooting S3 ingestion performance, which metric is most relevant?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Object TTL",
+            "B": "Object replication status",
+            "C": "Request latency",
+            "D": "Bucket versioning status"
+        },
+        "explanation": "Request latency directly measures the time taken for S3 to handle ingestion operations."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "What is the primary advantage of Apache Avro for ML data interchange?",
+        "correct": "D",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "It is a human-readable format",
+            "B": "It stores data as key-value pairs",
+            "C": "It supports only fixed schemas",
+            "D": "It includes rich schema evolution and compact binary serialization"
+        },
+        "explanation": "Avro offers compact serialization, supports schema evolution, and is ideal for ML data interchange across services."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "You need to join data from DynamoDB and S3 before ML model training. Which service can help merge the data efficiently?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Amazon Transcribe",
+            "B": "Amazon RDS",
+            "C": "AWS Glue",
+            "D": "Amazon Lambda"
+        },
+        "explanation": "AWS Glue can connect to many AWS data sources, including S3 and DynamoDB, and transform/merge data for ML."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which is a key consideration in choosing between Amazon S3 and Amazon EFS for storing input datasets for ML jobs?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Both can be directly mounted as filesystems",
+            "B": "EFS provides POSIX compatibility and shared file access for distributed training",
+            "C": "S3 does not support versioning",
+            "D": "EFS costs are based on PUT/GET requests"
+        },
+        "explanation": "EFS supports POSIX-compliant file storage and can be mounted across multiple instances, useful for distributed ML tasks."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which data format provides efficient encoding of both row- and column-oriented data and is widely supported in AWS ETL services?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "CSV",
+            "B": "RecordIO",
+            "C": "Apache ORC",
+            "D": "TXT"
+        },
+        "explanation": "Apache ORC is a highly efficient, columnar format suited to analytics and ETL, well supported in AWS Glue and Amazon EMR."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "A team must migrate 1PB of on-premises ML training data to AWS. Which is the most performant and cost-effective option?",
+        "correct": "B",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Internet transfer to Amazon S3",
+            "B": "AWS DataSync",
+            "C": "AWS Lambda",
+            "D": "Amazon CloudFront"
+        },
+        "explanation": "AWS DataSync accelerates large-scale data migrations from on-premises storage to AWS with high performance and cost-efficiency."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which AWS resource should be used to optimize read performance for frequently accessed ML datasets on S3?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Enable bucket versioning",
+            "B": "Select S3 Glacier storage",
+            "C": "Use S3 Transfer Acceleration and keep data in S3 Standard class",
+            "D": "Switch to Amazon EBS"
+        },
+        "explanation": "S3 Standard provides low-latency access, and Transfer Acceleration speeds up access for globally distributed users."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which AWS service is recommended for scalable, distributed batch processing of large ML datasets already in S3?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon EMR",
+            "B": "AWS Lambda",
+            "C": "Amazon RDS",
+            "D": "Amazon SNS"
+        },
+        "explanation": "Amazon EMR integrates with S3 and performs distributed processing using frameworks like Spark or Hadoop."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "A company wants to ensure parallel ML processing workers can all access the same file-based dataset at low latency. Which is the best option?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "S3 Standard Infrequent Access",
+            "B": "Amazon Glacier",
+            "C": "Amazon EFS",
+            "D": "Amazon DynamoDB"
+        },
+        "explanation": "Amazon EFS enables concurrent, low-latency read/write access to file data for multiple compute clients."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which factor should be considered when selecting data formats for ML input to optimize performance and cost on AWS?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Data access patterns",
+            "B": "UI design requirements",
+            "C": "Lambda timeout",
+            "D": "Console color theme"
+        },
+        "explanation": "Choosing the right data format based on read/write patterns and file size can optimize both performance and cost."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "How does SageMaker Data Wrangler help in data ingestion for ML workloads?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Only performs real-time inference",
+            "B": "Connects to data sources, transforms, and imports data into SageMaker pipelines",
+            "C": "Acts as a persistent database",
+            "D": "Optimizes GPU utilization"
+        },
+        "explanation": "SageMaker Data Wrangler is designed to ingest, transform, and process data before loading it into ML pipelines."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which AWS service can efficiently move streaming data directly into Amazon S3?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Amazon Kinesis Data Firehose",
+            "B": "Amazon RDS",
+            "C": "Amazon Lex",
+            "D": "Amazon EFS"
+        },
+        "explanation": "Amazon Kinesis Data Firehose is purpose-built to move streaming data into destinations like Amazon S3."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which mechanism can increase the write throughput for ML data ingestion into Amazon DynamoDB?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Use S3 Transfer Acceleration",
+            "B": "Enable S3 Intelligent-Tiering",
+            "C": "Enable DynamoDB auto-scaling or provisioned throughput",
+            "D": "Switch to Amazon Glacier"
+        },
+        "explanation": "Enabling auto-scaling or increasing provisioned throughput boosts DynamoDB's write performance."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "What advantage does using Apache Parquet format for ML data storage confer over CSV?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Parquet supports image format only",
+            "B": "Columnar storage leads to better compression and faster analytics",
+            "C": "CSV is more compact",
+            "D": "Parquet requires more storage space"
+        },
+        "explanation": "Parquet's columnar format reduces storage requirements and speeds up column-wise queries compared to CSV."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which solution should you select for ingesting high-velocity log streams into AWS for ML pipeline analysis?",
+        "correct": "B",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Amazon RDS",
+            "B": "Amazon Kinesis Data Streams",
+            "C": "Amazon S3 Glacier",
+            "D": "AWS CodeBuild"
+        },
+        "explanation": "Kinesis Data Streams is optimized for capturing and handling high-velocity streaming data in real time."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which storage service on AWS is most cost-effective for infrequently accessed ML model archives?",
+        "correct": "D",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon S3 Standard",
+            "B": "Amazon EBS",
+            "C": "Amazon EFS",
+            "D": "Amazon S3 Glacier"
+        },
+        "explanation": "Amazon S3 Glacier is optimized for long-term archives with lower cost and slower retrieval, suitable for infrequent access."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which ingestion technology is best for integrating batch and streaming data into a consolidated ML dataset?",
+        "correct": "A",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Apache Spark on Amazon EMR",
+            "B": "Amazon SQS",
+            "C": "Amazon Polly",
+            "D": "Amazon DevOps Guru"
+        },
+        "explanation": "Apache Spark on EMR is highly scalable and can unify batch and streaming ingestion for ML data pipelines."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which Amazon S3 setting can help control cost during initial ML data storage decisions?",
+        "correct": "B",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Enable acceleration",
+            "B": "Choose the correct storage class (e.g., S3 Standard, S3 Intelligent-Tiering)",
+            "C": "Use multipart upload",
+            "D": "Enable cross-region replication"
+        },
+        "explanation": "Selecting the appropriate storage class for access patterns controls cost from the onset."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "What is a benefit of using S3 multipart upload for ML binary datasets?",
+        "correct": "D",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Improves S3 bucket scalability",
+            "B": "Reduces storage costs",
+            "C": "Supports live serverless inference",
+            "D": "Speeds up large file uploads and allows resuming interrupted transfers"
+        },
+        "explanation": "Multipart upload allows efficient, resilient uploading of large files, common in ML workflows."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which AWS service should you use to ingest streaming data for a sentiment analysis ML model?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Amazon Kinesis Data Streams",
+            "B": "Amazon EFS",
+            "C": "Amazon S3 Glacier",
+            "D": "AWS CloudFormation"
+        },
+        "explanation": "Amazon Kinesis provides real-time ingestion for data streams, ideal for tasks like sentiment analysis."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which is the fastest solution for merging petabyte-scale CSV logs from multiple sources into a single, clean dataset?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Amazon SNS",
+            "B": "Amazon RDS",
+            "C": "AWS Glue with Spark",
+            "D": "Amazon Polly"
+        },
+        "explanation": "AWS Glue with Spark can process, clean, and merge petabyte-scale data quickly and efficiently."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "What is a drawback of choosing JSON for storing massive ML datasets in S3?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "It is not widely supported",
+            "B": "It does not support nested data",
+            "C": "It can be less efficient in terms of storage and query performance for large datasets",
+            "D": "It cannot be used in S3"
+        },
+        "explanation": "JSON is human-readable but can cause inefficiency for large-volume analytics compared to binary or columnar formats."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "To scale for large ML model training jobs, what technique is best for S3 and EBS-based storage?",
+        "correct": "D",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Use EBS only",
+            "B": "Disable region replication",
+            "C": "Disable versioning",
+            "D": "Use S3 for object storage and EBS Provisioned IOPS for high-throughput block storage"
+        },
+        "explanation": "Combining durable S3 data with Provisioned IOPS on EBS delivers scalable, high-throughput access for ML jobs."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which AWS service can connect directly to Amazon S3, RDS, and DynamoDB to read and ingest data for ML pipelines?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "AWS Glue",
+            "B": "Amazon EKS",
+            "C": "Amazon SQS",
+            "D": "Amazon CloudFront"
+        },
+        "explanation": "AWS Glue can integrate with various AWS storage services, providing a unified way to ingest data."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "You are troubleshooting storage capacity issues for ML feature store ingestion. What is one way to address scalability in S3?",
+        "correct": "D",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Enable bucket ACLs",
+            "B": "Switch to S3 Glacier",
+            "C": "Reduce bucket versioning",
+            "D": "Partition the data and use parallelization"
+        },
+        "explanation": "Partitioning and parallelizing access help scale S3 for high-volume ML data ingestion."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "For which storage backend would you choose ORC or Parquet over CSV for ML data?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon RDS",
+            "B": "Amazon S3 (for use with Athena or EMR)",
+            "C": "Amazon EFS",
+            "D": "Amazon CloudWatch"
+        },
+        "explanation": "ORC and Parquet are optimized for analytics on S3 and are natively supported by processing engines like Athena and EMR."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "During data ingestion, your team faces high latency when reading small files from S3. What best practice can resolve this?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Switch to S3 Glacier",
+            "B": "Add more versioning",
+            "C": "Merge small files into larger objects for more efficient access",
+            "D": "Increase CloudFront caching"
+        },
+        "explanation": "Combining small files into larger objects reduces overhead and speeds up S3 reads, improving performance."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which tool is best for performing ETL tasks such as merging, partitioning, and transforming ML data stored in AWS S3?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "AWS Glue",
+            "B": "Amazon SNS",
+            "C": "Amazon Kinesis",
+            "D": "Amazon Route 53"
+        },
+        "explanation": "AWS Glue is a managed ETL service that simplifies data preparation tasks for ML pipelines."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which ingestion process is best for extracting bulk historical data from a MySQL RDS database into S3 for ML?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Export CSVs manually",
+            "B": "Use AWS Glue to connect and read data, then write to S3",
+            "C": "Store data in S3 Glacier",
+            "D": "Enable S3 Transfer Acceleration"
+        },
+        "explanation": "AWS Glue has native connectors for RDS databases (such as MySQL) to extract and ingest data into S3 efficiently."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "What is a key consideration when making initial storage decisions for ML data ingestion?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Cost, performance, and data structure",
+            "B": "Console color theme",
+            "C": "ML model type",
+            "D": "Number of Lambda triggers"
+        },
+        "explanation": "Storage selection should consider data structure, performance, and cost to optimize long-term ML workload efficiency."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which AWS feature should be enabled for higher provisioned IOPS on Amazon EBS to support ML workloads?",
+        "correct": "D",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "S3 Transfer Acceleration",
+            "B": "Default EBS storage class",
+            "C": "S3 Intelligent-Tiering",
+            "D": "EBS Provisioned IOPS"
+        },
+        "explanation": "EBS Provisioned IOPS provides consistent, high-performance storage access required for many ML workloads."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which format is specifically designed for high-performance writing and reading of large data sequences in machine learning workflows?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "TXT",
+            "B": "JSON",
+            "C": "RecordIO",
+            "D": "JPEG"
+        },
+        "explanation": "RecordIO is a binary format optimized for performance in ML tasks, especially with SageMaker and MXNet."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which data format is more suitable for object detection image ML datasets?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "RecordIO",
+            "B": "Apache Parquet",
+            "C": "CSV",
+            "D": "Avro"
+        },
+        "explanation": "RecordIO is commonly used for efficiently storing and streaming large image datasets for object detection."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "How can you efficiently ingest and store time-series data for ML analysis using AWS managed services?",
+        "correct": "B",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Amazon SNS -> Amazon S3",
+            "B": "Amazon Kinesis -> S3 or Redshift",
+            "C": "AWS CloudFormation -> S3",
+            "D": "Amazon Polly -> Lambda"
+        },
+        "explanation": "Kinesis ingests real-time data streams, which can then be sent to S3 or Redshift for scalable storage and analysis."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which service and feature can you use to secure and accelerate ML data ingestion from global sources to S3?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "SageMaker SM Studio",
+            "B": "Amazon Lex with SSL",
+            "C": "S3 Transfer Acceleration",
+            "D": "EFS encryption at rest"
+        },
+        "explanation": "S3 Transfer Acceleration is designed to speed up and secure uploads to S3 from remote locations."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "A data engineering team needs to ingest hundreds of millions of records per day for ML processing. Which AWS solution is most robust?",
+        "correct": "D",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Amazon SNS",
+            "B": "Amazon SQS",
+            "C": "Amazon EBS",
+            "D": "Amazon Kinesis Data Streams"
+        },
+        "explanation": "Kinesis Data Streams is highly scalable and durable for ingesting massive volumes of streaming records."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "Which AWS service allows you to mount an NFS file system as persistent data storage for ML model training jobs that must be shared across nodes?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon S3",
+            "B": "Amazon EFS",
+            "C": "Amazon CloudFront",
+            "D": "Amazon SQS"
+        },
+        "explanation": "Amazon EFS can be mounted by multiple instances, allowing shared access to training data."
+    },
+    {
+        "taskStatement": "1.1",
+        "stem": "In what scenario is Amazon FSx for NetApp ONTAP preferable to Amazon EFS for ML workloads?",
+        "correct": "A",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "When applications require advanced data management features and SMB protocol support",
+            "B": "For storing cold archives only",
+            "C": "For transferring petabyte-scale streaming data",
+            "D": "For immutable log ingestion"
+        },
+        "explanation": "Amazon FSx for NetApp ONTAP offers rich data management, high performance, and supports SMB protocol, ideal where such features are needed."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which AWS service is specifically designed to simplify the process of cleaning, transforming, and visualizing data at scale?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "AWS Glue DataBrew",
+            "B": "Amazon Polly",
+            "C": "Amazon S3",
+            "D": "AWS CloudFormation"
+        },
+        "explanation": "AWS Glue DataBrew provides a visual interface for cleaning and transforming data."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "What is the main objective of feature engineering in the machine learning workflow?",
+        "correct": "C",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Reducing dataset size",
+            "B": "Deploying models faster",
+            "C": "Creating informative features for model performance",
+            "D": "Generating logs for monitoring"
+        },
+        "explanation": "Feature engineering is focused on creating meaningful features that improve model performance."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which technique is used to convert categorical string data into a numerical form suitable for machine learning?",
+        "correct": "D",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Smoothing",
+            "B": "Binning",
+            "C": "Scaling",
+            "D": "Encoding"
+        },
+        "explanation": "Encoding techniques like one-hot, label, or binary encoding are used for categorical-to-numerical conversion."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which AWS service is primarily used to build, manage, and store features for ML models in a centralized store?",
+        "correct": "B",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Amazon Redshift",
+            "B": "SageMaker Feature Store",
+            "C": "AWS Lambda",
+            "D": "Amazon CloudFront"
+        },
+        "explanation": "SageMaker Feature Store is designed for feature management and reuse across ML workflows."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "What does standardization in feature engineering typically do?",
+        "correct": "C",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Converts numbers to strings",
+            "B": "Applies log transformation",
+            "C": "Centers data to have mean 0 and variance 1",
+            "D": "Drops duplicated features"
+        },
+        "explanation": "Standardization transforms features to have a mean of 0 and a standard deviation of 1."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which feature engineering step can address skewness in numeric values?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Log transformation",
+            "B": "Label encoding",
+            "C": "Null imputation",
+            "D": "Bucketizing"
+        },
+        "explanation": "Log transformation is frequently used to normalize skewed numeric distributions."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which AWS tool allows programmatic or GUI-based data transformations specifically in the context of ETL workflows?",
+        "correct": "D",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Amazon Transcribe",
+            "B": "Amazon Polly",
+            "C": "Amazon CloudWatch",
+            "D": "AWS Glue"
+        },
+        "explanation": "AWS Glue is AWS's serverless ETL service for data transformation."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "What is a primary benefit of using SageMaker Data Wrangler over manual data preprocessing?",
+        "correct": "C",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Faster text-to-speech conversion",
+            "B": "Provides encryption by default",
+            "C": "Offers a visual workflow for data transformation and feature engineering",
+            "D": "Allows SQL-based database creation"
+        },
+        "explanation": "SageMaker Data Wrangler offers an intuitive visual workflow to expedite data transformation tasks."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which of the following best describes one-hot encoding?",
+        "correct": "B",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Combining multiple features into one",
+            "B": "Creating a new binary indicator column for each category",
+            "C": "Splitting text into tokens",
+            "D": "Sorting numeric features"
+        },
+        "explanation": "One-hot encoding creates binary (0/1) columns for each category."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "What is tokenization in the context of feature engineering for NLP?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "The process of splitting text into units such as words or sentences",
+            "B": "Encrypting text data",
+            "C": "Generating summary statistics",
+            "D": "Removing duplicates from a dataset"
+        },
+        "explanation": "Tokenization refers to breaking text into small units for further analysis."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which is an AWS service used for scalable, serverless data transformation jobs using Python or Spark code?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon CloudFront",
+            "B": "AWS Glue",
+            "C": "AWS CloudFormation",
+            "D": "Amazon Textract"
+        },
+        "explanation": "AWS Glue supports Python and Spark-based transformation jobs for ETL processes."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which data transformation technique is appropriate for normalizing input features to a [0,1] range?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Binning",
+            "B": "Standardization",
+            "C": "Min-max scaling",
+            "D": "Principal Component Analysis"
+        },
+        "explanation": "Min-max scaling shifts and scales data to the range [0,1]."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which AWS service can be used for generating custom data labeling jobs for images, text, and audio data?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon SageMaker Ground Truth",
+            "B": "Amazon Kinesis Data Streams",
+            "C": "Amazon Rekognition",
+            "D": "Amazon CloudWatch"
+        },
+        "explanation": "SageMaker Ground Truth is AWS's tool for creating high-quality annotated datasets."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which transformation technique can help reduce the influence of rare, extreme values in a numeric feature?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Label encoding",
+            "B": "Binning",
+            "C": "Tokenization",
+            "D": "Principal Component Analysis"
+        },
+        "explanation": "Binning groups numeric values into discrete bins, reducing outlier impact."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "In AWS Glue DataBrew, which operation can be used to detect duplicate rows in a dataset?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Remove duplicates",
+            "B": "Group rows",
+            "C": "Apply regex",
+            "D": "Pivot table"
+        },
+        "explanation": "Remove duplicates is a built-in operation in DataBrew for deduplication."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which AWS service is optimized to run Spark jobs for large-scale data transformation?",
+        "correct": "D",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "AWS Lambda",
+            "B": "AWS Glue DataBrew",
+            "C": "Amazon S3",
+            "D": "Amazon EMR"
+        },
+        "explanation": "Amazon EMR is designed for large-scale distributed computation and supports Spark."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which strategy is most appropriate to convert a column of names into a format suitable for training a classification model?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Data masking",
+            "B": "Standardization",
+            "C": "One-hot encoding or label encoding",
+            "D": "Principal Component Analysis"
+        },
+        "explanation": "Categorical string values should be converted to numeric via encoding."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "What is the effect of applying binning to a numeric feature before feeding it to a decision tree model?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Increases model interpretability for linear regression",
+            "B": "Can reduce model complexity and handle outliers",
+            "C": "Disables one-hot encoding",
+            "D": "Converts categorical variables to text"
+        },
+        "explanation": "Binning can simplify numeric features and help handle outliers."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which AWS service provides a visual interface and pre-built transformations to non-programmers for preparing data?",
+        "correct": "D",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "AWS Batch",
+            "B": "Amazon EMR",
+            "C": "AWS Glue ETL jobs",
+            "D": "AWS Glue DataBrew"
+        },
+        "explanation": "AWS Glue DataBrew targets users without coding expertise."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "You want to label a large dataset of images with custom categories. Which AWS service helps you build workflows that combine human and machine labeling?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon SageMaker Ground Truth",
+            "B": "Amazon Lex",
+            "C": "Amazon Redshift",
+            "D": "AWS Step Functions"
+        },
+        "explanation": "SageMaker Ground Truth can integrate human and automated labeling strategies."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which step is NOT typically considered part of the feature engineering process?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Encoding categorical variables",
+            "B": "Scaling features",
+            "C": "Defining IAM roles",
+            "D": "Handling missing data"
+        },
+        "explanation": "Defining IAM roles is a security and access step, not feature engineering."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which of the following is an example of feature splitting?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Averaging multiple columns into one",
+            "B": "Splitting a full address field into street, city, and ZIP code",
+            "C": "Normalizing numeric values",
+            "D": "Combining year and month into a date"
+        },
+        "explanation": "Feature splitting creates new columns from different subparts of an existing feature."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "What encoding technique should be used when a categorical variable has only two possible values?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Binary encoding",
+            "B": "Binning",
+            "C": "Normalization",
+            "D": "Principal Component Analysis"
+        },
+        "explanation": "Binary encoding is optimal for variables with binary (two-category) values."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "A dataset includes missing values in certain columns. Which AWS service offers built-in options for imputing missing data during preprocessing?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon S3",
+            "B": "AWS Glue DataBrew",
+            "C": "Amazon EC2",
+            "D": "AWS CloudTrail"
+        },
+        "explanation": "DataBrew features built-in missing value imputation transformations."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "You need to group similar text values together before encoding, e.g., 'NY', 'New York'. What step is this?",
+        "correct": "D",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Scaling",
+            "B": "Tokenization",
+            "C": "Ensembling",
+            "D": "Data cleaning / normalization"
+        },
+        "explanation": "Standardizing and cleaning such variations is part of data cleaning and normalization."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which AWS feature store provides offline storage for feature sets, allowing historical model training and feature reuse?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon Redshift Spectrum",
+            "B": "AWS Glue Catalog",
+            "C": "SageMaker Feature Store",
+            "D": "Amazon Lex Store"
+        },
+        "explanation": "SageMaker Feature Store enables offline access for training and feature access."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "When transforming streaming data in real time, which combination of AWS services would most likely be used?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon Kinesis and AWS Lambda",
+            "B": "AWS Glue DataBrew and Amazon Athena",
+            "C": "AWS CodePipeline and S3",
+            "D": "Amazon S3 and Amazon Rekognition"
+        },
+        "explanation": "Kinesis streams data in real time, Lambda can process/transform it inline."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which transformation is likely needed before training most ML models using text data?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Imputation",
+            "B": "Tokenization",
+            "C": "Min-max scaling",
+            "D": "Principal Component Analysis"
+        },
+        "explanation": "Tokenization (splitting text into tokens/words) is typically done before ML training for NLP tasks."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "What role does deduplication serve in data transformation?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Removes duplicate records to prevent model bias and data leakage",
+            "B": "Compresses numeric data",
+            "C": "Splits data into columns",
+            "D": "Encrypts sensitive data"
+        },
+        "explanation": "Deduplication removes repeated rows that can negatively affect model training."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "You want to quickly visualize and find distributions and outliers for many features in a CSV file stored in S3. Which tool do you use?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "AWS Lambda",
+            "B": "SageMaker Data Wrangler",
+            "C": "Amazon EC2",
+            "D": "Amazon Redshift"
+        },
+        "explanation": "SageMaker Data Wrangler provides a visual interface for EDA and feature engineering."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which transformation technique combines several columns into a single column summarizing their information?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Binning",
+            "B": "Label encoding",
+            "C": "Feature aggregation",
+            "D": "Tokenization"
+        },
+        "explanation": "Feature aggregation summarizes multiple features into a new single feature."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "What does AWS Glue DataBrew use to let users apply transformations to datasets?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Recipes",
+            "B": "IAM Roles",
+            "C": "Buckets",
+            "D": "Redshift tables"
+        },
+        "explanation": "DataBrew recipes allow you to define and chain data preprocessing steps."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "You need to split a 'timestamp' feature into separate date and time columns. What is this process called?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Imputation",
+            "B": "Feature splitting",
+            "C": "Normalization",
+            "D": "Tokenization"
+        },
+        "explanation": "Feature splitting divides a complex column into multiple simpler ones."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which AWS service is best suited for large-scale distributed transformations using PySpark?",
+        "correct": "D",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Amazon SQS",
+            "B": "AWS Lambda",
+            "C": "Amazon DynamoDB",
+            "D": "Amazon EMR"
+        },
+        "explanation": "Amazon EMR provides managed Hadoop and Spark clusters, including PySpark."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "For complex feature generation directly in a model pipeline, which SageMaker feature allows you to reuse and share engineered features across teams?",
+        "correct": "B",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "SageMaker Model Monitor",
+            "B": "SageMaker Feature Store",
+            "C": "AWS Glue Crawlers",
+            "D": "AWS CodePipeline"
+        },
+        "explanation": "SageMaker Feature Store is meant for sharing, storing, and tracking features."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which technique should you use when you need to create a fixed-length vector from free-form text for use with a neural network?",
+        "correct": "A",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Tokenization and embedding",
+            "B": "One-hot encoding",
+            "C": "Binning",
+            "D": "Feature splitting"
+        },
+        "explanation": "Tokenization and word embeddings are standard steps when converting text for neural networks."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which AWS service supports data transformation for both batch and streaming datasets using distributed compute resources?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Amazon EC2",
+            "B": "SageMaker Feature Store",
+            "C": "AWS Glue",
+            "D": "Amazon Comprehend"
+        },
+        "explanation": "AWS Glue can process batch and streaming data with Spark or Python distributed computing."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "When using SageMaker Data Wrangler, which export targets are supported after transformation workflows?",
+        "correct": "D",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Only SageMaker Feature Store",
+            "B": "Only Redshift",
+            "C": "Only S3",
+            "D": "S3, SageMaker Feature Store, and Redshift"
+        },
+        "explanation": "Data Wrangler supports exports to S3, SageMaker Feature Store, and Redshift."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "What is a critical purpose of transforming streaming data with Lambda or Spark before ML model inference?",
+        "correct": "B",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "To encrypt all data",
+            "B": "To ensure schema and feature consistency with the training dataset",
+            "C": "To reduce Amazon S3 storage costs",
+            "D": "To run SQL queries"
+        },
+        "explanation": "Preprocessing streaming data ensures it matches the trained model's requirements."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which AWS tool integrates automatic statistical profiling, anomaly detection, and feature engineering for data?",
+        "correct": "A",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "SageMaker Data Wrangler",
+            "B": "Amazon Lex",
+            "C": "AWS Batch",
+            "D": "Amazon Kendra"
+        },
+        "explanation": "SageMaker Data Wrangler offers profiling and automated feature engineering."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "In SageMaker Feature Store, which access pattern is typically used for batch offline model training purposes?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Real-time online store",
+            "B": "EventBridge integrations",
+            "C": "Offline store",
+            "D": "S3 Glacier"
+        },
+        "explanation": "Offline store is optimized for batch reads and historical feature access."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "You need to validate the statistical distribution of engineered features post-transformation. Which SageMaker tool helps visualize these?",
+        "correct": "B",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "SageMaker Studio Lab",
+            "B": "SageMaker Data Wrangler",
+            "C": "Amazon Kinesis",
+            "D": "AWS Glue Crawlers"
+        },
+        "explanation": "Data Wrangler provides interactive visualization of distributions, outliers, and trends."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "When preparing features for a time series forecasting model, what operation is critical for encoding time-based cyclicity (e.g., hour of day)?",
+        "correct": "A",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Sinusoidal transformation (e.g., sine/cosine encoding)",
+            "B": "Imputation",
+            "C": "Binning",
+            "D": "Principal Component Analysis"
+        },
+        "explanation": "Sinusoidal transformation helps encode cyclic properties such as hours or days."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which AWS service allows you to manage human labeling tasks involving highly sensitive data in a private workforce?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Amazon Textract",
+            "B": "Amazon Comprehend",
+            "C": "SageMaker Ground Truth",
+            "D": "Amazon S3"
+        },
+        "explanation": "SageMaker Ground Truth supports private workforce pool for secure labeling."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Why is feature normalization important before training with deep learning models?",
+        "correct": "B",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "It prevents SQL injection.",
+            "B": "It helps stabilize training and convergence by keeping feature values within similar ranges.",
+            "C": "It allows deployment to Amazon S3.",
+            "D": "It accelerates model inference."
+        },
+        "explanation": "Normalization avoids large differences in feature scale, which can impair training stability."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "When encoding a categorical variable with a large number of possible values, which technique is usually avoided to reduce memory and dimensionality issues?",
+        "correct": "D",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Label encoding",
+            "B": "Frequency encoding",
+            "C": "Binary encoding",
+            "D": "One-hot encoding"
+        },
+        "explanation": "One-hot encoding creates very wide matrices, problematic with high-cardinality features."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "In Spark running on Amazon EMR, which abstraction allows you to efficiently perform distributed transformations on tabular data?",
+        "correct": "A",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "DataFrame",
+            "B": "S3 Bucket",
+            "C": "IAM Role",
+            "D": "Timestream Table"
+        },
+        "explanation": "DataFrames are optimized for distributed tabular data operations in Spark."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Why might you use Amazon Mechanical Turk with SageMaker Ground Truth instead of just SageMaker Ground Truth's private workforce?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "To lower risk of data leakage",
+            "B": "For real-time data visualization",
+            "C": "To rapidly scale up labeling with a large pool of global workers",
+            "D": "To automatically deduplicate data"
+        },
+        "explanation": "Amazon Mechanical Turk provides a large, on-demand crowd for high-volume labeling jobs."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which AWS service allows workflow orchestration of customized feature engineering and transformation pipelines, including both AWS and third-party tools?",
+        "correct": "B",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Amazon Kinesis Streams",
+            "B": "Amazon SageMaker Pipelines",
+            "C": "Amazon Lex",
+            "D": "Amazon Elastic File System"
+        },
+        "explanation": "SageMaker Pipelines supports complex, multi-step ML workflows including feature engineering."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "Which AWS service offers pre-built transformation steps, such as string splitting, binning, one-hot encoding, and missing value imputation in a GUI environment?",
+        "correct": "D",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "AWS Glue",
+            "B": "Amazon S3",
+            "C": "Amazon Athena",
+            "D": "AWS Glue DataBrew"
+        },
+        "explanation": "Glue DataBrew is AWS's visual data prep tool with built-in steps for common feature engineering patterns."
+    },
+    {
+        "taskStatement": "1.2",
+        "stem": "What is a key advantage of using SageMaker Feature Store to manage features derived from multiple transformation pipelines?",
+        "correct": "D",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "It deploys models automatically.",
+            "B": "It auto-generates recipes.",
+            "C": "It runs in a browser extension.",
+            "D": "It provides feature consistency and reusability across model versions and projects."
+        },
+        "explanation": "Feature Store offers a single source of truth for features used across multiple teams, models, and pipelines."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "What is a common issue associated with class imbalance (CI) in a dataset?",
+        "correct": "B",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "All classes have equal sample sizes",
+            "B": "Some classes are significantly underrepresented",
+            "C": "Data contains no missing values",
+            "D": "Every feature has high variance"
+        },
+        "explanation": "Class imbalance means some classes have far fewer examples than others, which can bias model predictions."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which AWS service is primarily used to identify and mitigate sources of bias in data?",
+        "correct": "C",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "AWS Glue DataBrew",
+            "B": "Amazon Mechanical Turk",
+            "C": "SageMaker Clarify",
+            "D": "Amazon Redshift"
+        },
+        "explanation": "SageMaker Clarify offers tools to detect and reduce bias in data and models."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "What technique can be used to address class imbalance in a dataset?",
+        "correct": "B",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Removing outliers",
+            "B": "Resampling (oversampling minority class or undersampling majority class)",
+            "C": "Imputing missing values",
+            "D": "One-hot encoding"
+        },
+        "explanation": "Resampling helps to balance class distribution, which improves model fairness."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which AWS tool can you use to validate data quality?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "AWS Glue DataBrew",
+            "B": "AWS Lambda",
+            "C": "Amazon Polly",
+            "D": "AWS Step Functions"
+        },
+        "explanation": "AWS Glue DataBrew provides data profiling and validation capabilities."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Why is anonymization important in preparing datasets for ML modeling?",
+        "correct": "D",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "It increases data volume",
+            "B": "It converts numerical to categorical data",
+            "C": "It normalizes features",
+            "D": "It protects sensitive information and privacy"
+        },
+        "explanation": "Anonymization prevents exposure of personally identifiable information (PII) in datasets."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which AWS service can help validate compliance requirements like PII or PHI in your data?",
+        "correct": "C",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Amazon CloudFront",
+            "B": "Amazon Kinesis",
+            "C": "Amazon Macie",
+            "D": "Amazon Polly"
+        },
+        "explanation": "Amazon Macie is designed specifically for detecting sensitive data, including PII and PHI."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which method is NOT used for preparing data to reduce prediction bias?",
+        "correct": "D",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Dataset splitting",
+            "B": "Shuffling",
+            "C": "Augmentation",
+            "D": "Increasing batch size"
+        },
+        "explanation": "Increasing batch size is a training parameter, not a data bias reduction technique."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which is an example of a pre-training bias metric?",
+        "correct": "C",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "RMSE",
+            "B": "Precision",
+            "C": "Difference in Proportions of Labels (DPL)",
+            "D": "Recall"
+        },
+        "explanation": "DPL is a metric for evaluating class imbalance bias before training."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which of the following is a reason to mask data before using it for model training?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "To protect sensitive data",
+            "B": "To improve model accuracy",
+            "C": "To decrease training time",
+            "D": "To allow for more categorical features"
+        },
+        "explanation": "Masking sensitive values (like PII) is required for regulatory and privacy compliance."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "What AWS service offers data quality rules and monitoring?",
+        "correct": "B",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Amazon Q",
+            "B": "AWS Glue Data Quality",
+            "C": "Amazon Lex",
+            "D": "Amazon Rekognition"
+        },
+        "explanation": "AWS Glue Data Quality provides data profiling, quality rules, and metrics."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Data encryption before storage primarily protects against which risk?",
+        "correct": "C",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Model drift",
+            "B": "Data loss from accidental deletion",
+            "C": "Unauthorized data access",
+            "D": "Overfitting"
+        },
+        "explanation": "Encryption prevents unauthorized access to sensitive data."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "What does the process of data anonymization involve?",
+        "correct": "D",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Scaling numerical columns",
+            "B": "Removing outliers",
+            "C": "Normalizing textual data",
+            "D": "Removing or replacing identifying information"
+        },
+        "explanation": "Anonymization is about removing or masking direct identifiers, often for privacy compliance."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which AWS service specializes in data privacy and automatically classifies data stored in S3?",
+        "correct": "B",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "AWS Secret Manager",
+            "B": "Amazon Macie",
+            "C": "Amazon SageMaker",
+            "D": "AWS Glue DataBrew"
+        },
+        "explanation": "Macie is the dedicated AWS service for data privacy and classification."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "SageMaker Clarify can help detect which of the following in your dataset?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Label imbalance",
+            "B": "Primary keys",
+            "C": "Normalization errors",
+            "D": "Encryption methods"
+        },
+        "explanation": "SageMaker Clarify can analyze for pre-training bias, including label distribution."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "What AWS storage options might you use to load data into the model training resource for distributed training?",
+        "correct": "C",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Amazon Textract",
+            "B": "Amazon ElastiCache",
+            "C": "Amazon EFS or Amazon FSx",
+            "D": "Amazon Kinesis Data Streams"
+        },
+        "explanation": "EFS and FSx are shared filesystems and are commonly used with SageMaker distributed training."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Ensuring data quality before modeling helps primarily with which goal?",
+        "correct": "C",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Reducing cloud costs",
+            "B": "Eliminating the need for testing",
+            "C": "Increasing model reliability and performance",
+            "D": "Automatically tuning hyperparameters"
+        },
+        "explanation": "High data quality leads to more reliable and accurate models."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which technique is most appropriate for ensuring that training and testing data come from the same distribution?",
+        "correct": "D",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Masking features",
+            "B": "Encrypting data",
+            "C": "Increasing sample rate",
+            "D": "Shuffling data and stratified splitting"
+        },
+        "explanation": "Shuffling and stratified splits ensure representation and minimize sampling bias."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which compliance requirement impacts the residency and handling of health information datasets?",
+        "correct": "B",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "GDPR",
+            "B": "PHI",
+            "C": "PCI DSS",
+            "D": "SOC 2"
+        },
+        "explanation": "PHI (Protected Health Information) refers to data subject to healthcare regulations (e.g., HIPAA in the US)."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which tool can be used to assess the quality of data transformations in ETL pipelines before training?",
+        "correct": "A",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "AWS Glue DataBrew",
+            "B": "Amazon Polly",
+            "C": "AWS Lambda",
+            "D": "AWS Step Functions"
+        },
+        "explanation": "DataBrew is designed for profiling, transforming, and assessing data quality."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which metric would you use to measure label bias before model training?",
+        "correct": "C",
+        "difficulty": "EASY",
+        "answers": {
+            "A": "Root Mean Squared Error (RMSE)",
+            "B": "Recall",
+            "C": "Difference in Proportion of Labels (DPL)",
+            "D": "Precision"
+        },
+        "explanation": "DPL is specifically used to measure imbalance in label distribution before modeling."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which of these approaches would best help in reducing selection bias in your dataset before training?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Hyperparameter optimization",
+            "B": "Ensuring representative sampling across populations",
+            "C": "Reducing feature dimensionality",
+            "D": "Encrypting the dataset"
+        },
+        "explanation": "Selection bias occurs when the sample does not fairly represent the population. Representative sampling helps mitigate this."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "When preparing image data for a multi-class classification task, what is an effective way to address class imbalance?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Convert images to grayscale",
+            "B": "Crop all images",
+            "C": "Augment underrepresented classes with synthetic images",
+            "D": "Use a deeper neural network"
+        },
+        "explanation": "Image augmentation increases the number and diversity of samples for underrepresented classes, reducing class imbalance."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which AWS service can directly help you automate data quality validation as part of a data pipeline?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon Transcribe",
+            "B": "AWS Glue Data Quality",
+            "C": "Amazon Polly",
+            "D": "AWS Lambda"
+        },
+        "explanation": "Glue Data Quality can be integrated into ETL workflows to enforce and check data quality rules automatically."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "What technique helps to protect model training data at rest?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Data normalization",
+            "B": "Tokenization",
+            "C": "Encryption using AWS KMS",
+            "D": "Data binning"
+        },
+        "explanation": "Encryption at rest (e.g., via AWS KMS) secures data stored on disk."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "You are using SageMaker Clarify to assess bias in a text classification dataset. Which bias metric is most relevant?",
+        "correct": "D",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Accuracy",
+            "B": "F1 Score",
+            "C": "Recall",
+            "D": "Difference in Proportion of Labels (DPL)"
+        },
+        "explanation": "DPL detects class imbalance in the distribution of labels, which applies to numeric, text, and image data."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Why is data shuffling before splitting into train/test sets important in machine learning?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "It helps ensure the sets are representative and removes order bias",
+            "B": "It increases the accuracy metric",
+            "C": "It maximizes the prediction latency",
+            "D": "It decreases model interpretability"
+        },
+        "explanation": "Shuffling randomizes data order, making the samples in each subset more representative and reducing sampling bias."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "To minimize the risk of an attacker accessing customer names in a training dataset, you should:",
+        "correct": "D",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Increase the learning rate",
+            "B": "Perform one-hot encoding",
+            "C": "Optimize hyperparameters",
+            "D": "Apply data masking or anonymization"
+        },
+        "explanation": "Masking/anonymization removes or obscures sensitive PII such as customer names."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "A dataset contains sensitive client information and needs to comply with GDPR. Which practice should be enforced regarding data usage?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Encrypt only statistical features",
+            "B": "Ignore record-level permissions",
+            "C": "Apply strict access controls and anonymize PII",
+            "D": "Replicate data across multiple non-EU regions"
+        },
+        "explanation": "GDPR compliance requires protecting PII with both technical controls (access, anonymization) and geographic restrictions."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which AWS service provides tools to discover, classify, and protect sensitive data at rest in Amazon S3?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "AWS Lambda",
+            "B": "Amazon Macie",
+            "C": "AWS Glue DataBrew",
+            "D": "Amazon Textract"
+        },
+        "explanation": "Amazon Macie automatically discovers, classifies, and protects sensitive data in S3."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "What is the role of AWS Key Management Service (KMS) in ML data preparation?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Enabling encryption and decryption of sensitive data",
+            "B": "Applying stratified sampling",
+            "C": "Balancing classes in datasets",
+            "D": "Labeling images in datasets"
+        },
+        "explanation": "AWS KMS allows you to manage cryptographic keys for data encryption tasks."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "To detect and respond to data quality issues before model training, which AWS Glue feature is most helpful?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Partition indexing",
+            "B": "Job triggers",
+            "C": "Data Quality rules and monitoring",
+            "D": "Schema versioning"
+        },
+        "explanation": "Glue Data Quality rules proactively validate and monitor data quality."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "If certain groups are underrepresented in your training data, which bias is most likely present?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Measurement bias",
+            "B": "Recall bias",
+            "C": "Selection bias",
+            "D": "Instrument bias"
+        },
+        "explanation": "Underrepresentation of groups in the sample leads to selection bias."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which action is best for preparing a numeric dataset to be less sensitive to outliers before model training?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Apply robust scaling (e.g., via IQR method)",
+            "B": "Encrypt the dataset",
+            "C": "Use more string features",
+            "D": "Increase epoch count"
+        },
+        "explanation": "Robust scaling/normalization reduces the influence of outliers compared to standard scaling."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "A data pipeline detects skewed label distribution using Clarify. What is an effective mitigation?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Switch to one-hot encoding",
+            "B": "Generate synthetic samples for minority classes",
+            "C": "Sort labels alphabetically",
+            "D": "Decrease batch size"
+        },
+        "explanation": "Synthetic data generation helps rebalance minority classes, reducing bias."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which process ensures only authorized personnel can access sensitive ML data stored in S3?",
+        "correct": "D",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Stratified sampling",
+            "B": "Data augmentation",
+            "C": "Hyperparameter tuning",
+            "D": "IAM policies and S3 bucket policies"
+        },
+        "explanation": "IAM and security policies restrict access at user and resource levels."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which AWS native feature helps preserve privacy for datasets containing government ID numbers?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Spot Instances",
+            "B": "Amazon Macie classification and masking",
+            "C": "Amazon Polly transcription",
+            "D": "SageMaker Ground Truth"
+        },
+        "explanation": "Macie scans and can help mask or report sensitive identifiers."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "What technique can you use to split a highly imbalanced text dataset for training and evaluation?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Random splitting only",
+            "B": "Serial splitting",
+            "C": "Stratified splitting",
+            "D": "One-hot encoding"
+        },
+        "explanation": "Stratified splitting ensures each label is proportionally represented in all subsets."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which AWS service can you use to evaluate and visualize potential bias in image classification tasks?",
+        "correct": "A",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "SageMaker Clarify",
+            "B": "AWS Glue DataBrew",
+            "C": "Amazon Comprehend",
+            "D": "Amazon Personalize"
+        },
+        "explanation": "SageMaker Clarify works for all types of ML data, including images."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which data privacy technique ensures training data cannot be linked back to individuals?",
+        "correct": "B",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Data normalization",
+            "B": "Data anonymization",
+            "C": "Data binning",
+            "D": "Data encoding"
+        },
+        "explanation": "Anonymization removes direct identifiers from the data."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "What is the primary use of data masking in ML data preparation?",
+        "correct": "D",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Optimize training speeds",
+            "B": "Reduce feature size",
+            "C": "Improve model accuracy",
+            "D": "Hide or obscure sensitive data values"
+        },
+        "explanation": "Masking obscures sensitive data, such as replacing real values with random tokens."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "To which AWS feature do you upload VPC configuration to ensure secure data access by SageMaker?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Amazon S3 Object Lock",
+            "B": "AWS Glue Catalog",
+            "C": "SageMaker notebook or endpoint network settings",
+            "D": "Amazon EMR cluster settings"
+        },
+        "explanation": "Network configs in SageMaker endpoints or notebooks with VPC settings isolate ML resources securely."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "A dataset contains both PII and non-PII. What’s best practice before modeling on AWS?",
+        "correct": "C",
+        "difficulty": "MEDIUM",
+        "answers": {
+            "A": "Ignore PII columns",
+            "B": "Create secondary indexes",
+            "C": "Remove, anonymize, or mask PII data fields",
+            "D": "Increase the learning rate"
+        },
+        "explanation": "PII must be removed, anonymized, or masked to comply with privacy regulations."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which metric would be most directly used to detect pre-training class imbalance in a multi-class image dataset?",
+        "correct": "A",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Difference in Proportion of Labels (DPL)",
+            "B": "F1 Score",
+            "C": "Average Precision",
+            "D": "RMSE"
+        },
+        "explanation": "DPL quantifies the imbalance in the distribution of labels before training."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Suppose SageMaker Clarify reports overrepresentation of a single gender in a text dataset. Which is the most actionable intervention?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Page tokenization",
+            "B": "Lowering model learning rate",
+            "C": "Collect more samples of the underrepresented gender",
+            "D": "Reduce input feature dimension"
+        },
+        "explanation": "Adding data from the underrepresented group corrects the imbalance."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "You need to ensure a dataset containing PHI is compliant before model training on AWS. What’s the most secure approach?",
+        "correct": "B",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Store unencrypted data in Amazon S3",
+            "B": "Encrypt data with customer-managed keys using AWS KMS, restrict access with IAM",
+            "C": "Store data in Amazon DynamoDB without access policies",
+            "D": "Use S3 Standard-IA for cost reduction only"
+        },
+        "explanation": "Encryption with strict IAM controls is required for PHI/HIPAA compliance."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "How does stratified sampling in dataset splitting help with ensuring model generalization?",
+        "correct": "D",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "By increasing batch size",
+            "B": "By shuffling feature order",
+            "C": "By augmenting all classes equally",
+            "D": "By maintaining label proportions in train and test sets"
+        },
+        "explanation": "Stratified sampling ensures label proportions are maintained, minimizing bias."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "You need to design a pipeline to process and split text data for training. Which sequence best minimizes bias?",
+        "correct": "A",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Shuffle → Stratified Split → Analyze bias metrics",
+            "B": "Encode → Scale → Train",
+            "C": "Mask PII → Train → Evaluate",
+            "D": "Normalize → Shard → Train"
+        },
+        "explanation": "Shuffling and stratified splitting help ensure representativeness; bias metrics can be analyzed post split."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "To monitor and prevent privacy breaches in training data stored in EFS, which AWS combination is optimal?",
+        "correct": "B",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Amazon Polly and AWS Lambda",
+            "B": "AWS CloudTrail for auditing plus encryption using AWS KMS",
+            "C": "Amazon SNS notifications only",
+            "D": "AWS Glue DataBrew transformation jobs"
+        },
+        "explanation": "CloudTrail audits all access; KMS ensures stored data is encrypted."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "During data preparation, what’s the principal risk if bias in the training set is not detected and mitigated?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Higher infrastructure costs",
+            "B": "Longer training times",
+            "C": "Unfair or inaccurate predictions in production",
+            "D": "Lower inference throughput"
+        },
+        "explanation": "Bias in training data is inherited by the model, which can lead to unfair real-world decisions."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "In compliance with HIPAA, which AWS configurations are MOST critical for storing medical ML training data?",
+        "correct": "A",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Encrypt the data at rest and apply least privilege IAM policies",
+            "B": "Enable S3 transfer acceleration and object tagging",
+            "C": "Switch to Spot Instances",
+            "D": "Increase instance memory"
+        },
+        "explanation": "HIPAA requires encryption and strict access controls for PHI."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "What is the MOST secure method for transitioning raw regulated data into an AWS training workflow?",
+        "correct": "D",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Store it in S3 as plaintext",
+            "B": "Directly mount public EFS",
+            "C": "Omit all access logging",
+            "D": "Ingest via private VPC endpoint, encrypt, mask PII, and audit with CloudTrail"
+        },
+        "explanation": "This option ensures secure transfer, privacy preservation, and auditability."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which AWS Glue feature is most useful for automated flagging of data compliance or bias issues as part of a pipeline?",
+        "correct": "B",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Glue crawlers",
+            "B": "Glue Data Quality monitors and rules",
+            "C": "Glue trigger events",
+            "D": "Glue DynamicFrame transformations"
+        },
+        "explanation": "Glue Data Quality can enforce compliance and bias checks automatically."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "How does using SageMaker Clarify as part of a preprocessing pipeline benefit an ML project’s governance?",
+        "correct": "C",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "It reduces inference latency",
+            "B": "It compresses data for storage",
+            "C": "It provides audit trails of bias analysis, supporting compliance and explainability",
+            "D": "It improves loss convergence by splitting data"
+        },
+        "explanation": "Auditable bias checks support compliance and transparency requirements."
+    },
+    {
+        "taskStatement": "1.3",
+        "stem": "Which method is LEAST effective for mitigating prediction bias from a highly imbalanced dataset?",
+        "correct": "B",
+        "difficulty": "HARD",
+        "answers": {
+            "A": "Augment training samples for rare classes",
+            "B": "Increase model complexity only",
+            "C": "Use class-weighted loss functions",
+            "D": "Combine resampling with regularization"
+        },
+        "explanation": "Increasing model complexity without addressing imbalance will not mitigate the bias."
+    }
 ]
