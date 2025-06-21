@@ -8,11 +8,13 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { databaseService, Question } from '../../services/DatabaseService';
 import questionsData from '../data/questions.json';
 import QuizFilters from './QuizFilters';
 
 const Quiz: React.FC = () => {
+  const insets = useSafeAreaInsets();
   const [allQuestions] = useState<Question[]>(questionsData as Question[]);
   const [filteredQuestions, setFilteredQuestions] = useState<Question[]>(questionsData as Question[]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -216,11 +218,13 @@ const Quiz: React.FC = () => {
           <Text style={styles.questionCounter}>
             Question {currentQuestionIndex + 1} of {filteredQuestions.length}
           </Text>
-          <View style={styles.statsContainer}>
-            <Text style={styles.stats}>
+          <View style={styles.statsContainer}>            <Text style={styles.stats}>
               Score: {stats.correct}/{stats.total} ({stats.percentage}%)
             </Text>
-          </View>        </View>        {/* Filter Summary */}
+          </View>
+        </View>
+
+        {/* Filter Summary */}
         {(selectedTaskStatement || selectedDifficulty) && (
           <View style={styles.filterSummary}>
             <Text style={styles.filterSummaryText}>
@@ -273,10 +277,8 @@ const Quiz: React.FC = () => {
               <Text style={styles.explanationText}>{currentQuestion.explanation}</Text>
             </View>
           </View>
-        )}
-
-        {/* Action Buttons */}
-        <View style={styles.buttonContainer}>
+        )}        {/* Action Buttons */}
+        <View style={[styles.buttonContainer, { paddingBottom: Math.max(20, insets.bottom + 10) }]}>
           {!showResult ? (
             <TouchableOpacity
               style={[styles.button, styles.submitButton]}
@@ -478,9 +480,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 22,
     color: '#555',
-  },
-  buttonContainer: {
-    marginBottom: 20,
+  },  buttonContainer: {
+    marginBottom: 40,
   },
   button: {
     borderRadius: 12,
