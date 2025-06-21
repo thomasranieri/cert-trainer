@@ -27,15 +27,23 @@ const Quiz: React.FC = () => {
   const [selectedTaskStatement, setSelectedTaskStatement] = useState<string | null>(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
-  
-  // Get available task statements
+    // Get available task statements
   const availableTaskStatements = [...new Set(allQuestions.map(q => q.taskStatement))].sort();
+
+  // Function to shuffle array using Fisher-Yates algorithm
+  const shuffleArray = <T,>(array: T[]): T[] => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
 
   useEffect(() => {
     initializeDatabase();
     loadStats();
   }, []);
-
   // Filter questions based on selected criteria
   useEffect(() => {
     let filtered = allQuestions;
@@ -48,7 +56,10 @@ const Quiz: React.FC = () => {
       filtered = filtered.filter(q => q.difficulty === selectedDifficulty);
     }
     
-    setFilteredQuestions(filtered);
+    // Shuffle the filtered questions to display them in random order
+    const shuffledFiltered = shuffleArray(filtered);
+    
+    setFilteredQuestions(shuffledFiltered);
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setShowResult(false);
@@ -257,8 +268,8 @@ const Quiz: React.FC = () => {
               onPress={() => handleAnswerSelect(key)}
               disabled={showResult}
             >
-              <Text style={styles.answerLabel}>{key}.</Text>
-              <Text style={styles.answerText}>{String(value)}</Text>
+              <Text style={styles.answerLabel}>{String(key)}.</Text>
+              <Text style={styles.answerText}>{value !== undefined && value !== null ? String(value) : ''}</Text>
             </TouchableOpacity>
           ))}
         </View>
