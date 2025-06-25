@@ -2806,5 +2806,3073 @@
       "D": "In the endpoint\u2019s DataCaptureConfig, set EnableCapture true and specify the CMK KmsKeyId, and ensure the endpoint uses HTTPS (TLS) invocations."
     },
     "explanation": "DataCaptureConfig allows specifying a customer-managed KMS key for server-side encryption of captured data. SageMaker endpoints always use HTTPS for traffic, ensuring TLS in transit."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A data engineering team must transfer 100 TB of historical log files from an on-premises data center to Amazon S3 within 48 hours. The network bandwidth is limited to 1 Gbps and is cost-constrained. Which ingestion method meets the requirement with the lowest operational overhead?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use AWS DataSync over the 1 Gbps link with parallel transfers.",
+      "B": "Use S3 Transfer Acceleration over the internet connection.",
+      "C": "Ship multiple AWS Snowball Edge devices and import data.",
+      "D": "Use a custom multi-threaded upload client over the VPN."
+    },
+    "explanation": "At 1 Gbps, 100 TB over the network exceeds 48 hours; Snowball Edge avoids bandwidth constraints and minimizes operational complexity."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "An ML workflow requires high-throughput reading of a 200 GB dataset during training in SageMaker. The data is stored in CSV format in S3. Training jobs are currently I/O-bound. Which change yields the greatest reduction in I/O time?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable S3 Transfer Acceleration on the bucket.",
+      "B": "Convert the dataset to Parquet with Snappy compression and use Apache Arrow for reading.",
+      "C": "Increase the SageMaker instance EBS volume throughput.",
+      "D": "Enable S3 request rate optimization on the bucket."
+    },
+    "explanation": "Parquet is a columnar, compressed format that reduces data transfer size and read time, outperforming acceleration or EBS tweaks."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A streaming ingestion pipeline uses Amazon Kinesis Data Streams with 10 shards. Downstream training jobs require data partitioned by customer ID. The engineer notices uneven data distribution and hot shard errors. Which solution evenly distributes load?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase to 20 shards without changing partition key.",
+      "B": "Use a composite primary key combining customer ID and timestamp.",
+      "C": "Switch to Amazon MSK and let Kafka partition dynamically.",
+      "D": "Hash the customer ID with a random suffix as the partition key."
+    },
+    "explanation": "Appending a random suffix to the customer ID spreads records across shards evenly, avoiding hot shards while preserving grouping on average."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A SageMaker Data Wrangler flow reads multiple small JSON files (~100 MB each) from S3. The job startup and cataloging latency dominates time. How can the engineer minimize this overhead?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Consolidate the small files into larger partitioned Parquet files.",
+      "B": "Increase the SageMaker Data Wrangler instance type.",
+      "C": "Use S3 Select on each JSON file.",
+      "D": "Enable S3 Requester Pays on the bucket."
+    },
+    "explanation": "Consolidating files into fewer larger Parquet partitions reduces per-object overhead and speeds up scanning and schema inference."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "An application uses Amazon Kinesis Data Firehose to deliver JSON records to S3. The delivery latency spikes under peak load. Which Firehose configuration change will smooth delivery latency while controlling costs?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Set buffer size to minimum and buffer interval to default.",
+      "B": "Set buffer size to maximum and buffer interval to minimum.",
+      "C": "Increase buffer size to max and buffer interval to 300 seconds.",
+      "D": "Decrease buffer size to minimum and buffer interval to 300 seconds."
+    },
+    "explanation": "Larger buffer size with a longer interval results in fewer deliveries, smoothing spikes and reducing egress costs."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A team must ingest near-real-time IoT telemetry (5 KB messages, 5,000 msg/sec) into S3 for batch training. Which AWS service combination best meets throughput and minimal operational overhead?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS IoT Core + Lambda writing to S3.",
+      "B": "Kinesis Data Streams + Kinesis Data Firehose to S3.",
+      "C": "MSK cluster + custom consumer that writes to S3.",
+      "D": "Directly upload from devices to S3 using the AWS SDK."
+    },
+    "explanation": "Kinesis Streams scales to handle throughput and Firehose auto-batches and delivers to S3 without infra management."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A data scientist merges customer profile data from Amazon RDS and clickstream logs stored in S3. They need an automated, serverless solution with minimal code. Which approach is optimal?",
+    "correct": "D",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Deploy an EMR cluster with Spark to join RDS and S3 datasets.",
+      "B": "Use AWS Glue ETL jobs on a scheduled basis.",
+      "C": "Use SageMaker Processing with custom Pandas scripts.",
+      "D": "Use AWS Glue DataBrew recipe to connect to RDS and S3 and join datasets."
+    },
+    "explanation": "DataBrew provides serverless, no-code recipes to join RDS and S3 datasets, minimizing code and infra."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A company requires secure ingestion of PII data into Amazon S3. Data must be encrypted in transit and at rest, and decryption only occurs in SageMaker. Which configuration satisfies these requirements?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable SSE-S3 on the bucket and HTTPS for uploads.",
+      "B": "Configure HTTPS for uploads, enable SSE-KMS with a CMK granting only SageMaker decryption.",
+      "C": "Use client-side encryption and store keys in AWS Secrets Manager.",
+      "D": "Enable SSE-KMS and grant all users read access to the CMK."
+    },
+    "explanation": "SSE-KMS with CMK access restricted to SageMaker ensures encrypted transit and at-rest encryption, with decryption only in SageMaker."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "An ML pipeline uses Amazon MSK to stream data into S3 via Kafka Connect. During peak, Kafka Connect tasks lag behind. Which change will improve ingestion throughput?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase Kafka Connect workers and partitions for the connector topic.",
+      "B": "Switch connector batch.size to 1.",
+      "C": "Use a single large Kafka Connect worker.",
+      "D": "Decrease connector retries to zero."
+    },
+    "explanation": "More workers and partitions allow parallelism in Kafka Connect, increasing ingestion throughput and reducing lag."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A training job on SageMaker needs to read a dataset stored on Amazon FSx for Lustre for low-latency I/O. The dataset originates in S3. Which configuration provides the fastest initial data access?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Mount FSx for Lustre and copy data manually from S3.",
+      "B": "Use AWS DataSync to mirror S3 to FSx for Lustre.",
+      "C": "Use FSx\u2019s native S3 integration by specifying the S3 bucket as the data repository.",
+      "D": "Use a SageMaker Processing job to prefetch data into EBS."
+    },
+    "explanation": "FSx for Lustre native S3 integration transparently caches and streams S3 data into the file system without manual copy."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A dataset stored in S3 is consumed by multiple SageMaker training instances concurrently. To minimize read latency and S3 request costs, what ingestion pattern should be used?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Each instance downloads the full dataset to its EBS volume.",
+      "B": "Use S3 Select API within training scripts.",
+      "C": "Use a shared EFS mount backed by S3.",
+      "D": "Use S3 Replication with Cross-Region Replication disabled and parallel GETs with HTTP Keep-Alive."
+    },
+    "explanation": "Parallel GETs with HTTP Keep-Alive reuse connections, reducing latency and request overhead compared to duplicated EBS or EFS."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A company needs to ingest 10 TB of data daily from S3 into SageMaker Feature Store with minimal lag. Which approach scales ingestion while controlling costs?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use service API PutRecord sequentially for each feature.",
+      "B": "Use the batch ingest offline feature with RecordIO protobuf files.",
+      "C": "Use real-time endpoint calls for each record.",
+      "D": "Use Glue Streaming to write directly to Feature Store."
+    },
+    "explanation": "Batch ingest with RecordIO is optimized for large-scale ingestion into Feature Store and is cost-effective compared to per-record API calls."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "An engineer must ingest data from multiple AWS accounts into a central S3 data lake. Data producers may intermittently lose network connectivity. Which ingestion pattern ensures reliability and scalability?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use S3 Cross-Account replication with retry policies.",
+      "B": "Use a central Firehose delivery stream with producers as PUT clients.",
+      "C": "Use AWS DataSync agents in each account.",
+      "D": "Use AWS Transfer Family SFTP endpoints in the central account."
+    },
+    "explanation": "Cross-Account replication handles intermittent producers with built-in retry and scales to multi-account sources without agents."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A SageMaker processing job fails intermittently reading from an S3 bucket due to 503 throttling errors. Which change reduces the throttling while optimizing cost?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable S3 Transfer Acceleration.",
+      "B": "Increase the processing instance count.",
+      "C": "Enable S3 Requester Pays and use signed requests with exponential backoff in the SDK.",
+      "D": "Switch the bucket to use SSE-C encryption."
+    },
+    "explanation": "Signed requests with retry/backoff reduce throttling; Requester Pays can shift cost but throttling reduction via SDK backoff is key."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A compliance team requires that logs ingested into S3 by Kinesis Firehose are immutable and versioned. Which S3 bucket configuration achieves this?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable MFA Delete and SSE-S3.",
+      "B": "Enable Object Lock in Governance mode with versioning.",
+      "C": "Enable default encryption with SSE-KMS.",
+      "D": "Enable Lifecycle rules to transition logs to Glacier."
+    },
+    "explanation": "Object Lock with versioning set to Governance mode enforces immutability on ingested S3 objects."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "During a large dataset migration, objects are written to an S3 bucket in parallel. The team observes increased 503 errors. Which bucket-level configuration resolves this?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable S3 Transfer Acceleration.",
+      "B": "Enable default encryption with SSE-KMS.",
+      "C": "Enable MFA Delete on the bucket.",
+      "D": "Enable S3 request rate optimization on the bucket."
+    },
+    "explanation": "Request rate optimization (prefix deprecation) reduces 503 errors under high parallel write rates by distributing keys."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A pipeline uses AWS Glue to extract data from an Amazon Aurora MySQL database to S3. The Glue job times out during snapshot extraction. Which approach resolves the timeout while minimizing developer effort?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase the connection timeout in the Glue job script.",
+      "B": "Use AWS Database Migration Service with full load to S3.",
+      "C": "Split the Glue job into multiple smaller jobs.",
+      "D": "Export Aurora snapshot to S3 using native export."
+    },
+    "explanation": "Using DMS for full load to S3 handles large data extracts reliably with minimal custom code versus Glue timeouts."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "An ML engineer must ingest encrypted CSV files from S3 to SageMaker Processing. The files are encrypted with SSE-KMS using a custom CMK. The processing role lacks decrypted access. What adjustment grants the least privilege?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Attach an IAM policy to the processing role allowing kms:Decrypt on the CMK.",
+      "B": "Re-encrypt the files with SSE-S3.",
+      "C": "Use client-side encryption and share the key.",
+      "D": "Grant the role AmazonS3FullAccess."
+    },
+    "explanation": "Granting kms:Decrypt on the CMK to the processing role grants only needed permissions rather than broad S3 access."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A data lake uses S3 with AWS Lake Formation. Data ingestion from streaming sources must respect table-level LF permissions. Which integration ensures permissions enforcement?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Kinesis Data Firehose direct to S3 outputs.",
+      "B": "Use Lambda to write to S3 then catalog with Glue.",
+      "C": "Use Lake Formation transactions with AWS Glue streaming jobs.",
+      "D": "Use Athena to INSERT INTO Lake Formation tables."
+    },
+    "explanation": "Lake Formation transactions in Glue streaming enforce table-level LF permissions during ingestion."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "An ML pipeline ingests files via S3 Event Notifications to Lambda. Under high throughput, some events are lost. Which change ensures all records are ingested?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase the Lambda concurrency limit.",
+      "B": "Use SQS as the Event Notification target before invoking Lambda.",
+      "C": "Switch to SNS Event Notifications.",
+      "D": "Enable retry behavior in S3."
+    },
+    "explanation": "Using SQS between S3 and Lambda buffers events, ensuring delivery and retry rather than direct event loss."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A company plans to centralize logs from multiple regions into a single S3 bucket. Logs must remain in native partition folders. How should a cross-region replication rule be configured?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use a replication rule with IncludePuts and prefix replication per region.",
+      "B": "Use replication time control to replicate objects hourly.",
+      "C": "Use batch Athena CTAS to copy logs across regions.",
+      "D": "Use DataSync to mirror entire buckets."
+    },
+    "explanation": "A replication rule with region-specific prefixes replicates objects into same partition paths in central bucket."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A secure pipeline must ingest data from Amazon DynamoDB to S3 for ML training. The transfer must be encrypted, serverless, and cost-efficient. Which service accomplishes this?",
+    "correct": "D",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Use EMR Spark job to export DynamoDB to S3.",
+      "B": "Use AWS DataSync to copy table exports.",
+      "C": "Use AWS Glue with DynamoDB connector.",
+      "D": "Use DynamoDB Export to S3 with SSE-KMS encryption."
+    },
+    "explanation": "DynamoDB native Export to S3 is serverless, encrypted, and cost-efficient compared to EMR or Glue."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "An ML pipeline needs to ingest image files from multiple SFTP servers into S3. The process must be fully AWS managed and scalable. Which solution meets these requirements?",
+    "correct": "C",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Deploy EC2 instances running custom SFTP-to-S3 scripts.",
+      "B": "Use AWS DataSync agents on EC2.",
+      "C": "Use AWS Transfer Family SFTP endpoints with custom identity providers and S3 backing.",
+      "D": "Use Glue FTP connector."
+    },
+    "explanation": "AWS Transfer Family provides managed SFTP endpoints that store files directly in S3, scaling without custom servers."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A pipeline needs to ingest sensor data at 100 MB/s into S3 for real-time analytics. Which combination of services and configurations meets throughput while controlling costs?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Kinesis Data Streams with 100 shards directly writing to S3.",
+      "B": "MSK with 5 broker nodes, MirrorMaker to Firehose with gzip compression.",
+      "C": "Direct Firehose delivery with default shard count.",
+      "D": "Lambda triggered by S3 upload events."
+    },
+    "explanation": "MSK scales to high throughput; MirrorMaker populates Firehose which batches and compresses data to S3 cost-effectively."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "During ingest of nested JSON event data into S3, the team needs to infer schema and partition by event date. Which AWS Glue configuration fulfills this with minimal code?",
+    "correct": "D",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Use a custom PySpark Glue job to parse JSON and write Parquet.",
+      "B": "Use Athena CTAS to convert and partition data.",
+      "C": "Use SageMaker Processing to flatten and write to S3.",
+      "D": "Use AWS Glue JSON classifier with crawler partitioning on event_date field."
+    },
+    "explanation": "A Glue crawler with JSON classifier can infer schema and apply partitioning on a specified JSON field automatically."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A dataset must be ingested daily from an external partner to S3 via the internet. The partner cannot use AWS SDK. How should the company securely and reliably ingest files?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Provision an AWS Transfer Family SFTP endpoint backed by the S3 bucket.",
+      "B": "Provide S3 PUT URLs with public write ACL.",
+      "C": "Use HTTP POST to S3 REST API with credentials.",
+      "D": "Ask partner to email files and upload manually."
+    },
+    "explanation": "Transfer Family SFTP endpoint allows partners to upload over SFTP without SDK, delivering files directly and securely to S3."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "The team needs to ingest 500 GB of data daily from an on-prem Hadoop cluster to S3 under network constraints. Which approach provides incremental ingestion and optimizes bandwidth?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Snowball Edge weekly ingestion.",
+      "B": "Deploy AWS DataSync agent with incremental sync enabled.",
+      "C": "Use a Glue job with JDBC connector.",
+      "D": "Use AWS Glue DataBrew to pull data."
+    },
+    "explanation": "DataSync incremental sync only transfers changed data daily, optimizing bandwidth and automating ingestion."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "An ML pipeline reads an S3 directory of Avro files during training. The engineer wants to reduce startup latency when listing thousands of files. Which S3 configuration reduces LIST cost?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable SSE-KMS on the bucket.",
+      "B": "Enable bucket versioning.",
+      "C": "Use S3 Inventory to generate daily manifest and use the manifest for file listing.",
+      "D": "Enable S3 Transfer Acceleration."
+    },
+    "explanation": "S3 Inventory provides a manifest file listing objects, eliminating costly API ListObjects calls during job startup."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A team needs to ingest HTTP logs into S3 for historical analysis. Logs are generated at 10 GB/hour. The solution must auto-scale and require no server management. Which ingestion architecture is best?",
+    "correct": "B",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "EMR cluster with Flink reading logs.",
+      "B": "Kinesis Data Firehose with Lambda data transformation to S3.",
+      "C": "Custom ECS service tailing logs and writing to S3.",
+      "D": "S3 multipart upload from application servers."
+    },
+    "explanation": "Firehose auto-scales ingestion and can deliver data to S3 with optional Lambda transformation, requiring no servers."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A multi-region application produces data that must land in a centralized S3 bucket in the same AWS Region as processing. Replication must preserve object metadata and ACLs. Which configuration meets this?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use CloudTrail replication to central bucket.",
+      "B": "Configure Firehose across regions.",
+      "C": "Use DataSync cross-region replication.",
+      "D": "Use cross-region replication with replicate object metadata and ACL."
+    },
+    "explanation": "S3 cross-region replication configured to replicate metadata and ACLs preserves all object attributes in central bucket."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A SageMaker training job must read millions of small JSON files from S3. The engineer notices high GET request costs. Which solution reduces GETs and maintains low latency?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Combine JSON files into larger S3 objects, e.g., Parquet, using a Glue job.",
+      "B": "Enable S3 Intelligent-Tiering.",
+      "C": "Use S3 Select for each JSON file.",
+      "D": "Use Lifecycle rules to consolidate files."
+    },
+    "explanation": "Combining small files into larger Parquet objects reduces individual GET calls and lowers request costs."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "To ingest clickstream events into S3 with exactly-once semantics, an engineer uses Kinesis Data Streams and Lambda to write to S3. At times, duplicates occur. Which pattern ensures exactly-once writes?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use PutObject with versioning enabled.",
+      "B": "Use S3 Multipart upload with unique upload IDs.",
+      "C": "Use Kinesis Data Firehose with S3 delivery and deduplication via record ID.",
+      "D": "Use DynamoDB streams and batch writes to S3."
+    },
+    "explanation": "Firehose supports exactly-once delivery semantics to S3 when configured with record IDs for deduplication."
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A data lake's S3 bucket is configured with CloudWatch Events to start Glue crawlers upon new object creation. Under heavy load, some crawlers start late and miss events. How ensure timely ingestion?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase crawler concurrency in Glue.",
+      "B": "Introduce a Step Functions state machine triggered by EventBridge to queue and throttle crawler invocations.",
+      "C": "Use Lambda to start crawlers directly.",
+      "D": "Enable S3 Intelligent-Tiering."
+    },
+    "explanation": "Using Step Functions to queue and throttle ensures orderly crawler invocations without overload compared to direct triggers."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "An ML engineer is training a PyTorch model in SageMaker script mode on a single GPU instance. The training job often runs out of GPU memory when using a batch size of 256. To continue training with minimal code changes and without incurring additional infrastructure cost, which action should the engineer take?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable mixed precision training (automatic mixed precision) in the training script.",
+      "B": "Switch to SageMaker built-in algorithm XGBoost with the same batch size.",
+      "C": "Decrease the number of training epochs to reduce memory footprint.",
+      "D": "Use a larger EC2 instance type with more GPU memory."
+    },
+    "explanation": "Mixed precision reduces memory usage with minimal code changes. Switching algorithms or decreasing epochs doesn\u2019t reduce per-batch memory; upgrading instance increases cost."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "A data scientist uses SageMaker Automatic Model Tuning (AMT) with Bayesian optimization to tune a deep neural network. The search is converging too slowly. The search space contains 10 continuous and 5 categorical hyperparameters. What adjustment will most speed up convergence?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Switch from Bayesian optimization to random search.",
+      "B": "Increase the maximum number of training jobs in the tuning job.",
+      "C": "Reduce the hyperparameter search space by fixing low-impact parameters to default values.",
+      "D": "Use an IDENTICAL_DATA_AND_ALGORITHM warm start tuning job type."
+    },
+    "explanation": "Reducing search space focuses Bayesian optimization on impactful parameters. Random search may be less efficient; warm start of type IDENTICAL_DATA_AND_ALGORITHM duplicates prior runs, not solving slow convergence."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "An ML engineer trains a large transformer model using SageMaker script mode with TensorFlow. Training takes 48 hours. The engineer wants to halve training time with minimal hyperparameter changes. Which approach meets this?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Double the batch size and halve the number of epochs.",
+      "B": "Enable distributed data parallel training across two GPU instances.",
+      "C": "Use L2 regularization with higher weight to speed up convergence.",
+      "D": "Decrease learning rate and increase number of epochs."
+    },
+    "explanation": "Distributed training splits workload across GPUs, reducing wall-clock time. Changing regularization or learning rate affects training dynamics, not time directly; doubling batch/halving epochs may hurt convergence."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "A tabular dataset shows early overfitting: validation loss increases after 5 epochs. Which combination of techniques best reduces overfitting while preserving model capacity?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase batch size and remove dropout layers.",
+      "B": "Decrease learning rate and increase number of layers.",
+      "C": "Add L2 regularization with high weight and increase epochs.",
+      "D": "Implement dropout, add L2 weight decay, and enable early stopping after no validation improvement for 3 epochs."
+    },
+    "explanation": "Dropout+L2 regularization reduce overfitting; early stopping avoids unnecessary epochs. Increasing layers or removing dropout worsens overfitting."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "A company uses a SageMaker built-in XGBoost algorithm to classify credit risk. The model size on disk is 1.5 GB, exceeding edge device storage limit of 500 MB. Which strategy best reduces model size without retraining from scratch?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Decrease max_depth and num_round in a new training job.",
+      "B": "Use post-training model pruning and quantization using SageMaker Neo compilation.",
+      "C": "Enable L1 regularization in the current model registry version.",
+      "D": "Decrease the learning rate and increase the number of trees."
+    },
+    "explanation": "SageMaker Neo can prune and quantize a compiled model without retraining. Changing training hyperparameters requires retraining."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "An ML engineer fine-tunes a pre-trained BERT model on SageMaker JumpStart. To prevent catastrophic forgetting of pre-trained weights, which configuration should they apply?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use lower learning rate for pre-trained layers and higher rate for newly added classification head.",
+      "B": "Initialize all layers randomly before fine-tuning.",
+      "C": "Freeze the classification head and only train transformer layers.",
+      "D": "Increase batch size by fourfold to stabilize gradients."
+    },
+    "explanation": "Lower LR on pretrained layers preserves learned features; random init or freezing head loses benefits."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "During hyperparameter tuning with AMT, an engineer observes that many training jobs fail due to out-of-memory errors for large batch sizes. To optimize tuning efficiency, which AMT configuration change is best?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase the maximum parallel training jobs.",
+      "B": "Switch from Bayesian to grid search.",
+      "C": "Decrease the minimum number of training jobs.",
+      "D": "Add a conditional statement in the training script to skip batch sizes causing OOM and return low objective metric."
+    },
+    "explanation": "Skipping invalid hyperparameter combinations via script invalidation avoids wasted jobs; changing search strategy or job counts doesn\u2019t prevent failures."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "A deep CNN trained in SageMaker exhibits slow convergence and high variance among epoch losses. Which combination of techniques addresses both issues?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Remove data augmentation and add more layers.",
+      "B": "Increase learning rate and decrease batch size.",
+      "C": "Apply batch normalization, use learning rate scheduler, and add dropout layers.",
+      "D": "Switch optimizer from Adam to stochastic gradient descent with fixed LR."
+    },
+    "explanation": "Batch norm and LR scheduling stabilize training; dropout reduces variance. Removing augmentation or switching optimizer without scheduler may worsen convergence."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "An ML engineer needs to integrate a scikit-learn RandomForest model trained locally into SageMaker for batch transform inference. Which step is required?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Wrap the model in a SageMaker built-in algorithm container.",
+      "B": "Create a custom inference script and container using SageMaker script mode to load the pickle file.",
+      "C": "Use SageMaker Clarify to register the model directly from local filesystem.",
+      "D": "Upload the model artifact to SageMaker Model Registry via console."
+    },
+    "explanation": "Local models require a custom container/script in script mode. Built-in algorithms can\u2019t import arbitrary pickles."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "A large NLP model fine-tuned via Hugging Face in SageMaker shows slow throughput per epoch. Which SageMaker feature reduces training time without code changes?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable early stopping in AMT.",
+      "B": "Use SageMaker Model Monitor to detect drift.",
+      "C": "Enable managed spot training with distributed training.",
+      "D": "Switch to a built-in algorithm for NLP tasks."
+    },
+    "explanation": "Managed distributed spot training uses multiple instances to speed training; early stopping and monitoring don\u2019t affect raw throughput."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "An engineer uses SageMaker script mode to train a PyTorch model. The training time per epoch increases over time due to GPU memory fragmentation. How to mitigate this?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable gradient checkpointing to reduce peak memory usage.",
+      "B": "Increase batch size to better pack memory.",
+      "C": "Disable data parallelism to reduce fragmentation.",
+      "D": "Switch from PyTorch to TensorFlow."
+    },
+    "explanation": "Gradient checkpointing trades compute for memory, alleviating fragmentation. Increasing batch size worsens it; switching frameworks is heavy-handed."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "A SageMaker AMT job tunes hyperparameters including learning_rate and optimizer choice. The team needs to incorporate prior tuning results to guide the new job. Which warm start type is appropriate?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "IDENTICAL_DATA_AND_ALGORITHM",
+      "B": "TRANSFER_LEARNING",
+      "C": "STANDARD",
+      "D": "TRANSFER_LEARNING with previous job as parent"
+    },
+    "explanation": "TRANSFER_LEARNING warm start uses prior results from parent tuning jobs; IDENTICAL_DATA_AND_ALGORITHM reuses only matching configs."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "An ML researcher wants repeated reproducible experiments in SageMaker. Which practice ensures identical results across training runs?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use random search in AMT.",
+      "B": "Use spot instances to save costs.",
+      "C": "Enable early stopping after fixed epochs.",
+      "D": "Set and log explicit random seeds, fix training hyperparameters, use the Model Registry for versioning."
+    },
+    "explanation": "Explicit seed and consistent config plus registry ensure reproducibility; early stopping and spot instances introduce variability."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "A team notices high variance between ensemble members when combining models. To improve ensemble performance, which strategy is best?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use identical architecture and data splits for each member.",
+      "B": "Use diverse base learners and bootstrap sampling to increase diversity.",
+      "C": "Increase depth of all tree-based models.",
+      "D": "Use only the top-performing single model."
+    },
+    "explanation": "Ensemble benefits from diverse learners; identical architectures reduce benefit."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "An engineer needs to fine-tune a large foundation model from Amazon Bedrock in SageMaker for a specialized downstream task. Which approach integrates seamlessly?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Export the model weights and import into a SageMaker built-in algorithm.",
+      "B": "Download the model artifacts and retrain from scratch.",
+      "C": "Use SageMaker JumpStart to fine-tune the model with custom dataset.",
+      "D": "Convert Bedrock model to TensorFlow SavedModel and deploy."
+    },
+    "explanation": "JumpStart provides ready fine-tuning pipelines for Bedrock foundation models."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "A deep learning model exhibits underfitting on training and validation sets. To improve fit, which hyperparameter adjustment is most effective?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase model capacity by adding layers or units.",
+      "B": "Increase dropout rate.",
+      "C": "Increase L2 regularization weight.",
+      "D": "Decrease number of training epochs."
+    },
+    "explanation": "Underfitting requires more capacity; dropout and L2 worsen underfitting."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "An automatic model tuning job uses AMT with a goal metric of validation error. The team now needs to optimize two metrics: inference latency and accuracy. Which solution supports this?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Run two separate AMT jobs and manually choose trade-off.",
+      "B": "Use Bayesian optimization with a composite metric manually computed in script.",
+      "C": "Switch search strategy to grid search for multi-objective coverage.",
+      "D": "Use SageMaker multi-objective hyperparameter tuning-enabled job."
+    },
+    "explanation": "Multi-objective tuning in SageMaker supports simultaneous optimization of metrics."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "A training job using Hugging Face Transformers in SageMaker uses a JSON Lines dataset on S3. The engineer observes slow data loading. Which training configuration change accelerates data throughput?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Switch input mode to Pipe mode.",
+      "B": "Use File mode with Amazon FSx for Lustre linked to the S3 bucket.",
+      "C": "Decrease number of worker processes in DataLoader.",
+      "D": "Disable shuffling of the dataset."
+    },
+    "explanation": "FSx for Lustre caches data for high throughput; pipe mode streams raw S3, slower for many small records."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "An ML engineer wants to prune a TensorFlow model during SageMaker training to reduce inference latency while preserving >98% of accuracy. Which training callback should be used?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "EarlyStopping on validation loss.",
+      "B": "LearningRateScheduler.",
+      "C": "TensorFlow Model Optimization pruning callback.",
+      "D": "ReduceLROnPlateau."
+    },
+    "explanation": "TF Model Optimization pruning callback prunes weights during training; others adjust learning rate or stop early."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "A model trained on SageMaker exhibits high training throughput but low GPU utilization. Which configuration change most directly improves GPU utilization?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase per-instance batch size.",
+      "B": "Decrease the number of GPUs.",
+      "C": "Enable early stopping.",
+      "D": "Use a smaller instance type."
+    },
+    "explanation": "Batch size affects GPU utilization; larger batches fill GPU compute better."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "A team uses AMT with max_jobs=50 and max_parallel_jobs=5. They need to reduce total run time but keep exploring same search space. Which change achieves this?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase search space cardinality.",
+      "B": "Increase max_parallel_jobs to 10.",
+      "C": "Decrease max_jobs to 25.",
+      "D": "Switch to random search strategy."
+    },
+    "explanation": "Increasing parallel jobs reduces wall-clock time; random search doesn\u2019t guarantee faster convergence."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "An existing model version in SageMaker Model Registry is retrained with new hyperparameters. To automate promoting the version when validation accuracy improves by >1%, which approach is best?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Manually compare metrics and click Promote in console.",
+      "B": "Use SageMaker Experiments to tag and promote.",
+      "C": "Define a SageMaker Pipeline with conditional ModelRegistry promotion step.",
+      "D": "Write a Lambda triggered by CloudWatch alarm on metrics."
+    },
+    "explanation": "Pipelines support conditional promotion; Lambda approach requires custom code and integration."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "During distributed training on multiple GPU instances, training noise leads to divergence. What change reduces variance across replicas?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase initial learning rate.",
+      "B": "Disable gradient clipping.",
+      "C": "Use smaller batch size per replica.",
+      "D": "Enable synchronized BatchNorm across replicas."
+    },
+    "explanation": "Synchronized BatchNorm ensures consistent statistics; other changes may worsen instability."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "A SageMaker TensorFlow training job time per epoch is dominated by data preprocessing in training script. How to offload preprocessing to speed training?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Processing or Glue to preprocess and save TFRecords before training.",
+      "B": "Enable profiler for training jobs.",
+      "C": "Switch to script mode with Python SDK.",
+      "D": "Use hyperparameter tuning to find optimal preprocessing parameters."
+    },
+    "explanation": "Preprocessing offline reduces per-epoch overhead; tuning and profiling don\u2019t offload work."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "An engineer needs to train a model with imbalanced classes. To ensure balanced gradient updates per batch, which DataLoader or training config change is best?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Shuffle dataset each epoch.",
+      "B": "Use a weighted random sampler to form balanced batches.",
+      "C": "Increase number of epochs.",
+      "D": "Add L1 regularization to loss."
+    },
+    "explanation": "Weighted sampler balances classes per batch; shuffling alone doesn\u2019t ensure balance."
+  },
+  {
+    "taskStatement": "2.2",
+    "stem": "A team wants to combine three diverse models into a final prediction in SageMaker. They need an ensemble pipeline that retrains all members and the meta-learner automatically. Which SageMaker feature should they use?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "SageMaker Batch Transform.",
+      "B": "SageMaker Clarify.",
+      "C": "SageMaker Neo.",
+      "D": "SageMaker Pipelines with Ensemble step implementations."
+    },
+    "explanation": "Pipelines can orchestrate multi-step ensemble training; other services unrelated."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You have a dataset with highly skewed numeric features and missing values partitioned across multiple S3 prefixes. You need a pipeline that imputes missing values with the median per feature, applies a log transform to reduce skew, and writes the cleaned data to Amazon SageMaker Feature Store. Which approach meets these requirements with the least custom code?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use an AWS Glue Spark ETL job to compute medians via AWS Glue Data Quality, apply a PySpark log transform, and write to Feature Store using the SageMaker SDK.",
+      "B": "Use a SageMaker Data Wrangler flow: add a fill-missing recipe with median, add a built-in log transform step, then export directly to Feature Store.",
+      "C": "Use AWS Glue DataBrew: create a project, add fill-missing and log transform recipes, and publish to S3 for later ingestion into Feature Store.",
+      "D": "Run a SageMaker Processing job with a custom Scikit-Learn script that imputes medians, applies log transforms, and writes to Feature Store."
+    },
+    "explanation": "Data Wrangler provides built-in median imputation and log transform steps and can export directly to Feature Store, minimizing custom code."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "A streaming application ingests JSON records into Amazon Kinesis Data Streams. Each record contains nested user attributes and a categorical field with dozens of categories. You must extract the nested field, one-hot encode the categorical feature, and persist the output in S3 in Parquet format. Which solution is most operationally efficient?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Kinesis Data Analytics for Apache Flink with SQL to flatten JSON, then implement a user-defined function for one-hot encoding, and sink to S3.",
+      "B": "Trigger an AWS Lambda function on Kinesis shards to parse JSON, use pandas.get_dummies for encoding, and write Parquet to S3.",
+      "C": "Use SageMaker Data Wrangler with a streaming data source, apply transforms, and export to S3.",
+      "D": "Use AWS Glue Streaming ETL with Apache Spark: apply JSON extract, use Spark ML OneHotEncoderEstimator, and write Parquet to S3."
+    },
+    "explanation": "AWS Glue Streaming ETL natively supports Spark transformations on streaming data, including JSON flattening and OneHotEncoder, with minimal custom code and built-in S3 sink."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You have a multi-class categorical feature with 1000 unique values, most of which appear in fewer than 5% of the records. You need to encode it for a tree-based model without creating high dimensionality. Which feature-engineering technique should you apply in SageMaker Data Wrangler?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use one-hot encoding with drop-last to reduce one dimension.",
+      "B": "Apply label encoding directly to assign integer codes.",
+      "C": "Group infrequent categories into an \"Other\" bucket, then apply one-hot encoding on the top categories.",
+      "D": "Apply ordinal encoding based on average target probability per category."
+    },
+    "explanation": "Combining infrequent categories into \"Other\" reduces cardinality before one-hot encoding, balancing dimensionality and model interpretability."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "A text column contains customer reviews that must be tokenized and vectorized for an NLP model. You need to integrate this into a SageMaker feature-engineering pipeline with minimal custom code. Which service and sequence accomplishes this?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use AWS Glue DataBrew: add tokenization recipe, export to S3, and then train with a custom tokenizer.",
+      "B": "Use a SageMaker Processing job with the Hugging Face tokenizer, then push token IDs to Feature Store.",
+      "C": "Use SageMaker Data Wrangler: add a built-in text tokenizer transform, then export token counts to Feature Store.",
+      "D": "Stream reviews through Lambda to call Amazon Comprehend for tokenization, then store results in S3."
+    },
+    "explanation": "A SageMaker Processing job with Hugging Face tokenizer integrates easily into pipelines and can write token IDs directly to Feature Store."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You need to discretize a continuous feature into bins of equal frequency and standardize another feature to zero mean and unit variance, using managed AWS services. Which combination is most appropriate?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Data Wrangler recipe: add quantile binning for equal-frequency bins and Z-score normalization for standardization.",
+      "B": "Use AWS Glue DataBrew: add equal-width binning recipe and MinMax scale recipe.",
+      "C": "Run a SageMaker Processing job with a Scikit-Learn pipeline that uses KBinsDiscretizer and StandardScaler.",
+      "D": "Use AWS Glue ETL: write PySpark code to bucketBy frequency and use VectorAssembler with StandardScaler."
+    },
+    "explanation": "Data Wrangler supports quantile binning (equal frequency) and Z-score normalization out of the box, minimizing custom code."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "Your dataset contains duplicate records due to multiple ingestion systems. You need a low-code AWS solution to deduplicate by a composite key and write the result back to S3. Which approach is best?",
+    "correct": "C",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Use SageMaker Data Wrangler: add a drop duplicates recipe on the composite key, then export to S3.",
+      "B": "Run a Glue Spark ETL job with custom PySpark dropDuplicates call on the composite key.",
+      "C": "Use AWS Glue DataBrew: create a project, add a dedup recipe on the composite key, and publish the output to S3.",
+      "D": "Implement a SageMaker Processing job with Pandas drop_duplicates and write to S3."
+    },
+    "explanation": "DataBrew provides a built-in deduplication recipe that can drop duplicates on any key and export to S3 without custom code."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You must engineer features that capture hour-of-day and day-of-week from a timestamp column for downstream modeling. The solution must integrate with SageMaker Pipelines and Feature Store. Which components do you use?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "A SageMaker ProcessingStep using a custom Pandas script to extract features and call PutRecord to Feature Store.",
+      "B": "A SageMaker Data Wrangler step in the pipeline: use built-in ExtractTimestamp transforms for hour and weekday, and export to Feature Store.",
+      "C": "An AWS Glue job to run Python code, write to S3, then a ProcessingStep to ingest into Feature Store.",
+      "D": "Lambda functions behind EventBridge that trigger on S3 updates to compute features and write to Feature Store."
+    },
+    "explanation": "Data Wrangler can be used as a ProcessingStep in SageMaker Pipelines, with built-in timestamp extract transforms and direct export to Feature Store."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "A dataset contains outliers in multiple numeric columns. You need to detect and cap them at the 1st and 99th percentiles before modeling. Which AWS Workflow is most efficient?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use a SageMaker Processing job with custom code to compute percentiles and cap outliers.",
+      "B": "Use SageMaker Data Wrangler: add an outlier detection transform to compute percentiles and use a value mapping recipe to cap values.",
+      "C": "Write a Glue Spark ETL job using approxQuantile to find percentiles and withColumn to cap values.",
+      "D": "Use AWS Glue DataBrew: add a percentile filter recipe then a replace recipe to cap extremes."
+    },
+    "explanation": "Data Wrangler outlier detection can compute percentiles and supports value mapping recipes to cap outliers without custom code."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You have a categorical feature with high cardinality and need to generate target-guided encoding (mean target value per category) without leaking test data information. Which pipeline design prevents leakage?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use a single SageMaker Processing job to compute global means on full dataset, apply to all splits.",
+      "B": "Use Data Wrangler to compute target means on full dataset and join back to features.",
+      "C": "Use Glue ETL to compute means on training set and apply same mapping to test set in the same job.",
+      "D": "Define two ProcessingSteps in a SageMaker Pipeline: first compute category-target means on the training split only, store mapping; second step applies mapping to train and test splits separately."
+    },
+    "explanation": "Separating computation on training split from application to test split in different steps prevents target leakage."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "A feature column contains text with inconsistent casing and punctuation. You need to normalize the text (lowercase, remove punctuation), tokenize, and compute TF-IDF vectors, using managed AWS services. Which sequence is correct?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker ProcessingStep: run a Scikit-Learn script for lowercasing, regex to remove punctuation, CountVectorizer with TF-IDF transformer.",
+      "B": "Use Data Wrangler: add lowercase and remove-pattern transforms, then export tokens to S3 for external TF-IDF calculation.",
+      "C": "Use Glue DataBrew recipes: add text lowercase and remove punctuation recipes, then a custom recipe for TF-IDF.",
+      "D": "Use AWS Lambda triggered on S3: call Amazon Comprehend to normalize and tokenize, then compute TF-IDF in Lambda."
+    },
+    "explanation": "A ProcessingStep gives full control to use Scikit-Learn pipeline for normalization and TF-IDF vectorization directly in SageMaker Pipelines."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You need to enrich your dataset with rolling window features (7-day sum and average) on time-series data stored in S3. Which AWS service and pattern is most appropriate?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use AWS Glue Streaming ETL with sliding window in Spark Structed Streaming to compute rolling features.",
+      "B": "Use SageMaker Data Wrangler to define window aggregation transforms directly.",
+      "C": "Schedule a SageMaker Processing job with PySpark code that reads S3 parquet, applies window functions, and writes enriched data back to S3.",
+      "D": "Use AWS Lambda triggered by new data to update rolling aggregates in Amazon DynamoDB."
+    },
+    "explanation": "SageMaker Processing with PySpark supports Spark SQL window functions for rolling aggregates in a batch fashion, suitable for scheduled enrichment."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "Your dataset has a highly imbalanced binary label. You need to generate synthetic minority samples using SMOTE within a managed AWS pipeline. Which service and pattern achieves this?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Data Wrangler\u2019s built-in synthetic data generation transforms.",
+      "B": "Use a SageMaker Processing job with Imbalanced-Learn\u2019s SMOTE, then export to S3.",
+      "C": "Use AWS Glue ETL with custom PySpark code to perform SMOTE.",
+      "D": "Use AWS Glue DataBrew with a custom recipe for synthetic minority sampling."
+    },
+    "explanation": "Only a Processing job supports custom Python libraries like Imbalanced-Learn to run SMOTE within a managed pipeline."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You have feature interactions that must be generated (pairwise products) for a logistic regression model. You want to do this at scale on a large dataset in S3. What is the most serverless approach?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Run a SageMaker Processing job on large ML instances with a custom script to generate interactions.",
+      "B": "Use AWS Glue ETL on Spark with PySpark to compute pairwise products and write back to S3.",
+      "C": "Use SageMaker Batch Transform with a script that outputs interactions.",
+      "D": "Use AWS Glue DataBrew: create a recipe to generate new columns via formula for each interaction and publish to S3."
+    },
+    "explanation": "DataBrew scales serverlessly with partitions and can generate new columns via formulas for interactions without managing infrastructure."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You need to normalize a set of numeric features using robust scaling (subtract median and divide by IQR) within SageMaker Pipelines. Which component do you include?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "A ProcessingStep that calls AWS Glue Data Quality for robust scaling.",
+      "B": "A ProcessingStep that uses a DataBrew project for IQR scaling.",
+      "C": "A ProcessingStep with a custom Scikit-Learn RobustScaler script.",
+      "D": "A TransformStep using built-in SageMaker XGBoost with robust scaling parameters."
+    },
+    "explanation": "A ProcessingStep with a custom script is required for RobustScaler since no built-in recipe exists in Data Wrangler or DataBrew."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You must anonymize PII in free-text user comments by replacing names and emails, then vectorize text. Which AWS-managed solution minimizes custom code?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Processing with a custom regex script for PII removal and TF-IDF vectorization.",
+      "B": "Use a SageMaker Processing job combining Amazon Comprehend PII entity detection API for redaction, then Scikit-Learn vectorizer.",
+      "C": "Use AWS Glue DataBrew with PII detection recipes and export tokens to S3 for vectorization.",
+      "D": "Use AWS Lambda to call Comprehend for redaction, store in S3, then run DataWrangler for vectorization."
+    },
+    "explanation": "A single Processing job can orchestrate Comprehend API calls and vectorization in one managed step."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You need to transform multi-value categorical fields (lists of tags per item) into indicator features and store them for low-latency inference. Which pipeline configuration should you choose?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "In SageMaker Data Wrangler, use the split multi-value transform to explode tags into rows, one-hot encode them, pivot back to wide format, and export to online Feature Store.",
+      "B": "In Glue ETL, use PySpark explode then OneHotEncoderEstimator and write to S3 for offline Feature Store.",
+      "C": "Use Lambda functions to parse tags into booleans and write JSON to DynamoDB.",
+      "D": "Use SageMaker Processing with pandas to create indicator columns and write to S3."
+    },
+    "explanation": "Data Wrangler supports split multi-value transforms and direct export to online Feature Store for low-latency inference."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "A dataset contains decimal representations of categorical codes. You need to convert these codes to binary bit-vector features (one bit per significant bit) for modeling. Which approach is most straightforward using Data Wrangler?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use a ProcessingStep with custom Python bit-operation code.",
+      "B": "Use Glue ETL with PySpark bit operations in withColumn.",
+      "C": "Use SageMaker Data Wrangler\u2019s custom transform node: write a small Pandas UDF to convert codes to bit vectors.",
+      "D": "Use DataBrew with multiple formula recipes to extract bits manually."
+    },
+    "explanation": "A custom transform node in Data Wrangler allows concise Pandas UDF bit extraction without full ETL management."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You want to join two large datasets in S3 by a composite key, perform feature computations (ratio of two columns), and write the result in parquet. Which solution scales most cost-effectively?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Data Wrangler to join and compute ratio then export.",
+      "B": "Use AWS Glue ETL on Apache Spark with pushdown predicates and write to S3.",
+      "C": "Use a SageMaker Processing job with PySpark on large instances.",
+      "D": "Use AWS Glue DataBrew: import both datasets, join in project, and publish result."
+    },
+    "explanation": "AWS Glue ETL offers serverless Spark with pushdown and partition pruning, minimizing cost for large joins."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "Your feature store offline table has outdated records. You need to batch ingest new features while preserving historical records for audit. Which pattern do you follow?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Overwrite the offline store using Feature Group import mode FULL Refresh.",
+      "B": "Use a Glue job to append to the offline table in the Feature Store\u2019s backing S3 bucket.",
+      "C": "Use a ProcessingJob to write new features to the same S3 prefix without Feature Store APIs.",
+      "D": "Use SageMaker Feature Store Batch PutRecord API to append new records, which preserves history if record identifier and event time increase."
+    },
+    "explanation": "Batch PutRecord appends new feature values and keeps older versions for audit based on eventTime."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You need to generate polynomial features (up to degree 3) on a subset of continuous variables for a regression model, using SageMaker Pipelines. Which step do you include?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "A ProcessingStep that runs a Scikit-Learn PolynomialFeatures transformer on the selected columns.",
+      "B": "A TransformStep using XGBoost\u2019s built-in polynomial feature parameters.",
+      "C": "A Data Wrangler step with custom Python recipe for polynomial features.",
+      "D": "A Glue ETL job scheduled separately and results stored in S3."
+    },
+    "explanation": "A ProcessingStep allows direct use of Scikit-Learn PolynomialFeatures within the pipeline."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "Your data contains timestamp strings in multiple formats. You must standardize to ISO8601 before downstream feature extraction. Which AWS service and method handle this with minimal code?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Processing with a custom regex parser to normalize formats.",
+      "B": "Use Glue ETL with custom Python UDF in Spark to parse and format timestamps.",
+      "C": "Use SageMaker Data Wrangler: add multiple parse-date recipes with input patterns, unify output to ISO8601, then export.",
+      "D": "Use DataBrew: define multiple date parsing recipes and publish standardized data."
+    },
+    "explanation": "Data Wrangler supports multiple parse-date recipes and an output format selection, reducing custom code."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You must encode a hierarchical categorical feature (e.g., Country > State > City) to capture both levels for a tree model. Which sequence in Data Wrangler best preserves hierarchy?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "One-hot encode City only.",
+      "B": "Create combined category codes (Country_State_City) then one-hot encode top N combined categories and bucket rest as Other.",
+      "C": "Label encode each level separately.",
+      "D": "Use Hash encoding on City and ignore higher levels."
+    },
+    "explanation": "Creating combined codes preserves hierarchy and one-hot encoding top combinations captures joint distribution with controlled dimensionality."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "A dataset includes text descriptions with HTML markup. You must remove tags, lowercase, and compute the length of each description. Which managed flow meets this?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Data Wrangler: add a custom transform node that runs a small Python function to strip HTML, lowercase, and compute length.",
+      "B": "Use a Glue ETL job with BeautifulSoup and Python to process, then write to S3.",
+      "C": "Use AWS Lambda triggered on S3 to clean text and store lengths in DynamoDB.",
+      "D": "Use Glue DataBrew recipes: remove HTML pattern, lowercase, compute new column via formula."
+    },
+    "explanation": "DataBrew\u2019s formula for length may be limited; Data Wrangler custom node allows running Python code for HTML stripping and length calculation."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "Your model benefits from interaction terms between a date and a numeric feature. You need to encode weekday \u00d7 metric interactions. Which pipeline component choice is correct?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use DataBrew: create numeric \u00d7 weekday formula recipes.",
+      "B": "Use Glue ETL: write PySpark to compute interaction terms.",
+      "C": "Use a SageMaker ProcessingStep with a Pandas script to extract weekday and multiply by the metric, then export.",
+      "D": "Use Data Wrangler: extract weekday and use the \u201cGenerate feature combinations\u201d transform."
+    },
+    "explanation": "Data Wrangler does not auto-generate cross features; a ProcessingStep with Pandas gives precise control for interaction terms."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You have high-cardinality ordinal data where label encoding might mislead the model. You need ordinal encoding that respects order but maps to a uniform distribution. Which transform do you apply?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use one-hot encoding after sorting ordinal values.",
+      "B": "Use Quantile ordinal encoding: map ordinal rank to quantile value between 0 and 1 via Data Wrangler\u2019s custom transform.",
+      "C": "Use label encoding directly.",
+      "D": "Use binary encoding to reduce dimensionality."
+    },
+    "explanation": "Quantile ordinal encoding maps each ordinal category to its quantile position, preserving order without magnitude assumptions."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You need to integrate SageMaker Ground Truth labeled data into your feature-engineering flow in Data Wrangler, then merge those labels with features. Which pattern works?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Import the Ground Truth output manifest into Data Wrangler via import manifest, join on record IDs, and proceed with transforms.",
+      "B": "Use Glue ETL to read manifest JSON and your features, join, then export to S3.",
+      "C": "Use a ProcessingJob to read S3 manifest and feature data and merge in code.",
+      "D": "Configure DataBrew to read manifest and features and merge via project join recipes."
+    },
+    "explanation": "Data Wrangler can directly import a Ground Truth manifest and join on record identifiers within the flow."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "During feature engineering, you need to normalize numeric fields per group (e.g., by customer segment) to zero mean within each group. Which service supports this grouping and transform without custom code?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "SageMaker Processing job with Pandas groupby and transform.",
+      "B": "AWS Glue Streaming ETL or Glue batch ETL? Actually Data Wrangler? But grouping per segment: Data Wrangler supports groupby transforms in custom? It doesn't. So correct: ProcessingStep.",
+      "C": "SageMaker Data Wrangler: add an \u201cAggregate\u201d transform with groupby and join back.",
+      "D": "AWS Glue DataBrew: add \u201cGroup\u201d recipe with normalization."
+    },
+    "explanation": "Data Wrangler does not natively support group-based normalization; you need a custom script in a ProcessingStep to group and normalize."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You want to cleanse geographical coordinate outliers using interquartile range and then project lat/long into distance features from a fixed point. Which pipeline step do you use?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "A SageMaker ProcessingStep running a Python script that computes IQR, filters outliers, then applies haversine distance formula.",
+      "B": "Data Wrangler recipes: outlier removal and geospatial transform.",
+      "C": "Glue DataBrew: percentile filter and custom geospatial formula.",
+      "D": "Lambda functions for geospatial cleaning and a Data Wrangler step for distance."
+    },
+    "explanation": "No managed transform for geospatial distance; ProcessingStep with Python gives full control for outlier filtering and distance computation."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "A categorical feature contains hierarchical JSON structures per row. You need to flatten to multiple indicator features at any depth. Which approach scales best with minimal code?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Processing with a recursive JSON flattener in Python.",
+      "B": "Use AWS Glue ETL on Spark with from_json and explode operations to flatten, then OneHotEncoderEstimator.",
+      "C": "Use DataBrew JSON flatten recipe then one-hot encode.",
+      "D": "Use Data Wrangler custom transform to flatten JSON manually."
+    },
+    "explanation": "Glue ETL\u2019s built-in from_json and explode support scalable JSON flattening; Spark\u2019s OneHotEncoder completes encoding."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "You must generate time-lagged features (t-1, t-2) for a time series dataset with irregular intervals. Which solution handles irregular sampling properly?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use Glue ETL with window functions assuming regular partitions.",
+      "B": "Use Data Wrangler\u2019s lag transform with fixed intervals.",
+      "C": "Use a ProcessingStep with pandas shift (but assumes uniform index).",
+      "D": "Use a SageMaker Processing job with custom script that resamples by timestamp and computes lag based on nearest previous record."
+    },
+    "explanation": "Irregular intervals require custom resampling and lag logic in code, best done in a ProcessingStep."
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "Your model requires polynomial and interaction features, missing-value flags, and one-hot encodings in one cohesive flow. Which AWS-managed solution is most integrated?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Glue ETL job with custom PySpark combining all transformations.",
+      "B": "SageMaker Processing job orchestrating multiple scripts.",
+      "C": "SageMaker Data Wrangler flow: use built-in polynomial, fill missing flag, encoding, and export to Feature Store.",
+      "D": "DataBrew project with custom recipes for each transformation."
+    },
+    "explanation": "Data Wrangler supports polynomial features, missing-value flagging, and categorical encodings in a single flow with direct exports."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "A bank is building a credit approval model. The training dataset contains a binary \u201capproved\u201d label and a protected \u201cgender\u201d feature. Before training, the ML engineer needs to quantify label imbalance (difference in approval rates) between male and female applicants. Which SageMaker Clarify configuration correctly measures this metric?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Run a Clarify \u201cdataset_analysis\u201d job and specify the \u201cmean_difference\u201d metric for the \u201cgender\u201d feature.",
+      "B": "Run a Clarify pre_training_bias job, set facet_name to \u201cgender\u201d, label_values_or_threshold to ['approved'], and include the \u201cdifference_in_proportions\u201d metric.",
+      "C": "Run a Clarify post_training_bias job after model training and view SHAP importances for \u201cgender.\u201d",
+      "D": "Use SageMaker Model Monitor baseline for data quality to detect label skew."
+    },
+    "explanation": "Pre-training bias jobs with facet_name and difference_in_proportions compute DPL for the protected feature before training."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "A healthcare provider must de-identify PHI in free-text clinical notes stored on S3 before any ML processing. Which AWS service and approach automatically finds and redacts PHI entities in text files?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Amazon Comprehend Medical de-identification API to detect and redact PHI, then store de-identified text back in S3.",
+      "B": "Use AWS Glue DataBrew PII masking transform to remove PHI patterns.",
+      "C": "Use Amazon Macie to classify S3 objects and replace PHI entities.",
+      "D": "Run a SageMaker Clarify data quality job to identify and filter PHI."
+    },
+    "explanation": "Comprehend Medical de-identification API is purpose-built for PII/PHI redaction in clinical text."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "An ML engineer uses an Amazon EFS file system to store HIPAA-regulated data for SageMaker training. To meet compliance, they must encrypt data at rest and in transit. Which configuration satisfies both requirements?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable EFS encryption at rest with a customer-managed CMK, create EFS mount targets with TLS, and reference the EFS file system in the training job.",
+      "B": "Enable S3 SSE-KMS on the EFS bucket and configure SageMaker network isolation.",
+      "C": "Switch to FSx for Lustre with in-transit encryption enabled and mount in training job.",
+      "D": "Enable encryption on the training instance root volume and use HTTPS to access EFS."
+    },
+    "explanation": "EFS supports encryption at rest via CMKs and in-transit TLS mount targets; training jobs can mount encrypted EFS directly."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "A regression dataset has 20% missing values in the numeric \u201cincome\u201d column. The engineer must impute missing values by median without leaking test information. Using AWS DataBrew, which sequence of steps is correct?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Profile full dataset to compute global median, then impute \u201cincome\u201d on combined data and split into train/test.",
+      "B": "First split dataset into train/test in DataBrew, then apply a recipe step on both sets using the median calculated from the training set.",
+      "C": "Run a SageMaker Processing job with scikit-learn SimpleImputer on combined data, then split.",
+      "D": "Use AWS Glue ETL to aggregate median and fill missing values, then split datasets."
+    },
+    "explanation": "To avoid leakage you must split first, compute median on training data, and apply same imputation to test."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "Before training, an engineer must verify that the \u201cuser_id\u201d column in CSV files is non-null and unique. Which AWS Glue Data Quality configuration accomplishes this?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Define a Data Quality ruleset with NOT_NULL and UNIQUENESS rules on \u201cuser_id\u201d, run a Data Quality job and inspect violations.",
+      "B": "Use SageMaker Data Wrangler profile and manually inspect unique count for \u201cuser_id.\u201d",
+      "C": "Write a SageMaker Processing pandas script to drop nulls and duplicates.",
+      "D": "Use AWS Glue DataBrew with a data quality job and assertions on \u201cuser_id.\u201d"
+    },
+    "explanation": "AWS Glue Data Quality jobs with built-in rules handle NOT_NULL and UNIQUENESS assertions at scale."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "A large S3 dataset may contain anomalous rows that degrade model accuracy. Which AWS tool combination efficiently detects and removes outliers across multiple features during preprocessing?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Data Wrangler to profile the dataset, apply the Outlier Detection transform, and add recipe steps to filter anomalies.",
+      "B": "Write custom Spark in AWS Glue to compute z-scores and drop outliers then load cleaned data to S3.",
+      "C": "Run a SageMaker Clarify data bias job to detect feature outliers and filter.",
+      "D": "Use AWS Glue Data Quality to generate anomaly reports and manually remove rows."
+    },
+    "explanation": "Data Wrangler\u2019s built-in outlier detection recipe automates detection and removal within the ETL workflow."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "The S3 training data files are partitioned by date, causing temporal ordering bias. To randomize samples across partitions in SageMaker training with minimal overhead, which option is best?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Specify ShuffleConfig with \u201cFullyReplicated\u201d in the S3 input channel of the training job.",
+      "B": "Use AWS Glue DataBrew to shuffle rows within each file and write to new S3 files.",
+      "C": "Run a SageMaker Processing job using AWS Wrangler to shuffle and rewrite the dataset.",
+      "D": "Use Lambda to concatenate and shuffle data before training."
+    },
+    "explanation": "SageMaker\u2019s native ShuffleConfig on S3 inputs randomizes across objects without extra ETL."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "A dataset contains an \u201cssn\u201d column that must be irreversibly hashed before training. Which AWS service and transform securely performs this operation with minimal code?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Use AWS Glue DataBrew \u201cMaskValue\u201d transform on \u201cssn\u201d column with SHA-256 salt and export the recipe.",
+      "B": "Write a SageMaker Processing job in Python to hash values and save to S3.",
+      "C": "Use AWS Glue Spark ETL with hash functions to overwrite values.",
+      "D": "Use SageMaker Clarify anonymization to drop the \u201cssn\u201d field."
+    },
+    "explanation": "DataBrew\u2019s MaskValue step supports cryptographic hashing with salt in a low-code recipe."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "In a fraud dataset, the minority class is only 1% of records. The engineer wants to quantify this imbalance via SageMaker Clarify and then mitigate it. Which metric and mitigation approach should be used?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use the ClassImbalance metric to measure ratio and apply SMOTE to oversample the minority class.",
+      "B": "Use DifferenceInProportions metric and apply random undersampling of the majority class.",
+      "C": "Use KLDivergence metric to detect drift and add class weights during training.",
+      "D": "Use MutualInformation to rank features and drop low-importance ones."
+    },
+    "explanation": "ClassImbalance gives the minority ratio; SMOTE is a standard synthetic oversampling method to correct it."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "An organization mandates that all S3 input data for SageMaker training be encrypted with a customer-managed CMK. How should the training job be configured to honor SSE-KMS on input channels?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "In InputDataConfig for each S3 channel, set S3DataDistributionType to \u201cFullyReplicated\u201d and specify KmsKeyId with the CMK ARN.",
+      "B": "Enable EncryptVolume on the training instance and rely on default S3 key.",
+      "C": "Set EnableNetworkIsolation to true to force KMS encryption.",
+      "D": "Configure OutputDataConfig KmsKeyId \u2013 input will inherit the same key."
+    },
+    "explanation": "Specifying KmsKeyId on InputDataConfig ensures SageMaker uses SSE-KMS to decrypt input data with the CMK."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "A deployed ML model processes IoT telemetry. To detect production input drift and alert when numeric features shift beyond a threshold, which AWS service and metric should be used?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Model Monitor with a data quality JobDefinition that uses the KLDivergence metric.",
+      "B": "Use SageMaker Clarify explainability to monitor SHAP drift in features.",
+      "C": "Use AWS Config to evaluate drift rules on input buckets.",
+      "D": "Use AWS CloudWatch anomaly detection on CPU usage of endpoint."
+    },
+    "explanation": "Model Monitor\u2019s data quality jobs with KLDivergence compare production vs. baseline distributions to detect drift."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "A dataset contains an ordinal \u201crating\u201d feature encoded as text (\u201cpoor\u201d, \u201caverage\u201d, \u201cgood\u201d, \u201cexcellent\u201d). To prepare for numeric modeling and avoid bias, which AWS DataBrew transform sequence is correct?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "One-hot encode \u201crating\u201d directly in DataBrew recipe.",
+      "B": "Apply label encoding mapping \u201cpoor\u201d\u21920,\u2026\u201cexcellent\u201d\u21923 then one-hot encode in training.",
+      "C": "Define custom map transform in DataBrew to assign ordinal values (0\u20133) preserving order, and leave as numeric.",
+      "D": "Use SageMaker Clarify to auto-encode text categories during training."
+    },
+    "explanation": "Ordinal features should be mapped to numeric preserving order; one-hot would lose ordinality."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "A regulated dataset includes random noise in a \u201csalary\u201d column to preserve privacy. Before training, the engineer needs to detect abnormal noise levels that might distort the model. Which tool and check accomplish this?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use AWS Glue DataBrew to profile mean and std deviation of \u201csalary\u201d across batches.",
+      "B": "Use SageMaker Clarify data quality job with \u201cstatistics\u201d check to compare batch distributions to baseline.",
+      "C": "Use SageMaker Model Monitor feature drift job with PSI metric on \u201csalary.\u201d",
+      "D": "Use AWS Glue Data Quality anomaly detection rule on \u201csalary.\u201d"
+    },
+    "explanation": "Clarify data quality jobs support statistics checks to compare current vs. baseline distributions for numeric features."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "A ML pipeline ingests user-submitted text that may contain offensive words. The engineer must remove any rows containing profanity before training. Which approach is most automated?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use AWS Glue DataBrew FilterRows with a profanity regex.",
+      "B": "Run a custom SageMaker Processing job calling an external profanity API.",
+      "C": "Use AWS Glue DataBrew with built-in \u201cReplaceText\u201d transform referencing a profanity wordlist to flag and drop rows.",
+      "D": "Use SageMaker Clarify to identify toxic text and filter."
+    },
+    "explanation": "DataBrew\u2019s ReplaceText transform and conditional filter can flag profanity and drop offending rows in a recipe."
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "A sensitive column \u201cemail\u201d must be pseudonymized by replacing with reversible tokens, ensuring only the training job can reverse it. Which design below meets this requirement securely?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use DataBrew MaskValue transform with a static salt stored in S3.",
+      "B": "Use SageMaker Processing with Python to hash emails and store hash key on the notebook.",
+      "C": "Use AWS Glue ETL to encrypt email using default KMS key without rotation.",
+      "D": "Use a SageMaker Processing job that calls AWS KMS GenerateDataKey to encrypt each email, storing ciphertext and encrypted data key columns."
+    },
+    "explanation": "GenerateDataKey provides a data key for encrypt/decrypt; processing job can encrypt email with the data key and store encrypted data key per row."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A health insurance company needs to predict claim costs using tabular data with dozens of numeric and categorical features. The model must be explainable for compliance and deployed quickly without custom code. Which modeling approach should the ML engineer choose?",
+    "correct": "B",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Train a deep neural network in SageMaker with a custom PyTorch script.",
+      "B": "Use the SageMaker built-in XGBoost linear learner in linear-learner mode.",
+      "C": "Deploy an Amazon Bedrock foundation model for tabular regression.",
+      "D": "Use SageMaker JumpStart to fine-tune a random forest model."
+    },
+    "explanation": "The SageMaker linear learner in linear mode offers both speed of built-in algorithms and coefficient-based explainability, meeting compliance without custom code."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A startup has millions of short text support tickets. They need to automatically categorize them into about ten categories. They require near real-time inference and minimal infrastructure management. Which approach is most appropriate?",
+    "correct": "C",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Use SageMaker built-in Latent Dirichlet Allocation (LDA) to extract topics.",
+      "B": "Train a K-means clustering model on bag-of-words features.",
+      "C": "Use Amazon Comprehend custom classification endpoints.",
+      "D": "Fine-tune a SageMaker JumpStart GPT model for classification."
+    },
+    "explanation": "Amazon Comprehend custom classification provides a managed, low-latency service optimized for text classification without heavy infrastructure or custom training."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A financial firm must model customer churn using a dataset of 100,000 rows and 200 features, many of which are sparse. They need both high accuracy and moderate interpretability. Which algorithm should they select?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Regularized gradient-boosted trees with SHAP explainability in SageMaker.",
+      "B": "Deep neural network with attention layers in SageMaker Training.",
+      "C": "K-nearest neighbors classifier on the full feature set.",
+      "D": "SageMaker linear learner without feature interactions."
+    },
+    "explanation": "Gradient-boosted trees provide strong accuracy on structured data and SHAP integration yields moderate interpretability, balancing both requirements."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A retailer wants to forecast hourly product demand across 500 stores. They need a model that handles seasonality and multiple time series simultaneously with minimal custom development. Which AWS capability should they use?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Build a Seq2Seq model in PyTorch with SageMaker script mode.",
+      "B": "Use SageMaker built-in DeepAR forecasting.",
+      "C": "Fine-tune a Bedrock LLM for time series forecasting.",
+      "D": "Use Amazon Forecast with a custom recipe for seasonal demand."
+    },
+    "explanation": "Amazon Forecast is a managed service specialized in multi-dimensional time series forecasting with built-in seasonality handling and minimal development."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "An e-commerce company needs to detect anomalous orders in real time. The data has 50 continuous and categorical features. They want full control over algorithm selection and hyperparameters. Which modeling approach is best?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Train an Isolation Forest using SageMaker built-in with batch inference enabled.",
+      "B": "Deploy Amazon Lookout for Metrics for anomaly detection.",
+      "C": "Use SageMaker KNN anomaly detection with default parameters.",
+      "D": "Fine-tune a JumpStart anomaly detection model on Amazon Bedrock."
+    },
+    "explanation": "SageMaker built-in Isolation Forest gives full control over hyperparameters and supports custom batch inference while being managed."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A logistics company wants to segment customers into behavioral clusters using both shipment frequency and cost. They expect clear cluster centroids for interpretability. Which algorithm should they choose?",
+    "correct": "D",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "DBSCAN clustering in SageMaker Processing.",
+      "B": "Hierarchical clustering in SageMaker Spark.",
+      "C": "Gaussian Mixture Model with EM in SageMaker.",
+      "D": "K-means clustering with the SageMaker built-in algorithm."
+    },
+    "explanation": "K-means provides clear centroids and is available as a built-in SageMaker algorithm, balancing interpretability and managed operation."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A media company needs to recommend movies using collaborative filtering on user-item ratings. They require a scalable solution integrated with SageMaker. Which modeling approach fits?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Train a matrix factorization model in Scikit-Learn on SageMaker Training.",
+      "B": "Use Amazon Personalize batch recommendations.",
+      "C": "Use SageMaker built-in factorization machines algorithm.",
+      "D": "Fine-tune a JumpStart recommender system foundation model."
+    },
+    "explanation": "SageMaker factorization machines are optimized for collaborative filtering, scalable, and integrated into SageMaker workflows."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A biotech startup must classify protein sequences. Labeled data is scarce, and interpretability is not critical. They want to leverage pretrained models. Which approach is most appropriate?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Train a CNN from scratch in SageMaker script mode.",
+      "B": "Fine-tune a JumpStart protein foundation model.",
+      "C": "Use SageMaker built-in XGBoost with k-mer features.",
+      "D": "Develop a random forest on physicochemical features."
+    },
+    "explanation": "JumpStart protein foundation models leverage pretrained knowledge, requiring limited data and engineering, ideal for scarce labels without interpretability needs."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A compliance-driven enterprise must predict default risk on personal loans. They need to justify each decision to auditors. Which modeling approach balances accuracy and full explainability?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker built-in linear learner and present feature coefficients.",
+      "B": "Train an XGBoost model and approximate SHAP explanations.",
+      "C": "Deploy an Amazon Bedrock LLM to explain historical decisions.",
+      "D": "Use DeepAR to forecast default probabilities."
+    },
+    "explanation": "Linear learner provides transparent coefficients for direct auditing, ensuring full explainability though with modest accuracy trade-off."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A gaming company needs to classify images of player avatars into categories. They want to minimize GPU cost and only require coarse-grained accuracy. Which SageMaker option should they choose?",
+    "correct": "C",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Fine-tune a JumpStart ResNet model.",
+      "B": "Train a custom CNN in PyTorch on GPU.",
+      "C": "Use SageMaker built-in image classification algorithm on CPU.",
+      "D": "Deploy Amazon Rekognition with custom labels."
+    },
+    "explanation": "The built-in image classifier can run on CPU for coarse tasks with lower cost, avoiding GPU and heavy customization."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "An IoT company collects multivariate sensor time series and needs to detect anomalies streaming. They prefer managed services and minimal model maintenance. Which approach is best?",
+    "correct": "D",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Train an LSTM autoencoder in SageMaker script mode.",
+      "B": "Use the SageMaker built-in random cut forest algorithm in batch.",
+      "C": "Fine-tune an LLM for time series anomaly detection.",
+      "D": "Use Amazon Lookout for Equipment for streaming anomalies."
+    },
+    "explanation": "Amazon Lookout for Equipment is managed, supports streaming anomaly detection on sensor data with minimal maintenance."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A marketing team wants to segment emails by topic automatically. They need a fully managed NLP solution that adapts over time. Which AWS service should they use?",
+    "correct": "B",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Train LDA in SageMaker Processing.",
+      "B": "Use Amazon Comprehend topic modeling APIs.",
+      "C": "Fine-tune a JumpStart GPT-3 model for topic extraction.",
+      "D": "Use Amazon SageMaker BlazingText for unsupervised topic clusters."
+    },
+    "explanation": "Amazon Comprehend provides managed topic modeling that adapts to new data without custom training."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A telecom wants to predict customer churn with an imbalanced dataset and needs to prioritize recall over precision. They plan to tune thresholds. Which algorithm and metric combination should they choose?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Train XGBoost in SageMaker and optimize for recall using hyperparameter tuning with custom F-beta metric.",
+      "B": "Use logistic regression and evaluate accuracy.",
+      "C": "Deploy random forest and adjust class weights only at inference.",
+      "D": "Use built-in factorization machines with default evaluation."
+    },
+    "explanation": "XGBoost with custom metric optimization allows tuning hyperparameters for recall, matching business priority on false negatives."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A media analytics team needs to extract entities from video transcripts. They require deep customization of entity categories and managed model hosting. What should they choose?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Train a custom spaCy NER model on SageMaker Processing.",
+      "B": "Fine-tune a JumpStart language model and deploy on SageMaker.",
+      "C": "Use Amazon Comprehend custom entity recognition endpoints.",
+      "D": "Use Amazon Textract to extract text and regex on transcripts."
+    },
+    "explanation": "Comprehend custom entity recognition offers managed training and hosting with customizable entities, minimizing infra effort."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A fraud detection use case has a growing number of streaming events per second and requires sub-millisecond inference. They need high throughput and low latency with minimal operational overhead. Which approach fits?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deploy XGBoost model on SageMaker real-time endpoint on CPU.",
+      "B": "Use SageMaker serverless inference with ProvisionedConcurrency.",
+      "C": "Deploy model on ECS Fargate behind API Gateway.",
+      "D": "Use Lambda to host model via Docker image."
+    },
+    "explanation": "Serverless inference with provisioned concurrency handles variable volumes and low latency without managing servers."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A retailer wants price elasticity estimates per product category, requiring interpretable coefficients. They have limited compute budget. Which modeling approach should they select?",
+    "correct": "D",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Train a tree-based ensemble and use SHAP.",
+      "B": "Fine-tune a Bedrock regression foundation model.",
+      "C": "Use SageMaker XGBoost regressor default.",
+      "D": "Use SageMaker linear learner with L1 regularization for sparse features."
+    },
+    "explanation": "Linear learner yields direct coefficients for price elasticity, with L1 handling sparsity and minimal compute overhead."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "An ML engineer must automatically classify customer reviews into positive or negative sentiment. They need near zero code and managed endpoints. Which AWS service should they choose?",
+    "correct": "B",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Build a logistic regression in SageMaker script mode.",
+      "B": "Use Amazon Comprehend sentiment analysis endpoints.",
+      "C": "Fine-tune a JumpStart BERT model.",
+      "D": "Train SageMaker built-in BlazingText skip-gram model."
+    },
+    "explanation": "Comprehend provides out-of-the-box sentiment analysis API with no code and managed hosting."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A company has sparse high-dimensional clickstream data and wants a scalable algorithm for binary classification. They prioritize L1 regularization to perform feature selection. Which SageMaker built-in algorithm should they choose?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "SageMaker built-in linear learner with L1 mode.",
+      "B": "Built-in XGBoost with default settings.",
+      "C": "Built-in KNN.",
+      "D": "Built-in K-means."
+    },
+    "explanation": "Linear learner supports L1 regularization for feature selection and scales to high dimensions."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A healthcare provider needs to detect disease from X-ray images with regulatory constraints on data privacy. They want to use a managed service and avoid moving data off-premises. Which solution is best?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker built-in image classification in public endpoints.",
+      "B": "Deploy a JumpStart Vision transformer in SageMaker Studio.",
+      "C": "Configure SageMaker Inference on AWS Outposts with the built-in image classification algorithm.",
+      "D": "Use Amazon Rekognition for custom labels."
+    },
+    "explanation": "SageMaker on AWS Outposts runs locally, preserving data privacy without sending images off-premises."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A startup needs to detect default probability from loan applications with limited GPU budget. They require class probability outputs and fast training. Which algorithm should they pick?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deep AR forecasting model.",
+      "B": "Built-in XGBoost classifier.",
+      "C": "Built-in K-means clustering.",
+      "D": "Built-in PCA."
+    },
+    "explanation": "XGBoost classifier offers fast training on CPU/GPU, outputs probabilities, and is cost-efficient."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A legal firm wants to identify key contract clauses in documents. They need a managed NLP solution they can tailor without hosting infrastructure. Which should they use?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon Comprehend custom classification for clause categories.",
+      "B": "Fine-tune JumpStart GPT-3 and host on SageMaker.",
+      "C": "Use SageMaker built-in BlazingText.",
+      "D": "Train a custom BERT model in SageMaker script mode."
+    },
+    "explanation": "Comprehend custom classification lets them define clause categories and uses managed endpoints without infra overhead."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A search engine needs to rank results by relevance using user click logs. They require pairwise ranking and integration with SageMaker. Which algorithm is suitable?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Built-in random forest classifier.",
+      "B": "Built-in KNN algorithm.",
+      "C": "DeepAR forecasting.",
+      "D": "SageMaker Factorization Machines with ranking objective."
+    },
+    "explanation": "Factorization Machines support pairwise ranking objectives and integrate seamlessly in SageMaker pipelines."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "An agricultural startup wants to detect crop diseases from leaf images. They have limited labeled data and need transfer learning with minimal fine-tuning. Which approach should they choose?",
+    "correct": "C",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Train a CNN from scratch in PyTorch on SageMaker.",
+      "B": "Use SageMaker built-in XGBoost on flattened image features.",
+      "C": "Fine-tune a JumpStart transfer learning image classification model.",
+      "D": "Deploy Amazon Rekognition Custom Labels."
+    },
+    "explanation": "JumpStart transfer learning models require minimal labeled data and fine-tuning for image tasks, reducing effort."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A robotics company collects multi-modal sensor data (images and lidar). They need a model that natively handles heterogeneous inputs. Which modeling approach is best?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Ensemble separate built-in algorithms for each modality.",
+      "B": "Train a multimodal PyTorch model in SageMaker script mode.",
+      "C": "Use Amazon SageMaker built-in Linear Learner with concatenated features.",
+      "D": "Fine-tune a JumpStart text foundation model."
+    },
+    "explanation": "A custom PyTorch script enables combining different data types in a single model, which built-ins cannot natively handle."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A voice assistant service must detect five spoken commands in streaming audio. They need low latency and a managed solution. Which AWS offering should they use?",
+    "correct": "D",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Train a CNN in SageMaker to classify spectrograms.",
+      "B": "Use SageMaker built-in KNN on MFCC vectors.",
+      "C": "Fine-tune a JumpStart Transformer.",
+      "D": "Use Amazon Transcribe to convert speech to text and Comprehend custom classification."
+    },
+    "explanation": "Transcribe plus Comprehend custom classification offers managed low-latency command detection without building audio models."
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A rideshare company needs to price surge multipliers based on real-time location and demand. They require sub-second inference at scale. Which modeling approach and deployment should they choose?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Train a decision tree in SageMaker and deploy on CPU endpoint.",
+      "B": "Use SageMaker real-time multi-model endpoints with XGBoost model.",
+      "C": "Host a neural network on ECS Fargate.",
+      "D": "Use Amazon Forecast predictor endpoint."
+    },
+    "explanation": "XGBoost on multi-model endpoints provides low-latency at scale with minimal endpoint overhead for multiple regions."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "A financial services company observes that their fraud-detection model has high overall accuracy but low recall on high-value transactions. They suspect the model underfits rare, high-value cases. Which of the following evaluation strategies best identifies this issue?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Plot a single ROC curve on the full dataset and inspect AUC",
+      "B": "Compute macro-averaged precision across all transaction values",
+      "C": "Segment the test set by transaction value and compute per-segment recall",
+      "D": "Evaluate overall F1 score without stratification"
+    },
+    "explanation": "Segmenting by transaction value and computing recall highlights underperformance on high-value cases. Overall AUC or aggregated metrics mask segment-specific issues."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "An ML engineer deploys two XGBoost models: a control and a new variant. After 1M predictions, the variant shows a slightly higher latency but 2% higher recall. How should they evaluate if this trade-off is acceptable?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Compare single-sample inference logs for outliers",
+      "B": "Plot precision-recall curves and latency distributions for both variants",
+      "C": "Compute overall accuracy for both and pick model with higher accuracy",
+      "D": "Use confusion matrix of the slower model only"
+    },
+    "explanation": "Precision-recall curves reveal how recall gain trades off against precision, while latency distributions quantify performance cost. Overall accuracy and single-sample latency don\u2019t capture distribution details."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "During hyperparameter tuning of a neural network, SageMaker Debugger reports gradient vanishing in early layers. Which metric or visualization should you use to pinpoint the affected layers?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Plot TensorBoard histograms of weight and gradient distributions per layer",
+      "B": "Inspect model\u2019s overall loss curve only",
+      "C": "Compute validation accuracy after each epoch",
+      "D": "View average prediction confidence on test data"
+    },
+    "explanation": "Layer-wise weight and gradient histograms directly show vanishing or exploding gradients. Loss curves and accuracy trends are too coarse to locate the problem."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "A classification model shows 95% accuracy but customers complain of frequent false positives. Which metric will best capture the operational false-positive rate?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "ROC AUC",
+      "B": "Accuracy",
+      "C": "Macro F1 score",
+      "D": "False positive rate (FP/(FP+TN))"
+    },
+    "explanation": "False positive rate directly measures proportion of non-events incorrectly flagged. Aggregate metrics and AUC do not quantify FP in production terms."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "An ML engineer wants to compare a shadow variant\u2019s performance to production. They have stored logs with predictions and ground truth over a week. What\u2019s the most reproducible approach?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Re-run inference on production endpoint and compute metrics",
+      "B": "Compute metrics in real time on live data",
+      "C": "Use the stored logs to batch calculate identical evaluation metrics for both models",
+      "D": "Use shadow variant accuracy reported in CloudWatch metrics"
+    },
+    "explanation": "Batch calculating evaluation metrics on the same logged data ensures reproducibility. CloudWatch reports may differ in metric definitions, and re-running inference can produce drift."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "After deploying a regression model, business users report that error increases when feature \"loan_amount\" exceeds $100k. Which diagnostic step is most appropriate?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Check overall RMSE",
+      "B": "Plot residuals against loan_amount",
+      "C": "Compute R\u00b2 on training data",
+      "D": "Re-train model without loan_amount"
+    },
+    "explanation": "Residual-vs-feature plots reveal heteroscedasticity or feature-specific error patterns. Overall RMSE or training R\u00b2 mask inequalities across feature ranges."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "SageMaker Clarify indicates a high feature importance contribution from \"zipcode\" in loan approval model. Finance team worries about proxy bias. What evaluation should be done next?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Compute disparity metrics for protected groups defined by zipcode demographics",
+      "B": "Remove zipcode and retrain immediately",
+      "C": "Ignore since importance doesn\u2019t imply bias",
+      "D": "Compute overall feature correlation matrix"
+    },
+    "explanation": "High importance for zipcode may proxy demographic bias; computing disparity metrics for protected groups reveals actual bias. Simply removing the feature may degrade performance without confirming bias."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "A model\u2019s AUC on validation is 0.85 but drops to 0.75 in production. Which step best isolates the cause?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase regularization to reduce overfitting",
+      "B": "Retrain with more epochs",
+      "C": "Change the threshold to match validation TPR",
+      "D": "Compare feature distribution between validation and production using Clarify data drift reports"
+    },
+    "explanation": "Distribution drift analysis identifies covariate changes causing performance drop. Regularization and threshold tuning don\u2019t address data mismatch."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "During batch experiments, an engineer notices that increasing tree depth raises precision but lowers recall. Which plot best illustrates this trade-off?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Precision-recall curve parametrized by depth",
+      "B": "ROC curve at each depth",
+      "C": "Confusion matrix for the deepest tree only",
+      "D": "Histogram of prediction confidences"
+    },
+    "explanation": "Precision-recall curves for each depth show the precision/recall trade-off directly. ROC curves and single-depth confusion matrices do not illuminate that trade dynamically."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "After hyperparameter tuning, two models have identical validation loss but different generalization gaps. Which metric indicates stronger overfitting?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Higher training loss",
+      "B": "Larger difference between training and validation accuracy",
+      "C": "Higher validation AUC",
+      "D": "Lower inference latency"
+    },
+    "explanation": "A large gap between training and validation accuracy indicates overfitting. Validation AUC and latency don\u2019t measure overfitting directly."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "An NLP classification model shows significantly higher F1 for short texts versus long texts. How do you quantify performance disparity?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Overall F1 score",
+      "B": "Word count distribution histogram",
+      "C": "Group test samples by text length bins and compute per-bin F1",
+      "D": "Pearson correlation between length and predicted label"
+    },
+    "explanation": "Bin by text length and compute F1 per bin to quantify disparity. Overall metrics and correlation don\u2019t isolate the problem."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "You need to determine if a drop in model accuracy after a code change is due to random seed variance or genuine performance loss. Which practice ensures reproducibility?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Fix random seed across training, log model parameters, and compare artifacts",
+      "B": "Re-run training with different seeds and average",
+      "C": "Use early stopping to stabilize performance",
+      "D": "Only compare inference results on live data"
+    },
+    "explanation": "Fixing seeds and logging artifacts ensures reproducible runs. Averaging across seeds helps smooth noise but doesn\u2019t isolate change impact."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "An engineer suspects label leakage because a high validation AUC is too good to be true. Which diagnostic will reveal leakage?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase regularization",
+      "B": "Shuffle labels and retrain to observe AUC",
+      "C": "Add more layers",
+      "D": "Compute feature correlations only"
+    },
+    "explanation": "Shuffling labels destroys true signal; if AUC remains high, leakage exists. Feature correlations alone may miss leakage patterns."
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "A deployed model exhibits high memory consumption during inference. Which SageMaker Debugger profiler metric helps pinpoint bottlenecks?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Overall endpoint invocation count",
+      "B": "CloudWatch memory usage graphs",
+      "C": "Inference latencies per request",
+      "D": "Model container\u2019s PeakHostMemoryUsage metric"
+    },
+    "explanation": "PeakHostMemoryUsage from Debugger profiling identifies model container memory peaks. Invocation counts and latency don\u2019t measure memory usage.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "When comparing two regression models, you find one has lower MAE but higher RMSE. What does this indicate?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "The second model has larger outlier errors",
+      "B": "The second model performs better on average",
+      "C": "The first model is overfitting",
+      "D": "The first model has higher variance"
+    },
+    "explanation": "Higher RMSE than MAE implies presence of larger outlier errors, since RMSE penalizes them more. Average performance may be similar.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "You deploy an image classifier and monitor per-class recall. Class A recall drops below SLA overnight. Logs show no data drift. What is your next diagnostic?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase batch size",
+      "B": "Retrain with more epochs",
+      "C": "Analyze inference input distribution for class A by sampling inputs",
+      "D": "Reduce learning rate"
+    },
+    "explanation": "Sampling inputs checks if unexpected inputs are arriving for Class A. No drift in overall features doesn\u2019t guarantee class-specific input change.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "Your model\u2019s production log shows many low-confidence predictions. Which threshold-based method helps maintain production SLA?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use maximum probability per sample as a calibration correction",
+      "B": "Implement a confidence threshold to send low-confidence cases to manual review",
+      "C": "Retrain until all predictions exceed a fixed threshold",
+      "D": "Always return top-2 classes to clients"
+    },
+    "explanation": "A confidence threshold with fallback to manual review maintains SLA. Calibration alone won\u2019t meet SLA guarantees.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "An ML pipeline reruns hyperparameter tuning daily. You want to compare results over time. Which practice aids trend analysis?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Log only best tuning job\u2019s metrics",
+      "B": "Store only final model artifacts",
+      "C": "Compare only today's and yesterday's tuning graphs",
+      "D": "Archive tuning job metrics and hyperparameter configurations in SageMaker Experiments"
+    },
+    "explanation": "SageMaker Experiments archives metrics and configs over time, enabling trend and retrospective analysis. Comparing partial data isn\u2019t sufficient.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "After retraining a model with more data, confusion matrix shows increased FN but decreased FP. Business impact of FNs is higher. How do you adjust the model?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Shift decision threshold to favor recall over precision",
+      "B": "Increase regularization",
+      "C": "Reduce training data size",
+      "D": "Switch to a different algorithm"
+    },
+    "explanation": "Threshold adjustment trades precision and recall bias to reduce FNs, aligning with higher cost of FNs. Algorithm shift or data size changes are heavier-handed.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "SageMaker Clarify reports a DPL (difference in proportions of labels) of 0.12 for a protected group. Which conclusion is correct?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Model is fair, since DPL < 0.2",
+      "B": "There is moderate demographic bias requiring mitigation",
+      "C": "DPL only applies to continuous features",
+      "D": "Bias can be ignored if overall accuracy is high"
+    },
+    "explanation": "DPL of 0.12 indicates non-trivial bias that should be addressed. Fairness thresholds vary, but non-zero DPL warrants mitigation. Accuracy doesn\u2019t nullify bias.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "You need to diagnose why training loss plateaus early. Which combined SageMaker Debugger rule is most helpful?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "LossNotDecreasing and LargeGradient",
+      "B": "VanishingGradient and OverTraining",
+      "C": "LossNotDecreasing and VanishingGradient",
+      "D": "OverTraining and HighThroughput"
+    },
+    "explanation": "LossNotDecreasing flags plateau, VanishingGradient identifies small gradients. Together they pinpoint stalled training due to gradient issues.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "After enabling endpoint data capture, you observe data skew for feature X. Which remediation reduces skew immediately?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Retrain online with captured data",
+      "B": "Increase endpoint instance count",
+      "C": "Switch to a different instance type",
+      "D": "Implement input feature transformation to normalize X at inference"
+    },
+    "explanation": "Applying transformation at inference normalizes skewed feature values immediately. Retraining is longer-term and won\u2019t reduce skew on streaming data.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "Your binary classifier has high variance between folds in cross-validation. What change will most reduce variance?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use ensembles like random forests",
+      "B": "Increase learning rate",
+      "C": "Use fewer features",
+      "D": "Reduce training set size"
+    },
+    "explanation": "Ensembling reduces model variance by averaging multiple learners. Lower LR or fewer features may increase bias. Reducing data increases variance.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "A class-imbalanced dataset yields high recall but poor precision. Which metric-guided tuning step helps restore balance?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase tree depth",
+      "B": "Use mean squared error loss",
+      "C": "Optimize model using precision-recall AUC as objective",
+      "D": "Switch to accuracy objective"
+    },
+    "explanation": "Using PR AUC aligns hyperparameter tuning to both precision and recall on imbalanced data. MSE or accuracy objectives aren\u2019t appropriate for classification imbalance.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "An LSTM model overfits after 10 epochs. You add dropout but performance still degrades. Which debugging step helps find root cause?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase L2 regularization",
+      "B": "Use Debugger\u2019s tensor shape rule to confirm no unintended dimension mismatch causing overfitting",
+      "C": "Increase learning rate",
+      "D": "Reduce batch size"
+    },
+    "explanation": "Tensor shape mismatches can cause incorrect weight updates that appear as overfitting. Debugger shape rules detect such bugs. Regularization alone may mask deeper issues.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "Your model produces inconsistent outputs when served on GPU versus CPU instances. How do you isolate source?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Retrain separately on GPU and CPU",
+      "B": "Enable inference latency metrics",
+      "C": "Use SageMaker Clarify to detect drift",
+      "D": "Run inference deterministically on both environments with same input batch and compare element-wise outputs"
+    },
+    "explanation": "Deterministic inference comparison on CPU vs GPU pinpoints numerical instability or library inconsistency. Drift detection and latency metrics don\u2019t isolate environment differences.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "A regression model\u2019s residuals exhibit non-constant variance. Which transformation corrects this?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Standardize all features",
+      "B": "Apply log transform to the target variable",
+      "C": "Increase polynomial degree of predictors",
+      "D": "Use one-hot encoding for categorical features"
+    },
+    "explanation": "Log-transforming the dependent variable often stabilizes variance (heteroscedasticity). Feature standardization doesn\u2019t address residual variance issues.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "After changing preprocessing, model performance unexpectedly improved in test but dropped in validation. Which practice uncovers this data leakage?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Inspect preprocessing pipelines for operations applied before train-test split",
+      "B": "Increase test set size",
+      "C": "Add more regularization",
+      "D": "Use k-fold CV on original split"
+    },
+    "explanation": "Applying preprocessing (e.g., normalization) before splitting leaks test information. Reviewing pipeline order reveals leakage.\n"
+  },
+  {
+    "taskStatement": "2.3",
+    "stem": "Your model\u2019s precision increases when you add a new feature but recall drops. You need to quantify the net business impact. What analysis should you perform?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Compute new overall F1 score",
+      "B": "Plot ROC curve",
+      "C": "Estimate expected cost change using per-error cost matrix",
+      "D": "Compare AUC-PR before/after"
+    },
+    "explanation": "Cost matrix analysis translates precision/recall changes into business impact. F1 and curves are abstract performance measures without cost context."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "A fintech startup has an image-based document verification model that requires sub-100ms inference latency at the edge. They must deploy the optimized model to ARM-based devices with intermittent connectivity. Which deployment infrastructure best meets these requirements?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Host the model on a SageMaker real-time endpoint in a VPC and use IoT Greengrass to pull predictions.",
+      "B": "Compile the model with SageMaker Neo for ARM, deploy to IoT Greengrass devices for local real-time inference.",
+      "C": "Package the model in a custom Docker container, deploy to AWS Lambda on ARM architecture.",
+      "D": "Use a SageMaker serverless endpoint and cache responses on edge devices."
+    },
+    "explanation": "SageMaker Neo produces highly optimized ARM binaries for local (<100ms) inference. IoT Greengrass ensures offline capability."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "An e-commerce application has a recommendation model that sees large traffic spikes during flash sales. It runs in a private VPC, uses GPU instances, and needs multi-model hosting with auto-scaling. Which architecture is optimal?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deploy separate single-model SageMaker real-time endpoints per model with target-tracking scaling.",
+      "B": "Use a SageMaker serverless endpoint with model registry versioning.",
+      "C": "Containerize models and host on ECS Fargate behind an ALB with custom scaling scripts.",
+      "D": "Use a multi-model SageMaker real-time endpoint in the VPC with provisioned concurrency and auto-scaling policies."
+    },
+    "explanation": "Multi-model endpoint reduces overhead, shares GPU, and auto-scaling in VPC meets spikes."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "A research team needs to batch-process 10 TB of genomic data weekly. They want to minimize cost, use the same container as real-time inference, and avoid idle pods. Which infra is best?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Create a SageMaker asynchronous endpoint with batch transform inside it.",
+      "B": "Deploy models on EKS pods with KNative autoscaling.",
+      "C": "Use SageMaker batch transform jobs with the real-time container and spot instances.",
+      "D": "Host on a long-running ECS Fargate service and schedule container tasks."
+    },
+    "explanation": "Batch transform jobs spin up only for jobs, reuse container, support spot to reduce cost."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "A global SaaS company requires GDPR compliance. Their NLP model must serve EU-only traffic in dedicated subnets and scale on demand. Which deployment solution is most appropriate?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deploy regional SageMaker real-time endpoints in EU-based subnets with endpoint auto scaling.",
+      "B": "Deploy a single SageMaker serverless endpoint and enforce subnet restrictions.",
+      "C": "Host on ECS Fargate in one EU cluster and route all traffic through it.",
+      "D": "Use Lambda functions behind API Gateway with VPC peering to subnets."
+    },
+    "explanation": "Regional real-time endpoints in EU subnets ensure data residency and scalable performance."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "A startup needs to test a new fraud-detection model in production without risking customer impact. They want to route 5% of traffic to the new model, track performance, and easily roll back. Which deployment strategy and infra should they use?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deploy two SageMaker asynchronous endpoints and split payloads manually.",
+      "B": "Use a SageMaker serverless endpoint for the new model and shift DNS entries.",
+      "C": "Deploy the new model to a SageMaker real-time endpoint variant in the same endpoint, configure a canary traffic shift.",
+      "D": "Host the new model in ECS Fargate and use Application Load Balancer weighted routing."
+    },
+    "explanation": "Real-time endpoint variants support canary deployments and easy rollback within the same endpoint."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "An advertising platform has multiple small models (<100MB) that share similar preprocessing code. They need to deploy 50 models, optimize resource utilization, and minimize cost. What is the best approach?",
+    "correct": "D",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Deploy 50 separate real-time SageMaker endpoints.",
+      "B": "Use ECS Fargate and spin up a container per model.",
+      "C": "Bundle all models into one Docker image and host on a single serverless endpoint.",
+      "D": "Use a SageMaker multi-model endpoint with shared container in a single VPC endpoint."
+    },
+    "explanation": "Multi-model endpoints share the container and infra, reducing cost and overhead for many small models."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "A biotech firm must run long-running inference jobs (up to 30 minutes each) that process large data packages. They want predictable scaling and pay-per-use cost. Which SageMaker deployment fits best?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Configure a SageMaker asynchronous inference endpoint with appropriate max payload size.",
+      "B": "Use a SageMaker real-time endpoint and extend Lambda timeouts.",
+      "C": "Submit each job as a batch transform.",
+      "D": "Host it on ECS Fargate with long-running tasks."
+    },
+    "explanation": "Asynchronous endpoints handle long payloads, non-blocking, scale predictably and charge per call."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "A media company needs GPU acceleration for video-related inference but wants to minimize idle GPU costs during off-hours. They can tolerate 1\u20132 second cold start. Which infra is optimal?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Keep a provisioned GPU SageMaker real-time endpoint running with auto-scaling.",
+      "B": "Use SageMaker serverless endpoints configured with GPU support.",
+      "C": "Deploy on ECS Fargate GPU instances with manual scaling schedules.",
+      "D": "Host on Lambda GPU functions behind an ALB."
+    },
+    "explanation": "Serverless endpoints with GPU avoid idle costs and manage cold starts within tolerance."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "An auto manufacturer needs to deploy multiple model versions concurrently for A/B tests, with equal traffic share and easy rollback. They must run in the same VPC. Which infra supports this?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deploy separate ECS services per version behind an ALB.",
+      "B": "Use Lambda versions and aliases in VPC.",
+      "C": "Deploy separate SageMaker serverless endpoints per version.",
+      "D": "Use a SageMaker real-time endpoint with two production variants and traffic weights."
+    },
+    "explanation": "Production variants in one real-time endpoint allow weighted traffic splitting and quick rollback."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "A retailer needs to deploy a recommendation model to handle unpredictable holiday season traffic. They need <50ms latency, GPU inference, and minimal ops overhead. Which solution is best?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Use SageMaker serverless endpoints with GPU acceleration and auto-scaling.",
+      "B": "Deploy a spot-based ECS GPU cluster with custom autoscaler.",
+      "C": "Maintain a provisioned GPU real-time endpoint with scheduled scaling.",
+      "D": "Run inference in Lambda with EFS-mounted model files."
+    },
+    "explanation": "Serverless GPU endpoints auto-scale without manual capacity management and meet latency."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "A healthcare application requires batch scoring of PHI data with encryption at rest and in transit. They want to reuse existing VPC resources and avoid cross-account data movement. Best infra?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "SageMaker serverless endpoint in VPC with data capture.",
+      "B": "Real-time endpoint in VPC with KMS encryption.",
+      "C": "Batch transform jobs configured in the same VPC and encrypted S3.",
+      "D": "ECS Fargate with EFS encryption."
+    },
+    "explanation": "Batch transform in VPC uses S3 encrypted data, no constant endpoint and reuse VPC security."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "A gaming company needs to deploy a scoring model to hundreds of edge kiosks with no always-on internet and limited compute. They need occasional connectivity to sync metrics. Which infra fits?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use a SageMaker real-time endpoint through AWS IoT Core.",
+      "B": "Compile via SageMaker Neo, deploy to Lambda@Edge on Greengrass devices.",
+      "C": "Host containerized model on small EC2 instances at each kiosk.",
+      "D": "Deploy inference code as AWS Lambda functions invoked by MQTT."
+    },
+    "explanation": "Neo-compiled model on Greengrass devices runs locally, syncs periodically over IoT Core."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "A logistics company has a micro-batch inference requirement: group deliveries into sets of 100 and process every 5 minutes. They want minimal latency overhead and no idle endpoints. What infrastructure should they choose?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deploy a real-time endpoint and buffer requests into batches.",
+      "B": "Use serverless endpoint with batched invocation.",
+      "C": "Submit jobs to ECS Fargate tasks scheduled every 5 minutes.",
+      "D": "Configure a SageMaker asynchronous inference endpoint with batching config."
+    },
+    "explanation": "Asynchronous endpoint supports batching and scheduled triggers without idle infra."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "A startup wants to experiment with GPU- and CPU-based inference to compare cost-performance trade-offs. They need a common orchestration tool and seamless model promotion. Which approach is best?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Pipelines to deploy the same model to GPU and CPU real-time endpoints.",
+      "B": "Script deployments in Terraform to provision ECS GPU and CPU clusters.",
+      "C": "Use AWS Batch for GPU and Lambda for CPU inference.",
+      "D": "Manually launch EC2 GPU and CPU instances and copy containers."
+    },
+    "explanation": "SageMaker Pipelines automates deployment steps, tracks versions, and supports multiple compute targets."
+  },
+  {
+    "taskStatement": "3.1",
+    "stem": "A financial modeling team needs to deploy Python-based models that require custom system libraries. They want minimal management and autoscaling. Which deployment target is most appropriate?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deploy as a SageMaker serverless endpoint with layers.",
+      "B": "Use Lambda with custom runtime layer.",
+      "C": "Build a custom Docker container and host on SageMaker real-time endpoint in VPC.",
+      "D": "Use ECS Fargate with code-build pipelines."
+    },
+    "explanation": "Custom container on SageMaker real-time endpoint supports all dependencies, auto-scales, VPC support."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "A data science team wants to automate their ML workflow so that any code commit on the \u2018develop\u2019 branch runs unit tests, data validation, and triggers a SageMaker training pipeline. After successful training, the model should be registered and automatically deployed to a staging endpoint for integration tests, before manual approval pushes to production. Which CI/CD design best meets these requirements?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use CodePipeline with a Source action on GitHub \u2018develop\u2019, CodeBuild to run unit tests and data validation scripts, a CodeBuild action to invoke a SageMaker Pipeline for training, a stage to register the model in the Model Registry, a CloudFormation action to deploy to staging, an integration-test CodeBuild action, followed by a manual approval and a Lambda action to swap the staging endpoint to production.",
+      "B": "Use SageMaker Pipelines with Git integration triggering on \u2018develop\u2019 for training and registration, then use a separate CodePipeline triggered by new Model Registry entries to deploy to staging and run integration tests, with manual approval for production.",
+      "C": "Use CodePipeline with a GitHub source on \u2018develop\u2019, a CodeBuild stage to run unit tests and data quality checks, a SageMaker Pipeline action to train and register the model, a CloudFormation stage to deploy to a staging endpoint, a CodeBuild integration-test stage, then a manual approval stage and a CloudFormation canary-deployment stage for production.",
+      "D": "Use CodeDeploy directly to push code changes to SageMaker endpoints, adding a CodeDeploy pre-deployment hook to run tests and trigger training before deployment."
+    },
+    "explanation": "Option C uses CodePipeline native actions for each stage, integrates SageMaker Pipelines, staging, tests, manual approval, and a canary production deployment with minimal glue code."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "A compliance policy requires monthly retraining of an ML model using new data uploaded to s3://company/data/monthly/ at 1 AM on the first of each month. The workflow must run data quality checks, trigger SageMaker model training, register the model, and send an email if any stage fails. How should you configure this with minimal overhead?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Create an EventBridge scheduled rule that invokes a Lambda function which runs data quality checks, starts a SageMaker training job, registers the model, and publishes to SNS on failure.",
+      "B": "Create an EventBridge scheduled rule to start a CodePipeline at 1 AM monthly. In CodePipeline, add: a Source stage (S3 polling), a CodeBuild stage for data quality checks, a SageMaker Pipeline invoke stage for training and registration, and a CloudWatch Events action to notify via SNS on failure.",
+      "C": "Use SageMaker Pipelines with a Schedule trigger for monthly runs, include DataQualityCheck, Train, Register steps, and configure an SNS Alarm for failed steps.",
+      "D": "Use AWS Batch scheduled on EventBridge to run a container that executes the entire workflow and sends SNS notifications."
+    },
+    "explanation": "Option B leverages EventBridge\u2192CodePipeline schedule, built-in actions (S3 source, CodeBuild, SageMaker Pipeline, SNS) with minimal custom code."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "An organization maintains separate dev and prod AWS accounts. They want a centralized CI/CD in dev that, upon merging to master in CodeCommit, triggers a deployment pipeline in prod account to update the SageMaker endpoint. How should they configure this cross-account pipeline?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "In dev account create a CodePipeline with a CloudFormation action targeting prod account using StackSets.",
+      "B": "Push artifacts from dev S3 bucket to prod S3 bucket, then have a prod pipeline polling that bucket to start deployment.",
+      "C": "Use AWS CodeDeploy cross-account deployments from dev to prod.",
+      "D": "In dev CodePipeline, add an IAM role action with a role ARN in prod account. Grant the dev pipeline role permission in prod to assume that role. In prod, that role\u2019s trust policy allows the dev pipeline service role to assume it and run deployment actions."
+    },
+    "explanation": "Option D correctly uses IAM role assumption to allow a pipeline in one account to execute actions in another account without custom polling."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "A team follows Gitflow: feature/* branches, develop, release/*, and master. They want two pipelines: one for develop that runs tests and staging deployments on merges to develop, and one for production on merges to master. How should they filter source triggers in CodePipeline?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Use two CodePipelines with GitHub source actions configured: one with branch filter pattern '^refs/heads/develop$' and webhooks enabled, the other with '^refs/heads/master$'.",
+      "B": "Use a single pipeline triggered on all branches; in the first stage inspect the branch name and abort if not develop or master.",
+      "C": "Use CloudWatch Events on push events with wildcard branch patterns to start pipelines via Lambda.",
+      "D": "Configure CodePipeline to poll S3 artifacts tagged with branch names to distinguish branches."
+    },
+    "explanation": "Option A uses CodePipeline\u2019s built-in branch filters in source actions to isolate triggers per pipeline."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "A data engineering pipeline produces a delta file in S3 upon completion. You must ensure that your ML CI/CD pipeline ingests this file, validates schema against a baseline, and fails if mismatched, before triggering training. How do you integrate this into CodePipeline?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Have CodePipeline poll the S3 prefix for the delta file and pass it to a Lambda that does schema validation and returns success/fail.",
+      "B": "Trigger CodePipeline with an S3 event notification directly to the pipeline\u2019s StartPipelineExecution API.",
+      "C": "Use an EventBridge rule matching the S3 PutObject event to call StartPipelineExecution, then in CodePipeline add a CodeBuild stage that runs a schema-validation script against the new file and fails on mismatch.",
+      "D": "Use Lambda to copy the file to a Kinesis stream, use a CodePipeline source action on the stream, and a CodeBuild validation stage."
+    },
+    "explanation": "Option C uses EventBridge\u2192CodePipeline to start on S3 writes and uses CodeBuild to validate schema, failing if mismatched."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "Your ML pipeline requires a secret API key available to training jobs at build time. You must not expose the secret in plain text or logs. Which CodePipeline stage configuration meets this requirement?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Store the API key in S3 encrypted with KMS. In CodeBuild, download and decrypt it inside the build script.",
+      "B": "Store the API key in AWS Secrets Manager. In the CodeBuild project definition, set an environment variable that references the Secrets Manager ARN and enable 'Reveal secrets in build logs' to false.",
+      "C": "Hard-code the secret in an encrypted parameter in Systems Manager Parameter Store and pull it during the build.",
+      "D": "Pass the secret as a plaintext environment variable in the CodePipeline action configuration, relying on IAM to protect it."
+    },
+    "explanation": "Option B uses Secrets Manager with environment variables in CodeBuild, ensuring secrets aren\u2019t logged."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "A reloadable data pipeline updates feature data daily. You want to trigger model retraining automatically whenever a new featureset lands in the SageMaker Feature Store. What\u2019s the least\u2010maintenance way to integrate this into your CI/CD pipeline?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Modify your daily ETL job to call the CodePipeline StartPipelineExecution API at its end.",
+      "B": "Use S3 event notifications on the Feature Store underlying S3 bucket to trigger a Lambda that starts the pipeline.",
+      "C": "Add a CloudWatch alarm on Feature Store PutRecord metrics and have it trigger pipeline via SNS.",
+      "D": "Create an EventBridge rule matching the SageMaker Feature Store PutRecord API via CloudTrail, target StartPipelineExecution for your training pipeline."
+    },
+    "explanation": "Option D leverages CloudTrail events in EventBridge to detect new records and start the pipeline with zero custom code in the ETL job."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "You need to implement a canary deployment for a real-time SageMaker endpoint in your pipeline. It must shift 5% traffic to the new model initially, then 50%, then 100%, with automatic rollback on errors. Which combination of actions do you use in CodePipeline?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use CloudFormation deploy action with TYPE=BLUE_GREEN and trafficRoutingConfig CanaryInterval (5%) and CanaryInterval (50%), and a CloudWatch alarm action to auto-rollback.",
+      "B": "Use CodeDeploy with application type 'AWS Lambda' against the SageMaker endpoint and set canaryDeploymentConfig.",
+      "C": "Invoke a Lambda function in each stage to call UpdateEndpointWeightsAndCapacities on the endpoint.",
+      "D": "Use a custom CodeBuild action to call the SageMaker API to shift traffic and monitor latency; if latency rises, call rollback API."
+    },
+    "explanation": "Option A uses CloudFormation blue/green with canary traffic routing and automatic rollback via alarms, requiring no custom code."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "A governance requirement mandates that any pipeline change must be peer-reviewed before execution. You want to enforce code reviews for the buildspec.yaml and pipeline definition in CDK. What CI/CD pattern accomplishes this?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Allow developers to commit directly to main; have a pre-build hook that runs only if PR label 'reviewed' exists.",
+      "B": "Store CDK pipeline code and buildspec in a feature branch, require PR approval in CodeCommit/GitHub, merge only after two approvers, then trigger pipeline on merge to main.",
+      "C": "Use CodeBuild PreBuild commands to validate a 'reviewed-by' tag in Git metadata before proceeding.",
+      "D": "Configure a manual approval action at the start of every pipeline run to verify that PRs were reviewed externally."
+    },
+    "explanation": "Option B leverages standard Git-based code-review gating before code merges and pipeline triggers."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "Your pipeline runs SageMaker training jobs in parallel for hyperparameter tuning. Sometimes runs collide and exceed resource quotas, causing failures. How do you prevent concurrent training executions?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Limit the maximum concurrent CodeBuild builds in the project settings to 1.",
+      "B": "Use a Lambda in your pipeline to list current SageMaker jobs and fail fast if any RUNNING jobs exist.",
+      "C": "Configure the CodePipeline stage for training to use an ActionConfiguration including a custom concurrency token in your state machine so that only one execution at a time proceeds.",
+      "D": "Set the SageMaker training action\u2019s maximum concurrency to 1 in the pipeline definition."
+    },
+    "explanation": "Option C uses a concurrency token to serialize that action\u2019s invocations; CodePipeline supports concurrencyToken to prevent parallel runs."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "You want to include a data-skew check using SageMaker Clarify in your CI/CD before training. Which pipeline stage sequence and actions accomplish this without custom containers?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "After unit tests, add a CodeBuild stage that invokes SageMaker Clarify ProcessingStep via AWS CLI, passing baseline and new dataset; fail build on detected skew.",
+      "B": "Add a custom Docker build to run a Python script that calls Clarify SDK inside CodeBuild.",
+      "C": "Trigger SageMaker Pipelines containing a ClarifyBaselineStep; ingest results via SNS into CodePipeline.",
+      "D": "Use Lambda action in CodePipeline to call Clarify\u2019s API and post results to S3, then have pipeline poll for results."
+    },
+    "explanation": "Option A uses CodeBuild with the AWS CLI to call SageMaker Clarify ProcessingJob, avoiding custom Docker images."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "Your pipeline must run unit tests, then integration tests against a temporary SageMaker endpoint after deployment, and delete the endpoint automatically when tests complete or fail. What do you add?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "A CodeDeploy preTraffic hook to run tests and a postRollback hook to delete the endpoint.",
+      "B": "A Lambda in CodePipeline to run tests and then call DeleteEndpoint.",
+      "C": "A CodeBuild test stage that spins up the endpoint, tests, then calls DeleteEndpoint in the same build.",
+      "D": "Two CodeBuild actions: one for integration tests against the staging endpoint, then one that deletes the endpoint by calling AWS CLI delete-endpoint; add them sequentially and configure failureAction=Abort."
+    },
+    "explanation": "Option D cleanly separates testing and teardown in CodeBuild stages, ensuring teardown always runs after tests if preceding stages succeed."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "A developer accidentally pushed sensitive data to a feature branch. You need to prevent that branch from ever triggering your CI/CD pipeline. How do you modify your pipeline\u2019s source action?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Add a whitelist of allowed branch patterns in the buildspec to abort on unallowed patterns.",
+      "B": "Configure the GitHub source action to include an exclude filter 'refs/heads/feature/sensitive*'.",
+      "C": "Use a Lambda in the source stage to inspect commits and abort if the file pattern matches.",
+      "D": "Add a pre-build CodeBuild action that checks commit history for sensitive files."
+    },
+    "explanation": "Option B uses the source action\u2019s exclude filter to prevent specific branch patterns from triggering the pipeline."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "Your ML pipeline needs to use Spot Instances for cost-saving on training. How do you enable this in your CodePipeline/SageMaker training integration?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "In the SageMaker Pipeline definition YAML, set ResourceConfig.AuxiliarySpotCapacity to the desired percentage and invoke via CodePipeline\u2019s SageMakerPipelineAction.",
+      "B": "Add a CodeBuild stage that runs 'aws sagemaker create-training-job' CLI with --use-spot-instances flag.",
+      "C": "Wrap training in a Lambda function configured with capacityType=SPOT and call it from CodePipeline.",
+      "D": "Switch the CodePipeline action type to AWS Batch and configure Spot in the ComputeEnvironment."
+    },
+    "explanation": "Option A leverages SageMaker Pipelines spot training support via ResourceConfig and CodePipeline\u2019s SageMakerPipelineAction without custom code."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "You need to trigger your CI/CD pipeline whenever a pull request is opened or updated, and only for PRs targeting develop. How is this configured?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Configure CodePipeline Source with GitHub webhook on all PR events and in the build stage inspect the target branch.",
+      "B": "Use EventBridge rule for GitHub PullRequest events filtering on repository name.",
+      "C": "Enable GitHub Pull Request webhooks in the source action and set the targetReference filter to 'refs/heads/develop'.",
+      "D": "Use a Lambda subscriber to GitHub webhooks to call StartPipelineExecution when PR target is develop."
+    },
+    "explanation": "Option C uses the source action\u2019s webhook pull request event support with targetReference filters to limit triggers to PRs against develop."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "Your staging endpoint runs expensive benchmarks as part of integration tests. To avoid excessive cost, you only want to run tests when changes affect inference code. How do you optimize your pipeline?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Cache build artifacts between runs to speed up deployment.",
+      "B": "Use a manual approval before integration tests.",
+      "C": "Use a Lambda pre-check in CodePipeline to compare diff of inference directory and skip tests stage if no changes.",
+      "D": "Split your repository: place inference code in its own folder and configure two pipelines\u2014one that triggers full workflow on inference folder changes (using source filters) and one for other changes."
+    },
+    "explanation": "Option D uses separate pipelines with source filtering to avoid running expensive tests when unrelated code changes."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "Your pipeline fails intermittently at the SageMaker Pipeline invocation stage due to transient throttling errors. How do you make the pipeline more resilient?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Wrap the SageMakerPipelineAction in a CodeBuild action with a retry loop using exponential backoff on throttling errors.",
+      "B": "Increase the service quota for StartPipelineExecution calls.",
+      "C": "Add a manual retry approval stage after the failure.",
+      "D": "Use a Lambda-based custom action that catches throttles and auto-retries once."
+    },
+    "explanation": "Option A uses a CodeBuild wrapper to implement retries with backoff, improving resilience without manual intervention."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "You want your CI/CD pipeline to automatically rollback to the last known good model if performance metrics degrade after deployment. How can you implement this in CodePipeline?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Include a manual approval stage that runs a performance test, and if it fails, manually invoke rollback.",
+      "B": "Use a Lambda in the post-deploy stage to run a test; if metrics below threshold, call UpdateEndpoint to the previous variant.",
+      "C": "Use a CloudWatch alarm on performance metrics to trigger a CodePipeline retrigger of the deploy stage with the previous model via CodeDeploy automatic rollback.",
+      "D": "Publish the previous model as an alias in Model Registry and switch alias in a Lambda action on failure."
+    },
+    "explanation": "Option C ties CloudWatch alarms to CodePipeline\u2019s deploy stage with a configured rollback in CodeDeploy, automating fallback."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "Your team uses GitHub Flow, pushing directly to main and using feature branches only for experiments. They want every merge to main to trigger a full pipeline. But they also use semantic version tags (e.g., v1.2.0) to denote releases. How do you ensure only tag pushes trigger production deployments?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Configure CodePipeline source to only trigger on main branch updates.",
+      "B": "Use two pipelines with GitHub source actions: one listening to refs/tags/v* (for production) and another to refs/heads/main (for tests), and in the production pipeline restrict to tag pattern '^refs/tags/v[0-9]+.*$'.",
+      "C": "Add logic in the build stage to parse GIT_REF and only continue if it\u2019s a tag.",
+      "D": "Use EventBridge pattern matching on GitHub Tag events to start the pipeline."
+    },
+    "explanation": "Option B cleanly separates pipelines by source filters: one triggers on tag pushes for production deployments."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "A pipeline source stage uses AWS CodeCommit. Developers occasionally force-push and rewrite history, causing source metadata mismatches. How do you make the pipeline robust against force pushes?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable polling instead of webhooks in the CodeCommit source action.",
+      "B": "Add a pre-build stage to Git fetch --prune and reset --hard origin/branch.",
+      "C": "Configure the CodePipeline source action to use 'FullClone' fetch method to always get the current tip regardless of history rewrite.",
+      "D": "Disable code commit history rewrite in the repository settings."
+    },
+    "explanation": "Option C uses the FullClone fetch mode so the pipeline always pulls the latest commit independent of history changes."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "You need to integrate model explainability tests into your pipeline: after training, fail the pipeline if any feature attribution for protected classes exceeds a threshold. Which stage should you add?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Add a CodeBuild stage that runs a SageMaker Clarify ModelExplainabilityProcessingJob via AWS CLI with the trained model, parses the results JSON, and exits non-zero if attribution drift exceeds the threshold.",
+      "B": "Invoke a Lambda function in a pipeline action that calls Clarify SDK and uses CloudWatch metrics to decide pass/fail.",
+      "C": "Embed the Clarify step inside the SageMaker Pipeline and then have CodePipeline poll for model registry tags to decide.",
+      "D": "Use a CloudFormation custom resource to run the Clarify job and roll back the stack on failure."
+    },
+    "explanation": "Option A uses CodeBuild to orchestrate Clarify explainability checks, parse results, and enforce pipeline success/failure cleanly."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "A pipeline stage builds and pushes a Docker image to ECR, then a SageMaker training action uses that image. Occasionally, the training job starts before the image is available, causing errors. How do you prevent this race condition?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Add a fixed sleep delay in the training action\u2019s custom script.",
+      "B": "Use an EventBridge rule on ECR image-push to trigger the pipeline second stage.",
+      "C": "Configure CodeBuild to push to a different tag and have training wait on tag propagation.",
+      "D": "Split the build-and-push into one CodeBuild stage that outputs the image URI as an artifact, and configure the next SageMakerPipelineAction to consume that artifact, which enforces sequencing."
+    },
+    "explanation": "Option D uses CodePipeline artifact dependency to guarantee that the training stage does not start until the image has been successfully pushed and the URI passed along."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "Your pipeline\u2019s CodeBuild unit-test stage frequently downloads the entire repository, slowing builds. How do you optimize clone behavior?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Configure the GitHub source action to use 'ShallowClone' with a depth of 1, and enable CodeBuild\u2019s source cache for the repo.",
+      "B": "Use Git LFS to store large binaries outside the repo.",
+      "C": "Split the repo into micro-repos each with its own pipeline.",
+      "D": "Switch the source action to S3 and upload only changed files manually."
+    },
+    "explanation": "Option A combines shallow cloning at the source action with CodeBuild caching to speed up fetch time without repo restructuring."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "A CI/CD pipeline should only deploy models when both unit tests and integration tests pass. However, you need integration tests to run against a live endpoint, which itself requires deployment. How do you model this in CodePipeline?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Run both unit and integration tests in the same CodeBuild action after deployment.",
+      "B": "Chain two separate pipelines: one for tests, one for deployment, and only call the deploy pipeline if tests pass.",
+      "C": "In a single pipeline: Stage1 run unit tests via CodeBuild, Stage2 deploy to staging via CloudFormation, Stage3 run integration tests via CodeBuild, Stage4 manual approval and production deploy.",
+      "D": "Use a SageMaker Pipeline that supports validation steps natively and call it from CodePipeline."
+    },
+    "explanation": "Option C lays out a linear pipeline with distinct stages for unit tests, deployment, integration tests, and production approval."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "You want to notify your team in Slack whenever any pipeline stage fails, including the stage name and error message. How do you configure this?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Attach an SNS topic to pipeline notifications and configure an AWS Chatbot integration for Slack.",
+      "B": "Create a CloudWatch EventBridge rule matching CodePipeline 'Stage Execution Failed' events, target a Lambda that formats the message and posts to Slack via webhook.",
+      "C": "In each CodePipeline stage\u2019s onFailure hook, invoke a Lambda to post to Slack.",
+      "D": "Enable CloudTrail logs for CodePipeline and stream failures to Slack using Log Insights."
+    },
+    "explanation": "Option B uses a single EventBridge rule and a Lambda to capture failure events and send formatted Slack messages, minimizing per-stage configuration."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "An executive insists that production deployments require two separate approvers. How can you enforce this in CodePipeline?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Add two successive ManualApproval actions in the production deployment stage, each assigned to a different user group.",
+      "B": "Configure the ManualApproval action with 'approvalThreshold' set to 2.",
+      "C": "Use IAM policies to require MFA for invoking the production stage.",
+      "D": "Chain two identical manual approval actions but restrict both to the same group."
+    },
+    "explanation": "Option A ensures two distinct approvals by having two manual approval actions in series, each can be assigned to different user sets."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "Your CodePipeline deploys a SageMaker model via CloudFormation. When the deployment fails, the pipeline remains stuck in a FAILED state and you must manually clean up. How do you configure automatic rollback of the CloudFormation stack?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Add a CloudFormation DeleteStack action after the deploy action conditioned on failure.",
+      "B": "Use a Lambda in the onFailure hook to delete the stack.",
+      "C": "Set the CloudFormation action\u2019s 'ActionMode' to CHANGE_SET_REPLACE and 'RollbackOnFailure' parameter to true.",
+      "D": "Wrap the CloudFormation deploy in an AWS Step Functions state machine with a Catch to delete the stack."
+    },
+    "explanation": "Option C leverages CloudFormation action parameters to rollback automatically, avoiding manual cleanup."
+  },
+  {
+    "taskStatement": "3.3",
+    "stem": "You need to run parallel hyperparameter tuning and data quality steps in your pipeline to reduce total runtime. How do you implement parallel actions in CodePipeline?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Create multiple pipelines and start them simultaneously from a Lambda.",
+      "B": "Use SageMaker Pipelines which natively parallelizes steps.",
+      "C": "Run one CodeBuild action that multiplexes both tasks in background processes.",
+      "D": "Define two actions within the same pipeline stage; CodePipeline will execute them in parallel, then proceed only when both succeed."
+    },
+    "explanation": "Option D uses CodePipeline\u2019s support for parallel actions in a single stage to run tasks concurrently."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "An online retailer deploys a real-time inference endpoint for product recommendations. Shortly after launch, they notice that the distribution of a key categorical feature \"user_region\" has shifted, although model accuracy remains within SLA. Which automated monitoring solution should they implement to detect and alert on this feature distribution change with minimal custom coding?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Configure a SageMaker Model Quality Monitor job to check for data drift on \"user_region\" using ground truth labels.",
+      "B": "Use SageMaker Model Monitor DataQuality baselining to establish constraints on \"user_region\" and schedule a drift detection job.",
+      "C": "Deploy SageMaker Clarify to compute SHAP values for \"user_region\" on each inference and alert when feature importance changes.",
+      "D": "Write an AWS Lambda that polls CloudWatch logs, computes a KS test on \"user_region\", and sends SNS alerts."
+    },
+    "explanation": "Model Monitor DataQuality jobs can baseline feature distributions and automatically detect drift with minimal custom code. ModelQualityMonitor requires labels; Clarify focuses on bias/importance rather than raw distribution; a Lambda solution requires more custom work."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A financial institution uses a SageMaker real-time endpoint for credit scoring. They need to monitor inference latency degradation and data schema violations. Which combination of SageMaker features meets both requirements natively?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Configure SageMaker Model Debugger to capture latency and data quality metrics.",
+      "B": "Use CloudWatch Contributor Insights for the endpoint to detect schema violations and latency issues.",
+      "C": "Enable Data Capture on the endpoint and run SageMaker Model Monitor with both DataQuality and ModelQuality checks.",
+      "D": "Deploy AWS X-Ray for latency tracing and AWS Glue Data Quality for schema validation."
+    },
+    "explanation": "Data Capture plus Model Monitor can track payload schema violations via DataQuality checks and latency via custom metrics. Model Debugger focuses on training/debug; Contributor Insights and Glue don\u2019t natively integrate inference monitoring as well."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A company wants to detect concept drift in predicted probabilities of a binary classifier in production in near real-time. They also want to minimize cost. Which monitoring configuration should they choose?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Run a SageMaker Clarify ModelExplainabilityMonitor on each batch of incoming requests.",
+      "B": "Configure an asynchronous SageMaker endpoint with built-in data drift detection.",
+      "C": "Use SageMaker Model Quality Monitor with ground truth labels and a 5-minute schedule.",
+      "D": "Enable Data Capture on the endpoint and schedule a SageMaker Model Monitor DataQuality drift check on predicted score distribution."
+    },
+    "explanation": "Without ground truth, ModelQualityMonitor isn\u2019t applicable. Clarify ExplainabilityMonitor focuses on SHAP. Asynchronous endpoints have no built-in drift. DataQuality drift checks on predictions detect concept drift cost effectively."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "An ML engineer deployed two production variants (A and B) for A/B testing. They need to monitor emerging data skew between the variants for a continuous categorical feature \"device_type\". Which approach best surfaces variant-specific data skew?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Configure two separate Model Monitor DataQuality jobs, each capturing and analyzing \"device_type\" for its variant.",
+      "B": "Use a single Model Monitor DataQuality job that collects data from both variants and uses filters on \"variant_name\".",
+      "C": "Use SageMaker Clarify to detect bias between variants on \"device_type\".",
+      "D": "Aggregate CloudWatch logs across variants and run a post-processing job to compare distributions."
+    },
+    "explanation": "Separate DataQuality jobs allow per-variant baselines and alerts. A single job with filters isn't supported; Clarify is for bias interpretation, not raw skew; log aggregation is more custom work."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "During inference, a regression model returns NaN for target predictions intermittently. Which Model Monitor configuration will automatically detect this anomaly and notify the team?",
+    "correct": "B",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Enable SageMaker Model Debugger to capture NaNs during inference.",
+      "B": "Use Model Monitor DataQuality baseline constraints to flag NaN values in the prediction column.",
+      "C": "Set up Amazon CloudWatch anomaly detection on inference response logs to catch NaNs.",
+      "D": "Configure SageMaker Clarify to test for invalid prediction values."
+    },
+    "explanation": "DataQuality monitors can enforce no-NaN constraints on any column. Debugger focuses on training tensors; CloudWatch anomaly detection requires custom log parsing; Clarify is for bias/explainability."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A language translation model hosted on SageMaker Edge Manager runs on devices with intermittent connectivity. The team needs to detect and report when local input data statistics drift significantly. Which architecture is most appropriate?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Model Monitor DataQuality jobs in the AWS cloud to poll edge logs hourly.",
+      "B": "Install SageMaker Debugger on devices to log input metrics to CloudWatch.",
+      "C": "Embed the SageMaker Edge Manager monitoring SDK on device to emit metrics to AWS IoT, then trigger a Model Monitor drift check in the cloud.",
+      "D": "Deploy AWS Greengrass Lambda functions to run Clarify drift checks locally."
+    },
+    "explanation": "Edge Manager SDK plus IoT ingestion allows capture of local stats; cloud Model Monitor then runs drift. Debugger isn\u2019t for inference; Greengrass + Clarify unsupported; cloud polling logs is inefficient."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "An ML engineer must monitor prediction skew between two ensembles serving the same traffic for anomaly detection. They require automatic, per-minute alerts if the divergence of prediction distributions exceeds a threshold. How should they implement this?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable Data Capture for both ensemble endpoints, schedule two Model Monitor drift checks on predictions with a 1-minute interval, and configure CloudWatch alarms on the job results.",
+      "B": "Run SageMaker Clarify on both ensembles every minute to compute PSI on prediction distributions.",
+      "C": "Write a custom Lambda that pulls logs from both endpoints, computes KS test, and pushes CloudWatch metrics.",
+      "D": "Use CloudWatch Contributor Insights to track prediction distribution per minute."
+    },
+    "explanation": "Two Data Capture + Model Monitor drift checks with CloudWatch alarms automates per-minute divergence alerts. Clarify isn\u2019t for raw distribution drift; custom Lambda is higher overhead; Contributor Insights not suited."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "After deploying a multi-model SageMaker endpoint, a sudden spike in malformed JSON requests is observed. The engineer wants to monitor schema violations per model. Which solution provides the most granular alerts?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Configure a single Model Monitor DataQuality job on the endpoint to catch all schema violations.",
+      "B": "Enable Data Capture and configure a separate DataQuality job per model container with JSON schema constraints.",
+      "C": "Use AWS WAF JSON body inspection rules to log violations to CloudWatch.",
+      "D": "Parse inference logs with CloudWatch Logs Insights and trigger SNS alerts."
+    },
+    "explanation": "Separate DataQuality jobs per model in the multi-model endpoint allow per-container schema checks. A single job cannot differentiate models; WAF and custom log parsing add external complexity."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A streaming inference pipeline uses an asynchronous endpoint. They want to detect if more than 1% of requests take longer than 10 seconds. Which AWS-native feature combination best achieves this?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Model Monitor latency metrics with custom Python script to parse logs.",
+      "B": "Configure AWS X-Ray on the endpoint and set up CloudWatch alarms for trace duration.",
+      "C": "Enable Data Capture and schedule Model Quality Monitor to evaluate latency distribution.",
+      "D": "Enable Data Capture on the endpoint, configure CloudWatch metric filters for invocation duration, and set alarms for >1% above 10s."
+    },
+    "explanation": "Data Capture plus CloudWatch metric filters allow latency distribution monitoring and alarms without custom training jobs. Model Quality Monitor isn\u2019t for latency; X-Ray traces require code hooks."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A healthcare inference service must monitor PII leakage: requests and responses must contain no PHI tokens. The model returns free-form text. Which monitoring approach will detect policy violations?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Model Monitor DataQuality to enforce a regex constraint rejecting PHI patterns in responses.",
+      "B": "Configure AWS WAF with a custom rule to block PHI regex in JSON payload.",
+      "C": "Enable Data Capture, run a scheduled SageMaker Clarify bias check with custom detectors for PHI tokens.",
+      "D": "Write a Lambda for each inference to scan for PHI and generate CloudWatch events."
+    },
+    "explanation": "Clarify allows custom text analyzers via pre-built detectors to detect sensitive tokens. DataQuality regex can catch patterns but is limited; WAF doesn\u2019t inspect model responses; Lambda is higher overhead."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A model predicts customer churn and uses 50 numeric features. They need to detect multivariate drift (covariate shift) across those features. Which monitoring setup is best?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Model Monitor DataQuality with a multilook at a multivariate drift check (using dataset_format=\u201cJSON\u201d with drift_check_categories).",
+      "B": "Configure SageMaker Clarify to compute pairwise SHAP drift metrics for all feature pairs.",
+      "C": "Schedule a batch transform job daily and compare covariance matrices via AWS Glue.",
+      "D": "Write custom Spark on EMR to compute Mahalanobis distance across features."
+    },
+    "explanation": "Model Monitor supports multivariate drift checks during DataQuality monitoring. Clarify focuses on feature importance; batch transform and custom Spark are inefficient and higher overhead."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A retailer serves an image-classification model via SageMaker. They need to detect when the distribution of image size (in bytes) drifts and when inference latency spikes. Which out-of-the-box features should they enable?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Clarify DataBias monitors on image_size and SageMaker Model Debugger for latency.",
+      "B": "Enable Data Capture and schedule Model Monitor DataQuality jobs to track image_size distribution and custom CloudWatch latency metrics.",
+      "C": "Configure a Lambda pre-processor to log image_size and usage of SageMaker Profiler for latency.",
+      "D": "Deploy a Step Functions workflow around the endpoint to log metrics and analyze separately."
+    },
+    "explanation": "Data Capture plus Model Monitor DataQuality tracks input size drift; CloudWatch latency metrics catch spikes. Clarify and Debugger don\u2019t cover both needs; lambda and Step Functions add complexity."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "An enterprise requires that no inference job runs outside their VPC and that monitoring data remains within their private subnet. How can they deploy Model Monitor under these constraints?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable network isolation on Model Monitor jobs.",
+      "B": "Run Model Monitor on a public subnet with NAT gateway to pull data.",
+      "C": "Use VPC endpoints for S3 and CloudWatch and run jobs on public instances.",
+      "D": "Configure Model Monitor Processing Job with VPC configuration in private subnets and use VPC S3 endpoints."
+    },
+    "explanation": "Model Monitor jobs run as SageMaker Processing Jobs and support VPC config. Private subnets plus S3 VPC endpoints ensure data stays in VPC. Network isolation is for training/inference only."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A financial model returns probability scores. The team needs to detect if the median score changes by more than 5% compared to baseline daily. Which feature and configuration accomplish this?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Model Monitor DataQuality drift check on the prediction field with a median tolerance constraint of \u00b15%.",
+      "B": "Schedule a Clarify ModelBiasMonitor job to compute median changes.",
+      "C": "Extract daily predictions to Athena and run SQL analytics to compare medians.",
+      "D": "Enable CloudWatch percentile-based alarms on the endpoint\u2019s inference metric."
+    },
+    "explanation": "DataQuality drift constraints support median checks on numeric fields. Clarify bias monitors aren\u2019t for central tendency; Athena SQL is custom; CloudWatch latency alarms only handle infrastructure metrics."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "To comply with regulations, a bank must audit all inference inputs and outputs and ensure they cannot be modified post-hoc. Which combination of services and features meets this requirement?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable Data Capture to write logs to an encrypted S3 bucket and use ACLs for write-once.",
+      "B": "Use Data Capture to store inputs/outputs in an S3 bucket with S3 Object Lock in Compliance mode and encryption by KMS.",
+      "C": "Configure CloudTrail to log inference API calls and point logs to S3 with versioning.",
+      "D": "Use Athena for logging inputs/outputs and store results in a write-only DynamoDB table."
+    },
+    "explanation": "Data Capture plus S3 Object Lock (Compliance) and KMS encryption provides immutable audit trail. CloudTrail logs API calls but not payloads; ACLs alone don\u2019t enforce write-once."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A data scientist wants to spot-time batch inference data quality issues such as missing values and invalid formats before consuming results. Which approach should they apply?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use SageMaker Clarify to compute bias metrics on batch responses.",
+      "B": "Schedule a CloudWatch Logs Insights query on batch transform logs.",
+      "C": "Run a SageMaker Processing job with Model Monitor DataQuality checks on batch output.",
+      "D": "Validate outputs manually in Jupyter notebooks after batch jobs complete."
+    },
+    "explanation": "Model Monitor Processing jobs can validate batch outputs via DataQuality checks. Clarify is for bias; Logs Insights doesn\u2019t parse output payload; manual validation lacks automation."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "An autonomous driving model processes high-frequence sensor data. They need to detect when any input channel has degraded signal quality (e.g., constant zeros) in real time. Which solution best addresses this?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Model Debugger to capture input tensor anomalies.",
+      "B": "Set up CloudWatch metric filters on inference logs to detect zero-value readings.",
+      "C": "Implement an AWS IoT rule to check sensor message contents for zeros.",
+      "D": "Enable Data Capture on the endpoint, schedule a Model Monitor DataQuality job with custom tolerances for each channel."
+    },
+    "explanation": "Data Capture and DataQuality allow custom numeric constraints per feature. Debugger isn\u2019t for inference; CloudWatch requires custom parsing; IoT rules don\u2019t integrate inference model context."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A model returns a confidence score as a float between 0 and 1. The team must ensure no inference returns a score outside this range. Which monitoring configuration should they use?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Write a custom CloudWatch metric filter on response logs to detect invalid scores.",
+      "B": "Use Model Monitor DataQuality constraints to flag scores <0 or >1.",
+      "C": "Apply SageMaker Clarify to validate output distributions within range.",
+      "D": "Include assertion logic in the inference container to throw errors on invalid values."
+    },
+    "explanation": "DataQuality constraints can enforce numeric ranges on columns. Clarify doesn\u2019t enforce hard constraints; custom filter or container logic increases maintenance."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A marketing model predicts click-through probability and requires monitoring of high skew in the \"campaign_id\" feature usage. Which Service Lens should they use in Model Monitor to inspect this categorical feature?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use the Categorical Lens in SageMaker Model Monitor DataQuality to monitor \"campaign_id\".",
+      "B": "Use the Label Lens in SageMaker Clarify to monitor campaign labeling.",
+      "C": "Use the Numeric Lens in Model Monitor to inspect category counts.",
+      "D": "Use the Bias Lens in Clarify to track category fairness."
+    },
+    "explanation": "The Categorical Lens in Model Monitor DataQuality jobs specializes in tracking categorical feature distribution. Numeric Lens monitors only numeric features; Clarify lenses focus on bias/explainability."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "An engineering team notices that model inference failures often coincide with sudden changes in request payload size. They want to correlate error rate with payload size anomalies. Which approach is simplest?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Upload logs to CloudWatch Logs and manually correlate with payload sizes stored in S3.",
+      "B": "Instrument the container to push custom CloudWatch metrics for payload size and errors.",
+      "C": "Enable Data Capture with custom JSONPath for payload_size and error_code, then run Model Monitor DataQuality job with both fields.",
+      "D": "Use AWS X-Ray annotations to trace payload size and exceptions."
+    },
+    "explanation": "Data Capture with custom JSONPath can extract both payload_size and error_code; DataQuality jobs can detect anomalies and correlations. Container instrumentation or X-Ray require more custom code."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A translation service uses a multi-model endpoint. They need to monitor latency at the container level for each model separately. What\u2019s the most direct AWS-native way?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Configure Model Monitor on the endpoint to track per-model latency.",
+      "B": "Enable per-model invocation logging with Data Capture and use CloudWatch metric filters to calculate latency.",
+      "C": "Deploy a CloudWatch Agent on the endpoint hosts to capture container metrics.",
+      "D": "Use SageMaker Debugger profiling on inference containers."
+    },
+    "explanation": "Data Capture logs invocation metadata per model; CloudWatch logs filters can compute latency per container. Model Monitor and Debugger don\u2019t provide per-container latency; CloudWatch Agent isn\u2019t supported on managed endpoints."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A company must detect malicious adversarial inputs that cause anomalous model outputs. They define an acceptable range for each output. Which monitoring solution enforces this at scale?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Model Monitor DataQuality constraints on the output columns with defined min/max thresholds.",
+      "B": "Deploy a WAF rule inspecting response bodies against known attack signatures.",
+      "C": "Use Clarify Explainability to detect adversarial perturbations.",
+      "D": "Stream inference logs to Lambda for custom anomaly detection."
+    },
+    "explanation": "DataQuality constraint checks on output enforce numeric ranges and can scale. WAF and Clarify aren\u2019t designed for content-based validation; Lambda adds overhead."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "An endpoint serves an NLP model that occasionally returns excessively long generated text (>1000 tokens). They want real-time alerts when this happens. Which setup is most efficient?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Model Monitor to check response length length via DataQuality.",
+      "B": "Run Clarify to measure token counts and alert.",
+      "C": "Enable CloudWatch RUM to capture response sizes.",
+      "D": "Configure Data Capture to extract response_text, set a DataQuality constraint for max token count, and schedule frequent jobs."
+    },
+    "explanation": "Data Capture plus DataQuality constraint handles response length checks. Clarify and RUM unsuited; CloudWatch RUM is for front-end metrics."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A pharmaceutical company must catch silent inference failures where the model returns a default value of 0. They want automated detection. Which AWS feature configuration accomplishes this?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Configure SageMaker Debugger to flag constant zero outputs.",
+      "B": "Use Model Monitor DataQuality constraints to detect when output equals 0 more than a threshold.",
+      "C": "Enable CloudWatch metric filters on logs for zero values and alert.",
+      "D": "Instrument the model container to throw errors on zeros."
+    },
+    "explanation": "DataQuality constraints detect when a column value matches an anomaly pattern. Debugger is for training; logs filtering is custom; container instrumentation has higher overhead."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "To monitor inference drift for streaming predictions without ground truth, which monitor type and category should they choose?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "ModelQualityMonitor with concept drift category.",
+      "B": "Clarify ModelBiasMonitor on predictions.",
+      "C": "Model Monitor DataQuality with drift_check_categories set to \"data\" on the prediction field.",
+      "D": "Clarify ModelExplainabilityMonitor for prediction distribution."
+    },
+    "explanation": "DataQuality monitors support drift_check_categories on arbitrary fields. ModelQualityMonitor requires labels. Clarify focuses on bias/explainability."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A company needs to ensure that feature engineering code doesn\u2019t introduce new features unseen during training. They want to monitor for any new column names in inference payloads. What\u2019s the best strategy?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Use Model Monitor DataQuality with input schema constraints listing allowed column names.",
+      "B": "Implement a Lambda authorizer on API Gateway to validate JSON keys.",
+      "C": "Enable SageMaker Clarify DatasetDriftMonitor on input keys.",
+      "D": "Use AWS Config rules on the SageMaker endpoint inference setting."
+    },
+    "explanation": "DataQuality constraints can enforce allowed input schema. Lambda authorizer works but is outside SageMaker; Clarify and Config aren\u2019t for schema enforcement."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "An ML engineer observes that the distribution of a numerical feature is bimodal in training but has become unimodal in production. They must detect this change automatically. Which Model Monitor configuration handles multimodal distribution drift?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Clarify ModelBiasMonitor to detect distribution shape changes.",
+      "B": "Schedule a batch transform and post-process histograms in Athena.",
+      "C": "Use CloudWatch anomaly detection on the feature metric.",
+      "D": "Configure Model Monitor DataQuality with DistributionLens on the feature and enable drift checks."
+    },
+    "explanation": "DistributionLens in DataQuality monitors supports multiple bins for drift detection. Clarify bias monitors don\u2019t assess raw distribution shape; Athena/CloudWatch require custom coding."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A subscription service uses asynchronous batch endpoints. They need to monitor end-to-end inference job failures and durations. How can they instrument this without modifying model code?",
+    "correct": "C",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Use Model Monitor DataQuality to track batch job status and duration.",
+      "B": "Configure Clarify to track job failures.",
+      "C": "Configure CloudWatch Events on SageMaker BatchTransform job state change and subscribe to SNS.",
+      "D": "Deploy GuardDuty to detect anomalies in batch failures."
+    },
+    "explanation": "CloudWatch Events for job state and duration require no code changes. Model Monitor doesn\u2019t monitor batch job lifecycle; Clarify doesn\u2019t cover jobs; GuardDuty is for security threats."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "An experiment uses shadow deployments: incoming traffic is mirrored to a new model. They want to compare output distributions in near real time and alert if divergence >2%. Which design is simplest?",
+    "correct": "B",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Deploy two DataQuality jobs separately and post-process alerts via Lambda.",
+      "B": "Enable Data Capture on both endpoints, schedule a single DriftsCheck Job that references both datasets as baseline and target.",
+      "C": "Use Clarify to compute PSI between baseline and candidate in near real time.",
+      "D": "Implement a Step Functions workflow to fetch logs and compare distributions."
+    },
+    "explanation": "A single DriftCheck job can accept two datasets as baseline and target. DataQuality jobs per endpoint or Step Functions add complexity; Clarify mismatched purpose."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A biotech startup requires monitoring of model feature importance drift in production. They want to detect if SHAP importance of any feature changes by >10%. Which AWS feature combination achieves this?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Model Monitor DataQuality drift_check on SHAP values.",
+      "B": "Schedule a Model Quality Monitor job with SHAP-based metrics.",
+      "C": "Configure Clarify ModelBiasMonitor with feature_importance thresholds.",
+      "D": "Enable SageMaker Clarify ModelExplainabilityMonitor on the endpoint with max_absolute_shap_change constraint."
+    },
+    "explanation": "Clarify\u2019s ModelExplainabilityMonitor captures SHAP importance drift and supports constraints. DataQuality and ModelQualityMonitoring don\u2019t handle SHAP; ModelBiasMonitor focuses on bias not drift."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A team must implement an alert if any inference job experiences input payload with more than 50 unique categorical feature values. Which approach scales best?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use AWS Config custom rules to inspect payloads.",
+      "B": "Deploy WAF rate-limit rules on JSON body parser.",
+      "C": "Enable Data Capture and configure a Model Monitor DataQuality custom constraint on cardinality >50.",
+      "D": "Run Athena queries on S3 logs and send alerts via Lambda."
+    },
+    "explanation": "DataQuality custom cardinality constraints enforce unique value limits. AWS Config and WAF don\u2019t inspect inference payloads; Athena+Lambda is higher latency."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A model is deprecated but still receives stale requests. The team wants to detect any inference calls to the old endpoint and retire it promptly. Which CloudWatch configuration helps?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Set up a CloudWatch metric filter on SageMakerAPI logs for InvokeEndpointOldModel API and alert.",
+      "B": "Use Model Monitor to detect zero-inference values.",
+      "C": "Configure a Custom Resource in CloudFormation to log invocations.",
+      "D": "Enable SageMaker Clarify to flag calls to old endpoint."
+    },
+    "explanation": "CloudWatch metric filters on API logs for specific endpoint names detect calls. Model Monitor and Clarify aren\u2019t for endpoint invocation detection; custom resource is unnecessary."
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A gaming app uses an ML endpoint that must maintain 95th percentile latency under 200ms. They need to alert if the SLA is broken. Which AWS native setup is recommended?",
+    "correct": "B",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Run Model Monitor with a latency constraint on the endpoint logs.",
+      "B": "Use CloudWatch percentile-based alarms on the AWS/SageMaker metric InferenceLatency.",
+      "C": "Deploy SageMaker Debugger to capture latency tensors.",
+      "D": "Implement a Lambda to sample requests and measure SLA."
+    },
+    "explanation": "CloudWatch percentile-based alarms directly monitor InferenceLatency p95. Model Monitor isn\u2019t designed for latency; Debugger and Lambda require extra work."
   }
 ]
