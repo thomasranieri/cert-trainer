@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import {
-    Alert,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Alert,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { databaseService, QuizActivity } from '../../services/DatabaseService';
 
@@ -89,6 +89,23 @@ const Stats: React.FC = () => {
     });
   };
 
+  const getStatsByTask = () => {
+    // Collect all unique taskStatements from history
+    const tasks = Array.from(new Set(history.map(h => h.taskStatement)));
+    return tasks.map(taskStatement => {
+      const taskQuestions = history.filter(h => h.taskStatement === taskStatement);
+      const correct = taskQuestions.filter(h => h.isCorrect).length;
+      const total = taskQuestions.length;
+      const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+      return {
+        taskStatement,
+        correct,
+        total,
+        percentage,
+      };
+    });
+  };
+
   if (loading) {
     return (
       <SafeAreaView style={styles.container}>
@@ -100,6 +117,7 @@ const Stats: React.FC = () => {
   }
 
   const difficultyStats = getStatsByDifficulty();
+  const taskStats = getStatsByTask();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -141,6 +159,25 @@ const Stats: React.FC = () => {
             </View>
           ))}
         </View>
+
+        {/* Task Breakdown */}
+        {taskStats.length > 0 && (
+          <View style={styles.statsCard}>
+            <Text style={styles.cardTitle}>Performance by Task</Text>
+            {taskStats.map(({ taskStatement, correct, total, percentage }) => (
+              <View key={taskStatement} style={styles.difficultyRow}>
+                <View style={[styles.difficultyBadge, { backgroundColor: '#2196F3' }]}> 
+                  <Text style={styles.difficultyText}>{taskStatement || 'Unknown'}</Text>
+                </View>
+                <View style={styles.difficultyStats}>
+                  <Text style={styles.difficultyStatsText}>
+                    {correct}/{total} ({percentage}%)
+                  </Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        )}
 
         {/* Recent Activity */}
         <View style={styles.statsCard}>
