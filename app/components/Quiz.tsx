@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import {
-    Alert,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Alert,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { databaseService, Question } from '../../services/DatabaseService';
@@ -229,7 +229,8 @@ const Quiz: React.FC = () => {
           <Text style={styles.questionCounter}>
             Question {currentQuestionIndex + 1} of {filteredQuestions.length}
           </Text>
-          <View style={styles.statsContainer}>            <Text style={styles.stats}>
+          <View style={styles.statsContainer}>
+            <Text style={styles.stats}>
               Score: {stats.correct}/{stats.total} ({stats.percentage}%)
             </Text>
           </View>
