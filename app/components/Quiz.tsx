@@ -210,10 +210,10 @@ const Quiz: React.FC = () => {
 
     return styles.answer;
   };
+  console.log(selectedTaskStatement, selectedDifficulty, showResult, showFilters);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {/* Filters */}
         <QuizFilters
           selectedTaskStatement={selectedTaskStatement}
           selectedDifficulty={selectedDifficulty}
@@ -224,7 +224,6 @@ const Quiz: React.FC = () => {
           onToggleVisibility={() => setShowFilters(!showFilters)}
         />
 
-        {/* Header */}
         <View style={styles.header}>
           <Text style={styles.questionCounter}>
             Question {currentQuestionIndex + 1} of {filteredQuestions.length}
@@ -236,7 +235,6 @@ const Quiz: React.FC = () => {
           </View>
         </View>
 
-        {/* Filter Summary */}
         {(selectedTaskStatement || selectedDifficulty) && (
           <View style={styles.filterSummary}>
             <Text style={styles.filterSummaryText}>
@@ -248,7 +246,6 @@ const Quiz: React.FC = () => {
           </View>
         )}
 
-        {/* Question Card */}
         <View style={styles.questionCard}>
           <View style={styles.questionHeader}>
             <Text style={styles.taskStatement}>Task: {currentQuestion.taskStatement}</Text>
@@ -260,7 +257,6 @@ const Quiz: React.FC = () => {
           <Text style={styles.questionText}>{currentQuestion.stem}</Text>
         </View>
 
-        {/* Answer Options */}
         <View style={styles.answersContainer}>
           {Object.entries(currentQuestion.answers).map(([key, value]) => (
             <TouchableOpacity
@@ -274,8 +270,7 @@ const Quiz: React.FC = () => {
             </TouchableOpacity>
           ))}
         </View>
-
-        {/* Result Section */}
+        
         {showResult && (
           <View style={styles.resultContainer}>
             <View style={[styles.resultHeader, { backgroundColor: isCorrect ? '#E8F5E8' : '#FFEBEE' }]}>
@@ -289,7 +284,7 @@ const Quiz: React.FC = () => {
               <Text style={styles.explanationText}>{currentQuestion.explanation}</Text>
             </View>
           </View>
-        )}        {/* Action Buttons */}
+        )}
         <View style={[styles.buttonContainer, { paddingBottom: Math.max(20, insets.bottom + 10) }]}>
           {!showResult ? (
             <TouchableOpacity
