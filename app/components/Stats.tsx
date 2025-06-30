@@ -10,21 +10,27 @@ import {
 } from 'react-native';
 import { databaseService, QuizActivity } from '../../services/DatabaseService';
 
-const Stats: React.FC = () => {
+// Add props for selected exam
+interface StatsProps {
+  selectedExam: string;
+}
+
+// Modify component signature to accept selectedExam
+const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
   const [history, setHistory] = useState<QuizActivity[]>([]);
   const [stats, setStats] = useState({ total: 0, correct: 0, percentage: 0 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [selectedExam]);
 
   const loadData = async () => {
     setLoading(true);
     try {
       const [historyData, statsData] = await Promise.all([
-        databaseService.getQuizHistory(), // TODO: incorporate exam filter when passing it via props or context
-        databaseService.getStats(), // TODO: incorporate exam filter
+        databaseService.getQuizHistory(selectedExam),
+        databaseService.getStats(selectedExam),
       ]);
       setHistory(historyData);
       setStats(statsData);
@@ -42,7 +48,7 @@ const Stats: React.FC = () => {
       [
         { text: 'Cancel', style: 'cancel' },
         { text: 'Clear', style: 'destructive', onPress: async () => {
-            await databaseService.clearHistory(); // TODO: pass exam filter if applicable
+            await databaseService.clearHistory(selectedExam);
             setHistory([]);
             setStats({ total: 0, correct: 0, percentage: 0 });
           },

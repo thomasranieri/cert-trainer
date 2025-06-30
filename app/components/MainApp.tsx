@@ -33,7 +33,7 @@ const MainApp: React.FC = () => {
       case 'quiz':
         return <Quiz selectedExam={selectedExam} onBackToHome={handleBackToHome} />;
       case 'stats':
-        return <Stats />;
+        return <Stats selectedExam={selectedExam} />;
       default:
         return <ExamSelection onExamSelect={handleExamSelect} />;
     }
