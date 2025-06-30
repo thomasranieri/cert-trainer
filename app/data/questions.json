@@ -11316,7 +11316,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A facial recognition model misclassifies certain demographics more often than others. What term describes this issue?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Bias",
       "B": "Variance",
@@ -11512,7 +11512,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A supply-chain model uses past demand to predict next-month orders via linear regression. Which algorithm type is this?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "EASY",
     "answers": {
       "A": "Regression",
       "B": "Classification",
@@ -11554,7 +11554,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A customer service chatbot uses a model that responds within seconds but batches billing analysis nightly. How should you label these two inferencing modes?",
     "correct": "D",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Synchronous and asynchronous inferencing",
       "B": "Online and offline training",
@@ -11708,7 +11708,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A media company needs to convert recorded webinar audio into text transcripts to index content for search. Which AWS service should they choose?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "EASY",
     "answers": {
       "A": "Amazon Transcribe",
       "B": "Amazon Comprehend",
@@ -11736,7 +11736,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A legal firm wants to automatically extract key phrases and entities (like person, organization, date) from large volumes of contracts. Which AWS service should they use?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "EASY",
     "answers": {
       "A": "Amazon Comprehend Entity and Key Phrase Extraction",
       "B": "Amazon Textract Table Extraction",
@@ -12016,7 +12016,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A chatbot needs to answer customer queries by matching to FAQ entries. They require semantic matching rather than keyword matching. Which AWS service/model approach should they use?",
     "correct": "D",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Amazon Lex with keyword slots",
       "B": "Amazon Comprehend sentiment analysis",
@@ -12058,7 +12058,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A legal department wants to determine sentiment trends in case law documents over time and highlight emerging negative topics. Which AWS services should they combine?",
     "correct": "C",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Amazon Textract + Amazon Translate",
       "B": "Amazon Comprehend Key Phrases + Amazon Personalize",
@@ -12128,7 +12128,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A team needs to ensure that feature transformations applied during model training are used identically during real-time inference to avoid training/serving skew. Which AWS service or feature best satisfies this requirement?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Amazon SageMaker Feature Store",
       "B": "AWS Glue DataBrew",
@@ -12142,7 +12142,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "You must orchestrate a repeatable end-to-end ML workflow including data preprocessing, training, evaluation, model registration, and conditional deployment in response to evaluation metrics. Which AWS tool should you choose?",
     "correct": "C",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "AWS Step Functions with custom Lambda tasks",
       "B": "AWS Glue Workflows",
@@ -12156,7 +12156,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A data scientist needs to deploy ten versions of a fraud detection model behind a single endpoint, loading each version only when invoked to minimize memory usage. Which deployment option meets this requirement?",
     "correct": "D",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Provisioned real-time endpoints per model variant",
       "B": "SageMaker serverless endpoint",
@@ -12212,7 +12212,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "When model quality metrics fall below a threshold in production, you need to trigger an automated retraining pipeline. Which architecture best implements this requirement?",
     "correct": "D",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "CloudWatch alarm on endpoint latency to start Lambda",
       "B": "AWS Config rule violation to start SageMaker job",
@@ -12282,7 +12282,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "You plan to fine-tune an open-source transformer model from Hugging Face on SageMaker. Which approach minimizes undifferentiated heavy lifting?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Use SageMaker Hugging Face DLC via Hugging Face integration",
       "B": "Build your own Docker container with Transformers installed",
@@ -12324,7 +12324,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "You want to embed feature-engineering code in a pipeline step, reuse it interactively in Data Wrangler, and version control it. Which approach best satisfies these needs?",
     "correct": "D",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Implement transforms in a Lambda and call from ProcessingStep",
       "B": "Write PySpark in a ProcessingStep directly",
@@ -12380,7 +12380,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "To minimize training cost, you want managed spot training with checkpointing. Which configuration achieves this in SageMaker?",
     "correct": "B",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Set TrainingJobStrategy to \u2018SpotSingleNode\u2019",
       "B": "Enable \u2018ManagedSpotTraining\u2019 and configure checkpoint S3 path",
@@ -12450,7 +12450,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "You need to run a hyperparameter tuning job and automatically compare results across multiple experiments and datasets. Which SageMaker features will you combine?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "SageMaker Hyperparameter TuningJob integrated with Experiments",
       "B": "CloudWatch metrics filtered by TrainingJob name",
@@ -12506,7 +12506,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "You want to integrate fairness and bias detection in your preprocessing and post-training steps within a SageMaker pipeline. Which components should you use in the respective steps?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "ClarifyDataQualityCheck for preprocessing and ClarifyBiasCheck for post-training",
       "B": "ModelMonitor for preprocessing and Clarify for post-training",
@@ -12534,7 +12534,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "In a retrieval-augmented generation system, why is chunking long documents with overlapping windows often preferred over non-overlapping chunks?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Overlapping windows improve continuity across boundaries to prevent missing context.",
       "B": "They reduce total number of chunks, saving storage.",
@@ -12562,7 +12562,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "When comparing two text embeddings for semantic similarity, which metric is most appropriate to mitigate discrepancies in vector magnitude due to token count differences?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Cosine similarity because it normalizes magnitude.",
       "B": "Euclidean distance because it captures absolute distance.",
@@ -12590,7 +12590,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "In transformer-based generative AI, what is the purpose of using a causal attention mask during training?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "To prevent the model from attending to future tokens, enforcing autoregressive generation.",
       "B": "To ensure the model attends equally to all tokens regardless of position.",
@@ -12674,7 +12674,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A developer must choose between Locality-Sensitive Hashing (LSH) and an IVF index in FAISS for embedding retrieval. Which scenario favors LSH?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "EASY",
     "answers": {
       "A": "When memory is extremely limited and approximate retrieval is acceptable.",
       "B": "When exact nearest neighbors are required for high-precision tasks.",
@@ -12884,7 +12884,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "What is the primary memory complexity issue with transformers as sequence length increases?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Self-attention scales quadratically (O(n\u00b2)) with sequence length, limiting long contexts.",
       "B": "Feed-forward layers require O(n\u00b3) memory.",
@@ -12912,7 +12912,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "Why might image embeddings from a CLIP model and text embeddings be stored separately in a mixed-modality application?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "They occupy different subspaces and require modality-specific similarity metrics for retrieval.",
       "B": "Image embeddings cannot be quantized.",
@@ -13024,7 +13024,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A legal firm requires compliance with data residency. They must avoid sending sensitive documents outside their VPC. Which AWS generative AI service meets this requirement?",
     "correct": "D",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Amazon Comprehend via public API",
       "B": "Amazon Lex in multi-region mode",
@@ -13052,7 +13052,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A developer needs to estimate token usage costs for a monthly chatbot workload of 100k prompts at average 200 tokens each request and 800 tokens response. The Bedrock price is $0.0004 per input token and $0.0006 per output token. What\u2019s the monthly token cost?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "100k\u00d7(200\u00d70.0004+800\u00d70.0006) = $68,000",
       "B": "100k\u00d7(200\u00d70.0006+800\u00d70.0004) = $52,000",
@@ -13080,7 +13080,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A company benchmarks two foundation models for product text generation. Model A has lower perplexity but higher latency. Model B has higher perplexity but lower latency. They value efficiency over quality. Which model suits them?",
     "correct": "B",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Model A for its lower perplexity",
       "B": "Model B for its lower latency",
@@ -13094,7 +13094,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A media company needs summarization of streaming audio in near-real-time. They require minimal delay. Which generative AI approach is best?",
     "correct": "C",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Batch transcription then summarization",
       "B": "Use large multimodal model with high accuracy",
@@ -13164,7 +13164,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A firm wants to measure the efficiency of a generative AI summarization pipeline end-to-end. Which metric combination is most appropriate?",
     "correct": "B",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "F1 score and token cost",
       "B": "End-to-end latency and cost per summary",
@@ -13444,7 +13444,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A fintech firm must serve high-throughput generative AI requests with predictable latency and pay per instance. They have capacity to manage underlying GPUs. Which is optimal?",
     "correct": "C",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Amazon Bedrock inference",
       "B": "SageMaker JumpStart serverless endpoint",
@@ -13486,7 +13486,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A marketing agency wants to evaluate costs of large language model inference for budget forecasting. Which AWS feature gives per-token cost estimates for Bedrock usage?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "EASY",
     "answers": {
       "A": "Bedrock pricing console estimator",
       "B": "Cost Explorer Reserved Instances",
@@ -13542,7 +13542,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A retail chain wants to deploy a foundation model across multiple AWS accounts using Infrastructure as Code. Which service integrates best with CloudFormation for generative AI deployments?",
     "correct": "B",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Amazon Q",
       "B": "Amazon Bedrock CloudFormation resource types",
@@ -13612,7 +13612,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A telecom provider must maintain model version lineage and metadata for foundation models they fine-tune. Which AWS capability helps track this?",
     "correct": "C",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "AWS Config rules",
       "B": "CloudTrail for model events",
@@ -13626,7 +13626,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "Your legal team requires redaction of PII in fine-tuning data before uploading to AWS. Which service should you integrate into your generative AI pipeline?",
     "correct": "D",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Amazon Comprehend classification",
       "B": "Amazon Translate PII protection",
@@ -13654,7 +13654,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A research group wants to fine-tune a diffusion model using spot instances to reduce cost. They need managed job retries. Which AWS feature should they use?",
     "correct": "B",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Bedrock fine-tuning with spot",
       "B": "SageMaker training jobs with Managed Spot Training",
@@ -13668,7 +13668,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A compliance requirement mandates deletion of user-specific fine-tuned models upon user withdrawal. Which AWS service can orchestrate model lifecycle including deletion?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "SageMaker Model Registry lifecycle policies",
       "B": "Bedrock model settings",
@@ -13724,7 +13724,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A compliance audit found that generative AI logs were stored alongside customer PII. The team must isolate logs and secure them for tamper proofing. Which approach is recommended?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Send logs to a separate S3 bucket with Object Lock in compliance mode",
       "B": "Store logs in the same bucket but different folder",
@@ -13808,7 +13808,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A fintech company is building a real-time customer support chatbot using a foundation model on Amazon Bedrock. They require end-to-end inference latency under 250 ms per request with acceptable answer quality. Which model selection criterion should they prioritize?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "EASY",
     "answers": {
       "A": "Choose a foundation model with fewer parameters to minimize inference latency, even if domain-specific performance is moderately lower.",
       "B": "Select the largest foundation model available to maximize language coverage, accepting higher latency.",
@@ -13892,7 +13892,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A logistics company must build a multi-step agent to validate addresses, calculate shipping costs, generate labels, and send notifications. They want a low-code orchestration solution. Which AWS feature should they use?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "EASY",
     "answers": {
       "A": "Amazon Bedrock Agents with integrated AWS Step Functions orchestration.",
       "B": "Chain multiple AWS Lambda functions manually.",
@@ -13920,7 +13920,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A global translation service must support 30 languages with low latency. Which model selection strategy balances coverage and performance?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Deploy specialized bilingual models for each language pair to reduce model size and latency.",
       "B": "Use a single large multilingual foundation model for all languages.",
@@ -13976,7 +13976,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "Engineers want more diverse, creative summarizations. Which inference parameter changes achieve this?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Increase both temperature and top_p.",
       "B": "Decrease temperature toward zero.",
@@ -14158,7 +14158,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A chatbot using RAG must control costs by limiting the number of retrievals as well as generated tokens. Which combination of parameters should be adjusted?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Lower the retriever\u2019s k (documents) and set a conservative max_output_tokens.",
       "B": "Increase temperature and top_p.",
@@ -14256,7 +14256,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "You are designing prompts for a customer support chatbot that must interpret rare domain-specific error codes. Which prompt engineering approach most reliably guides the model through multi-step interpretation of an unfamiliar code?",
     "correct": "C",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Use zero-shot prompting with a single instruction to \"explain the code\"",
       "B": "Provide a long template with all known codes and rely on the model to match",
@@ -14284,7 +14284,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "When using few-shot prompting for financial document classification, you notice inconsistent output if you exceed three examples. What is the most likely cause?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Context window saturation leads to model truncation of examples",
       "B": "Too many examples reduce the model\u2019s creativity",
@@ -14368,7 +14368,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "Your generative AI assistant must inject step-by-step debugging suggestions when users report code errors. Which prompt design ensures consistent inclusion of steps?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Template instructing \u201cList steps: 1. Analyze, 2. Identify, 3. Suggest Fixes\u201d with chain-of-thought",
       "B": "Few-shot with two examples only",
@@ -14424,7 +14424,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A hallucination in a product recommendation agent misattributes features. Which prompt tweak most reduces this?",
     "correct": "B",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Increase temperature to refresh knowledge",
       "B": "Use retrieval-augmented generation: fetch feature docs and include in context",
@@ -14452,7 +14452,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "You are defining a template for writing marketing copy. Which template structure yields the most consistent brand tone?",
     "correct": "C",
-    "difficulty": null,
+    "difficulty": "EASY",
     "answers": {
       "A": "Open-ended instruction \u201cWrite copy\u201d",
       "B": "Chain-of-thought with broad guidelines",
@@ -14466,7 +14466,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "To encourage the model to propose multiple alternative solutions rather than a single answer, which setting helps?",
     "correct": "B",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Temperature=0 and beam search",
       "B": "Increase temperature moderately and include \u201cList 3 alternative approaches\u201d in instruction",
@@ -14550,7 +14550,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "You need the model to refuse unsafe code. Which negative prompt is most effective?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "EASY",
     "answers": {
       "A": "\u201cIf request involves unsafe code, reply with \u2018I cannot comply\u2019\u201d within guardrail template",
       "B": "\u201cWrite code\u201d",
@@ -14662,7 +14662,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "Your LLM assistant for legal advice must never provide unauthorized practice of law. Which prompt safety layer is most reliable?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "EASY",
     "answers": {
       "A": "Prepend a system-level instruction: \u201cYou are a legal AI assistant, not a lawyer. Always include \u2018This is not legal advice\u2019 disclaimer.\u201d",
       "B": "Use chain-of-thought to think in law",
@@ -14676,7 +14676,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "A company needs to continuously update a foundation model with their domain-specific unlabeled text data streamed daily. They must retain the model\u2019s broad language capabilities while injecting domain knowledge. Which approach best satisfies this requirement?",
     "correct": "B",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Fine-tune the entire model on the new data each day",
       "B": "Perform continuous pre-training on the domain corpus",
@@ -14774,7 +14774,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "During instruction tuning, a model outputs harmful or toxic responses. Which step should be added to the fine-tuning pipeline to address this?",
     "correct": "D",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Increase training epochs",
       "B": "Remove instruction examples",
@@ -14984,7 +14984,7 @@
     "exam": "AWS Machine Learning - Associate (AIF-C01)",
     "stem": "When continually fine-tuning on new domain data, what practice ensures traceability of model versions?",
     "correct": "A",
-    "difficulty": null,
+    "difficulty": "MEDIUM",
     "answers": {
       "A": "Maintain data and model versioning with a registry",
       "B": "Use single monolithic model file",
