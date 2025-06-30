@@ -6,22 +6,36 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import ExamSelection from './ExamSelection';
 import Quiz from './Quiz';
 import Stats from './Stats';
 
-type Screen = 'quiz' | 'stats';
+type Screen = 'examSelection' | 'quiz' | 'stats';
 
 const MainApp: React.FC = () => {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('quiz');
+  const [currentScreen, setCurrentScreen] = useState<Screen>('examSelection');
+  const [selectedExam, setSelectedExam] = useState<string>('');
+
+  const handleExamSelect = (examName: string) => {
+    setSelectedExam(examName);
+    setCurrentScreen('quiz');
+  };
+
+  const handleBackToHome = () => {
+    setCurrentScreen('examSelection');
+    setSelectedExam('');
+  };
 
   const renderScreen = () => {
     switch (currentScreen) {
+      case 'examSelection':
+        return <ExamSelection onExamSelect={handleExamSelect} />;
       case 'quiz':
-        return <Quiz />;
+        return <Quiz selectedExam={selectedExam} onBackToHome={handleBackToHome} />;
       case 'stats':
         return <Stats />;
       default:
-        return <Quiz />;
+        return <ExamSelection onExamSelect={handleExamSelect} />;
     }
   };
 
@@ -29,41 +43,47 @@ const MainApp: React.FC = () => {
     <SafeAreaView style={styles.container}>
       {/* Navigation Header */}
       <View style={styles.navbar}>
-        <Text style={styles.appTitle}>AWS MLA-C01 Quiz</Text>
-        <View style={styles.navButtons}>
-          <TouchableOpacity
-            style={[
-              styles.navButton,
-              currentScreen === 'quiz' && styles.activeNavButton,
-            ]}
-            onPress={() => setCurrentScreen('quiz')}
-          >
-            <Text
+        <Text style={styles.appTitle}>
+          {currentScreen === 'examSelection'
+            ? 'Cert Trainer'
+            : selectedExam || 'Exam Quiz'}
+        </Text>
+        {currentScreen !== 'examSelection' && (
+          <View style={styles.navButtons}>
+            <TouchableOpacity
               style={[
-                styles.navButtonText,
-                currentScreen === 'quiz' && styles.activeNavButtonText,
+                styles.navButton,
+                currentScreen === 'quiz' && styles.activeNavButton,
               ]}
+              onPress={() => setCurrentScreen('quiz')}
             >
-              Quiz
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.navButton,
-              currentScreen === 'stats' && styles.activeNavButton,
-            ]}
-            onPress={() => setCurrentScreen('stats')}
-          >
-            <Text
+              <Text
+                style={[
+                  styles.navButtonText,
+                  currentScreen === 'quiz' && styles.activeNavButtonText,
+                ]}
+              >
+                Quiz
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
               style={[
-                styles.navButtonText,
-                currentScreen === 'stats' && styles.activeNavButtonText,
+                styles.navButton,
+                currentScreen === 'stats' && styles.activeNavButton,
               ]}
+              onPress={() => setCurrentScreen('stats')}
             >
-              Stats
-            </Text>
-          </TouchableOpacity>
-        </View>
+              <Text
+                style={[
+                  styles.navButtonText,
+                  currentScreen === 'stats' && styles.activeNavButtonText,
+                ]}
+              >
+                Stats
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
 
       {/* Screen Content */}
@@ -81,8 +101,8 @@ const styles = StyleSheet.create({
   },
   navbar: {
     backgroundColor: 'white',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -96,12 +116,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
+    flexShrink: 1,
+    marginRight: 8,
+    textAlign: 'left',
   },
   navButtons: {
     flexDirection: 'row',
     backgroundColor: '#f0f0f0',
     borderRadius: 8,
     padding: 4,
+    borderWidth: 1,
   },
   navButton: {
     paddingHorizontal: 16,

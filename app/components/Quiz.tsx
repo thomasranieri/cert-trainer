@@ -13,10 +13,16 @@ import { databaseService, Question } from '../../services/DatabaseService';
 import questionsData from '../data/questions.json';
 import QuizFilters from './QuizFilters';
 
-const Quiz: React.FC = () => {
+interface QuizProps {
+  selectedExam: string;
+  onBackToHome: () => void;
+}
+
+const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
   const insets = useSafeAreaInsets();
   const [allQuestions] = useState<Question[]>(questionsData as Question[]);
-  const [filteredQuestions, setFilteredQuestions] = useState<Question[]>(questionsData as Question[]);
+  const [examQuestions, setExamQuestions] = useState<Question[]>([]);
+  const [filteredQuestions, setFilteredQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -28,7 +34,7 @@ const Quiz: React.FC = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
     // Get available task statements
-  const availableTaskStatements = [...new Set(allQuestions.map(q => q.taskStatement))].sort();
+  const availableTaskStatements = [...new Set(examQuestions.map(q => q.taskStatement))].sort();
 
   // Function to shuffle array using Fisher-Yates algorithm
   const shuffleArray = <T,>(array: T[]): T[] => {
@@ -44,9 +50,16 @@ const Quiz: React.FC = () => {
     initializeDatabase();
     loadStats();
   }, []);
+
+  // Filter questions by selected exam
+  useEffect(() => {
+    const questionsForExam = allQuestions.filter(q => q.exam === selectedExam);
+    setExamQuestions(questionsForExam);
+  }, [allQuestions, selectedExam]);
+
   // Filter questions based on selected criteria
   useEffect(() => {
-    let filtered = allQuestions;
+    let filtered = examQuestions;
     
     if (selectedTaskStatement) {
       filtered = filtered.filter(q => q.taskStatement === selectedTaskStatement);
@@ -64,14 +77,14 @@ const Quiz: React.FC = () => {
     setSelectedAnswer(null);
     setShowResult(false);
     setIsCorrect(false);
-  }, [selectedTaskStatement, selectedDifficulty, allQuestions]);
+  }, [selectedTaskStatement, selectedDifficulty, examQuestions]);
 
   const initializeDatabase = async () => {
     await databaseService.initialize();
   };
 
   const loadStats = async () => {
-    const currentStats = await databaseService.getStats();
+    const currentStats = await databaseService.getStats(selectedExam);
     setStats(currentStats);
   };
   const currentQuestion = filteredQuestions[currentQuestionIndex];
@@ -145,11 +158,12 @@ const Quiz: React.FC = () => {
     // Save to database
     await databaseService.saveQuizActivity({
       questionIndex: currentQuestionIndex,
+      exam: selectedExam,  // include exam filter
       selectedAnswer,
       correctAnswer: currentQuestion.correct,
       isCorrect: correct,
       timestamp: new Date().toISOString(),
-      difficulty: currentQuestion.difficulty,
+      difficulty: currentQuestion.difficulty || 'MEDIUM',
       taskStatement: currentQuestion.taskStatement,
     });
 
@@ -210,7 +224,6 @@ const Quiz: React.FC = () => {
 
     return styles.answer;
   };
-  console.log(selectedTaskStatement, selectedDifficulty, showResult, showFilters);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
@@ -225,6 +238,9 @@ const Quiz: React.FC = () => {
         />
 
         <View style={styles.header}>
+          <TouchableOpacity style={styles.backButton} onPress={onBackToHome}>
+            <Text style={styles.backButtonText}>← Back to Exams</Text>
+          </TouchableOpacity>
           <Text style={styles.questionCounter}>
             Question {currentQuestionIndex + 1} of {filteredQuestions.length}
           </Text>
@@ -249,8 +265,8 @@ const Quiz: React.FC = () => {
         <View style={styles.questionCard}>
           <View style={styles.questionHeader}>
             <Text style={styles.taskStatement}>Task: {currentQuestion.taskStatement}</Text>
-            <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(currentQuestion.difficulty) }]}>
-              <Text style={styles.difficultyText}>{currentQuestion.difficulty}</Text>
+            <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(currentQuestion.difficulty || 'MEDIUM') }]}>
+              <Text style={styles.difficultyText}>{currentQuestion.difficulty || 'MEDIUM'}</Text>
             </View>
           </View>
           
@@ -323,6 +339,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
+  },
+  backButton: {
+    padding: 8,
+    backgroundColor: '#E3F2FD',
+    borderRadius: 8,
+    marginRight: 12,
+  },
+  backButtonText: {
+    fontSize: 14,
+    color: '#1976D2',
+    fontWeight: '600',
   },
   questionCounter: {
     fontSize: 16,

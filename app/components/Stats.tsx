@@ -23,8 +23,8 @@ const Stats: React.FC = () => {
     setLoading(true);
     try {
       const [historyData, statsData] = await Promise.all([
-        databaseService.getQuizHistory(),
-        databaseService.getStats(),
+        databaseService.getQuizHistory(), // TODO: incorporate exam filter when passing it via props or context
+        databaseService.getStats(), // TODO: incorporate exam filter
       ]);
       setHistory(historyData);
       setStats(statsData);
@@ -41,11 +41,8 @@ const Stats: React.FC = () => {
       'Are you sure you want to clear all quiz history? This action cannot be undone.',
       [
         { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Clear',
-          style: 'destructive',
-          onPress: async () => {
-            await databaseService.clearHistory();
+        { text: 'Clear', style: 'destructive', onPress: async () => {
+            await databaseService.clearHistory(); // TODO: pass exam filter if applicable
             setHistory([]);
             setStats({ total: 0, correct: 0, percentage: 0 });
           },
