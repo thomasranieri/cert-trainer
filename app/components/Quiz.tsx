@@ -1,3 +1,4 @@
+import * as Crypto from 'expo-crypto';
 import React, { useEffect, useState } from 'react';
 import {
   Alert,
@@ -155,6 +156,13 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
     setIsCorrect(correct);
     setShowResult(true);
 
+    console.log(`Selected answer: ${selectedAnswer}`);
+    // Calculate stem hash using Expo Crypto
+    const stemHash = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256,
+      currentQuestion.stem
+    );
+    console.log(`Stem hash: ${stemHash}`);
     // Save to database
     await databaseService.saveQuizActivity({
       questionIndex: currentQuestionIndex,
@@ -165,6 +173,7 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
       timestamp: new Date().toISOString(),
       difficulty: currentQuestion.difficulty || 'MEDIUM',
       taskStatement: currentQuestion.taskStatement,
+      stemHash
     });
 
     // Update stats

@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     borderRadius: 8,
     padding: 4,
-    borderWidth: 1,
   },
   navButton: {
     paddingHorizontal: 16,

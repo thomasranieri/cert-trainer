@@ -20,6 +20,7 @@ export interface Question {
 export interface QuizActivity {
   id?: number;
   questionIndex: number;
+  stemHash: string;
   exam: string;
   selectedAnswer: string;
   correctAnswer: string;
