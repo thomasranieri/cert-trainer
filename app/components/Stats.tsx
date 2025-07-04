@@ -1,6 +1,8 @@
+import * as Crypto from 'expo-crypto';
 import React, { useEffect, useState } from 'react';
 import {
   Alert,
+  Modal,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -8,7 +10,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { databaseService, QuizActivity } from '../../services/DatabaseService';
+import { databaseService, Question, QuizActivity } from '../../services/DatabaseService';
+import questionsData from '../data/questions.json';
 
 // Add props for selected exam
 interface StatsProps {
@@ -20,6 +23,8 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
   const [history, setHistory] = useState<QuizActivity[]>([]);
   const [stats, setStats] = useState({ total: 0, correct: 0, percentage: 0 });
   const [loading, setLoading] = useState(true);
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [selectedQuestionDetail, setSelectedQuestionDetail] = useState<Question | null>(null);
 
   useEffect(() => {
     loadData();
@@ -109,6 +114,20 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
     });
   };
 
+  const handleActivityPress = async (activity: QuizActivity) => {
+    const allQuestions: Question[] = questionsData as Question[];
+    const examQuestions = allQuestions.filter(q => q.exam === selectedExam);
+    for (const q of examQuestions) {
+      const hash = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, q.stem);
+      if (hash === activity.stemHash) {
+        setSelectedQuestionDetail(q);
+        setShowDetailModal(true);
+        return;
+      }
+    }
+    Alert.alert('Question not found', 'Unable to locate full question details.');
+  };
+
   if (loading) {
     return (
       <SafeAreaView style={styles.container}>
@@ -195,12 +214,11 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
               </TouchableOpacity>
             )}
           </View>
-          
           {history.length === 0 ? (
             <Text style={styles.emptyText}>No quiz activity yet. Start practicing to see your progress!</Text>
           ) : (
             history.slice(0, 20).map((activity, index) => (
-              <View key={activity.id || index} style={styles.activityItem}>
+              <TouchableOpacity key={activity.id || index} style={styles.activityItem} onPress={() => handleActivityPress(activity)}>
                 <View style={styles.activityHeader}>
                   <View style={styles.activityInfo}>
                     <View style={[styles.difficultyBadge, styles.smallBadge, { backgroundColor: getDifficultyColor(activity.difficulty) }]}>
@@ -218,10 +236,29 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
                   Selected: {activity.selectedAnswer} | Correct: {activity.correctAnswer}
                 </Text>
                 <Text style={styles.timestampText}>{formatDate(activity.timestamp)}</Text>
-              </View>
+              </TouchableOpacity>
             ))
           )}
         </View>
+        {/* Detail Modal */}
+        {selectedQuestionDetail && (
+          <Modal visible={showDetailModal} animationType="slide" onRequestClose={() => setShowDetailModal(false)}>
+            <SafeAreaView style={styles.modalContainer}>
+              <ScrollView contentContainerStyle={styles.modalContent} showsVerticalScrollIndicator={false}>
+                <Text style={styles.modalTitle}>Question Detail</Text>
+                <Text style={styles.modalStem}>{selectedQuestionDetail.stem}</Text>
+                {Object.entries(selectedQuestionDetail.answers).map(([key, value]) => (
+                  <Text key={key} style={styles.modalAnswer}>{key}. {value}</Text>
+                ))}
+                <Text style={styles.modalExplanationTitle}>Explanation:</Text>
+                <Text style={styles.modalExplanation}>{selectedQuestionDetail.explanation}</Text>
+                <TouchableOpacity style={styles.modalCloseButton} onPress={() => setShowDetailModal(false)}>
+                  <Text style={styles.modalCloseButtonText}>Close</Text>
+                </TouchableOpacity>
+              </ScrollView>
+            </SafeAreaView>
+          </Modal>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -375,6 +412,54 @@ const styles = StyleSheet.create({
   timestampText: {
     fontSize: 12,
     color: '#999',
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  modalContent: {
+    padding: 20,
+    paddingBottom: 40,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 16,
+  },
+  modalStem: {
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 12,
+  },
+  modalAnswer: {
+    fontSize: 14,
+    color: '#333',
+    marginBottom: 8,
+  },
+  modalExplanationTitle: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#333',
+    marginTop: 12,
+    marginBottom: 4,
+  },
+  modalExplanation: {
+    fontSize: 14,
+    color: '#333',
+    marginBottom: 16,
+  },
+  modalCloseButton: {
+    backgroundColor: '#2196F3',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    alignSelf: 'flex-end',
+  },
+  modalCloseButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '600',
   },
 });
 
