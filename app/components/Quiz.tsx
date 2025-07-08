@@ -247,9 +247,6 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
         />
 
         <View style={styles.header}>
-          <TouchableOpacity style={styles.backButton} onPress={onBackToHome}>
-            <Text style={styles.backButtonText}>← Back to Exams</Text>
-          </TouchableOpacity>
           <Text style={styles.questionCounter}>
             Question {currentQuestionIndex + 1} of {filteredQuestions.length}
           </Text>

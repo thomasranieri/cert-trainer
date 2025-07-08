@@ -7,7 +7,7 @@ export default function Index() {
   const router = useRouter();
   return (
     <View style={styles.container}>
-      <ExamSelection onExamSelect={(examName) => router.push(`/quiz?exam=${examName}`)} />
+      <ExamSelection  />
     </View>
   );
 }

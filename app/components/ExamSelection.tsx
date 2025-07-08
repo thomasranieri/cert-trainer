@@ -1,20 +1,17 @@
+import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { Question } from '../../services/DatabaseService';
 import questionsData from '../data/questions.json';
 
-interface ExamSelectionProps {
-  onExamSelect: (examName: string) => void;
-}
-
-const ExamSelection: React.FC<ExamSelectionProps> = ({ onExamSelect }) => {
+const ExamSelection: React.FC = () => {
   const [availableExams, setAvailableExams] = useState<{ name: string; count: number }[]>([]);
 
   useEffect(() => {
@@ -40,7 +37,7 @@ const ExamSelection: React.FC<ExamSelectionProps> = ({ onExamSelect }) => {
     <TouchableOpacity
       key={exam.name}
       style={styles.examCard}
-      onPress={() => onExamSelect(exam.name)}
+      onPress={() => router.push(`/quiz?exam=${exam.name}`)}
     >
       <Text style={styles.examTitle}>{exam.name}</Text>
       <Text style={styles.examCount}>{exam.count} questions</Text>
