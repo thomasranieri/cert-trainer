@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useRouter, useSearchParams } from 'expo-router';
+import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -6,61 +7,37 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import ExamSelection from './ExamSelection';
-import Quiz from './Quiz';
-import Stats from './Stats';
-
-type Screen = 'examSelection' | 'quiz' | 'stats';
 
 const MainApp: React.FC = () => {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('examSelection');
-  const [selectedExam, setSelectedExam] = useState<string>('');
+  const router = useRouter();
+  const { exam } = useSearchParams<{ exam?: string }>();
+  const selectedExam = exam ?? '';
 
   const handleExamSelect = (examName: string) => {
-    setSelectedExam(examName);
-    setCurrentScreen('quiz');
+    router.push({ pathname: '/quiz', params: { exam: examName } });
   };
 
-  const handleBackToHome = () => {
-    setCurrentScreen('examSelection');
-    setSelectedExam('');
-  };
-
-  const renderScreen = () => {
-    switch (currentScreen) {
-      case 'examSelection':
-        return <ExamSelection onExamSelect={handleExamSelect} />;
-      case 'quiz':
-        return <Quiz selectedExam={selectedExam} onBackToHome={handleBackToHome} />;
-      case 'stats':
-        return <Stats selectedExam={selectedExam} />;
-      default:
-        return <ExamSelection onExamSelect={handleExamSelect} />;
-    }
-  };
+  const handleBackToHome = () => router.push('/');
 
   return (
     <SafeAreaView style={styles.container}>
       {/* Navigation Header */}
       <View style={styles.navbar}>
-        <Text style={styles.appTitle}>
-          {currentScreen === 'examSelection'
-            ? 'Cert Trainer'
-            : selectedExam || 'Exam Quiz'}
-        </Text>
-        {currentScreen !== 'examSelection' && (
+        <Text style={styles.appTitle}>{selectedExam || 'Cert Trainer'}</Text>
+        { /* Only show tabs on quiz or stats pages */ }
+        {selectedExam !== '' && (
           <View style={styles.navButtons}>
             <TouchableOpacity
               style={[
                 styles.navButton,
-                currentScreen === 'quiz' && styles.activeNavButton,
+                router.pathname.startsWith('/quiz') && styles.activeNavButton,
               ]}
-              onPress={() => setCurrentScreen('quiz')}
+              onPress={() => router.push('/quiz?exam=' + selectedExam)}
             >
               <Text
                 style={[
                   styles.navButtonText,
-                  currentScreen === 'quiz' && styles.activeNavButtonText,
+                  router.pathname.startsWith('/quiz') && styles.activeNavButtonText,
                 ]}
               >
                 Quiz
@@ -69,14 +46,14 @@ const MainApp: React.FC = () => {
             <TouchableOpacity
               style={[
                 styles.navButton,
-                currentScreen === 'stats' && styles.activeNavButton,
+                router.pathname.startsWith('/stats') && styles.activeNavButton,
               ]}
-              onPress={() => setCurrentScreen('stats')}
+              onPress={() => router.push('/stats?exam=' + selectedExam)}
             >
               <Text
                 style={[
                   styles.navButtonText,
-                  currentScreen === 'stats' && styles.activeNavButtonText,
+                  router.pathname.startsWith('/stats') && styles.activeNavButtonText,
                 ]}
               >
                 Stats
@@ -88,7 +65,8 @@ const MainApp: React.FC = () => {
 
       {/* Screen Content */}
       <View style={styles.screenContainer}>
-        {renderScreen()}
+        {/* Nested routes will render here via router outlet */}
+        {/* In expo-router, pages are separate files; this component remains layout header only */}
       </View>
     </SafeAreaView>
   );
