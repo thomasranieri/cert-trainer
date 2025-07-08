@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Quiz from './components/Quiz';
@@ -8,16 +8,16 @@ type Params = { exam?: string };
 export default function QuizPage() {
   const router = useRouter();
   const { exam } = useLocalSearchParams<Params>();
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Navigation Header */}
       <View style={styles.navbar}>
         <Text style={styles.appTitle}>{exam || 'Quiz'}</Text>
         <View style={styles.navButtons}>
           <TouchableOpacity
             style={[styles.navButton, styles.activeNavButton]}
-            onPress={() => router.push(`/quiz?exam=${exam}`)}
+            onPress={() => router.replace(`/quiz?exam=${exam}`)}
           >
             <Text style={[styles.navButtonText, styles.activeNavButtonText]}>
               Quiz
@@ -25,7 +25,7 @@ export default function QuizPage() {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.navButton}
-            onPress={() => router.push(`/stats?exam=${exam}`)}
+            onPress={() => router.replace(`/stats?exam=${exam}`)}
           >
             <Text style={styles.navButtonText}>
               Stats

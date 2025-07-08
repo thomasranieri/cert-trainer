@@ -17,7 +17,7 @@ export default function StatsPage() {
         <View style={styles.navButtons}>
           <TouchableOpacity
             style={styles.navButton}
-            onPress={() => router.push(`/quiz?exam=${exam}`)}
+            onPress={() => router.replace(`/quiz?exam=${exam}`)}
           >
             <Text style={styles.navButtonText}>
               Quiz
@@ -25,7 +25,7 @@ export default function StatsPage() {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.navButton, styles.activeNavButton]}
-            onPress={() => router.push(`/stats?exam=${exam}`)}
+            onPress={() => router.replace(`/stats?exam=${exam}`)}
           >
             <Text style={[styles.navButtonText, styles.activeNavButtonText]}>
               Stats
