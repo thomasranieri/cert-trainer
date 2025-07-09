@@ -28,14 +28,14 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [stats, setStats] = useState({ total: 0, correct: 0, percentage: 0 });
-  
+
   // Filter states
   const [selectedTaskStatement, setSelectedTaskStatement] = useState<string | null>(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
   const [selectedQuestionType, setSelectedQuestionType] = useState<'all' | 'unseen' | null>('all');
   const [showFilters, setShowFilters] = useState(false);
   const [seenQuestionHashes, setSeenQuestionHashes] = useState<Set<string>>(new Set());
-    // Get available task statements
+  // Get available task statements
   const availableTaskStatements = [...new Set(examQuestions.map(q => q.taskStatement))].sort();
 
   // Function to shuffle array using Fisher-Yates algorithm
@@ -63,11 +63,11 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
   // Filter questions based on selected criteria
   useEffect(() => {
     let filtered = examQuestions;
-    
+
     if (selectedTaskStatement) {
       filtered = filtered.filter(q => q.taskStatement === selectedTaskStatement);
     }
-    
+
     if (selectedDifficulty) {
       filtered = filtered.filter(q => q.difficulty === selectedDifficulty);
     }
@@ -75,10 +75,10 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
     if (selectedQuestionType === 'unseen') {
       filtered = filtered.filter(q => q.id !== undefined && !seenQuestionHashes.has(q.id));
     }
-    
+
     // Shuffle the filtered questions to display them in random order
     const shuffledFiltered = shuffleArray(filtered);
-    
+
     setFilteredQuestions(shuffledFiltered);
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
@@ -100,6 +100,11 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
     const seenIds = new Set(history.map(activity => activity.questionId));
     setSeenQuestionHashes(seenIds);
   };
+
+  const openAIExplanation = () => {
+    window.open(`https://chatgpt.com/?q=${encodeURIComponent(`Explain the answer to the question: ${filteredQuestions[currentQuestionIndex].stem} with options ${JSON.stringify(filteredQuestions[currentQuestionIndex].answers)}`)}`);
+  }
+
   const currentQuestion = filteredQuestions[currentQuestionIndex];
 
   // Handle case when no questions match the filter
@@ -287,7 +292,7 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
               <Text style={styles.difficultyText}>{currentQuestion.difficulty || 'MEDIUM'}</Text>
             </View>
           </View>
-          
+
           <Text style={styles.questionText}>{currentQuestion.stem}</Text>
         </View>
 
@@ -304,7 +309,7 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
             </TouchableOpacity>
           ))}
         </View>
-        
+
         {showResult && (
           <View style={styles.resultContainer}>
             <View style={[styles.resultHeader, { backgroundColor: isCorrect ? '#E8F5E8' : '#FFEBEE' }]}>
@@ -312,7 +317,7 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
                 {isCorrect ? '✓ Correct!' : '✗ Incorrect'}
               </Text>
             </View>
-            
+
             <View style={styles.explanationContainer}>
               <Text style={styles.explanationTitle}>Explanation:</Text>
               <Text style={styles.explanationText}>{currentQuestion.explanation}</Text>
@@ -328,14 +333,22 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
               <Text style={styles.buttonText}>Submit Answer</Text>
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity
-              style={[styles.button, styles.nextButton]}
-              onPress={handleNextQuestion}
-            >
-              <Text style={styles.buttonText}>
-                {currentQuestionIndex < filteredQuestions.length - 1 ? 'Next Question' : 'Complete Quiz'}
-              </Text>
-            </TouchableOpacity>
+            <>
+              <TouchableOpacity
+                style={[styles.button, styles.nextButton]}
+                onPress={handleNextQuestion}
+              >
+                <Text style={styles.buttonText}>
+                  {currentQuestionIndex < filteredQuestions.length - 1 ? 'Next Question' : 'Complete Quiz'}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={openAIExplanation}
+              >
+                <Text style={[styles.button]}>Further Explanation</Text>
+              </TouchableOpacity>
+            </>
           )}
         </View>
       </ScrollView>
@@ -532,7 +545,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 22,
     color: '#555',
-  },  buttonContainer: {
+  }, buttonContainer: {
     marginBottom: 40,
   },
   button: {
@@ -550,7 +563,8 @@ const styles = StyleSheet.create({
   },
   nextButton: {
     backgroundColor: '#4CAF50',
-  },  buttonText: {
+  },
+  buttonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
@@ -566,7 +580,7 @@ const styles = StyleSheet.create({
     color: '#666',
     textAlign: 'center',
     marginBottom: 8,
-  },  noQuestionsSubtext: {
+  }, noQuestionsSubtext: {
     fontSize: 14,
     color: '#999',
     textAlign: 'center',
