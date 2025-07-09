@@ -1,4 +1,3 @@
-import * as Crypto from 'expo-crypto';
 import React, { useEffect, useState } from 'react';
 import {
   Alert,
@@ -118,8 +117,7 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
     const allQuestions: Question[] = questionsData as Question[];
     const examQuestions = allQuestions.filter(q => q.exam === selectedExam);
     for (const q of examQuestions) {
-      const hash = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, q.stem);
-      if (hash === activity.stemHash) {
+      if (q.id === activity.questionId) {
         setSelectedQuestionDetail(q);
         setShowDetailModal(true);
         return;
@@ -218,7 +216,7 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
             <Text style={styles.emptyText}>No quiz activity yet. Start practicing to see your progress!</Text>
           ) : (
             history.slice(0, 20).map((activity, index) => (
-              <TouchableOpacity key={activity.id || index} style={styles.activityItem} onPress={() => handleActivityPress(activity)}>
+              <TouchableOpacity key={activity.questionId || index} style={styles.activityItem} onPress={() => handleActivityPress(activity)}>
                 <View style={styles.activityHeader}>
                   <View style={styles.activityInfo}>
                     <View style={[styles.difficultyBadge, styles.smallBadge, { backgroundColor: getDifficultyColor(activity.difficulty) }]}>

@@ -9,8 +9,10 @@ import {
 interface QuizFiltersProps {
   selectedTaskStatement: string | null;
   selectedDifficulty: string | null;
+  selectedQuestionType: 'all' | 'unseen' | null;
   onTaskStatementChange: (taskStatement: string | null) => void;
   onDifficultyChange: (difficulty: string | null) => void;
+  onQuestionTypeChange: (questionType: 'all' | 'unseen' | null) => void;
   availableTaskStatements: string[];
   isVisible: boolean;
   onToggleVisibility: () => void;
@@ -19,8 +21,10 @@ interface QuizFiltersProps {
 const QuizFilters: React.FC<QuizFiltersProps> = ({
   selectedTaskStatement,
   selectedDifficulty,
+  selectedQuestionType,
   onTaskStatementChange,
   onDifficultyChange,
+  onQuestionTypeChange,
   availableTaskStatements,
   isVisible,
   onToggleVisibility,
@@ -101,6 +105,29 @@ const QuizFilters: React.FC<QuizFiltersProps> = ({
                   </Text>
                 </TouchableOpacity>
               ))}
+            </View>
+          </View>
+
+          {/* Question Type Filter */}
+          <View style={styles.filterSection}>
+            <Text style={styles.filterTitle}>Question Type:</Text>
+            <View style={styles.filterOptions}>
+              <TouchableOpacity
+                style={getFilterButtonStyle(selectedQuestionType === null || selectedQuestionType === 'all')}
+                onPress={() => onQuestionTypeChange('all')}
+              >
+                <Text style={getFilterTextStyle(selectedQuestionType === null || selectedQuestionType === 'all')}>
+                  All Questions
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={getFilterButtonStyle(selectedQuestionType === 'unseen')}
+                onPress={() => onQuestionTypeChange('unseen')}
+              >
+                <Text style={getFilterTextStyle(selectedQuestionType === 'unseen')}>
+                  Unseen Questions
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

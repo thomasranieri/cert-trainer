@@ -1,4 +1,3 @@
-import * as Crypto from 'expo-crypto';
 import React, { useEffect, useState } from 'react';
 import {
   Alert,
@@ -33,7 +32,9 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
   // Filter states
   const [selectedTaskStatement, setSelectedTaskStatement] = useState<string | null>(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
+  const [selectedQuestionType, setSelectedQuestionType] = useState<'all' | 'unseen' | null>('all');
   const [showFilters, setShowFilters] = useState(false);
+  const [seenQuestionHashes, setSeenQuestionHashes] = useState<Set<string>>(new Set());
     // Get available task statements
   const availableTaskStatements = [...new Set(examQuestions.map(q => q.taskStatement))].sort();
 
@@ -50,6 +51,7 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
   useEffect(() => {
     initializeDatabase();
     loadStats();
+    loadSeenQuestions();
   }, []);
 
   // Filter questions by selected exam
@@ -69,6 +71,10 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
     if (selectedDifficulty) {
       filtered = filtered.filter(q => q.difficulty === selectedDifficulty);
     }
+
+    if (selectedQuestionType === 'unseen') {
+      filtered = filtered.filter(q => q.id !== undefined && !seenQuestionHashes.has(q.id));
+    }
     
     // Shuffle the filtered questions to display them in random order
     const shuffledFiltered = shuffleArray(filtered);
@@ -78,7 +84,7 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
     setSelectedAnswer(null);
     setShowResult(false);
     setIsCorrect(false);
-  }, [selectedTaskStatement, selectedDifficulty, examQuestions]);
+  }, [selectedTaskStatement, selectedDifficulty, selectedQuestionType, examQuestions, seenQuestionHashes]);
 
   const initializeDatabase = async () => {
     await databaseService.initialize();
@@ -87,6 +93,12 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
   const loadStats = async () => {
     const currentStats = await databaseService.getStats(selectedExam);
     setStats(currentStats);
+  };
+
+  const loadSeenQuestions = async () => {
+    const history = await databaseService.getQuizHistory(selectedExam);
+    const seenIds = new Set(history.map(activity => activity.questionId));
+    setSeenQuestionHashes(seenIds);
   };
   const currentQuestion = filteredQuestions[currentQuestionIndex];
 
@@ -98,8 +110,10 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
           <QuizFilters
             selectedTaskStatement={selectedTaskStatement}
             selectedDifficulty={selectedDifficulty}
+            selectedQuestionType={selectedQuestionType}
             onTaskStatementChange={setSelectedTaskStatement}
             onDifficultyChange={setSelectedDifficulty}
+            onQuestionTypeChange={setSelectedQuestionType}
             availableTaskStatements={availableTaskStatements}
             isVisible={showFilters}
             onToggleVisibility={() => setShowFilters(!showFilters)}
@@ -125,8 +139,10 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
           <QuizFilters
             selectedTaskStatement={selectedTaskStatement}
             selectedDifficulty={selectedDifficulty}
+            selectedQuestionType={selectedQuestionType}
             onTaskStatementChange={setSelectedTaskStatement}
             onDifficultyChange={setSelectedDifficulty}
+            onQuestionTypeChange={setSelectedQuestionType}
             availableTaskStatements={availableTaskStatements}
             isVisible={showFilters}
             onToggleVisibility={() => setShowFilters(!showFilters)}
@@ -156,13 +172,6 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
     setIsCorrect(correct);
     setShowResult(true);
 
-    console.log(`Selected answer: ${selectedAnswer}`);
-    // Calculate stem hash using Expo Crypto
-    const stemHash = await Crypto.digestStringAsync(
-      Crypto.CryptoDigestAlgorithm.SHA256,
-      currentQuestion.stem
-    );
-    console.log(`Stem hash: ${stemHash}`);
     // Save to database
     await databaseService.saveQuizActivity({
       questionIndex: currentQuestionIndex,
@@ -173,7 +182,7 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
       timestamp: new Date().toISOString(),
       difficulty: currentQuestion.difficulty || 'MEDIUM',
       taskStatement: currentQuestion.taskStatement,
-      stemHash
+      questionId: currentQuestion.id || 'UNKNOWN'
     });
 
     // Update stats
@@ -239,8 +248,10 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
         <QuizFilters
           selectedTaskStatement={selectedTaskStatement}
           selectedDifficulty={selectedDifficulty}
+          selectedQuestionType={selectedQuestionType}
           onTaskStatementChange={setSelectedTaskStatement}
           onDifficultyChange={setSelectedDifficulty}
+          onQuestionTypeChange={setSelectedQuestionType}
           availableTaskStatements={availableTaskStatements}
           isVisible={showFilters}
           onToggleVisibility={() => setShowFilters(!showFilters)}
@@ -257,12 +268,13 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
           </View>
         </View>
 
-        {(selectedTaskStatement || selectedDifficulty) && (
+        {(selectedTaskStatement || selectedDifficulty || selectedQuestionType === 'unseen') && (
           <View style={styles.filterSummary}>
             <Text style={styles.filterSummaryText}>
               Filters: {[
                 selectedTaskStatement ? `Task ${selectedTaskStatement}` : null,
-                selectedDifficulty ? selectedDifficulty : null
+                selectedDifficulty ? selectedDifficulty : null,
+                selectedQuestionType === 'unseen' ? 'Unseen Questions' : null
               ].filter(Boolean).join(', ')}
             </Text>
           </View>

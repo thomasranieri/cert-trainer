@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Entire service now uses AsyncStorage only
 
 export interface Question {
+  id?: string;
   taskStatement: string;
   exam?: string;
   stem: string;
@@ -18,9 +19,8 @@ export interface Question {
 }
 
 export interface QuizActivity {
-  id?: number;
+  questionId: string;
   questionIndex: number;
-  stemHash: string;
   exam: string;
   selectedAnswer: string;
   correctAnswer: string;
@@ -38,11 +38,11 @@ class DatabaseService {
 
   // Data is stored as JSON array under key
 
-  async saveQuizActivity(activity: Omit<QuizActivity, 'id'>) {
+  async saveQuizActivity(activity: QuizActivity) {
     await this.initialize();
     // Read existing list
     const json = await AsyncStorage.getItem(this.key) || '[]';
-    const list: Omit<QuizActivity,'id'>[] = JSON.parse(json);
+    const list: QuizActivity[] = JSON.parse(json);
     list.unshift(activity);
     await AsyncStorage.setItem(this.key, JSON.stringify(list));
     return;
