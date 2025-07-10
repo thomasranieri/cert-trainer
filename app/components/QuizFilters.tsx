@@ -1,3 +1,4 @@
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import {
   StyleSheet,
@@ -7,28 +8,25 @@ import {
 } from 'react-native';
 
 interface QuizFiltersProps {
-  selectedTaskStatement: string | null;
-  selectedDifficulty: string | null;
-  selectedQuestionType: 'all' | 'unseen' | null;
-  onTaskStatementChange: (taskStatement: string | null) => void;
-  onDifficultyChange: (difficulty: string | null) => void;
-  onQuestionTypeChange: (questionType: 'all' | 'unseen' | null) => void;
   availableTaskStatements: string[];
   isVisible: boolean;
   onToggleVisibility: () => void;
 }
 
+type Params = { 
+  exam?: string;
+  task?: string;
+  difficulty?: string;
+  type?: 'all' | 'unseen';
+};
+
 const QuizFilters: React.FC<QuizFiltersProps> = ({
-  selectedTaskStatement,
-  selectedDifficulty,
-  selectedQuestionType,
-  onTaskStatementChange,
-  onDifficultyChange,
-  onQuestionTypeChange,
   availableTaskStatements,
   isVisible,
   onToggleVisibility,
 }) => {
+  const router = useRouter();
+  const routerParams = useLocalSearchParams<Params>();
   const difficulties = ['EASY', 'MEDIUM', 'HARD'];
 
   const getFilterButtonStyle = (isSelected: boolean) => [
@@ -40,6 +38,15 @@ const QuizFilters: React.FC<QuizFiltersProps> = ({
     styles.filterText,
     isSelected && styles.selectedFilterText,
   ];
+
+  const updateFilters = (
+    task?: string,
+    difficulty?: string,
+    type?: 'all' | 'unseen'
+  ) => {
+    router.replace({ pathname: '/quiz', params: { ...routerParams, task, difficulty, type } });
+  };
+
 
   return (
     <View style={styles.container}>
@@ -61,20 +68,20 @@ const QuizFilters: React.FC<QuizFiltersProps> = ({
             <Text style={styles.filterTitle}>Task Statement:</Text>
             <View style={styles.filterOptions}>
               <TouchableOpacity
-                style={getFilterButtonStyle(selectedTaskStatement === null)}
-                onPress={() => onTaskStatementChange(null)}
+                style={getFilterButtonStyle(routerParams.task === null)}
+                onPress={() => updateFilters(undefined, routerParams.difficulty, routerParams.type)}
               >
-                <Text style={getFilterTextStyle(selectedTaskStatement === null)}>
+                <Text style={getFilterTextStyle(routerParams.task === null)}>
                   All Tasks
                 </Text>
               </TouchableOpacity>
               {availableTaskStatements.map((task) => (
                 <TouchableOpacity
                   key={task}
-                  style={getFilterButtonStyle(selectedTaskStatement === task)}
-                  onPress={() => onTaskStatementChange(task)}
+                  style={getFilterButtonStyle(routerParams.task === task)}
+                  onPress={() => updateFilters(task, routerParams.difficulty, routerParams.type)}
                 >
-                  <Text style={getFilterTextStyle(selectedTaskStatement === task)}>
+                  <Text style={getFilterTextStyle(routerParams.task === task)}>
                     Task {task}
                   </Text>
                 </TouchableOpacity>
@@ -87,20 +94,20 @@ const QuizFilters: React.FC<QuizFiltersProps> = ({
             <Text style={styles.filterTitle}>Difficulty:</Text>
             <View style={styles.filterOptions}>
               <TouchableOpacity
-                style={getFilterButtonStyle(selectedDifficulty === null)}
-                onPress={() => onDifficultyChange(null)}
+                style={getFilterButtonStyle(routerParams.difficulty === null)}
+                onPress={() => updateFilters(routerParams.task, undefined, routerParams.type)}
               >
-                <Text style={getFilterTextStyle(selectedDifficulty === null)}>
+                <Text style={getFilterTextStyle(routerParams.difficulty === null)}>
                   All Levels
                 </Text>
               </TouchableOpacity>
               {difficulties.map((difficulty) => (
                 <TouchableOpacity
                   key={difficulty}
-                  style={getFilterButtonStyle(selectedDifficulty === difficulty)}
-                  onPress={() => onDifficultyChange(difficulty)}
+                  style={getFilterButtonStyle(routerParams.difficulty === difficulty)}
+                  onPress={() => updateFilters(routerParams.task, difficulty, routerParams.type)}
                 >
-                  <Text style={getFilterTextStyle(selectedDifficulty === difficulty)}>
+                  <Text style={getFilterTextStyle(routerParams.difficulty === difficulty)}>
                     {difficulty}
                   </Text>
                 </TouchableOpacity>
@@ -113,18 +120,18 @@ const QuizFilters: React.FC<QuizFiltersProps> = ({
             <Text style={styles.filterTitle}>Question Type:</Text>
             <View style={styles.filterOptions}>
               <TouchableOpacity
-                style={getFilterButtonStyle(selectedQuestionType === null || selectedQuestionType === 'all')}
-                onPress={() => onQuestionTypeChange('all')}
+                style={getFilterButtonStyle(routerParams.type === null || routerParams.type === 'all')}
+                onPress={() => updateFilters(routerParams.task, routerParams.difficulty, 'all')}
               >
-                <Text style={getFilterTextStyle(selectedQuestionType === null || selectedQuestionType === 'all')}>
+                <Text style={getFilterTextStyle(routerParams.type === null || routerParams.type === 'all')}>
                   All Questions
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={getFilterButtonStyle(selectedQuestionType === 'unseen')}
-                onPress={() => onQuestionTypeChange('unseen')}
+                style={getFilterButtonStyle(routerParams.type === 'unseen')}
+                onPress={() => updateFilters(routerParams.task, routerParams.difficulty, 'unseen')}
               >
-                <Text style={getFilterTextStyle(selectedQuestionType === 'unseen')}>
+                <Text style={getFilterTextStyle(routerParams.type === 'unseen')}>
                   Unseen Questions
                 </Text>
               </TouchableOpacity>

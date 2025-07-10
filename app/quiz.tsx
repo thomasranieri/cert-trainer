@@ -4,12 +4,37 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Quiz from './components/Quiz';
 
-type Params = { exam?: string };
+type Params = { 
+  exam?: string;
+  task?: string;
+  difficulty?: string;
+  type?: 'all' | 'unseen';
+};
 
 export default function QuizPage() {
   const router = useRouter();
-  const { exam } = useLocalSearchParams<Params>();
+  const { exam, task, difficulty, type } = useLocalSearchParams<Params>();
   const navigation = useNavigation();
+
+  const buildQuizUrl = () => {
+    const params: Record<string, string> = {};
+    if (exam) params.exam = exam;
+    if (task) params.task = task;
+    if (difficulty) params.difficulty = difficulty;
+    if (type && type !== 'all') params.type = type;
+    
+    return { pathname: '/quiz' as const, params };
+  };
+
+  const buildStatsUrl = () => {
+    const params: Record<string, string> = {};
+    if (exam) params.exam = exam;
+    if (task) params.task = task;
+    if (difficulty) params.difficulty = difficulty;
+    if (type && type !== 'all') params.type = type;
+    
+    return { pathname: '/stats' as const, params };
+  };
 
   return (
     <>
@@ -22,7 +47,7 @@ export default function QuizPage() {
           <View style={styles.navButtons}>
             <TouchableOpacity
               style={[styles.navButton, styles.activeNavButton]}
-              onPress={() => router.replace(`/quiz?exam=${exam}`)}
+              onPress={() => router.replace(buildQuizUrl())}
             >
               <Text style={[styles.navButtonText, styles.activeNavButtonText]}>
                 Quiz
@@ -30,7 +55,7 @@ export default function QuizPage() {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.navButton}
-              onPress={() => router.replace(`/stats?exam=${exam}`)}
+              onPress={() => router.replace(buildStatsUrl())}
             >
               <Text style={styles.navButtonText}>
                 Stats

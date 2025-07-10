@@ -1,3 +1,4 @@
+import { useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
   Alert,
@@ -15,10 +16,23 @@ import QuizFilters from './QuizFilters';
 
 interface QuizProps {
   selectedExam: string;
+  initialFilters?: {
+    taskStatement: string | null;
+    difficulty: string | null;
+    type: 'all' | 'unseen';
+  };
   onBackToHome: () => void;
 }
 
+type Params = { 
+  exam?: string;
+  task?: string;
+  difficulty?: string;
+  type?: 'all' | 'unseen';
+};
+
 const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
+  const routerParams = useLocalSearchParams<Params>();
   const insets = useSafeAreaInsets();
   const [allQuestions] = useState<Question[]>(questionsData as Question[]);
   const [examQuestions, setExamQuestions] = useState<Question[]>([]);
@@ -29,13 +43,8 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
   const [isCorrect, setIsCorrect] = useState(false);
   const [stats, setStats] = useState({ total: 0, correct: 0, percentage: 0 });
 
-  // Filter states
-  const [selectedTaskStatement, setSelectedTaskStatement] = useState<string | null>(null);
-  const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
-  const [selectedQuestionType, setSelectedQuestionType] = useState<'all' | 'unseen' | null>('all');
   const [showFilters, setShowFilters] = useState(false);
   const [seenQuestionHashes, setSeenQuestionHashes] = useState<Set<string>>(new Set());
-  // Get available task statements
   const availableTaskStatements = [...new Set(examQuestions.map(q => q.taskStatement))].sort();
 
   // Function to shuffle array using Fisher-Yates algorithm
@@ -56,23 +65,23 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
 
   // Filter questions by selected exam
   useEffect(() => {
-    const questionsForExam = allQuestions.filter(q => q.exam === selectedExam);
+    const questionsForExam = allQuestions.filter(q => q.exam === routerParams.exam);
     setExamQuestions(questionsForExam);
-  }, [allQuestions, selectedExam]);
+  }, [allQuestions, routerParams.exam]);
 
   // Filter questions based on selected criteria
   useEffect(() => {
     let filtered = examQuestions;
 
-    if (selectedTaskStatement) {
-      filtered = filtered.filter(q => q.taskStatement === selectedTaskStatement);
+    if (routerParams.task) {
+      filtered = filtered.filter(q => q.taskStatement === routerParams.task);
     }
 
-    if (selectedDifficulty) {
-      filtered = filtered.filter(q => q.difficulty === selectedDifficulty);
+    if (routerParams.difficulty) {
+      filtered = filtered.filter(q => q.difficulty === routerParams.difficulty);
     }
 
-    if (selectedQuestionType === 'unseen') {
+    if (routerParams.type === 'unseen') {
       filtered = filtered.filter(q => q.id !== undefined && !seenQuestionHashes.has(q.id));
     }
 
@@ -84,7 +93,7 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
     setSelectedAnswer(null);
     setShowResult(false);
     setIsCorrect(false);
-  }, [selectedTaskStatement, selectedDifficulty, selectedQuestionType, examQuestions, seenQuestionHashes]);
+  }, [routerParams.task, routerParams.difficulty, routerParams.type, examQuestions, seenQuestionHashes]);
 
   const initializeDatabase = async () => {
     await databaseService.initialize();
@@ -113,12 +122,6 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <QuizFilters
-            selectedTaskStatement={selectedTaskStatement}
-            selectedDifficulty={selectedDifficulty}
-            selectedQuestionType={selectedQuestionType}
-            onTaskStatementChange={setSelectedTaskStatement}
-            onDifficultyChange={setSelectedDifficulty}
-            onQuestionTypeChange={setSelectedQuestionType}
             availableTaskStatements={availableTaskStatements}
             isVisible={showFilters}
             onToggleVisibility={() => setShowFilters(!showFilters)}
@@ -142,12 +145,6 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <QuizFilters
-            selectedTaskStatement={selectedTaskStatement}
-            selectedDifficulty={selectedDifficulty}
-            selectedQuestionType={selectedQuestionType}
-            onTaskStatementChange={setSelectedTaskStatement}
-            onDifficultyChange={setSelectedDifficulty}
-            onQuestionTypeChange={setSelectedQuestionType}
             availableTaskStatements={availableTaskStatements}
             isVisible={showFilters}
             onToggleVisibility={() => setShowFilters(!showFilters)}
@@ -251,12 +248,6 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <QuizFilters
-          selectedTaskStatement={selectedTaskStatement}
-          selectedDifficulty={selectedDifficulty}
-          selectedQuestionType={selectedQuestionType}
-          onTaskStatementChange={setSelectedTaskStatement}
-          onDifficultyChange={setSelectedDifficulty}
-          onQuestionTypeChange={setSelectedQuestionType}
           availableTaskStatements={availableTaskStatements}
           isVisible={showFilters}
           onToggleVisibility={() => setShowFilters(!showFilters)}
@@ -273,13 +264,13 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
           </View>
         </View>
 
-        {(selectedTaskStatement || selectedDifficulty || selectedQuestionType === 'unseen') && (
+        {(routerParams.task || routerParams.difficulty || routerParams.type === 'unseen') && (
           <View style={styles.filterSummary}>
             <Text style={styles.filterSummaryText}>
               Filters: {[
-                selectedTaskStatement ? `Task ${selectedTaskStatement}` : null,
-                selectedDifficulty ? selectedDifficulty : null,
-                selectedQuestionType === 'unseen' ? 'Unseen Questions' : null
+                routerParams.task ? `Task ${routerParams.task}` : null,
+                routerParams.difficulty ? routerParams.difficulty : null,
+                routerParams.type === 'unseen' ? 'Unseen Questions' : null
               ].filter(Boolean).join(', ')}
             </Text>
           </View>

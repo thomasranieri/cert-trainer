@@ -1,3 +1,4 @@
+import { Link } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
   Alert,
@@ -51,7 +52,8 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
       'Are you sure you want to clear all quiz history? This action cannot be undone.',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Clear', style: 'destructive', onPress: async () => {
+        {
+          text: 'Clear', style: 'destructive', onPress: async () => {
             await databaseService.clearHistory(selectedExam);
             setHistory([]);
             setStats({ total: 0, correct: 0, percentage: 0 });
@@ -86,7 +88,7 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
       const correct = difficultyQuestions.filter(h => h.isCorrect).length;
       const total = difficultyQuestions.length;
       const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
-      
+
       return {
         difficulty,
         correct,
@@ -185,16 +187,21 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
           <View style={styles.statsCard}>
             <Text style={styles.cardTitle}>Performance by Task</Text>
             {taskStats.map(({ taskStatement, correct, total, percentage }) => (
-              <View key={taskStatement} style={styles.difficultyRow}>
-                <View style={[styles.difficultyBadge, { backgroundColor: '#2196F3' }]}> 
-                  <Text style={styles.difficultyText}>{taskStatement || 'Unknown'}</Text>
+              <Link key={taskStatement} href={{
+                pathname: '/quiz',
+                params: { exam: selectedExam, taskStatement },
+              }}>
+                <View key={taskStatement} style={styles.difficultyRow}>
+                  <View style={[styles.difficultyBadge, { backgroundColor: '#2196F3' }]}>
+                    <Text style={styles.difficultyText}>{taskStatement || 'Unknown'}</Text>
+                  </View>
+                  <View style={styles.difficultyStats}>
+                    <Text style={styles.difficultyStatsText}>
+                      {correct}/{total} ({percentage}%)
+                    </Text>
+                  </View>
                 </View>
-                <View style={styles.difficultyStats}>
-                  <Text style={styles.difficultyStatsText}>
-                    {correct}/{total} ({percentage}%)
-                  </Text>
-                </View>
-              </View>
+              </Link>
             ))}
           </View>
         )}
