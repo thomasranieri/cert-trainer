@@ -1,4 +1,4 @@
-# Welcome to your Expo app 👋
+# cert-trainer 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
@@ -25,26 +25,28 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+## Known limitations
 
-When you're ready, run:
+### Efficiency
+There are thousands of questions stored in questions.json. Reading and querying this is slow (compared to an indexed database, perhaps SQLite).
 
-```bash
-npm run reset-project
-```
+### Cross-platform
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Expo is cool because it lets you make a cross-platform app with React Native (web, iOS and Android). I use this app as a PWA. However, supporting so many targets means that it is harder to optimise the user experience on every platform.
 
-## Learn more
+### Question quality
 
-To learn more about developing your project with Expo, look at the following resources:
+I use a separate training script (in Python) to generate the questions. These are generated using OpenAI's o4-mini model with [flex processing](https://platform.openai.com/docs/guides/flex-processing). I use [self-hosted deekseek-r1 with ollama](https://ollama.com/library/deepseek-r1) to classify the difficulty of each question. This is because I want to minimise my costs.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+As part of the prompt, I pass in the [exam guide](https://d1.awsstatic.com/onedam/marketing-channels/website/aws/en_US/certification/approved/pdfs/docs-ai-practitioner/AWS-Certified-AI-Practitioner_Exam-Guide.pdf), high-quality example questions, and guidance on good questions.
 
-## Join the community
+But there are still some questions that are unrealistically easy (because the multiple-choice distractors are obviously wrong)
 
-Join our community of developers creating universal apps.
+### Mixing data with code
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+The questions.json file is in this codebase. That's not ideal, especially because it's massive.
+
+
+### Potential for AI-generation at runtime
+
+Currently, I generate the questions in advance using a Python script. But if I moved this into an application server instead (or serverless function), then users could generate new questions for whatever exam they like. It could also be used to generate questions that target your weaknesses (bsaed on questions that you got wrong). However, this adds additional API cost and exposure to attack (eg: cloud billing attack).
