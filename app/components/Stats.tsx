@@ -170,9 +170,11 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
           <Text style={styles.cardTitle}>Performance by Difficulty</Text>
           {difficultyStats.map(({ difficulty, correct, total, percentage }) => (
             <View key={difficulty} style={styles.difficultyRow}>
-              <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(difficulty) }]}>
-                <Text style={styles.difficultyText}>{difficulty}</Text>
-              </View>
+              <Link key={difficulty} href={{ pathname: '/quiz', params: { exam: selectedExam, difficulty } }}>
+                <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(difficulty) }]}>
+                  <Text style={styles.difficultyText}>{difficulty}</Text>
+                </View>
+              </Link>
               <View style={styles.difficultyStats}>
                 <Text style={styles.difficultyStatsText}>
                   {correct}/{total} ({percentage}%)
@@ -189,7 +191,7 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
             {taskStats.map(({ taskStatement, correct, total, percentage }) => (
               <Link key={taskStatement} href={{
                 pathname: '/quiz',
-                params: { exam: selectedExam, taskStatement },
+                params: { exam: selectedExam, task: taskStatement },
               }}>
                 <View key={taskStatement} style={styles.difficultyRow}>
                   <View style={[styles.difficultyBadge, { backgroundColor: '#2196F3' }]}>
