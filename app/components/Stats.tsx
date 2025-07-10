@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
   Alert,
@@ -112,7 +112,7 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
         total,
         percentage,
       };
-    });
+    }).sort((a, b) => a.percentage - b.percentage); // Sort by percentage, lowest first
   };
 
   const handleActivityPress = async (activity: QuizActivity) => {
@@ -188,22 +188,27 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
         {taskStats.length > 0 && (
           <View style={styles.statsCard}>
             <Text style={styles.cardTitle}>Performance by Task</Text>
+            <View style={styles.tableHeader}>
+              <Text style={styles.tableHeaderText}>Task</Text>
+              <Text style={styles.tableHeaderText}>Performance</Text>
+            </View>
             {taskStats.map(({ taskStatement, correct, total, percentage }) => (
-              <Link key={taskStatement} href={{
-                pathname: '/quiz',
-                params: { exam: selectedExam, task: taskStatement },
-              }}>
-                <View key={taskStatement} style={styles.difficultyRow}>
-                  <View style={[styles.difficultyBadge, { backgroundColor: '#2196F3' }]}>
-                    <Text style={styles.difficultyText}>{taskStatement || 'Unknown'}</Text>
-                  </View>
-                  <View style={styles.difficultyStats}>
-                    <Text style={styles.difficultyStatsText}>
-                      {correct}/{total} ({percentage}%)
-                    </Text>
-                  </View>
+              <TouchableOpacity
+                key={taskStatement}
+                onPress={() => {
+                  router.push({
+                    pathname: '/quiz',
+                    params: { exam: selectedExam, task: taskStatement },
+                  });
+                }}
+              >
+                <View style={styles.tableRow}>
+                  <Text style={styles.tableCell}>{taskStatement || 'Unknown'}</Text>
+                  <Text style={styles.tableCellRight}>
+                    {correct}/{total} ({percentage}%)
+                  </Text>
                 </View>
-              </Link>
+              </TouchableOpacity>
             ))}
           </View>
         )}
@@ -395,11 +400,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  taskText: {
-    fontSize: 14,
-    color: '#666',
-    marginLeft: 8,
-  },
   resultBadge: {
     width: 24,
     height: 24,
@@ -467,6 +467,51 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 14,
     fontWeight: '600',
+  },
+  taskRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+    color: 'black'
+  },
+  taskText: {
+    fontSize: 14,
+    color: '#666',
+    marginLeft: 8,
+  },
+  tableHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 2,
+    borderBottomColor: '#e0e0e0',
+    paddingBottom: 8,
+    marginBottom: 8,
+  },
+  tableHeaderText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+  },
+  tableRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+  },
+  tableCell: {
+    fontSize: 14,
+    color: '#333',
+    flex: 1,
+    paddingRight: 8,
+  },
+  tableCellRight: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#333',
+    textAlign: 'right',
   },
 });
 
