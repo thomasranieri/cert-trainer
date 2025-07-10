@@ -1,4 +1,5 @@
 import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
+import Head from 'expo-router/head';
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Quiz from './components/Quiz';
@@ -11,37 +12,42 @@ export default function QuizPage() {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.navbar}>
-        <Text style={styles.appTitle}>{exam || 'Quiz'}</Text>
-        <View style={styles.navButtons}>
-          <TouchableOpacity
-            style={[styles.navButton, styles.activeNavButton]}
-            onPress={() => router.replace(`/quiz?exam=${exam}`)}
-          >
-            <Text style={[styles.navButtonText, styles.activeNavButtonText]}>
-              Quiz
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.navButton}
-            onPress={() => router.replace(`/stats?exam=${exam}`)}
-          >
-            <Text style={styles.navButtonText}>
-              Stats
-            </Text>
-          </TouchableOpacity>
+    <>
+      <Head>
+        <title>{exam ? `${exam} Quiz - Cert Trainer` : 'Quiz - Cert Trainer'}</title>
+      </Head>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.navbar}>
+          <Text style={styles.appTitle}>{exam || 'Quiz'}</Text>
+          <View style={styles.navButtons}>
+            <TouchableOpacity
+              style={[styles.navButton, styles.activeNavButton]}
+              onPress={() => router.replace(`/quiz?exam=${exam}`)}
+            >
+              <Text style={[styles.navButtonText, styles.activeNavButtonText]}>
+                Quiz
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.navButton}
+              onPress={() => router.replace(`/stats?exam=${exam}`)}
+            >
+              <Text style={styles.navButtonText}>
+                Stats
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
 
-      {/* Quiz Content */}
-      <View style={styles.screenContainer}>
-        <Quiz
-          selectedExam={exam || ''}
-          onBackToHome={() => router.push('/')}
-        />
-      </View>
-    </SafeAreaView>
+        {/* Quiz Content */}
+        <View style={styles.screenContainer}>
+          <Quiz
+            selectedExam={exam || ''}
+            onBackToHome={() => router.push('/')}
+          />
+        </View>
+      </SafeAreaView>
+    </>
   );
 }
 

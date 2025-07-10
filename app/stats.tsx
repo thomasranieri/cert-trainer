@@ -1,4 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import Head from 'expo-router/head';
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Stats from './components/Stats';
@@ -10,35 +11,40 @@ export default function StatsPage() {
   const router = useRouter();
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Navigation Header */}
-      <View style={styles.navbar}>
-        <Text style={styles.appTitle}>{exam || 'Stats'}</Text>
-        <View style={styles.navButtons}>
-          <TouchableOpacity
-            style={styles.navButton}
-            onPress={() => router.replace(`/quiz?exam=${exam}`)}
-          >
-            <Text style={styles.navButtonText}>
-              Quiz
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.navButton, styles.activeNavButton]}
-            onPress={() => router.replace(`/stats?exam=${exam}`)}
-          >
-            <Text style={[styles.navButtonText, styles.activeNavButtonText]}>
-              Stats
-            </Text>
-          </TouchableOpacity>
+    <>
+      <Head>
+        <title>{exam ? `${exam} Stats - Cert Trainer` : 'Stats - Cert Trainer'}</title>
+      </Head>
+      <SafeAreaView style={styles.container}>
+        {/* Navigation Header */}
+        <View style={styles.navbar}>
+          <Text style={styles.appTitle}>{exam || 'Stats'}</Text>
+          <View style={styles.navButtons}>
+            <TouchableOpacity
+              style={styles.navButton}
+              onPress={() => router.replace(`/quiz?exam=${exam}`)}
+            >
+              <Text style={styles.navButtonText}>
+                Quiz
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.navButton, styles.activeNavButton]}
+              onPress={() => router.replace(`/stats?exam=${exam}`)}
+            >
+              <Text style={[styles.navButtonText, styles.activeNavButtonText]}>
+                Stats
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
 
-      {/* Stats Content */}
-      <View style={styles.screenContainer}>
-        <Stats selectedExam={exam || ''} />
-      </View>
-    </SafeAreaView>
+        {/* Stats Content */}
+        <View style={styles.screenContainer}>
+          <Stats selectedExam={exam || ''} />
+        </View>
+      </SafeAreaView>
+    </>
   );
 }
 
