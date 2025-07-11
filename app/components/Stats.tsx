@@ -1,7 +1,6 @@
 import { Link, router } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
-  Alert,
   Modal,
   SafeAreaView,
   ScrollView,
@@ -10,7 +9,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { databaseService, Question, QuizActivity } from '../../services/DatabaseService';
+import { useStats } from '../../hooks/useStats';
+import { Question } from '../../types';
 import questionsData from '../data/questions.json';
 
 // Add props for selected exam
@@ -20,113 +20,22 @@ interface StatsProps {
 
 // Modify component signature to accept selectedExam
 const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
-  const [history, setHistory] = useState<QuizActivity[]>([]);
-  const [stats, setStats] = useState({ total: 0, correct: 0, percentage: 0 });
-  const [loading, setLoading] = useState(true);
-  const [showDetailModal, setShowDetailModal] = useState(false);
-  const [selectedQuestionDetail, setSelectedQuestionDetail] = useState<Question | null>(null);
-
-  useEffect(() => {
-    loadData();
-  }, [selectedExam]);
-
-  const loadData = async () => {
-    setLoading(true);
-    try {
-      const [historyData, statsData] = await Promise.all([
-        databaseService.getQuizHistory(selectedExam),
-        databaseService.getStats(selectedExam),
-      ]);
-      setHistory(historyData);
-      setStats(statsData);
-    } catch (error) {
-      console.error('Error loading data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleClearHistory = () => {
-    Alert.alert(
-      'Clear History',
-      'Are you sure you want to clear all quiz history? This action cannot be undone.',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Clear', style: 'destructive', onPress: async () => {
-            await databaseService.clearHistory(selectedExam);
-            setHistory([]);
-            setStats({ total: 0, correct: 0, percentage: 0 });
-          },
-        },
-      ]
-    );
-  };
-
-  const formatDate = (timestamp: string) => {
-    const date = new Date(timestamp);
-    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
-
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'EASY':
-        return '#4CAF50';
-      case 'MEDIUM':
-        return '#FF9800';
-      case 'HARD':
-        return '#F44336';
-      default:
-        return '#757575';
-    }
-  };
-
-  const getStatsByDifficulty = () => {
-    const difficulties = ['EASY', 'MEDIUM', 'HARD'];
-    return difficulties.map(difficulty => {
-      const difficultyQuestions = history.filter(h => h.difficulty === difficulty);
-      const correct = difficultyQuestions.filter(h => h.isCorrect).length;
-      const total = difficultyQuestions.length;
-      const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
-
-      return {
-        difficulty,
-        correct,
-        total,
-        percentage,
-      };
-    });
-  };
-
-  const getStatsByTask = () => {
-    // Collect all unique taskStatements from history
-    const tasks = Array.from(new Set(history.map(h => h.taskStatement)));
-    return tasks.map(taskStatement => {
-      const taskQuestions = history.filter(h => h.taskStatement === taskStatement);
-      const correct = taskQuestions.filter(h => h.isCorrect).length;
-      const total = taskQuestions.length;
-      const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
-      return {
-        taskStatement,
-        correct,
-        total,
-        percentage,
-      };
-    }).sort((a, b) => a.percentage - b.percentage); // Sort by percentage, lowest first
-  };
-
-  const handleActivityPress = async (activity: QuizActivity) => {
-    const allQuestions: Question[] = questionsData as Question[];
-    const examQuestions = allQuestions.filter(q => q.exam === selectedExam);
-    for (const q of examQuestions) {
-      if (q.id === activity.questionId) {
-        setSelectedQuestionDetail(q);
-        setShowDetailModal(true);
-        return;
-      }
-    }
-    Alert.alert('Question not found', 'Unable to locate full question details.');
-  };
+  const [allQuestions] = useState<Question[]>(questionsData as Question[]);
+  
+  const {
+    history,
+    stats,
+    loading,
+    selectedQuestionDetail,
+    showDetailModal,
+    clearHistory,
+    handleActivityPress,
+    closeDetailModal,
+    difficultyStats,
+    taskStats,
+    formatDate,
+    getDifficultyColor,
+  } = useStats(selectedExam, allQuestions);
 
   if (loading) {
     return (
@@ -137,9 +46,6 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
       </SafeAreaView>
     );
   }
-
-  const difficultyStats = getStatsByDifficulty();
-  const taskStats = getStatsByTask();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -220,7 +126,7 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
             {history.length > 0 && (
               <TouchableOpacity
                 style={styles.clearButton}
-                onPress={handleClearHistory}
+                onPress={clearHistory}
               >
                 <Text style={styles.clearButtonText}>Clear All</Text>
               </TouchableOpacity>
@@ -254,7 +160,7 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
         </View>
         {/* Detail Modal */}
         {selectedQuestionDetail && (
-          <Modal visible={showDetailModal} animationType="slide" onRequestClose={() => setShowDetailModal(false)}>
+          <Modal visible={showDetailModal} animationType="slide" onRequestClose={closeDetailModal}>
             <SafeAreaView style={styles.modalContainer}>
               <ScrollView contentContainerStyle={styles.modalContent} showsVerticalScrollIndicator={false}>
                 <Text style={styles.modalTitle}>Question Detail</Text>
@@ -264,7 +170,7 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
                 ))}
                 <Text style={styles.modalExplanationTitle}>Explanation:</Text>
                 <Text style={styles.modalExplanation}>{selectedQuestionDetail.explanation}</Text>
-                <TouchableOpacity style={styles.modalCloseButton} onPress={() => setShowDetailModal(false)}>
+                <TouchableOpacity style={styles.modalCloseButton} onPress={closeDetailModal}>
                   <Text style={styles.modalCloseButtonText}>Close</Text>
                 </TouchableOpacity>
               </ScrollView>

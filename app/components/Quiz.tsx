@@ -1,7 +1,6 @@
 import { useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
-  Alert,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -10,7 +9,11 @@ import {
   View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { databaseService, Question } from '../../services/DatabaseService';
+import { ProgressBar } from '../../components/ProgressBar';
+import { QuestionCard } from '../../components/QuestionCard';
+import { QuizResults } from '../../components/QuizResults';
+import { useQuiz } from '../../hooks/useQuiz';
+import { Question } from '../../types';
 import questionsData from '../data/questions.json';
 import QuizFilters from './QuizFilters';
 
@@ -35,86 +38,46 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
   const routerParams = useLocalSearchParams<Params>();
   const insets = useSafeAreaInsets();
   const [allQuestions] = useState<Question[]>(questionsData as Question[]);
-  const [examQuestions, setExamQuestions] = useState<Question[]>([]);
-  const [filteredQuestions, setFilteredQuestions] = useState<Question[]>([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [showResult, setShowResult] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [stats, setStats] = useState({ total: 0, correct: 0, percentage: 0 });
-
   const [showFilters, setShowFilters] = useState(false);
-  const [seenQuestionHashes, setSeenQuestionHashes] = useState<Set<string>>(new Set());
-  const availableTaskStatements = [...new Set(examQuestions.map(q => q.taskStatement))].sort();
 
-  // Function to shuffle array using Fisher-Yates algorithm
-  const shuffleArray = <T,>(array: T[]): T[] => {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  };
+  // Memoize the options to prevent unnecessary re-renders
+  const quizOptions = useMemo(() => ({
+    selectedExam,
+    task: routerParams.task,
+    difficulty: routerParams.difficulty,
+    type: routerParams.type,
+  }), [selectedExam, routerParams.task, routerParams.difficulty, routerParams.type]);
 
-  useEffect(() => {
-    initializeDatabase();
-    loadStats();
-    loadSeenQuestions();
-  }, []);
+  const {
+    currentQuestion,
+    currentQuestionIndex,
+    selectedAnswer,
+    showResult,
+    isCorrect,
+    stats,
+    filteredQuestions,
+    loading,
+    progress,
+    isLastQuestion,
+    selectAnswer,
+    submitAnswer,
+    nextQuestion,
+    previousQuestion,
+    restartQuiz,
+    availableTaskStatements,
+    questionService,
+  } = useQuiz(allQuestions, quizOptions);
 
-  // Filter questions by selected exam
-  useEffect(() => {
-    const questionsForExam = allQuestions.filter(q => q.exam === routerParams.exam);
-    setExamQuestions(questionsForExam);
-  }, [allQuestions, routerParams.exam]);
-
-  // Filter questions based on selected criteria
-  useEffect(() => {
-    let filtered = examQuestions;
-
-    if (routerParams.task) {
-      filtered = filtered.filter(q => q.taskStatement === routerParams.task);
-    }
-
-    if (routerParams.difficulty) {
-      filtered = filtered.filter(q => q.difficulty === routerParams.difficulty);
-    }
-
-    if (routerParams.type === 'unseen') {
-      filtered = filtered.filter(q => q.id !== undefined && !seenQuestionHashes.has(q.id));
-    }
-
-    // Shuffle the filtered questions to display them in random order
-    const shuffledFiltered = shuffleArray(filtered);
-
-    setFilteredQuestions(shuffledFiltered);
-    setCurrentQuestionIndex(0);
-    setSelectedAnswer(null);
-    setShowResult(false);
-    setIsCorrect(false);
-  }, [routerParams.task, routerParams.difficulty, routerParams.type, examQuestions, seenQuestionHashes]);
-
-  const initializeDatabase = async () => {
-    await databaseService.initialize();
-  };
-
-  const loadStats = async () => {
-    const currentStats = await databaseService.getStats(selectedExam);
-    setStats(currentStats);
-  };
-
-  const loadSeenQuestions = async () => {
-    const history = await databaseService.getQuizHistory(selectedExam);
-    const seenIds = new Set(history.map(activity => activity.questionId));
-    setSeenQuestionHashes(seenIds);
-  };
-
-  const openAIExplanation = () => {
-    window.open(`https://chatgpt.com/?q=${encodeURIComponent(`Explain the answer to the question: ${filteredQuestions[currentQuestionIndex].stem} with options ${JSON.stringify(filteredQuestions[currentQuestionIndex].answers)}`)}`);
+  // Handle loading state
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.loadingContainer}>
+          <Text style={styles.loadingText}>Loading questions...</Text>
+        </View>
+      </SafeAreaView>
+    );
   }
-
-  const currentQuestion = filteredQuestions[currentQuestionIndex];
 
   // Handle case when no questions match the filter
   if (filteredQuestions.length === 0) {
@@ -122,7 +85,7 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <QuizFilters
-            availableTaskStatements={availableTaskStatements}
+            availableTaskStatements={availableTaskStatements as string[]}
             isVisible={showFilters}
             onToggleVisibility={() => setShowFilters(!showFilters)}
           />
@@ -145,7 +108,7 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <QuizFilters
-            availableTaskStatements={availableTaskStatements}
+            availableTaskStatements={availableTaskStatements as string[]}
             isVisible={showFilters}
             onToggleVisibility={() => setShowFilters(!showFilters)}
           />
@@ -157,112 +120,20 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
         </ScrollView>
       </SafeAreaView>
     );
-  }
-
-  const handleAnswerSelect = (answer: string) => {
-    if (showResult) return;
-    setSelectedAnswer(answer);
-  };
-
-  const handleSubmitAnswer = async () => {
-    if (!selectedAnswer) {
-      Alert.alert('Please select an answer', 'You must choose an answer before submitting.');
-      return;
-    }
-
-    const correct = selectedAnswer === currentQuestion.correct;
-    setIsCorrect(correct);
-    setShowResult(true);
-
-    // Save to database
-    await databaseService.saveQuizActivity({
-      questionIndex: currentQuestionIndex,
-      exam: selectedExam,  // include exam filter
-      selectedAnswer,
-      correctAnswer: currentQuestion.correct,
-      isCorrect: correct,
-      timestamp: new Date().toISOString(),
-      difficulty: currentQuestion.difficulty || 'MEDIUM',
-      taskStatement: currentQuestion.taskStatement,
-      questionId: currentQuestion.id || 'UNKNOWN'
-    });
-
-    // Update stats
-    await loadStats();
-  };
-
-  const handleNextQuestion = () => {
-    if (currentQuestionIndex < filteredQuestions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSelectedAnswer(null);
-      setShowResult(false);
-      setIsCorrect(false);
-    } else {
-      Alert.alert(
-        'Quiz Complete!',
-        `You've completed all questions! Your overall score: ${stats.correct + (isCorrect ? 1 : 0)}/${stats.total + 1} (${Math.round(((stats.correct + (isCorrect ? 1 : 0)) / (stats.total + 1)) * 100)}%)`,
-        [
-          {
-            text: 'Restart',
-            onPress: () => {
-              setCurrentQuestionIndex(0);
-              setSelectedAnswer(null);
-              setShowResult(false);
-              setIsCorrect(false);
-            },
-          },
-        ]
-      );
-    }
-  };
-
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'EASY':
-        return '#4CAF50';
-      case 'MEDIUM':
-        return '#FF9800';
-      case 'HARD':
-        return '#F44336';
-      default:
-        return '#757575';
-    }
-  };
-
-  const getAnswerStyle = (answer: string) => {
-    if (!showResult) {
-      return selectedAnswer === answer ? styles.selectedAnswer : styles.answer;
-    }
-
-    if (answer === currentQuestion.correct) {
-      return styles.correctAnswer;
-    }
-
-    if (selectedAnswer === answer && answer !== currentQuestion.correct) {
-      return styles.incorrectAnswer;
-    }
-
-    return styles.answer;
-  };
-  return (
+  }  return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <QuizFilters
-          availableTaskStatements={availableTaskStatements}
+          availableTaskStatements={availableTaskStatements as string[]}
           isVisible={showFilters}
           onToggleVisibility={() => setShowFilters(!showFilters)}
         />
 
-        <View style={styles.header}>
-          <Text style={styles.questionCounter}>
-            Question {currentQuestionIndex + 1} of {filteredQuestions.length}
-          </Text>
-          <View style={styles.statsContainer}>
-            <Text style={styles.stats}>
-              Score: {stats.correct}/{stats.total} ({stats.percentage}%)
-            </Text>
-          </View>
-        </View>
+        <ProgressBar
+          currentQuestion={currentQuestionIndex + 1}
+          totalQuestions={filteredQuestions.length}
+          stats={stats}
+        />
 
         {(routerParams.task || routerParams.difficulty || routerParams.type === 'unseen') && (
           <View style={styles.filterSummary}>
@@ -276,70 +147,32 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
           </View>
         )}
 
-        <View style={styles.questionCard}>
-          <View style={styles.questionHeader}>
-            <Text style={styles.taskStatement}>Task: {currentQuestion.taskStatement}</Text>
-            <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(currentQuestion.difficulty || 'MEDIUM') }]}>
-              <Text style={styles.difficultyText}>{currentQuestion.difficulty || 'MEDIUM'}</Text>
-            </View>
-          </View>
+        <QuestionCard
+          question={currentQuestion}
+          selectedAnswer={selectedAnswer || undefined}
+          onAnswerSelect={selectAnswer}
+          showResult={showResult}
+          isCorrect={isCorrect}
+          getDifficultyColor={questionService.getDifficultyColor.bind(questionService)}
+        />
 
-          <Text style={styles.questionText}>{currentQuestion.stem}</Text>
-        </View>
+        <QuizResults
+          currentQuestion={currentQuestion}
+          isCorrect={isCorrect}
+          showResult={showResult}
+          onNextQuestion={nextQuestion}
+          onRestart={restartQuiz}
+          isLastQuestion={isLastQuestion}
+        />
 
-        <View style={styles.answersContainer}>
-          {Object.entries(currentQuestion.answers).map(([key, value]) => (
-            <TouchableOpacity
-              key={key}
-              style={getAnswerStyle(key)}
-              onPress={() => handleAnswerSelect(key)}
-              disabled={showResult}
-            >
-              <Text style={styles.answerLabel}>{String(key)}.</Text>
-              <Text style={styles.answerText}>{value !== undefined && value !== null ? String(value) : ''}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-
-        {showResult && (
-          <View style={styles.resultContainer}>
-            <View style={[styles.resultHeader, { backgroundColor: isCorrect ? '#E8F5E8' : '#FFEBEE' }]}>
-              <Text style={[styles.resultText, { color: isCorrect ? '#2E7D32' : '#C62828' }]}>
-                {isCorrect ? '✓ Correct!' : '✗ Incorrect'}
-              </Text>
-            </View>
-
-            <View style={styles.explanationContainer}>
-              <Text style={styles.explanationTitle}>Explanation:</Text>
-              <Text style={styles.explanationText}>{currentQuestion.explanation}</Text>
-            </View>
-          </View>
-        )}
         <View style={[styles.buttonContainer, { paddingBottom: Math.max(20, insets.bottom + 10) }]}>
-          {!showResult ? (
+          {!showResult && (
             <TouchableOpacity
               style={[styles.button, styles.submitButton]}
-              onPress={handleSubmitAnswer}
+              onPress={submitAnswer}
             >
               <Text style={styles.buttonText}>Submit Answer</Text>
             </TouchableOpacity>
-          ) : (
-            <>
-              <TouchableOpacity
-                style={[styles.button, styles.nextButton]}
-                onPress={handleNextQuestion}
-              >
-                <Text style={styles.buttonText}>
-                  {currentQuestionIndex < filteredQuestions.length - 1 ? 'Next Question' : 'Complete Quiz'}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={openAIExplanation}
-              >
-                <Text style={[styles.button]}>Further Explanation</Text>
-              </TouchableOpacity>
-            </>
           )}
         </View>
       </ScrollView>
@@ -537,6 +370,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     color: '#555',
   }, buttonContainer: {
+    gap: 12,
     marginBottom: 40,
   },
   button: {
@@ -559,6 +393,18 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 40,
+  },
+  loadingText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#666',
+    textAlign: 'center',
   },
   noQuestionsContainer: {
     padding: 40,
