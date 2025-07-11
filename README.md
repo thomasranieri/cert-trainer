@@ -28,11 +28,12 @@ You can start developing by editing the files inside the **app** directory. This
 ## Known limitations
 
 ### Efficiency
+
 There are thousands of questions stored in questions.json. Reading and querying this is slow (compared to an indexed database, perhaps SQLite).
 
 ### Cross-platform
 
-Expo is cool because it lets you make a cross-platform app with React Native (web, iOS and Android). I use this app as a PWA. However, supporting so many targets means that it is harder to optimise the user experience on every platform.
+Expo is cool because it lets you make a cross-platform app with React Native (web, iOS and Android). I use this app as a PWA. However, supporting so many targets means that it is harder to optimise the user experience on every platform. For example, this app does not look great on a wide desktop monitor.
 
 ### Question quality
 
@@ -44,8 +45,7 @@ But there are still some questions that are unrealistically easy (because the mu
 
 ### Mixing data with code
 
-The questions.json file is in this codebase. That's not ideal, especially because it's massive.
-
+The questions.json file is in this codebase. That's not ideal, especially because it's massive. It would be best to split it into another repo, or convert it into a database.
 
 ### Potential for AI-generation at runtime
 
