@@ -59,17 +59,19 @@ const ExamSelection: React.FC = () => {
         <Text style={styles.headerSubtitle}>Choose which certification you want to study for</Text>
       </View>
 
-      <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
-        <View style={styles.examGrid}>
-          {availableExams.map(exam => renderExamCard(exam))}
+      <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContentContainer}>
+        <View style={styles.content}>
+          <View style={styles.examGrid}>
+            {availableExams.map(exam => renderExamCard(exam))}
+          </View>
+          <Text style={{ textAlign: 'center', marginTop: 20 }}>
+            <p>This website is not affiliated with AWS or any other certification body.</p>
+            <p>These questions are not official and are for study purposes only. Certification questions will differ.</p>
+            <p>All trademarks and copyrights are the property of their respective owners.</p>
+            <p>Made by <a href="https://thomasranieri.dev/">Thomas Ranieri</a> for my own study purposes.</p>
+            <p>See <a href="https://github.com/thomasranieri/cert-trainer">GitHub</a> for more information and known limitations.</p>
+          </Text>
         </View>
-        <Text style={{ textAlign: 'center', marginTop: 20 }}>
-          <p>This website is not affiliated with AWS or any other certification body.</p>
-          <p>These questions are not official and are for study purposes only. Certification questions will differ.</p>
-          <p>All trademarks and copyrights are the property of their respective owners.</p>
-          <p>Made by <a href="https://thomasranieri.dev/">Thomas Ranieri</a> for my own study purposes.</p>
-          <p>See <a href="https://github.com/thomasranieri/cert-trainer">GitHub</a> for more information and known limitations.</p>
-        </Text>
         <footer style={styles.getInTouch}>
           <Link href="https://www.linkedin.com/in/thomas-ranieri-dev/" style={styles.socialLink} target='_blank'>
             <AntDesign name="linkedin-square" size={24} color="white" />
@@ -117,6 +119,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   scrollContainer: {
+    flex: 1,
+  },
+  scrollContentContainer: {
+    flexGrow: 1,
+  },
+  content: {
     flex: 1,
   },
   examGrid: {
