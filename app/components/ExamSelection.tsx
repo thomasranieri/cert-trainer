@@ -1,4 +1,6 @@
-import { router } from 'expo-router';
+import AntDesign from '@expo/vector-icons/AntDesign';
+
+import { Link, router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
@@ -7,18 +9,21 @@ import {
   Text,
   TouchableOpacity,
   View,
+  useWindowDimensions,
 } from 'react-native';
 import { Question } from '../../services/DatabaseService';
 import questionsData from '../data/questions.json';
 
 const ExamSelection: React.FC = () => {
   const [availableExams, setAvailableExams] = useState<{ name: string; count: number }[]>([]);
+  const { width } = useWindowDimensions();
+  const isNarrowScreen = width < 768; // Adjust this breakpoint as needed
 
   useEffect(() => {
     // Extract unique exams from questions data
     const questions = questionsData as Question[];
     const examCounts: { [key: string]: number } = {};
-    
+
     questions.forEach(question => {
       if (question.exam) {
         examCounts[question.exam] = (examCounts[question.exam] || 0) + 1;
@@ -53,11 +58,32 @@ const ExamSelection: React.FC = () => {
         <Text style={styles.headerTitle}>Select an Exam</Text>
         <Text style={styles.headerSubtitle}>Choose which certification you want to study for</Text>
       </View>
-      
+
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         <View style={styles.examGrid}>
           {availableExams.map(exam => renderExamCard(exam))}
         </View>
+        <Text style={{ textAlign: 'center', marginTop: 20 }}>
+          <p>This website is not affiliated with AWS or any other certification body.</p>
+          <p>These questions are not official and are for study purposes only. Certification questions will differ.</p>
+          <p>All trademarks and copyrights are the property of their respective owners.</p>
+          <p>Made by <a href="https://thomasranieri.dev/">Thomas Ranieri</a> for my own study purposes.</p>
+          <p>See <a href="https://github.com/thomasranieri/cert-trainer">GitHub</a> for more information and known limitations.</p>
+        </Text>
+        <footer style={styles.getInTouch}>
+          <Link href="https://www.linkedin.com/in/thomas-ranieri-dev/" style={styles.socialLink} target='_blank'>
+            <AntDesign name="linkedin-square" size={24} color="white" />
+            {!isNarrowScreen && <Text style={styles.getInTouchText}>thomas-ranieri-dev</Text>}
+          </Link>
+          <Link href="https://github.com/thomasranieri/cert-trainer" style={styles.socialLink} target='_blank'>
+            <AntDesign name="github" size={24} color="white" />
+            {!isNarrowScreen && <Text style={styles.getInTouchText}>thomasranieri/cert-trainer</Text>}
+          </Link>
+          <Link href="mailto:tom@classgen.com" style={styles.socialLink} target='_blank'>
+            <AntDesign name="mail" size={24} color="white" />
+            {!isNarrowScreen && <Text style={styles.getInTouchText}>tom@classgen.com</Text>}
+          </Link>
+        </footer>
       </ScrollView>
     </SafeAreaView>
   );
@@ -129,6 +155,24 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
+  },
+  getInTouch: {
+    marginTop: 20,
+    backgroundColor: '#5252bb',
+    flexDirection: 'row',
+    display: 'flex',
+    justifyContent: 'space-around',
+  },
+  socialLink: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    padding: 10,
+  },
+  getInTouchText: {
+    color: 'white',
+    fontSize: 16,
+    marginLeft: 8,
   },
 });
 

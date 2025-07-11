@@ -12,7 +12,7 @@ export default function Index() {
         <title>Cert Trainer</title>
       </Head>
       <View style={styles.container}>
-        <ExamSelection  />
+        <ExamSelection />
       </View>
     </>
   );
