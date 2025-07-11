@@ -38492,7 +38492,7 @@
   {
     "id": "5f5f886030f0b661078b30a015a5157fb5ba7d8314ff3a5fb75b468fb7b000fd",
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
-    "taskStatement": "3.5 Determine high-performing data ingestion and transformation solutions",
+    "taskStatement": "3.5",
     "stem": "A financial trading firm generates approximately 10,000 JSON-formatted events per second on-premises. They require near real-time ingestion of these events into Amazon S3, transformation into Parquet, and partitioning by date and hour so that data is queryable in Amazon Athena within two minutes of arrival. A solution architect initially recommends Kinesis Data Streams with a consumer application running on EC2 instances to perform the transformation and delivery. Why is this solution suboptimal, and which architecture best meets the requirements with minimal operational overhead?",
     "correct": "B",
     "difficulty": "HARD",
@@ -38507,7 +38507,7 @@
   {
     "id": "c502651a5d64181889a8d154f22598f41acdbf60290c780a6536a8dc61eeb846",
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
-    "taskStatement": "3.5 Determine high-performing data ingestion and transformation solutions",
+    "taskStatement": "3.5",
     "stem": "Your organization is migrating a petabyte-scale on-premises file repository into a data lake on AWS. The requirements are:\n1. Perform an initial bulk transfer of all existing data.\n2. Continuously replicate daily delta changes.\n3. Convert incoming CSV files into ORC format and store them partitioned by year and month.\n4. Minimize operational overhead and handle schema evolution.\nWhich combination of AWS services best addresses these requirements?",
     "correct": "C",
     "difficulty": "MEDIUM",
@@ -38522,7 +38522,7 @@
   {
     "id": "5a7bf635dd1415bf9814d91f497f99dc2f17bec22a83a0d807c498f28c307bf0",
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
-    "taskStatement": "3.5 Determine high-performing data ingestion and transformation solutions",
+    "taskStatement": "3.5",
     "stem": "A SaaS provider must onboard sensitive CSV datasets (up to 10 TB/day) from multiple third-party partners using SFTP. Data must land encrypted in Amazon S3, then be converted automatically to Parquet format and cataloged for analytics. The solution should minimize operational management and meet strict security controls (encryption at rest/in transit, access auditing). Which solution meets these requirements?",
     "correct": "A",
     "difficulty": "MEDIUM",
@@ -38537,7 +38537,7 @@
   {
     "id": "0267dad1878c1e76795ca886ac96c9545fc09b81bbfc264496f27890748cd085",
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
-    "taskStatement": "3.5 Determine high-performing data ingestion and transformation solutions",
+    "taskStatement": "3.5",
     "stem": "An ad-tech company needs to ingest 50,000 clickstream events per second, enrich them with geolocation metadata, store both raw and enriched data in Amazon S3, and make enriched data immediately available for Redshift Spectrum queries. The end-to-end processing latency must be under 5 seconds. Which architecture best fulfills these requirements with the least operational complexity?",
     "correct": "B",
     "difficulty": "MEDIUM",
@@ -38552,7 +38552,7 @@
   {
     "id": "3f51ae374afc9b35918554c0540ee808e7b74ec9780ac0a5dabdfc19c4e59451",
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
-    "taskStatement": "3.5 Determine high-performing data ingestion and transformation solutions",
+    "taskStatement": "3.5",
     "stem": "A manufacturing company receives 500 GB per day of IoT sensor data files deposited into Amazon S3. They need to convert these files from CSV to Parquet, partition by sensor type, and make the data available in Amazon Athena and QuickSight. They require elastic scaling, built-in schema evolution handling, and minimal operational administration. Which compute option is most appropriate?",
     "correct": "A",
     "difficulty": "MEDIUM",
@@ -38563,5 +38563,1160 @@
       "D": "Develop a Python shell AWS Glue job on a single DPU to iterate files, convert to Parquet, and handle partitioning."
     },
     "explanation": "AWS Glue Spark ETL jobs provide serverless, auto-scaling compute, built-in schema evolution, and dynamic partitioning, minimizing admin overhead. EMR adds cluster management, Lambda cannot handle large files efficiently, and Python shell lacks scalability."
+  },
+  {
+    "id": "24182800169c878ab88030df3ee1de70f18679acc44b1127072581fceb6eb0ac",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.2",
+    "stem": "A financial services company wants to automatically provision infrastructure changes and be able to revert changes instantly when issues occur. They enforce \u201cinfrastructure as code\u201d and \u201cautomated rollback\u201d capabilities. Which pillar of the AWS Well-Architected Framework most directly applies?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Operational excellence",
+      "B": "Security",
+      "C": "Reliability",
+      "D": "Cost optimization"
+    },
+    "explanation": "Operational Excellence includes the principles of performing operations as code and making reversible changes through automation. While Reliability addresses recovery, rollback is primarily an operations practice."
+  },
+  {
+    "id": "00f859723b3293dab67f7ba70f328d1b4594712d6d6976d51c6bc033447af35b",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.2",
+    "stem": "A global media company designs a streaming platform that must automatically fail over to alternate Regions when an Availability Zone becomes unhealthy, and automatically test the recovery process periodically. Which design principle and pillar are they following?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Test recovery procedures\u2009\u2013\u2009Reliability",
+      "B": "Automate to make architectural experiments\u2009\u2013\u2009Performance efficiency",
+      "C": "Use immutable infrastructure\u2009\u2013\u2009Operational excellence",
+      "D": "Apply security at all layers\u2009\u2013\u2009Security"
+    },
+    "explanation": "\u2018Test recovery procedures\u2019 is a principle under the Reliability pillar, ensuring that failover and recovery processes are validated regularly."
+  },
+  {
+    "id": "d2caa7d068e59b42ce1dccce6f2bb8981369a9fe35d1c5733e2e5c5e42149763",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.2",
+    "stem": "A startup adopts AWS Lambda and container services with pay-per-use billing to eliminate idle server costs and accelerate deployments. Which Well-Architected Framework principle does this best exemplify?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Adopt a consumption model\u2009\u2013\u2009Cost optimization",
+      "B": "Optimize for cost\u2009\u2013\u2009Performance efficiency",
+      "C": "Use managed services\u2009\u2013\u2009Reliability",
+      "D": "Design for failure\u2009\u2013\u2009Reliability"
+    },
+    "explanation": "\u2018Adopt a consumption model\u2019 under Cost Optimization encourages paying only for what you use to minimize idle resource costs."
+  },
+  {
+    "id": "43346b45634ccc1f231b7304f6394799525065fcc328f5482c87e7df61d25402",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.2",
+    "stem": "During a security review, an AWS Solutions Architect suggests enabling automatic key rotation, enforcing multi-factor authentication at the IAM user level, and modeling traceability of changes. Which pillar\u2019s design principles are these examples of?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Security",
+      "B": "Operational excellence",
+      "C": "Reliability",
+      "D": "Performance efficiency"
+    },
+    "explanation": "Security pillar principles include enabling traceability, implementing a strong identity foundation, and centralized key management (automatic rotation)."
+  },
+  {
+    "id": "e210f0c846240b67c4882162012b0575dada3a275560043d4d906f2ffe1f7558",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.2",
+    "stem": "A biotech firm automates resource provisioning and teardown using AWS CloudFormation with parameterized templates for daily test runs, ensuring environments can be decommissioned when not in use. Which design principle aligns with this approach?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Perform operations as code\u2009\u2013\u2009Operational excellence",
+      "B": "Stop guessing capacity\u2009\u2013\u2009Performance efficiency",
+      "C": "Economies of scale\u2009\u2013\u2009Cost optimization",
+      "D": "Test recovery procedures\u2009\u2013\u2009Reliability"
+    },
+    "explanation": "\u2018Perform operations as code\u2019 under Operational Excellence advocates automating procedures and deploying resources through repeatable scripts."
+  },
+  {
+    "id": "2d8465fcccb09882b52a03be99fccdaf3802db7d3f763075501fc1b93d1d0f06",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.2",
+    "stem": "A social gaming company routes player traffic to the nearest edge location for content caching to minimize latency and reduce backend load. Which AWS Well-Architected Framework pillar and principle does this illustrate?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Performance efficiency\u2009\u2013\u2009Use edge locations",
+      "B": "Reliability\u2009\u2013\u2009Geographically distribute",
+      "C": "Cost optimization\u2009\u2013\u2009Use horizontal scaling",
+      "D": "Security\u2009\u2013\u2009Protect data in transit"
+    },
+    "explanation": "\u2018Use edge locations\u2019 is a Performance Efficiency principle that reduces latency by caching content closer to users."
+  },
+  {
+    "id": "1fae18b27186f618d60e8822c1f9f2c6aa8ef7740c1b40d271a11b50c9e24449",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.2",
+    "stem": "A regulated enterprise must ensure all configuration changes are approved via an audit trail, and all operational events are logged centrally for forensic analysis. Which pillar\u2019s design principle does this requirement reflect?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Security\u2009\u2013\u2009Enable traceability",
+      "B": "Reliability\u2009\u2013\u2009Test recovery procedures",
+      "C": "Operational excellence\u2009\u2013\u2009Perform operations as code",
+      "D": "Cost optimization\u2009\u2013\u2009Implement usage monitoring"
+    },
+    "explanation": "\u2018Enable traceability\u2019 under the Security pillar requires logging and monitoring to track changes and for post-event analysis."
+  },
+  {
+    "id": "f65947c10bff5f82c9c9f304962bf3b75e4360cd4829054ec9b87652a0e0f5f4",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.2",
+    "stem": "A retail application experiences unpredictable demand spikes. The architecture uses Amazon EC2 Auto Scaling with predictive policies and DynamoDB on-demand capacity mode. Which pillar and principle does this embody?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Performance efficiency\u2009\u2013\u2009Use scalable and elastic resources",
+      "B": "Reliability\u2009\u2013\u2009Implement elasticity",
+      "C": "Cost optimization\u2009\u2013\u2009Right-size resources",
+      "D": "Operational excellence\u2009\u2013\u2009Make operations observable"
+    },
+    "explanation": "\u2018Use scalable and elastic resources\u2019 is a Performance Efficiency principle that ensures resources automatically adjust to load."
+  },
+  {
+    "id": "9ca7af329bedcc801606a326ce138b6862380271d6a317506987cc8a01ef9bb5",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.2",
+    "stem": "A financial trading system implements Amazon ElastiCache for in-memory caching and multi-AZ replication to ensure sub-millisecond latency and resilience. Which pair of Well-Architected principles are demonstrated under Performance Efficiency and Reliability, respectively?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Performance Efficiency\u2009\u2013\u2009Use caching; Reliability\u2009\u2013\u2009Automatically recover from failure",
+      "B": "Performance Efficiency\u2009\u2013\u2009Experiment more often; Reliability\u2009\u2013\u2009Test recovery procedures",
+      "C": "Performance Efficiency\u2009\u2013\u2009Implement best-fit resources; Reliability\u2009\u2013\u2009Scale vertically",
+      "D": "Performance Efficiency\u2009\u2013\u2009Use managed services; Reliability\u2009\u2013\u2009Shield workloads"
+    },
+    "explanation": "Caching is a Performance Efficiency principle; automated failover/replication is a Reliability principle to recover from failures."
+  },
+  {
+    "id": "cac9efb14085eda3c3d37b9197c9753c92f96b44014e6e8dbb006ea1550b7730",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.2",
+    "stem": "A healthcare provider tests infrastructure changes in a sandbox environment and integrates AWS CloudTrail logs into AWS Config for drift detection before production deployment. Which two Well-Architected design principles are they applying?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Operational excellence\u2009\u2013\u2009Perform operations as code; Security\u2009\u2013\u2009Enable traceability",
+      "B": "Reliability\u2009\u2013\u2009Test recovery procedures; Performance efficiency\u2009\u2013\u2009Use edge locations",
+      "C": "Cost optimization\u2009\u2013\u2009Adopt a consumption model; Security\u2009\u2013\u2009Implement a strong identity foundation",
+      "D": "Operational excellence\u2009\u2013\u2009Evolve procedures with feedback; Reliability\u2009\u2013\u2009Automatically recover from failure"
+    },
+    "explanation": "Automating sandbox provisioning is \u2018Perform operations as code\u2019 (Operational Excellence) and capturing/configuring logs is \u2018Enable traceability\u2019 (Security)."
+  },
+  {
+    "id": "1e59b86f03c09da55c0ff82b2a2650a113f33a2950b862dbe5dd8fa28c6a37ff",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.3",
+    "stem": "A large enterprise runs a monolithic .NET application on-premises and wants to migrate it to AWS. The application only requires minor performance tuning and a managed runtime environment, with minimal code changes. The team also wants to reduce their operational overhead by leveraging AWS-managed services. According to the AWS Cloud Adoption Framework migration strategies, which approach should they choose?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Refactor \u2013 rewrite key modules to use AWS-native microservices.",
+      "B": "Replatform \u2013 lift, shift, and optimize to a managed .NET platform (for example, AWS Elastic Beanstalk).",
+      "C": "Rehost \u2013 perform a lift-and-shift of virtual machines without platform changes.",
+      "D": "Retain \u2013 keep the application on-premises and migrate later."
+    },
+    "explanation": "Replatform involves making minimal changes to take advantage of managed services like Elastic Beanstalk. Refactor requires significant code changes. Rehost does not leverage managed runtimes. Retain leaves the app on-premises, failing the requirement."
+  },
+  {
+    "id": "e6292df833a3be28b1a0adefcc5d5c6278e5a1406ac5413999302911d604e20c",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.3",
+    "stem": "An organization wants to standardize and automate the provisioning of its AWS infrastructure using templates, continuous integration, and repeatable processes. In which AWS Cloud Adoption Framework (CAF) perspective would these concerns primarily fall?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Platform Perspective",
+      "B": "Operations Perspective",
+      "C": "Governance Perspective",
+      "D": "Security Perspective"
+    },
+    "explanation": "The Platform Perspective addresses infrastructure provisioning, automation, and DevOps practices. Operations focuses on day-to-day support. Governance covers policies and compliance. Security covers controls and risk management."
+  },
+  {
+    "id": "d583876776f054a42e0c867cbda69925e0c615ac64d75fbc099634dfec2a0dab",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.3",
+    "stem": "During the planning phase of a migration, a company needs to create a detailed application dependency map and gather performance metrics from its on-premises servers. Which AWS service provides the deep discovery data required to plan migration waves and resource sizing?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Migration Hub",
+      "B": "AWS Config",
+      "C": "AWS Application Discovery Service",
+      "D": "Amazon CloudWatch Agent"
+    },
+    "explanation": "AWS Application Discovery Service collects detailed inventory, performance, and dependency data. Migration Hub provides a tracking dashboard but relies on discovery sources. Config tracks AWS resource configurations, not on-premise. CloudWatch Agent collects metrics but not dependency mapping."
+  },
+  {
+    "id": "2baf34d09f3566664e0123e69ed7d626d924c9a69962280fcc2d0d5986225952",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.3",
+    "stem": "A financial institution running an on-premises Oracle database with near-zero acceptable data loss (RPO of seconds) needs to migrate to AWS with minimal downtime. Which combination of migration strategy and AWS tool best meets the requirement?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Replatform with AWS Snowball Edge for bulk data transfer.",
+      "B": "Refactor using AWS Schema Conversion Tool to move to a managed service.",
+      "C": "Rehost using AWS Database Migration Service with change data capture enabled.",
+      "D": "Repurchase by subscribing to Amazon RDS for Oracle and exporting full backups manually."
+    },
+    "explanation": "Rehosting with DMS and CDC supports ongoing replication and minimal downtime. Snowball Edge is for offline bulk transfer only. Refactoring with SCT requires schema conversion and code changes. Repurchasing RDS and manual exports cannot ensure near-zero RPO."
+  },
+  {
+    "id": "be6655f36b5d13dc6630eb8af0043b115bc09b774120faf6f9c2032d4fb46979",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.3",
+    "stem": "A mid-sized company wants a prescriptive, comprehensive migration plan that includes estimated cost savings, best practices, reference architectures, and change management guidance. Which AWS offering should they engage?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Prescriptive Guidance",
+      "B": "AWS Migration Acceleration Program (MAP)",
+      "C": "AWS Quick Start reference deployments",
+      "D": "AWS Migration Hub"
+    },
+    "explanation": "MAP provides funded, end-to-end migration planning, TCO analysis, prescriptive best practices, and organizational change management. Prescriptive Guidance offers best practices but not funded planning or TCO estimates. Quick Starts deploy patterns. Migration Hub tracks progress but does not guide strategy."
+  },
+  {
+    "id": "12c880bfb67dd2b8024aab23bf3f0cb923aa738485f2a1c0b36905e6512b4fc4",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.3",
+    "stem": "An enterprise realizes its workforce lacks cloud skills and needs to define training, role changes, and staffing requirements as part of its cloud adoption. Which AWS CAF perspective addresses this need?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Business Perspective",
+      "B": "Governance Perspective",
+      "C": "People Perspective",
+      "D": "Security Perspective"
+    },
+    "explanation": "The People Perspective focuses on organizational change management, skills development, and role definitions. Business covers strategy and business case. Governance covers policies. Security covers controls."
+  },
+  {
+    "id": "e3d7a61f6fccdb50066503915c117957449f3d385584c40b6defa76fae39f80d",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.3",
+    "stem": "A retailer plans to move a Java-based web application to AWS. They require automatic scaling and environment management but prefer no major code refactoring. They also want to minimize DevOps overhead. Which migration strategy is most appropriate?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Rehost on EC2 with Auto Scaling groups.",
+      "B": "Replatform using AWS Elastic Beanstalk for Java.",
+      "C": "Refactor into microservices on EKS.",
+      "D": "Repurchase by adopting a SaaS ecommerce platform."
+    },
+    "explanation": "Replatform with Elastic Beanstalk minimizes code changes while providing managed environment and scaling. Rehost requires more DevOps work. Refactor is complex. Repurchase changes the application entirely."
+  },
+  {
+    "id": "db6e305241f98e646e9c8a20f025803212b428337ad4e0531b896687d5753e21",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.3",
+    "stem": "When coordinating a complex migration involving multiple AWS accounts, various application teams, and heterogeneous workloads, which AWS service offers a centralized dashboard to track each application\u2019s migration status, health, and dependencies?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Migration Hub",
+      "B": "AWS Control Tower",
+      "C": "AWS Systems Manager",
+      "D": "AWS Organizations"
+    },
+    "explanation": "AWS Migration Hub provides a single pane to monitor migration status, collect per-application metrics, and view dependencies. Control Tower sets up accounts. Systems Manager manages instances post-migration. Organizations manages billing and accounts."
+  },
+  {
+    "id": "ae5382713d9509c761dc35e0ac80a36aaa86844ecefd08315b82cbf7116bea31",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.3",
+    "stem": "A company wants to perform a lift-and-shift migration of its on-premises VMs to AWS, run test instances to validate performance and configurations, and then cut over with minimal downtime. Which migration strategy and AWS service combination meet these requirements?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Rehost using AWS Application Migration Service",
+      "B": "Replatform using AWS Database Migration Service",
+      "C": "Refactor using AWS Server Migration Service",
+      "D": "Repurchase by migrating data with AWS DataSync"
+    },
+    "explanation": "Rehosting via AWS Application Migration Service continuously replicates VMs for testing and supports minimal-downtime cutover. DMS is for databases only. Server Migration Service is deprecated. DataSync transfers files, not full VM environments."
+  },
+  {
+    "id": "70d1e7bf2ecaca1e10453accd85d3789c10d339232ef77296ff4a31039e7c92e",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.3",
+    "stem": "A CRM application is nearing end-of-life, and the maintenance cost exceeds any benefit of migration. The organization decides not to move this workload to AWS. According to AWS migration strategies, which approach should they take?",
+    "correct": "D",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Replatform by adopting a different managed CRM service.",
+      "B": "Refactor into a cloud-native application.",
+      "C": "Repurchase an equivalent SaaS CRM.",
+      "D": "Retire the application and decommission it."
+    },
+    "explanation": "Retire means decommissioning workloads that are no longer valuable. Replatform, refactor, or repurchase involve moving or replacing the application, which contradicts the intent to decommission."
+  },
+  {
+    "id": "4c43c313d17e0fcef3907e7c01b18a2f064b77f7ca349f1a04ade4ac264a4fa6",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.4",
+    "stem": "A retail company currently spends $120,000 per month on on-premises datacenter hardware, network equipment, and facilities (a fixed cost), plus an additional $0.08 per CPU-hour in power and cooling (a variable cost). After migrating to AWS, they plan to run equivalent workloads on On-Demand EC2 instances at $0.06 per CPU-hour with no upfront fees. Which cost component demonstrates the shift from capital expense (CapEx) to operating expense (OpEx) when moving to AWS?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "The $120,000 monthly datacenter facility lease, because it becomes part of the AWS support plan subscription.",
+      "B": "The $0.08 per CPU-hour power and cooling expense, because AWS charges an hourly energy surcharge.",
+      "C": "The EC2 On-Demand instance rate of $0.06 per CPU-hour, because compute costs are now paid only as consumed instead of via upfront hardware purchases.",
+      "D": "The AWS data transfer charges, because networking becomes a monthly fee instead of an upfront network equipment purchase."
+    },
+    "explanation": "In an on-premises model, purchasing servers is a CapEx (fixed) cost. On AWS, compute is a usage-based (On-Demand) cost, which is OpEx. The hourly EC2 rate replaces the need for upfront hardware investments, illustrating the CapEx\u2192OpEx shift."
+  },
+  {
+    "id": "5d58a047c7b86f805e57b5284374bfe04a52ba74813166c28030e9c3230d57fd",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.4",
+    "stem": "An analytics workload shows a baseline of 5,000 CPU-hours per month with monthly peaks up to 10,000 CPU-hours. Which of the following purchasing strategies will minimize total monthly compute costs while still meeting peak demand?",
+    "correct": "B",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Purchase Reserved Instances for 10,000 CPU-hours and rely exclusively on them throughout the month.",
+      "B": "Purchase Reserved Instances for 5,000 CPU-hours and use On-Demand instances for the additional peak usage.",
+      "C": "Use Spot Instances for all 10,000 CPU-hours, since Spot pricing is always lower than Reserved and On-Demand pricing.",
+      "D": "Use On-Demand Instances for the baseline and Spot Instances for all peak usage above 5,000 CPU-hours."
+    },
+    "explanation": "Reserving the baseline workload captures the largest, predictable portion at a discount. On-Demand covers peaks. Relying solely on Spot risks interruptions; reserving the entire 10,000 incurs extra unused capacity expense."
+  },
+  {
+    "id": "3807442c0325ff5fdcaccb16e8cadde452a169b9296967e3cd194ccf9611150a",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.4",
+    "stem": "A company with a perpetual on-premises license for a commercial database moves to AWS and wants to minimize licensing costs. They can license via \u201clicense included\u201d model on RDS for $0.25 per hour or bring their existing license (BYOL) with Software Assurance at $0.15 per hour. They expect 24\u00d77 usage. Which licensing strategy yields the lowest annual cost, and why?",
+    "correct": "D",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Use RDS \u201clicense included\u201d because it covers automated backups and patching.",
+      "B": "Use the existing license on EC2, since virtualization rights allow unlimited cores.",
+      "C": "Continue running on-premises to avoid AWS licensing fees.",
+      "D": "Use RDS with BYOL at $0.15 per hour, since continuous usage multiplies into the lowest total cost over the year."
+    },
+    "explanation": "At 24\u00d77, 365 days: 0.15\u00d724\u00d7365 = ~$1,314 vs 0.25\u00d724\u00d7365 = ~$2,190. BYOL on RDS is cheapest for continuous use; automated features are available in both models."
+  },
+  {
+    "id": "fdf95fd06987c6f38fccb3464b59a2cb1faf6742875c32032f42e0a1bc5d5c1f",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.4",
+    "stem": "After migration, a team observes that CPU utilization across EC2 instances averages only 8% over a month, but they are running m5.4xlarge instances. Which cost-optimization action yields the greatest variable savings?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Downsize to a smaller instance family or size so that utilization aligns with instance capacity.",
+      "B": "Purchase a 3-year All-Upfront Reserved Instance for the existing m5.4xlarge fleet.",
+      "C": "Convert all workloads to Spot Instances on the same m5.4xlarge type.",
+      "D": "Enable EBS volume auto-scaling to reduce storage costs."
+    },
+    "explanation": "Rightsizing to match demand is the most direct way to reduce compute spend. Reserved or Spot on an over-sized instance still results in idle capacity charges."
+  },
+  {
+    "id": "9a59db27844082f33f9dee7d9703909495bee08bcf55af925ce6107edf9671ec",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.4",
+    "stem": "A fintech startup needs to run end-of-month batch jobs for 400 hours total and remains idle for the rest of the month. Which cost model combination best minimizes total cost while ensuring the batch jobs complete?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use On-Demand instances for all 400 hours to avoid any upfront commitment.",
+      "B": "Use Spot Instances for 350 hours and On-Demand for the remaining 50 hours in case Spot capacity is reclaimed.",
+      "C": "Purchase a 1-year No-Upfront Reserved Instance even though usage is only 400 hours per month.",
+      "D": "Use Savings Plans for a fixed 400 hours per month workload."
+    },
+    "explanation": "Spot pricing reduces cost but carries interruption risk. Covering just 50 hours with On-Demand ensures job completion. A 1-year reservation or Savings Plan is not cost-effective for a mostly idle workload."
+  },
+  {
+    "id": "2b33914fa8c189f6bfe6b527993406826cd654a3e92b9c135026ae9fc7f85225",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.4",
+    "stem": "Which of the following is best described as a variable cost in an AWS deployment?",
+    "correct": "C",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "The annual fee for an AWS Enterprise Support plan.",
+      "B": "The upfront payment for a 3-year Reserved Instance reservation.",
+      "C": "The data egress charges incurred when end users download media from S3.",
+      "D": "The cost of purchasing EC2 Dedicated Hosts scheduled monthly."
+    },
+    "explanation": "Data egress charges vary directly with the volume of data transferred out. Support plan fees and Reserved Instance upfronts are fixed; Dedicated Host scheduling incurs fixed fees per host."
+  },
+  {
+    "id": "11bd12a63ec72a5046e810dc5de1ffb280e744bca6f022f1fe3fb26d262c1eea",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.4",
+    "stem": "A media company currently pays $0.023 per GB-month for on-premises storage but incurs high operational staffing costs for scaling and maintenance. On S3 Standard they pay $0.025 per GB-month. Which economic factor most justifies the slightly higher storage unit cost?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Elimination of maintenance labor and hardware replacement overhead, lowering total cost of ownership.",
+      "B": "Increased latency of S3 Standard compared to on-premises storage.",
+      "C": "Higher data retrieval costs for frequently accessed objects in S3 compared to local disks.",
+      "D": "The lack of volume-based tiered pricing in S3 Standard."
+    },
+    "explanation": "Although per-GB cost is marginally higher, AWS handles hardware maintenance, scaling, and staffing overhead, yielding overall lower TCO. The other options are drawbacks, not cost justifications."
+  },
+  {
+    "id": "c0db0bff848eaa660968d65774bdf2e93f7f5b7766f3abf53ce461322acf4fe6",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.4",
+    "stem": "A SaaS provider experiences unpredictable traffic spikes and is evaluating savings plans versus on-demand pricing. Which statement accurately describes an advantage of Compute Savings Plans over Reserved Instances?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Compute Savings Plans provide deeper discounts but require instance type and region locking like Reserved Instances.",
+      "B": "Compute Savings Plans automatically apply discounts to any EC2 instance family, size, region, or OS, providing maximum flexibility.",
+      "C": "Compute Savings Plans eliminate the need to commit to any hourly usage baseline.",
+      "D": "Compute Savings Plans can be applied to on-premises VMware workloads without additional licensing."
+    },
+    "explanation": "Compute Savings Plans give up to 66% discount and apply to any EC2 compute usage regardless of instance attributes. Reserved Instances require tighter scope commitments."
+  },
+  {
+    "id": "fd47e1a15aac850637b5f636db1ce436d62619f6ea8cd2ea2fe6b0132db4391a",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "1.4",
+    "stem": "A company automates its nightly backup process using AWS Backup instead of manual scripts that run 8 hours per night. The automation service charges a flat $100 per month. If the manual process required two administrators at $50/hour each, how much monthly savings does automation yield, and which cost concept does this illustrate?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "$0; it\u2019s a like-for-like swap of staff time for a flat fee, illustrating fixed cost neutrality.",
+      "B": "$200; illustrating economies of scale as automation spreads cost across processes.",
+      "C": "$700; illustrating variable cost reduction by eliminating per-hour labor.",
+      "D": "$1,100; illustrating fixed cost reduction by converting high labor variable costs into a predictable fixed subscription fee."
+    },
+    "explanation": "Manual cost: 2 admins \u00d7 $50/hr \u00d7 8 hr \u00d7 30 days = $24,000/month. Automation fee $100; savings = $23,900. This converts unpredictable labor costs into a predictable fee, reducing both variable cost and TCO."
+  },
+  {
+    "id": "c9c684c70d6c16b929567282d820f0559669e8b6eb9224cb0ad76f3906fe1473",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "2.4",
+    "stem": "2.4: Your security operations team wants to aggregate and prioritize security findings from AWS services such as AWS Config, Amazon GuardDuty, and Amazon Inspector, as well as integrate third-party security products purchased from AWS Marketplace. Which AWS service provides a single pane of glass for security alerts and is natively integrated with AWS services and Marketplace partners?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "AWS Security Hub",
+      "B": "AWS Config Aggregator",
+      "C": "AWS Systems Manager",
+      "D": "AWS CloudTrail Lake"
+    },
+    "explanation": "AWS Security Hub centralizes and prioritizes findings from AWS security services and integrated third-party solutions in one dashboard."
+  },
+  {
+    "id": "90587bd68280d8740a4703ef24eca9d1428f5f74544a53b3e0c4c8fcf57c4837",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "2.4",
+    "stem": "2.4: Your compliance team needs to retrieve on-demand, up-to-date third-party audit and compliance reports (e.g., SOC, ISO) for AWS services used by your organization. Which AWS component should they use?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Artifact",
+      "B": "AWS Audit Manager",
+      "C": "AWS Support Center",
+      "D": "AWS Organizations"
+    },
+    "explanation": "AWS Artifact is the AWS portal for downloading official AWS compliance and audit reports."
+  },
+  {
+    "id": "abbf480b65e0f725ce6c576071876ad51fec9e3b3c38ef0ce2ede2333e692bef",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "2.4",
+    "stem": "2.4: You are tasked with routinely identifying known software vulnerabilities and unintended network accessibility issues on your fleet of Amazon EC2 instances. Which AWS service is purpose-built for performing host-level security assessments and vulnerability scans on EC2 instances?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Amazon Inspector",
+      "B": "Amazon Macie",
+      "C": "AWS Config",
+      "D": "AWS WAF"
+    },
+    "explanation": "Amazon Inspector is designed to perform automated vulnerability and configuration assessments on EC2 instances."
+  },
+  {
+    "id": "d6aec6203de41c812832392bc16f4c59b39eede5eae738154bdc6e175ba84554",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "2.4",
+    "stem": "2.4: Your data security team needs to automatically discover, classify, and protect sensitive personally identifiable information (PII) stored in Amazon S3 buckets across multiple AWS accounts. Which AWS service should they deploy?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Amazon Macie",
+      "B": "AWS Shield",
+      "C": "AWS Key Management Service (KMS)",
+      "D": "AWS CloudTrail"
+    },
+    "explanation": "Amazon Macie uses machine learning to discover and classify sensitive data in S3, including PII."
+  },
+  {
+    "id": "e1bfdac3560af12663433be8606724316244bb4702ac8e2fbcc809ef98872edc",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "2.4",
+    "stem": "2.4: You need to detect suspicious activity related to unauthorized API calls, credential compromises, and anomalous behavior in your AWS accounts without deploying additional agents. Which AWS service provides threat detection capabilities based on continuously analyzing AWS CloudTrail event logs, VPC Flow Logs, and DNS logs?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Amazon GuardDuty",
+      "B": "AWS Config",
+      "C": "AWS CloudTrail",
+      "D": "Amazon CloudWatch"
+    },
+    "explanation": "Amazon GuardDuty continuously analyzes CloudTrail, VPC Flow Logs, and DNS logs to identify potential threats."
+  },
+  {
+    "id": "998e53c9cf4e218adf07189bdc9fd88ecc00281eaf9f907ac686b8cc25dff7e0",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "2.4",
+    "stem": "2.4: To enforce that no Amazon S3 buckets in your organization allow public write access and automatically revert any configuration drift, which AWS service and feature combination should you implement?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Config with a managed rule and automated remediation",
+      "B": "AWS Security Hub with custom action workflows",
+      "C": "Amazon CloudWatch Alarms with Lambda auto-remediation",
+      "D": "Amazon GuardDuty with Findings Action Streams"
+    },
+    "explanation": "AWS Config managed rules can detect non-compliant bucket policies and trigger automated remediation actions via AWS Systems Manager."
+  },
+  {
+    "id": "e22e33fabe9e11b0ee406383ece8944b5dc94ae485bb5678c78d5930a3465996",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "2.4",
+    "stem": "2.4: A security analyst needs to stay informed about newly disclosed vulnerabilities, AWS security advisories, and mitigations directly from AWS. Which AWS resource is the most authoritative and continuously updated source for official AWS security bulletins?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "AWS Security Bulletins page",
+      "B": "AWS News Blog",
+      "C": "AWS Marketplace Security Hub Integrations page",
+      "D": "AWS Support Health Dashboard"
+    },
+    "explanation": "The AWS Security Bulletins page publishes official advisories and mitigations as soon as they are released."
+  },
+  {
+    "id": "02b4335c12022d551412938241c7cfb618decf9454b0cf99f6f76686e25b29eb",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "2.4",
+    "stem": "2.4: Your network operations team wants to capture detailed information about IP traffic going to and from network interfaces in your VPC for performance and security analysis. Which AWS feature should they enable?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "VPC Flow Logs",
+      "B": "Amazon GuardDuty",
+      "C": "AWS CloudTrail",
+      "D": "AWS Network Firewall"
+    },
+    "explanation": "VPC Flow Logs record IP traffic flow data at the network interface level for analysis and logging."
+  },
+  {
+    "id": "deb6090a97c0a621fd8f3d9a3d4574f6a5e71d54daf22229712289e2572f213b",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "2.4",
+    "stem": "2.4: The security team must ensure that all IAM users with console access have at least one active MFA device enabled. Which AWS Config managed rule should they enable?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "iam-mfa-enabled-for-iam-console-access",
+      "B": "root-account-mfa-enabled",
+      "C": "iam-password-policy",
+      "D": "iam-user-unused-credentials-check"
+    },
+    "explanation": "The iam-mfa-enabled-for-iam-console-access rule checks that each IAM user with console access has MFA enabled."
+  },
+  {
+    "id": "68a1854d219eca3a2dd771646201a8cdd2ca5e651fcafd5e3574505540b7d6b2",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "2.4",
+    "stem": "2.4: To centralize API activity logs from all member accounts of your AWS Organization into a single S3 bucket for analysis and long-term retention, which AWS service and feature should you configure?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "AWS CloudTrail organization trail",
+      "B": "AWS Config aggregator",
+      "C": "AWS Organizations consolidated logging",
+      "D": "Amazon Athena cross-account federated queries"
+    },
+    "explanation": "An AWS CloudTrail organization trail automatically captures API events from all member accounts and delivers them to a central S3 bucket."
+  },
+  {
+    "id": "f98e2504dd4da9cc0c120272595e33eebc7eb683df39ff0c445362e69f8876a5",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.5",
+    "stem": "A company operates two VPCs with overlapping CIDR ranges and requires full bidirectional communication between them. VPC peering cannot be used due to overlapping IP spaces. Which AWS network service should they use to achieve this requirement with minimal administrative overhead?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Create a Site-to-Site VPN connection between the two VPCs using virtual private gateways",
+      "B": "Deploy an AWS Transit Gateway, attach both VPCs, and enable route table propagation",
+      "C": "Use AWS Direct Connect gateway to connect both VPCs",
+      "D": "Establish an AWS PrivateLink interface endpoint for each VPC to the other"
+    },
+    "explanation": "A Transit Gateway supports overlapping CIDRs by using separate attachments and route tables, and centralizes connectivity without IP renumbering. VPN with VGW won\u2019t handle overlapping ranges, PrivateLink only exposes specific services, and Direct Connect gateway is for on-premises connectivity."
+  },
+  {
+    "id": "a8b017e43d14cd95c5e37135d4f4e602e650a66de67efb5b5781331f8d731626",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.5",
+    "stem": "An application running in private subnets across three Availability Zones needs to download files from an Amazon S3 bucket in the same region without using a NAT gateway or internet gateway. Which combination of steps will satisfy this requirement while adhering to least privilege?",
+    "correct": "C",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Deploy a NAT gateway in one AZ, update route tables, and restrict its security group",
+      "B": "Create an interface VPC endpoint for S3 in each subnet and add bucket policy allowing the endpoint",
+      "C": "Create a gateway VPC endpoint for S3, update each subnet\u2019s route table with the S3 prefix list, and apply an endpoint policy restricting to the specific bucket",
+      "D": "Configure AWS PrivateLink for S3 and attach it to each subnet\u2019s route table"
+    },
+    "explanation": "A gateway endpoint for S3 is free, supports prefix lists, and can be restricted via endpoint policy. Interface endpoints aren\u2019t available for S3, PrivateLink isn\u2019t used for S3, and NAT gateways incur cost."
+  },
+  {
+    "id": "0ae9e59cfc9c3e312c10591277e63889fa5835a3d679c3a7056dae3e7e99a074",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.5",
+    "stem": "Your ECS tasks in private subnets cannot pull container images from Amazon ECR. You have created an interface VPC endpoint for com.amazonaws.us-east-1.ecr.dkr but still see pull failures. What additional configuration is required?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Add a NAT gateway to the private subnets and update route tables",
+      "B": "Configure VPC peering between the VPC and the ECR service account",
+      "C": "Enable VPC endpoint for AWS Secrets Manager",
+      "D": "Create interface endpoints for com.amazonaws.us-east-1.ecr.api and a gateway endpoint for S3"
+    },
+    "explanation": "ECR image pulls use both the ECR API and ECR DKR interface endpoints, and require access to S3 via a gateway endpoint. A NAT gateway isn\u2019t needed if endpoints are configured correctly."
+  },
+  {
+    "id": "a1aacb1efb5cefde46cc2dd6d8dc07d7495468643e3e76afea4a8058fb5ff5da",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.5",
+    "stem": "A developer created an interface VPC endpoint for Amazon DynamoDB and S3 in a VPC, but DNS resolution still points to the public service endpoints. What must be enabled to ensure private DNS names resolve to the VPC endpoint?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Enable the \u201cPrivate DNS Name\u201d option when creating the interface endpoint",
+      "B": "Associate an Elastic IP with the endpoint network interface",
+      "C": "Add a custom host zone in Amazon Route 53 and map the service domain",
+      "D": "Configure a forwarding rule in the VPC DHCP options set"
+    },
+    "explanation": "Interface endpoints support private DNS name integration when the \u201cPrivate DNS Name\u201d option is enabled. This overrides public DNS resolution. The other options don\u2019t enforce AWS service DNS hijacking."
+  },
+  {
+    "id": "e189dd70553f5da00619a6f1e9f61c63398565ce175946f5157aafbf1806a754",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.5",
+    "stem": "A global e-commerce application in two regions wants to route users to the lowest latency endpoint. DNS-based routing must automatically fail over if an endpoint becomes unhealthy. Which Amazon Route 53 routing policy should be used?",
+    "correct": "C",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Weighted routing policy with health checks",
+      "B": "Geolocation routing policy",
+      "C": "Latency routing policy with health checks",
+      "D": "Multivalue answer routing policy without health checks"
+    },
+    "explanation": "Latency routing directs users to the lowest latency region and health checks enable automatic failover. Weighted routing balances by weight, geolocation directs by user location, and multivalue doesn\u2019t guarantee latency."
+  },
+  {
+    "id": "33e59061f80b76ddd982c95a02bc61bb9bfd060dd384ee4a66a14bb87b138ed4",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.5",
+    "stem": "A SaaS provider in Account A wants to expose a custom API to multiple customer VPCs without exposing their VPC to the public internet. Which configuration achieves this with AWS PrivateLink?",
+    "correct": "B",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Create a NAT gateway and share it via AWS Resource Access Manager",
+      "B": "Publish an endpoint service in Account A, enable acceptance, then customers create interface endpoints to that service",
+      "C": "Peer each customer VPC to the provider VPC and share security groups",
+      "D": "Use AWS Transit Gateway and attach all customer VPCs to it"
+    },
+    "explanation": "With PrivateLink, the provider publishes an endpoint service, accepts connections, and customers create interface endpoints to access it privately. Transit Gateway and peering expose the entire VPC, and NAT Gateway is irrelevant."
+  },
+  {
+    "id": "62449d151941a549c6a2111d0aca1affdf075c700d5a74e9755289dff3a661f2",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.5",
+    "stem": "Your on-premises data center requires private, low\u2010latency connectivity to an Amazon VPC and AWS public services (S3, DynamoDB) in the same region. You already have a Direct Connect connection. Which Direct Connect configuration meets these requirements?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Create a private virtual interface for the VPC and a public virtual interface for AWS public services",
+      "B": "Use only a private virtual interface and route public service traffic through the VPC endpoint",
+      "C": "Establish two private virtual interfaces to two separate Direct Connect gateways",
+      "D": "Leverage a Transit Gateway attachment with a single private virtual interface"
+    },
+    "explanation": "A private VIF connects to the VPC; a public VIF accesses AWS public services directly. Routing public service traffic via the VPC endpoint over the private VIF isn\u2019t supported, and Transit Gateway doesn\u2019t replace public VIF."
+  },
+  {
+    "id": "94ac2c4fa9738399220307689efb4c428363b728cab1de01aa52853bf3fa3fc4",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.5",
+    "stem": "You have a VPC with multiple subnets and enable a gateway endpoint for S3. You notice traffic to S3 is still routing to the internet gateway. Which route table configuration change fixes this?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Add a /0 route pointing to the S3 gateway endpoint",
+      "B": "Add a route for the S3 prefix list (pl-xxxx) pointing to the gateway endpoint",
+      "C": "Associate the gateway endpoint\u2019s subnet IDs with the main route table",
+      "D": "Modify the internet gateway to forward S3 traffic to the endpoint"
+    },
+    "explanation": "Gateway endpoints use predefined prefix lists (pl-*) that must be added to the subnet route tables pointing to the endpoint. A /0 route would misroute all traffic, and internet gateways can\u2019t forward to endpoints."
+  },
+  {
+    "id": "c539656111542fd3642ee58582e2ae2366048241c8bdc870c122de9b77a20e2b",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.5",
+    "stem": "An application must inspect all east-west traffic between private subnets for anomalies. Which AWS network service should you deploy, and how is it integrated?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Network Firewall deployed in its own VPC with VPC peering",
+      "B": "AWS WAF attached to an Application Load Balancer",
+      "C": "AWS Shield Advanced with custom anomaly detection rules in Transit Gateway",
+      "D": "AWS Network Firewall in a centralized inspection VPC, routed via Transit Gateway with firewall route tables"
+    },
+    "explanation": "Deploying AWS Network Firewall in a centralized inspection VPC with Transit Gateway allows inspection of VPC-to-VPC traffic. WAF and Shield Advanced inspect only perimeter traffic, and peering isn\u2019t scalable."
+  },
+  {
+    "id": "fc753c0e15c4364fb22f8890621c0ae31d047c483478946ae9e9267cf4cacaea",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.6",
+    "stem": "A company must store 10 PB of compliance data for 7 years in AWS. Data is accessed no more than twice per year, and retrieval times of up to 12 hours are acceptable. The solution needs the lowest possible storage cost and durability of 99.999999999%. Which S3 storage class should you choose?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon S3 Standard-Infrequent Access",
+      "B": "Amazon S3 Glacier Instant Retrieval",
+      "C": "Amazon S3 Glacier Deep Archive",
+      "D": "Amazon S3 One Zone-Infrequent Access"
+    },
+    "explanation": "S3 Glacier Deep Archive offers the lowest storage cost and 11-9s durability, with retrieval within 12 hours. Glacier Instant Retrieval is more expensive and designed for milliseconds retrieval. Standard-IA and One Zone-IA have higher storage costs and are less optimized for year-long archives."
+  },
+  {
+    "id": "e13c0f9f8ec0bf6db568b4473770c6aee57e040f5683cf51556ec24e70ec7775",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.6",
+    "stem": "A media production team needs a multi-AZ, POSIX-compliant file system to share large Linux home directories across hundreds of EC2 instances. Throughput must scale with workload, and administrative overhead should be minimal. Which storage service should you deploy?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Amazon EFS Standard with bursting throughput",
+      "B": "Amazon FSx for Lustre linked to S3",
+      "C": "Amazon S3 with S3FS mounting",
+      "D": "Amazon EBS gp3 volumes in each instance"
+    },
+    "explanation": "Amazon EFS Standard provides managed, elastic, multi-AZ NFS file shares with bursting throughput and no capacity planning. FSx for Lustre requires managing scratch vs persistent mode and isn\u2019t multi-AZ by default. S3FS is not natively POSIX-compliant and adds complexity. EBS volumes are not shareable across instances."
+  },
+  {
+    "id": "4b666bf63a6125702cba931d9d227427a905e9953b19e917cc0ba453c11d5d69",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.6",
+    "stem": "A Windows-based application needs a fully managed, multi-AZ SMB file share integrated with Active Directory. Data must be encrypted at rest, and automated daily backups are required. Which service meets these needs with minimal operational effort?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon EFS with AWS Backup for Windows",
+      "B": "Amazon FSx for Windows File Server",
+      "C": "Amazon S3 with FSx File Gateways",
+      "D": "EBS volumes attached to a Windows file server EC2 cluster"
+    },
+    "explanation": "Amazon FSx for Windows File Server provides a fully managed, multi-AZ SMB share, supports AD integration, encryption at rest, and built-in daily backups. EFS does not support SMB or AD. S3 is object storage and not SMB. DIY EC2 file servers require high operational overhead."
+  },
+  {
+    "id": "6dba58d2f843d20f112802adec86cbc9149bff220eaacb6f503514cde2804ae1",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.6",
+    "stem": "A computational chemistry workload requires high-performance, POSIX-compliant file access with sub-millisecond latencies and throughput exceeding 1 GB/s. The data set is stored in S3, and files must be cached locally during processing. Which storage solution is most appropriate?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon EFS One Zone Infrequent Access",
+      "B": "Amazon FSx for Windows File Server",
+      "C": "Amazon FSx for Lustre linked to the S3 data repository",
+      "D": "Amazon EBS io2 volumes mounted on each compute node"
+    },
+    "explanation": "Amazon FSx for Lustre can be linked to an S3 repository, providing a cached POSIX file system with sub-millisecond latencies and high throughput. EFS cannot reach >1 GB/s per client. EBS io2 volumes are block storage and not automatically integrated or cached from S3. FSx Windows uses SMB, not POSIX."
+  },
+  {
+    "id": "8b97278ae305f46c0b85f670ceec0cd60a242da03303bbc42794bc9c297783e8",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.6",
+    "stem": "Your security team requires that S3 objects older than 90 days move to a lower-cost tier and after one year move to Glacier Flexible Retrieval. Which feature should you configure?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "An S3 lifecycle policy with two transition rules",
+      "B": "AWS Backup plan targeting the S3 bucket",
+      "C": "Amazon Data Lifecycle Manager policy",
+      "D": "Enable S3 Intelligent-Tiering on the bucket"
+    },
+    "explanation": "S3 lifecycle policies support multiple transitions, such as 90 days \u2192 Standard-IA and 365 days \u2192 Glacier Flexible Retrieval. AWS Backup does not transition S3 objects. Data Lifecycle Manager manages EBS snapshots, not S3. Intelligent-Tiering automates tiering but doesn\u2019t transition to Glacier Flexible Retrieval."
+  },
+  {
+    "id": "ffc88e500a871f7033336fc009097ef0224fbdbcb9b452d43335251a6580598b",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.6",
+    "stem": "An operations team needs automated, cross-region backup and restore of EBS volumes. Snapshots must be encrypted using a customer-managed KMS key. Which service provides this capability with minimal custom scripting?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use AWS Data Lifecycle Manager for cross-region snapshot copy",
+      "B": "Configure EBS snapshot lifecycle policies in AWS CLI",
+      "C": "Enable EBS fast snapshot restore with cross-region copy",
+      "D": "Create an AWS Backup vault with cross-region copy enabled"
+    },
+    "explanation": "AWS Backup integrates EBS volume backup, using customer-managed KMS keys, and supports automated cross-region copy. Data Lifecycle Manager can copy snapshots but requires separate policies per region and lacks the centralized vault abstraction. Fast snapshot restore is for performance, not automated DR."
+  },
+  {
+    "id": "98f885696e3eaa4b72e40456205ef5f561016ca1f9a4e66fd95347cd72ae1332",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.6",
+    "stem": "A database team needs 5 000 guaranteed IOPS and 250 MB/s throughput for a critical transactional workload on a 1 TB block volume. They also want to minimize monthly cost. Which EBS volume type should they choose?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "gp2 volumes sized at 1 TB",
+      "B": "gp3 volumes with provisioned IOPS and throughput",
+      "C": "io1 volumes for guaranteed performance",
+      "D": "st1 volumes for cost-effective throughput"
+    },
+    "explanation": "gp3 lets you provision IOPS and throughput independently at a lower cost than io1, meeting 5 000 IOPS and 250 MB/s. gp2 provides only 3 000 baseline IOPS on 1 TB and relies on bursting. io1 is more expensive and designed for >16 000 IOPS. st1 is throughput-optimized HDD, not suitable for IOPS requirements."
+  },
+  {
+    "id": "cea6943c10e68d9165f30593cb38e6eabcf303c3d268f718b19968833b0602e2",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.6",
+    "stem": "A web analytics team generates daily log files (~100 KB each). They want to minimize storage cost and only need immediate retrieval for logs younger than 30 days, after which retrieval latency of a few minutes is acceptable. Which S3 storage class configuration should they use?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Store all logs in Glacier Flexible Retrieval",
+      "B": "Store in Standard and apply a lifecycle to Intelligent-Tiering",
+      "C": "Use S3 One Zone-IA for all logs",
+      "D": "Use a lifecycle that transitions logs to S3 Standard-IA after 30 days and to Glacier Instant Retrieval after 365 days"
+    },
+    "explanation": "Keeping logs in Standard for the first 30 days ensures immediate access, then transitioning to Standard-IA provides low-cost storage with millisecond retrieval for the next period. Glacier Instant Retrieval is only needed when logs become very cold. Storing all in Glacier or One Zone-IA offers lower availability or slower first-30-day access. Intelligent-Tiering does not transition to Glacier Instant Retrieval."
+  },
+  {
+    "id": "9fffe041c7f1e8f15b2f9ef52de52be4da759fc4a2bcfb377db870f06c771345",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.6",
+    "stem": "A global engineering team needs a shared, POSIX-compliant, low-latency file system that can burst to high throughput and supports regional failover. The solution must integrate with AWS Backup. Which combination meets all requirements?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon EFS Standard with AWS Backup",
+      "B": "Amazon FSx for Lustre scratch file system",
+      "C": "Amazon FSx for Windows File Server with AWS Backup",
+      "D": "EBS volumes in each AZ with cross-AZ attestations"
+    },
+    "explanation": "Amazon EFS Standard is POSIX-compliant, bursts throughput, is accessible across AZs, supports regional failover using DNS failover, and is fully supported by AWS Backup. FSx scratch Lustre doesn\u2019t integrate with AWS Backup and isn\u2019t multi-AZ by default. FSx Windows uses SMB, not POSIX. EBS volumes are not shareable across instances or AZs."
+  },
+  {
+    "id": "c3b6091f145636063198dfdac41b0a0b4f8658d20b4b909fe1223faa1bc07cc8",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.6",
+    "stem": "A file share used by critical applications must be encrypted at rest, automatically backed up daily, and copied to a second region for disaster recovery. Which storage service and configuration should you choose?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon EFS with a cross-region lifecycle policy",
+      "B": "Amazon FSx for Windows File Server with AWS Backup cross-region vault",
+      "C": "Amazon S3 with cross-region replication and lifecycle to Glacier",
+      "D": "Amazon FSx for Lustre with Data Lifecycle Manager"
+    },
+    "explanation": "Amazon FSx for Windows File Server supports encryption at rest, automated daily backups, and AWS Backup can copy snapshots to another region. EFS does not support cross-region backup natively. S3 and replication are object-based, not SMB shares for applications. FSx Lustre scratch doesn\u2019t integrate with Data Lifecycle Manager or AWS Backup for cross-region DR."
+  },
+  {
+    "id": "1aec815de059dcf724d9260df1ee176428a65d911374858df0671670a2342d6b",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "4.2",
+    "stem": "You manage an AWS Organization with one management account and three member accounts. The CFO requires an email alert when any single member account's monthly spending exceeds $3,000. Which configuration accomplishes this with the fewest resources and correct isolation of alerts per account?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "In each member account, create a monthly cost budget targeting the total cost and configure an SNS email notification to the CFO.",
+      "B": "In the management account, create one cost budget with a LinkedAccount filter for each member account combined (comma-separated) and set the threshold at $3,000; configure a single SNS notification.",
+      "C": "In the management account, create three separate cost budgets, each filtered by one member account\u2019s LinkedAccount ID with a $3,000 threshold; configure SNS email notification for each.",
+      "D": "In the management account, enable CloudWatch billing alarms for each member account\u2019s estimatedCharges metric with a $3,000 threshold; configure email actions."
+    },
+    "explanation": "AWS Budgets are created in the payer (management) account and can filter by LinkedAccount. To isolate alerts per account, you must create one budget per member account in the management account. CloudWatch billing alarms only track the payer\u2019s total charges. Option B would alert on combined spending. Option A budgets in member accounts are not visible centrally to the CFO. Option D uses billing alarms which cannot be scoped per member account."
+  },
+  {
+    "id": "0f0793d230f7e9544e4500fab0f5796d79a03218b2ffc3b9d2130a6ce5bc1aa9",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "4.2",
+    "stem": "You activate two user-defined cost allocation tags in the Billing Console for your organization. One tag was created yesterday and applied to existing resources; the other created today. You immediately query Cost Explorer and see that the tag created today is available but the one created yesterday has no cost data associated. Why?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Cost allocation tags apply only to usage after activation and require up to 24 hours to appear in Cost Explorer; existing resources tagged before activation will only have cost data after activation.",
+      "B": "AWS automatically applies only the most recently activated user-defined tag in Cost Explorer; older tags are deprioritized and archived after 24 hours.",
+      "C": "You must enable cost allocation tags in the AWS Organizations Service Control Policy before they propagate across linked accounts; tags not created under Organizations won't show up.",
+      "D": "Cost Explorer only supports up to 50 user-defined tags; the tag created yesterday exceeded the limit and was dropped."
+    },
+    "explanation": "User-defined cost allocation tags are applied prospectively\u2014only to usage after activation\u2014and can take up to 24 hours to propagate into Cost Explorer. They are not applied retroactively. Options B, C, and D describe incorrect behaviors."
+  },
+  {
+    "id": "daaf0e02f212c406af59ca3ceab0b63867f5cb1484f531308882bd5e82fe9fce",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "4.2",
+    "stem": "You need to produce a monthly report of costs attributed to ProjectCode tags across all accounts in your AWS Organization. The report must group costs by ProjectCode and allow flexible mapping of project codes to department names. Which AWS cost management feature provides this functionality?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use AWS Organizations with Service Control Policies to enforce ProjectCode, then export AWS Config resource inventory.",
+      "B": "Create Cost Categories in the Billing Console mapping ProjectCode values to departments, then use Cost Explorer with Cost Categories grouping.",
+      "C": "Use AWS Budgets to create a budget for each ProjectCode tag, then export budget reports.",
+      "D": "Configure Cost Allocation Tags for ProjectCode, activate them, and then use AWS Pricing Calculator to group by tag."
+    },
+    "explanation": "Cost Categories allow you to define custom grouping rules (for example mapping ProjectCode values to department names) and then view or filter costs in Cost Explorer by those categories. Budgets cannot provide flexible grouping, Pricing Calculator is for planning, and AWS Config is unrelated to cost reporting."
+  },
+  {
+    "id": "272e3ca428c7934873baded8e23b5d2607645a1f091ce4c53490eeedf2450766",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "4.2",
+    "stem": "You are designing a solution to estimate the monthly cost of a new application before deployment. The application will provision 10 m5.large EC2 instances for 720 hours each per month, store 5 TB in S3 Standard, and transfer 1 TB of data out per month. Which tool should you use to generate the most accurate cost estimate?",
+    "correct": "C",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "AWS Budgets to forecast costs based on current usage trends.",
+      "B": "AWS Cost Explorer to analyze similar historical usage months.",
+      "C": "AWS Pricing Calculator, entering the usage details for each service.",
+      "D": "Create a Cost and Usage Report and modify it to include the new services."
+    },
+    "explanation": "The AWS Pricing Calculator is designed to model and estimate costs for planned or new workloads by specifying service usage details. Budgets and Cost Explorer rely on historical usage; Cost and Usage Reports are for detailed billing export, not upfront costing."
+  },
+  {
+    "id": "38a837a7763527f21c2ceee40a060d3e1310c0ce0e7cc3b4ab2d248d7fc01db6",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "4.2",
+    "stem": "Your security team wants to automatically stop underutilized EC2 instances when monthly costs for a development account exceed $1,000. Which combination of AWS features meets this requirement with the least operational overhead?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Create a Cost Budget with a $1,000 threshold and configure the budget action to STOP_EC2_INSTANCES on the development account.",
+      "B": "Create a Cost Budget with a $1,000 threshold and configure an AWS Chatbot Slack notification to the security team, then have a Lambda function stop instances when notified.",
+      "C": "Create a Cost Budget with a $1,000 threshold, configure an SNS topic for notification, subscribe a Lambda function that calls the StopInstances API for tagged development instances.",
+      "D": "Use CloudWatch billing alarms to trigger an Auto Scaling policy reducing instance count to zero when estimated charges exceed $1,000."
+    },
+    "explanation": "AWS Budgets cannot directly perform EC2 actions; you must configure a notification via SNS and then use a Lambda subscriber to stop instances. AWS Chatbot is not required. CloudWatch billing alarms cannot integrate with Auto Scaling for this purpose."
+  },
+  {
+    "id": "9ea301a9d220b68a67595d86fca9e9b67212d0d59a5feeba866948320640d71e",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "4.2",
+    "stem": "A finance team uses Savings Plans across your organization and needs to view how the Savings Plans discount is allocated to each member account. Which tool and configuration should they use?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "In Cost Explorer, view the Savings Plans Utilization report and group by LinkedAccount.",
+      "B": "In AWS Budgets, create a Savings Plans budget and filter by account.",
+      "C": "Use AWS Pricing Calculator\u2019s Savings Plans tab to simulate discount allocations per account.",
+      "D": "Enable a Savings Plan cost allocation tag and filter it in a Cost and Usage Report."
+    },
+    "explanation": "AWS Cost Explorer provides a Savings Plans Utilization report that can be grouped by LinkedAccount to see how discounts are applied per account. Budgets cannot track Savings Plans, Pricing Calculator is for modeling, and Savings Plans cannot be tagged for cost allocation."
+  },
+  {
+    "id": "8c9e3ef74577dbfecc2792e2ec7beadad1ae9e02a90064970884687154e0a987",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "4.2",
+    "stem": "Your team needs hourly-granularity cost data delivered to an S3 bucket with all resource-level details for integration into a third-party BI tool. Which AWS service provides this level of detail?",
+    "correct": "C",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "AWS Cost Explorer API with hourly granularity.",
+      "B": "AWS Budgets with hourly report export functionality.",
+      "C": "AWS Cost and Usage Report (CUR) configured for hourly delivery to S3.",
+      "D": "AWS Pricing Calculator exporting hourly usage predictions."
+    },
+    "explanation": "The AWS Cost and Usage Report (CUR) can be configured to deliver detailed, hourly-granularity billing data to an S3 bucket. Cost Explorer cannot export data directly to S3 at hourly granularity, Budgets is for notifications, and Pricing Calculator is for estimates."
+  },
+  {
+    "id": "4577e99f3e67a84c4a26fc83247ba1963e5bf0d2f0e9caa3690eb1f7c5ea5d40",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "4.2",
+    "stem": "You have purchased Reserved Instances (RIs) for various EC2 instance types and tagged them with \u201cEnvironment:Production\u201d. Which tool allows you to view the RI utilization percentage specifically for resources tagged as Production?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "AWS Cost Explorer RI Utilization report filtered by tag \u201cEnvironment:Production\u201d.",
+      "B": "AWS Budgets usage budget filtered by tag \u201cEnvironment:Production\u201d to alert on RI utilization.",
+      "C": "AWS Pricing Calculator savings plan comparison for the tag.",
+      "D": "AWS Config conformance pack for checking RI tag compliance and utilization."
+    },
+    "explanation": "AWS Cost Explorer\u2019s RI Utilization report can be filtered by user-defined tags such as \u201cEnvironment:Production.\u201d AWS Budgets cannot measure RI utilization, Pricing Calculator is for modeling, and AWS Config is for compliance, not utilization metrics."
+  },
+  {
+    "id": "35e06d43cd9f187272ccda6bada4e7a7b9cd77cd2c37363bf8a94400e097657f",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "4.2",
+    "stem": "An IAM user in your payer account has the BillingView permission but cannot see cost allocation tags in Cost Explorer for your Organization\u2019s accounts. What must you do to allow the user to view billing information including tags?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Grant the user the aws-portal:ViewBilling permission in the Billing console settings.",
+      "B": "Enable IAM Access to Billing in the root account\u2019s Account Settings, then ensure the user has BillingView permissions.",
+      "C": "Add the user to a group with CloudWatch billing read-only policy.",
+      "D": "Attach the AWS managed policy ReadOnlyAccess to the user."
+    },
+    "explanation": "Even with BillingView permissions, IAM users must first have IAM Access to Billing enabled in the root account\u2019s Account Settings to view billing information, including cost allocation tags. Granting aws-portal:ViewBilling is part of that enablement. ReadOnlyAccess or CloudWatch policies are insufficient if IAM billing access is disabled."
+  },
+  {
+    "id": "7ec4ed470d88d4fea4975af96631789ddd4bfa6f1739b763114dbc9e9e684079",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "4.2",
+    "stem": "The DevOps team wants a report that alerts them when EC2 On-Demand instance hours exceed 5,000 hours in a month across all accounts. Which AWS Budgets configuration achieves this?",
+    "correct": "B",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Create a cost budget with filter Service = Amazon EC2 and threshold set using the estimated cost of 5,000 hours.",
+      "B": "Create a usage budget of type EC2-Service-Usage with threshold of 5,000 instance hours, filtered by Service = Amazon EC2.",
+      "C": "Create a reservation budget tracking EC2 Reserved Instances usage with threshold of 5,000 hours.",
+      "D": "Create a Savings Plans budget filtered for EC2 to track usage beyond 5,000 hours."
+    },
+    "explanation": "Usage budgets track usage units (such as EC2 instance hours) and can be filtered by service. Cost budgets track dollar amounts, Reservation budgets track RI usage, and Savings Plans budgets track coverage of Savings Plans."
+  },
+  {
+    "id": "ee2eeaac33ffbd7bfd3559fe83637d108ef8a67d9391184950c2f574673cd369",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.4",
+    "stem": "A financial services company runs a critical on-premises Oracle database and wants to minimize operational overhead, automate backups, and achieve built-in high availability without major schema changes. Which AWS database service should they choose?",
+    "correct": "A",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Amazon RDS for Oracle",
+      "B": "Self-managed Oracle on Amazon EC2",
+      "C": "Amazon Aurora (MySQL-compatible)",
+      "D": "Amazon DynamoDB"
+    },
+    "explanation": "Amazon RDS for Oracle provides a managed Oracle environment with automated backups, patching, and Multi-AZ high availability. Running Oracle on EC2 requires manual administration. Aurora MySQL does not support Oracle workloads, and DynamoDB is a NoSQL service not suited for Oracle schemas."
+  },
+  {
+    "id": "b300b497f2cac4ceca8a0377803562b8de7c4c628666afcb27a835d5a88d3110",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.4",
+    "stem": "An e-commerce application stores session data that must be read and written with sub-millisecond latency and supports replication across AZs. Which AWS database service or feature meets this requirement most cost-effectively?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon ElastiCache for Redis",
+      "B": "Amazon DynamoDB Accelerator (DAX)",
+      "C": "Amazon RDS Proxy",
+      "D": "Amazon S3 with Transfer Acceleration"
+    },
+    "explanation": "ElastiCache for Redis provides sub-millisecond latency with in-memory performance and offers Multi-AZ replication. DAX only accelerates DynamoDB queries, RDS Proxy is for RDS, and S3 cannot provide sub-millisecond read/write latency."
+  },
+  {
+    "id": "89488a55a9e7c10d29e60d41a9dd49f3fd843f53f1c2a91ba211a2fedba1f1ce",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.4",
+    "stem": "A social network needs to model and query complex, highly connected data such as user relationships and recommendations. Which AWS database service is optimized for this use case?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon DynamoDB",
+      "B": "Amazon Neptune",
+      "C": "Amazon Neptune",
+      "D": "Amazon DocumentDB"
+    },
+    "explanation": "Amazon Neptune is a purpose-built graph database for highly connected datasets and supports Gremlin and SPARQL queries. DynamoDB is a key-value/NoSQL store, DocumentDB is for document models, and only Neptune is optimized for graph workloads."
+  },
+  {
+    "id": "a18ebb13e44665cde91a1c84c8cdc4188eb83a022a610c0864271220c2ddd66c",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.4",
+    "stem": "Your team requires a multi-master relational database within a single AWS Region to support writes across multiple Availability Zones with minimal conflict detection. Which AWS service or configuration should you select?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon RDS Multi-AZ deployment",
+      "B": "Amazon Aurora Multi-Master DB cluster",
+      "C": "Amazon DynamoDB global tables",
+      "D": "Amazon ElastiCache for Redis replication"
+    },
+    "explanation": "Aurora Multi-Master allows writes on multiple nodes across AZs within a single Region. RDS Multi-AZ is standby-only (no writes on standby), DynamoDB global tables span Regions and are NoSQL, and ElastiCache is an in-memory cache, not a primary relational database."
+  },
+  {
+    "id": "f35b914040102019d00df9ba2651076b30f22b75fd27c6248e5173d8ceb3b30b",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.4",
+    "stem": "A startup wants to migrate its MySQL database to AWS with minimal downtime and continuous data replication. Which combination of services should they use?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Database Migration Service (DMS) alone",
+      "B": "AWS Schema Conversion Tool (SCT) alone",
+      "C": "Amazon Aurora Serverless",
+      "D": "AWS SCT for schema conversion and AWS DMS for ongoing replication"
+    },
+    "explanation": "SCT converts database schema objects, while DMS handles data migration and ongoing replication. DMS alone cannot convert incompatible schema, and Aurora Serverless is an endpoint configuration, not a migration tool."
+  },
+  {
+    "id": "bd88fb029ff132bf8cc7db9095ca761835ddec48705129a0a171c78c8c3b6fa3",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.4",
+    "stem": "A gaming company needs a serverless, key-value database that scales automatically to handle unpredictable traffic spikes, and provides single-digit millisecond latency for player profiles. Which service should they choose?",
+    "correct": "C",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Amazon RDS for MySQL",
+      "B": "Amazon Aurora Global Database",
+      "C": "Amazon DynamoDB",
+      "D": "Amazon ElastiCache for Memcached"
+    },
+    "explanation": "DynamoDB is a serverless NoSQL key-value store that auto-scales and delivers single-digit millisecond latency. RDS and Aurora require instance management, and ElastiCache is an in-memory cache, not a durable serverless database."
+  },
+  {
+    "id": "bfb3615be8ff2a196ba0c498bc37e563869ad00b5d8b1e9d4ccf47e0c690cfc3",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.4",
+    "stem": "An application uses MongoDB drivers and requires a managed service compatible with MongoDB APIs, automated backups, and patching. Which AWS database service is the best fit?",
+    "correct": "D",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Amazon DynamoDB",
+      "B": "Amazon DocumentDB",
+      "C": "Amazon RDS for PostgreSQL",
+      "D": "Amazon DocumentDB"
+    },
+    "explanation": "Amazon DocumentDB is compatible with MongoDB APIs and offers managed backups and patching. DynamoDB is a proprietary key-value store, RDS for PostgreSQL is not MongoDB compatible."
+  },
+  {
+    "id": "76e55c8076230b9b3b7deff28c61d229306e725e9a4f59f2eab6a37d614f12ab",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.4",
+    "stem": "A retail analytics team wants to accelerate frequent read queries on a hot DynamoDB table without modifying application code. Which AWS feature should they implement?",
+    "correct": "B",
+    "difficulty": "EASY",
+    "answers": {
+      "A": "Create a read replica in Amazon RDS",
+      "B": "Enable DynamoDB DAX",
+      "C": "Front with Amazon CloudFront",
+      "D": "Move data to Amazon S3"
+    },
+    "explanation": "DAX provides an in-memory cache for DynamoDB with minimal code changes. RDS replicas are for relational databases, CloudFront is for content delivery, and S3 is object storage unsuitable for low-latency DB queries."
+  },
+  {
+    "id": "5ebe664716b9d578456ed5ac0e9994759f499301d00ebfd425e346002e331ab7",
+    "exam": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "taskStatement": "3.4",
+    "stem": "A global content provider needs a read-heavy relational database replicated across multiple AWS Regions for low-latency reads and disaster recovery. Which service should they choose?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon Aurora Global Database",
+      "B": "Amazon RDS Read Replicas",
+      "C": "Amazon DynamoDB global tables",
+      "D": "Amazon ElastiCache for Redis global replication"
+    },
+    "explanation": "Aurora Global Database replicates data in under a second across Regions for low-latency global reads. RDS Read Replicas are within a Region, DynamoDB global tables are NoSQL, and ElastiCache is an in-memory cache, not a primary relational database."
   }
 ]
