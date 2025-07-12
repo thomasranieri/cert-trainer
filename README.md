@@ -49,3 +49,7 @@ The questions.json file is in this codebase. That's not ideal, especially becaus
 ### Potential for AI-generation at runtime
 
 Currently, I generate the questions in advance using a Python script. But if I moved this into an application server instead (or serverless function), then users could generate new questions for whatever exam they like. It could also be used to generate questions that target your weaknesses (bsaed on questions that you got wrong). However, this adds additional API cost and exposure to attack (eg: cloud billing attack).
+
+### Only one question type (multiple-choice questions)
+
+The real AWS exams have other question types, like ordering, matching and multiple response.
