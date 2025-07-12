@@ -39,15 +39,26 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={[styles.button, styles.nextButton]}
-          onPress={onNextQuestion}
-        >
-          <Text style={styles.buttonText}>
-            {isLastQuestion ? 'Complete Quiz' : 'Next Question'}
-          </Text>
-        </TouchableOpacity>
-        
+        {isLastQuestion ?
+          <TouchableOpacity
+            style={[styles.button, styles.restartButton]}
+            onPress={onRestart}
+          >
+            <Text style={styles.buttonText}>
+              You finished the quiz! Restart?
+            </Text>
+          </TouchableOpacity>
+          :
+          <TouchableOpacity
+            style={[styles.button, styles.nextButton]}
+            onPress={onNextQuestion}
+          >
+            <Text style={styles.buttonText}>
+              Next Question
+            </Text>
+          </TouchableOpacity>}
+
+
         <TouchableOpacity
           style={[styles.button, styles.aiButton]}
           onPress={openAIExplanation}
@@ -118,5 +129,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
+  },
+  restartButton: {
+    backgroundColor: '#FF9800',
   },
 });
