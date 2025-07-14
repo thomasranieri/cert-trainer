@@ -1,16 +1,14 @@
-import AntDesign from '@expo/vector-icons/AntDesign';
-
-import { Link, router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   useWindowDimensions,
 } from 'react-native';
+import ExamCard from '../../components/ExamCard';
+import SocialFooter from '../../components/SocialFooter';
 import { Question } from '../../services/DatabaseService';
 import questionsData from '../data/questions.json';
 
@@ -38,20 +36,6 @@ const ExamSelection: React.FC = () => {
     setAvailableExams(exams);
   }, []);
 
-  const renderExamCard = (exam: { name: string; count: number }) => (
-    <TouchableOpacity
-      key={exam.name}
-      style={styles.examCard}
-      onPress={() => router.push(`/quiz?exam=${exam.name}`)}
-    >
-      <Text style={styles.examTitle}>{exam.name}</Text>
-      <Text style={styles.examCount}>{exam.count} questions</Text>
-      <View style={styles.startButton}>
-        <Text style={styles.startButtonText}>Start Quiz</Text>
-      </View>
-    </TouchableOpacity>
-  );
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -62,7 +46,9 @@ const ExamSelection: React.FC = () => {
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContentContainer}>
         <View style={styles.content}>
           <View style={styles.examGrid}>
-            {availableExams.map(exam => renderExamCard(exam))}
+            {availableExams.map(exam => (
+              <ExamCard key={exam.name} exam={exam} />
+            ))}
           </View>
           <Text style={{ textAlign: 'center', marginTop: 20 }}>
             <p>This website is not affiliated with AWS or any other certification body.</p>
@@ -72,20 +58,7 @@ const ExamSelection: React.FC = () => {
             <p>See <a href="https://github.com/thomasranieri/cert-trainer">GitHub</a> for more information and known limitations.</p>
           </Text>
         </View>
-        <footer style={styles.getInTouch}>
-          <Link href="https://www.linkedin.com/in/thomas-ranieri-dev/" style={styles.socialLink} target='_blank'>
-            <AntDesign name="linkedin-square" size={24} color="white" />
-            {!isNarrowScreen && <Text style={styles.getInTouchText}>thomas-ranieri-dev</Text>}
-          </Link>
-          <Link href="https://github.com/thomasranieri/cert-trainer" style={styles.socialLink} target='_blank'>
-            <AntDesign name="github" size={24} color="white" />
-            {!isNarrowScreen && <Text style={styles.getInTouchText}>thomasranieri/cert-trainer</Text>}
-          </Link>
-          <Link href="mailto:tom@classgen.com" style={styles.socialLink} target='_blank'>
-            <AntDesign name="mail" size={24} color="white" />
-            {!isNarrowScreen && <Text style={styles.getInTouchText}>tom@classgen.com</Text>}
-          </Link>
-        </footer>
+        <SocialFooter isNarrowScreen={isNarrowScreen} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -130,57 +103,6 @@ const styles = StyleSheet.create({
   examGrid: {
     padding: 20,
     gap: 16,
-  },
-  examCard: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 20,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  examTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 8,
-  },
-  examCount: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 16,
-  },
-  startButton: {
-    backgroundColor: '#2196F3',
-    borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    alignItems: 'center',
-  },
-  startButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  getInTouch: {
-    marginTop: 20,
-    backgroundColor: '#5252bb',
-    flexDirection: 'row',
-    display: 'flex',
-    justifyContent: 'space-around',
-  },
-  socialLink: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    display: 'flex',
-    padding: 10,
-  },
-  getInTouchText: {
-    color: 'white',
-    fontSize: 16,
-    marginLeft: 8,
   },
 });
 
