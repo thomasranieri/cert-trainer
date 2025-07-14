@@ -13,7 +13,7 @@ const ExamCard: React.FC<ExamCardProps> = ({ exam }) => {
   return (
     <TouchableOpacity
       style={styles.examCard}
-      onPress={() => router.push(`/quiz?exam=${exam.name}`)}
+      onPress={() => router.push(`/quiz?exam=${exam.name}&type=unseen`)}
     >
       <Text style={styles.examTitle}>{exam.name}</Text>
       <Text style={styles.examCount}>{exam.count} questions</Text>
