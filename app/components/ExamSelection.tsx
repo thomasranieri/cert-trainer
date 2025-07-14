@@ -103,6 +103,11 @@ const styles = StyleSheet.create({
   examGrid: {
     padding: 20,
     gap: 16,
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'stretch',
   },
 });
 
