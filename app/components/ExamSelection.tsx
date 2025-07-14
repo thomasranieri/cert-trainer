@@ -54,8 +54,8 @@ const ExamSelection: React.FC = () => {
             <p>This website is not affiliated with AWS or any other certification body.</p>
             <p>These questions are not official and are for study purposes only. Certification questions will differ.</p>
             <p>All trademarks and copyrights are the property of their respective owners.</p>
-            <p>Made by <a href="https://thomasranieri.dev/">Thomas Ranieri</a> for my own study purposes.</p>
-            <p>See <a href="https://github.com/thomasranieri/cert-trainer">GitHub</a> for more information and known limitations.</p>
+            <p>Made by <a href="https://thomasranieri.dev/" target="_blank">Thomas Ranieri</a> for my own study purposes.</p>
+            <p>See <a href="https://github.com/thomasranieri/cert-trainer" target="_blank">GitHub</a> for more information and known limitations.</p>
           </Text>
         </View>
         <SocialFooter isNarrowScreen={isNarrowScreen} />
