@@ -14,8 +14,14 @@ import questionsData from '../data/questions.json';
 
 const ExamSelection: React.FC = () => {
   const [availableExams, setAvailableExams] = useState<{ name: string; count: number }[]>([]);
+  const [isClient, setIsClient] = useState(false);
   const { width } = useWindowDimensions();
-  const isNarrowScreen = width < 768; // Adjust this breakpoint as needed
+  // To avoid hydration mismatch, we determine if we are on the client side
+  const isNarrowScreen = isClient ? width < 768 : false;
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     // Extract unique exams from questions data
@@ -50,13 +56,23 @@ const ExamSelection: React.FC = () => {
               <ExamCard key={exam.name} exam={exam} />
             ))}
           </View>
-          <Text style={{ textAlign: 'center', marginTop: 20 }}>
-            <p>This website is not affiliated with AWS or any other certification body.</p>
-            <p>These questions are not official and are for study purposes only. Certification questions will differ.</p>
-            <p>All trademarks and copyrights are the property of their respective owners.</p>
-            <p>Made by <a href="https://thomasranieri.dev/" target="_blank">Thomas Ranieri</a> for my own study purposes.</p>
-            <p>See <a href="https://github.com/thomasranieri/cert-trainer" target="_blank">GitHub</a> for more information and known limitations.</p>
-          </Text>
+          <View style={styles.disclaimerContainer}>
+            <Text style={styles.disclaimerText}>
+              This website is not affiliated with AWS or any other certification body.
+            </Text>
+            <Text style={styles.disclaimerText}>
+              These questions are not official and are for study purposes only. Certification questions will differ.
+            </Text>
+            <Text style={styles.disclaimerText}>
+              All trademarks and copyrights are the property of their respective owners.
+            </Text>
+            <Text style={styles.disclaimerText}>
+              Made by Thomas Ranieri for my own study purposes.
+            </Text>
+            <Text style={styles.disclaimerText}>
+              See GitHub for more information and known limitations.
+            </Text>
+          </View>
         </View>
         <SocialFooter isNarrowScreen={isNarrowScreen} />
       </ScrollView>
@@ -108,6 +124,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'stretch',
+  },
+  disclaimerContainer: {
+    marginTop: 20,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+  },
+  disclaimerText: {
+    textAlign: 'center',
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 8,
+    lineHeight: 20,
   },
 });
 
