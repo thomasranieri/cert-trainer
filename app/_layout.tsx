@@ -1,7 +1,11 @@
 import { Stack } from "expo-router";
+import { useEffect } from "react";
 import { QuizProvider } from "./context/QuizContext";
 
 export default function RootLayout() {
+  useEffect(() => {
+    console.log(`Version: ${process.env.EXPO_PUBLIC_BUILD_DATE} ${process.env.EXPO_PUBLIC_COMMIT_HASH?.slice(0, 7)}`);
+  }, []);
   return (
     <QuizProvider>
       <Stack>
