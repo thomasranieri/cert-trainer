@@ -1,11 +1,9 @@
-import { useRouter } from 'expo-router';
 import Head from 'expo-router/head';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import ExamSelection from './components/ExamSelection';
 
 export default function Index() {
-  const router = useRouter();
   return (
     <>
       <Head>

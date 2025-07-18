@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import Head from 'expo-router/head';
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -14,7 +14,6 @@ type Params = {
 export default function QuizPage() {
   const router = useRouter();
   const { exam, task, difficulty, type } = useLocalSearchParams<Params>();
-  const navigation = useNavigation();
 
   const buildQuizUrl = () => {
     const params: Record<string, string> = {};

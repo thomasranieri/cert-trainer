@@ -21,10 +21,34 @@ export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
   const [filteredQuestions, setFilteredQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Memoize the question service to prevent recreation on every render
   const questionService = useMemo(() => new QuestionService(questions), [questions]);
   
-  // Memoize the current question to prevent unnecessary re-renders
+  const loadStats = useCallback(async () => {
+    try {
+      const currentStats = await databaseService.getStats(options.selectedExam);
+      setStats(currentStats);
+    } catch (error) {
+      console.error('Error loading stats:', error);
+    }
+  }, [options.selectedExam]);
+
+  const loadSeenQuestions = useCallback(async () => {
+    try {
+      const history = await databaseService.getQuizHistory(options.selectedExam);
+      const seenIds = new Set(history.map(activity => activity.questionId));
+      setSeenQuestionHashes(seenIds);
+    } catch (error) {
+      console.error('Error loading seen questions:', error);
+    }
+  }, [options.selectedExam]);
+
+  const resetQuizState = useCallback(() => {
+    setCurrentQuestionIndex(0);
+    setSelectedAnswer(null);
+    setShowResult(false);
+    setIsCorrect(false);
+  }, []);
+  
   const currentQuestion = useMemo(() => filteredQuestions[currentQuestionIndex], [filteredQuestions, currentQuestionIndex]);
   
   const isLastQuestion = currentQuestionIndex === filteredQuestions.length - 1;
@@ -45,7 +69,7 @@ export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
     };
 
     initialize();
-  }, [options.selectedExam]); // Only depend on selectedExam for initialization
+  }, [options.selectedExam, loadStats, loadSeenQuestions]);
 
   // Filter questions based on options
   useEffect(() => {
@@ -76,34 +100,9 @@ export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
     options.difficulty,
     options.type,
     seenQuestionHashes,
-    questionService
-  ]); // Explicit dependencies to prevent infinite loops
-
-  const loadStats = useCallback(async () => {
-    try {
-      const currentStats = await databaseService.getStats(options.selectedExam);
-      setStats(currentStats);
-    } catch (error) {
-      console.error('Error loading stats:', error);
-    }
-  }, [options.selectedExam]);
-
-  const loadSeenQuestions = useCallback(async () => {
-    try {
-      const history = await databaseService.getQuizHistory(options.selectedExam);
-      const seenIds = new Set(history.map(activity => activity.questionId));
-      setSeenQuestionHashes(seenIds);
-    } catch (error) {
-      console.error('Error loading seen questions:', error);
-    }
-  }, [options.selectedExam]);
-
-  const resetQuizState = useCallback(() => {
-    setCurrentQuestionIndex(0);
-    setSelectedAnswer(null);
-    setShowResult(false);
-    setIsCorrect(false);
-  }, []);
+    questionService,
+    resetQuizState
+  ]);
 
   const selectAnswer = useCallback((answer: string) => {
     if (showResult) return;

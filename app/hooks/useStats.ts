@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { databaseService } from '../services/DatabaseService';
 import { QuestionService } from '../services/QuestionService';
@@ -13,11 +13,7 @@ export const useStats = (selectedExam: string, allQuestions: Question[]) => {
 
   const questionService = new QuestionService(allQuestions);
 
-  useEffect(() => {
-    loadData();
-  }, [selectedExam]);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     setLoading(true);
     try {
       const [historyData, statsData] = await Promise.all([
@@ -31,7 +27,11 @@ export const useStats = (selectedExam: string, allQuestions: Question[]) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedExam]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   const clearHistory = () => {
     Alert.alert(

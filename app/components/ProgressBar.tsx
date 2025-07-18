@@ -13,8 +13,6 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   totalQuestions,
   stats
 }) => {
-  const progress = totalQuestions > 0 ? (currentQuestion / totalQuestions) * 100 : 0;
-
   return (
     <View style={styles.header}>
       <Text style={styles.questionCounter}>
