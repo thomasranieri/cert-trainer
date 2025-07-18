@@ -6,11 +6,11 @@ import {
   Text,
   View,
 } from 'react-native';
-import ExamCard from '../../components/ExamCard';
-import SocialFooter from '../../components/SocialFooter';
-import { useClientDimensions } from '../../hooks/useClientDimensions';
-import { Question } from '../../services/DatabaseService';
+import ExamCard from './ExamCard';
+import SocialFooter from './SocialFooter';
+import { Question } from '../services/DatabaseService';
 import questionsData from '../data/questions.json';
+import { useClientDimensions } from '../hooks/useClientDimensions';
 
 const ExamSelection: React.FC = () => {
   const [availableExams, setAvailableExams] = useState<{ name: string; count: number }[]>([]);
