@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
 } from 'react-native';
-import ExamCard from './ExamCard';
-import SocialFooter from './SocialFooter';
-import { Question } from '../services/DatabaseService';
 import questionsData from '../data/questions.json';
 import { useClientDimensions } from '../hooks/useClientDimensions';
+import { Question } from '../services/DatabaseService';
+import ExamCard from './ExamCard';
+import SocialFooter from './SocialFooter';
 
 const ExamSelection: React.FC = () => {
   const [availableExams, setAvailableExams] = useState<{ name: string; count: number }[]>([]);

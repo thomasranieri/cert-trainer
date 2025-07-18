@@ -1,21 +1,21 @@
 import { useLocalSearchParams } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ProgressBar } from '../../components/ProgressBar';
-import { QuestionCard } from '../../components/QuestionCard';
-import { QuizResults } from '../../components/QuizResults';
-import { useQuiz } from '../../hooks/useQuiz';
-import { Question } from '../../types';
 import questionsData from '../data/questions.json';
+import { useQuiz } from '../hooks/useQuiz';
+import { Question } from '../types';
+import { ProgressBar } from './ProgressBar';
+import { QuestionCard } from './QuestionCard';
 import QuizFilters from './QuizFilters';
+import { QuizResults } from './QuizResults';
 
 interface QuizProps {
   selectedExam: string;

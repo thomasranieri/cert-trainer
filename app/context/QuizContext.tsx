@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useContext, useReducer } from 'react';
-import { QuizSession, UserProgress } from '../types';
+import { QuizSession, UserProgress } from '../../types';
 
 interface QuizContextType {
   sessions: QuizSession[];

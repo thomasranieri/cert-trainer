@@ -1,17 +1,17 @@
 import { Link, router } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  Modal,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Modal,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-import { useStats } from '../../hooks/useStats';
-import { Question } from '../../types';
 import questionsData from '../data/questions.json';
+import { useStats } from '../hooks/useStats';
+import { Question } from '../types';
 
 // Add props for selected exam
 interface StatsProps {
