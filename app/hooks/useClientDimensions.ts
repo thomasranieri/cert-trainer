@@ -14,11 +14,13 @@ export const useClientDimensions = () => {
     width: null,
     height: null,
   });
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     // Set dimensions only after component has mounted (client-side)
     setClientDimensions({ width, height });
+    setIsHydrated(true);
   }, [width, height]);
 
-  return clientDimensions;
+  return { ...clientDimensions, isHydrated };
 };

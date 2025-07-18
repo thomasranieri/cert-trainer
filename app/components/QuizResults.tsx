@@ -20,7 +20,9 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
   isLastQuestion
 }) => {
   const openAIExplanation = () => {
-    window.open(`https://chatgpt.com/?q=${encodeURIComponent(`Explain the answer to the question: ${currentQuestion.stem} with options ${JSON.stringify(currentQuestion.answers)}`)}`);
+    if (typeof window !== 'undefined') {
+      window.open(`https://chatgpt.com/?q=${encodeURIComponent(`Explain the answer to the question: ${currentQuestion.stem} with options ${JSON.stringify(currentQuestion.answers)}`)}`);
+    }
   };
 
   if (!showResult) return null;

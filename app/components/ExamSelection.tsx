@@ -14,10 +14,10 @@ import SocialFooter from './SocialFooter';
 
 const ExamSelection: React.FC = () => {
   const [availableExams, setAvailableExams] = useState<{ name: string; count: number }[]>([]);
-  const { width } = useClientDimensions();
+  const { width, isHydrated } = useClientDimensions();
   
   // Only use screen width after hydration to avoid mismatch
-  const isNarrowScreen = width !== null ? width < 768 : false;
+  const isNarrowScreen = isHydrated && width !== null ? width < 768 : false;
 
   useEffect(() => {
     // Extract unique exams from questions data
