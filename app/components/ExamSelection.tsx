@@ -5,23 +5,19 @@ import {
   StyleSheet,
   Text,
   View,
-  useWindowDimensions,
 } from 'react-native';
 import ExamCard from '../../components/ExamCard';
 import SocialFooter from '../../components/SocialFooter';
+import { useClientDimensions } from '../../hooks/useClientDimensions';
 import { Question } from '../../services/DatabaseService';
 import questionsData from '../data/questions.json';
 
 const ExamSelection: React.FC = () => {
   const [availableExams, setAvailableExams] = useState<{ name: string; count: number }[]>([]);
-  const [isClient, setIsClient] = useState(false);
-  const { width } = useWindowDimensions();
-  // To avoid hydration mismatch, we determine if we are on the client side
-  const isNarrowScreen = isClient ? width < 768 : false;
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const { width } = useClientDimensions();
+  
+  // Only use screen width after hydration to avoid mismatch
+  const isNarrowScreen = width !== null ? width < 768 : false;
 
   useEffect(() => {
     // Extract unique exams from questions data
