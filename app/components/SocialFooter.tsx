@@ -12,15 +12,15 @@ const SocialFooter: React.FC<SocialFooterProps> = ({ isNarrowScreen }) => {
     <View style={styles.getInTouch}>
       <Link href="https://www.linkedin.com/in/thomas-ranieri-dev/" style={styles.socialLink} target='_blank'>
         <AntDesign name="linkedin-square" size={24} color="white" />
-        {!isNarrowScreen && <Text style={styles.getInTouchText}>thomas-ranieri-dev</Text>}
+        <Text style={[styles.getInTouchText, isNarrowScreen && styles.hiddenText]}>thomas-ranieri-dev</Text>
       </Link>
       <Link href="https://github.com/thomasranieri/cert-trainer" style={styles.socialLink} target='_blank'>
         <AntDesign name="github" size={24} color="white" />
-        {!isNarrowScreen && <Text style={styles.getInTouchText}>thomasranieri/cert-trainer</Text>}
+        <Text style={[styles.getInTouchText, isNarrowScreen && styles.hiddenText]}>thomasranieri/cert-trainer</Text>
       </Link>
       <Link href="mailto:tom@classgen.com" style={styles.socialLink} target='_blank'>
         <AntDesign name="mail" size={24} color="white" />
-        {!isNarrowScreen && <Text style={styles.getInTouchText}>tom@classgen.com</Text>}
+        <Text style={[styles.getInTouchText, isNarrowScreen && styles.hiddenText]}>tom@classgen.com</Text>
       </Link>
     </View>
   );
@@ -44,6 +44,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     marginLeft: 8,
+  },
+  hiddenText: {
+    opacity: 0,
+    width: 0,
+    height: 0,
+    overflow: 'hidden',
   },
 });
 
