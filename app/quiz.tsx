@@ -9,11 +9,12 @@ type Params = {
   task?: string;
   difficulty?: string;
   type?: 'all' | 'unseen';
+  questions?: string;
 };
 
 export default function QuizPage() {
   const router = useRouter();
-  const { exam, task, difficulty, type } = useLocalSearchParams<Params>();
+  const { exam, task, difficulty, type, questions } = useLocalSearchParams<Params>();
 
   const buildQuizUrl = () => {
     const params: Record<string, string> = {};
@@ -21,6 +22,7 @@ export default function QuizPage() {
     if (task) params.task = task;
     if (difficulty) params.difficulty = difficulty;
     if (type && type !== 'all') params.type = type;
+    if (questions) params.questions = questions;
     
     return { pathname: '/quiz' as const, params };
   };
@@ -31,6 +33,7 @@ export default function QuizPage() {
     if (task) params.task = task;
     if (difficulty) params.difficulty = difficulty;
     if (type && type !== 'all') params.type = type;
+    if (questions) params.questions = questions;
     
     return { pathname: '/stats' as const, params };
   };

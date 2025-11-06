@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -6,23 +6,20 @@ import {
     Text,
     View,
 } from 'react-native';
-import questionsData from '../data/questions.json';
+import { useQuestions } from '../context/QuestionsContext';
 import { useClientDimensions } from '../hooks/useClientDimensions';
-import { Question } from '../services/DatabaseService';
 import ExamCard from './ExamCard';
 import SocialFooter from './SocialFooter';
 
 const ExamSelection: React.FC = () => {
-  const [availableExams, setAvailableExams] = useState<{ name: string; count: number }[]>([]);
   const { width, isHydrated } = useClientDimensions();
+  const { questions, loading, error, requestedUrl, source } = useQuestions();
   
   // Only use screen width after hydration to avoid mismatch
   const isNarrowScreen = isHydrated && width !== null ? width < 768 : false;
 
-  useEffect(() => {
-    // Extract unique exams from questions data
-    const questions = questionsData as Question[];
-    const examCounts: { [key: string]: number } = {};
+  const availableExams = useMemo(() => {
+    const examCounts: Record<string, number> = {};
 
     questions.forEach(question => {
       if (question.exam) {
@@ -30,27 +27,54 @@ const ExamSelection: React.FC = () => {
       }
     });
 
-    const exams = Object.entries(examCounts).map(([name, count]) => ({
-      name,
-      count,
-    })).sort((a, b) => a.name.localeCompare(b.name));
+    return Object.entries(examCounts)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [questions]);
 
-    setAvailableExams(exams);
-  }, []);
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.loadingContainer}>
+          <Text style={styles.loadingText}>Loading question set...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Select an Exam</Text>
         <Text style={styles.headerSubtitle}>Choose which certification you want to study for</Text>
+        {requestedUrl && (
+          <Text style={styles.datasetNotice} numberOfLines={2}>
+            Question set: {requestedUrl}
+          </Text>
+        )}
+        {source === 'local' && requestedUrl && error && (
+          <View style={styles.noticeContainer}>
+            <Text style={styles.noticeText}>
+              Using bundled questions. Remote load failed: {error}
+            </Text>
+          </View>
+        )}
       </View>
 
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContentContainer}>
         <View style={styles.content}>
           <View style={styles.examGrid}>
             {availableExams.map(exam => (
-              <ExamCard key={exam.name} exam={exam} />
+              <ExamCard key={exam.name} exam={exam} questionsUrl={requestedUrl}
+              />
             ))}
+            {availableExams.length === 0 && (
+              <View style={styles.noticeContainer}>
+                <Text style={styles.noticeText}>
+                  No exams were found in this question set.
+                </Text>
+              </View>
+            )}
           </View>
           <View style={styles.disclaimerContainer}>
             <Text style={styles.disclaimerText}>
@@ -103,6 +127,12 @@ const styles = StyleSheet.create({
     color: '#666',
     textAlign: 'center',
   },
+  datasetNotice: {
+    fontSize: 12,
+    color: '#555',
+    marginTop: 8,
+    textAlign: 'center',
+  },
   scrollContainer: {
     flex: 1,
   },
@@ -121,6 +151,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'stretch',
   },
+  noticeContainer: {
+    backgroundColor: '#FFF8E1',
+    borderRadius: 12,
+    padding: 16,
+    marginTop: 16,
+    marginHorizontal: 20,
+  },
+  noticeText: {
+    color: '#8D6E63',
+    fontSize: 14,
+    textAlign: 'center',
+  },
   disclaimerContainer: {
     marginTop: 20,
     paddingHorizontal: 20,
@@ -132,6 +174,15 @@ const styles = StyleSheet.create({
     color: '#666',
     marginBottom: 8,
     lineHeight: 20,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    fontSize: 16,
+    color: '#666',
   },
 });
 

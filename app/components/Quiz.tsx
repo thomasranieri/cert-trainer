@@ -9,9 +9,8 @@ import {
     View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import questionsData from '../data/questions.json';
+import { useQuestions } from '../context/QuestionsContext';
 import { useQuiz } from '../hooks/useQuiz';
-import { Question } from '../types';
 import { ProgressBar } from './ProgressBar';
 import { QuestionCard } from './QuestionCard';
 import QuizFilters from './QuizFilters';
@@ -37,16 +36,25 @@ type Params = {
 const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
   const routerParams = useLocalSearchParams<Params>();
   const insets = useSafeAreaInsets();
-  const [allQuestions] = useState<Question[]>(questionsData as Question[]);
   const [showFilters, setShowFilters] = useState(false);
+  const {
+    questions,
+    loading: questionsLoading,
+    error: questionsError,
+    requestedUrl,
+    source,
+  } = useQuestions();
+  const taskParam = typeof routerParams.task === 'string' ? routerParams.task : undefined;
+  const difficultyParam = typeof routerParams.difficulty === 'string' ? routerParams.difficulty : undefined;
+  const typeParam = typeof routerParams.type === 'string' ? routerParams.type : undefined;
 
   // Memoize the options to prevent unnecessary re-renders
   const quizOptions = useMemo(() => ({
     selectedExam,
-    task: routerParams.task,
-    difficulty: routerParams.difficulty,
-    type: routerParams.type,
-  }), [selectedExam, routerParams.task, routerParams.difficulty, routerParams.type]);
+    task: taskParam,
+    difficulty: difficultyParam,
+    type: typeParam,
+  }), [selectedExam, taskParam, difficultyParam, typeParam]);
 
   const {
     currentQuestion,
@@ -64,10 +72,12 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
     restartQuiz,
     availableTaskStatements,
     questionService,
-  } = useQuiz(allQuestions, quizOptions);
+  } = useQuiz(questions, quizOptions);
+
+  const loadingState = questionsLoading || loading;
 
   // Handle loading state
-  if (loading) {
+  if (loadingState) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.loadingContainer}>
@@ -121,6 +131,20 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
   }  return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+        {source === 'local' && requestedUrl && questionsError && (
+          <View style={styles.noticeContainer}>
+            <Text style={styles.noticeText}>
+              Using bundled questions. Remote load failed: {questionsError}
+            </Text>
+          </View>
+        )}
+        {requestedUrl && source === 'remote' && (
+          <View style={styles.noticeContainer}>
+            <Text style={styles.noticeText}>
+              Loaded question set from {requestedUrl}
+            </Text>
+          </View>
+        )}
         <QuizFilters
           availableTaskStatements={availableTaskStatements as string[]}
           isVisible={showFilters}
@@ -133,13 +157,13 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
           stats={stats}
         />
 
-        {(routerParams.task || routerParams.difficulty || routerParams.type === 'unseen') && (
+        {(taskParam || difficultyParam || typeParam === 'unseen') && (
           <View style={styles.filterSummary}>
             <Text style={styles.filterSummaryText}>
               Filters: {[
-                routerParams.task ? `Task ${routerParams.task}` : null,
-                routerParams.difficulty ? routerParams.difficulty : null,
-                routerParams.type === 'unseen' ? 'Unseen Questions' : null
+                taskParam ? `Task ${taskParam}` : null,
+                difficultyParam ? difficultyParam : null,
+                typeParam === 'unseen' ? 'Unseen Questions' : null
               ].filter(Boolean).join(', ')}
             </Text>
           </View>
@@ -391,6 +415,17 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
+  },
+  noticeContainer: {
+    backgroundColor: '#FFF8E1',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 16,
+  },
+  noticeText: {
+    color: '#8D6E63',
+    fontSize: 14,
+    textAlign: 'center',
   },
   loadingContainer: {
     flex: 1,

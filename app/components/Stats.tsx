@@ -1,5 +1,5 @@
 import { Link, router } from 'expo-router';
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Modal,
     SafeAreaView,
@@ -9,9 +9,8 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import questionsData from '../data/questions.json';
+import { useQuestions } from '../context/QuestionsContext';
 import { useStats } from '../hooks/useStats';
-import { Question } from '../types';
 
 // Add props for selected exam
 interface StatsProps {
@@ -20,7 +19,13 @@ interface StatsProps {
 
 // Modify component signature to accept selectedExam
 const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
-  const [allQuestions] = useState<Question[]>(questionsData as Question[]);
+  const {
+    questions,
+    loading: questionsLoading,
+    error: questionsError,
+    requestedUrl,
+    source,
+  } = useQuestions();
   
   const {
     history,
@@ -35,9 +40,11 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
     taskStats,
     formatDate,
     getDifficultyColor,
-  } = useStats(selectedExam, allQuestions);
+  } = useStats(selectedExam, questions);
 
-  if (loading) {
+  const loadingState = questionsLoading || loading;
+
+  if (loadingState) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.loadingContainer}>
@@ -50,6 +57,18 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+        {requestedUrl && source === 'remote' && (
+          <View style={styles.noticeContainer}>
+            <Text style={styles.noticeText}>Loaded question set from {requestedUrl}</Text>
+          </View>
+        )}
+        {requestedUrl && source === 'local' && questionsError && (
+          <View style={styles.noticeContainer}>
+            <Text style={styles.noticeText}>
+              Using bundled questions. Remote load failed: {questionsError}
+            </Text>
+          </View>
+        )}
         {/* Overall Stats */}
         <View style={styles.statsCard}>
           <Text style={styles.cardTitle}>Overall Performance</Text>
@@ -76,7 +95,17 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
           <Text style={styles.cardTitle}>Performance by Difficulty</Text>
           {difficultyStats.map(({ difficulty, correct, total, percentage }) => (
             <View key={difficulty} style={styles.difficultyRow}>
-              <Link key={difficulty} href={{ pathname: '/quiz', params: { exam: selectedExam, difficulty } }}>
+              <Link
+                key={difficulty}
+                href={{
+                  pathname: '/quiz',
+                  params: {
+                    exam: selectedExam,
+                    difficulty,
+                    ...(requestedUrl ? { questions: requestedUrl } : {}),
+                  },
+                }}
+              >
                 <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(difficulty) }]}>
                   <Text style={styles.difficultyText}>{difficulty}</Text>
                 </View>
@@ -104,7 +133,11 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
                 onPress={() => {
                   router.push({
                     pathname: '/quiz',
-                    params: { exam: selectedExam, task: taskStatement },
+                    params: {
+                      exam: selectedExam,
+                      task: taskStatement,
+                      ...(requestedUrl ? { questions: requestedUrl } : {}),
+                    },
                   });
                 }}
               >
@@ -199,6 +232,17 @@ const styles = StyleSheet.create({
   loadingText: {
     fontSize: 16,
     color: '#666',
+  },
+  noticeContainer: {
+    backgroundColor: '#FFF8E1',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 16,
+  },
+  noticeText: {
+    color: '#8D6E63',
+    fontSize: 14,
+    textAlign: 'center',
   },
   statsCard: {
     backgroundColor: 'white',

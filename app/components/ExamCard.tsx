@@ -7,13 +7,23 @@ interface ExamCardProps {
     name: string;
     count: number;
   };
+  questionsUrl?: string | null;
 }
 
-const ExamCard: React.FC<ExamCardProps> = ({ exam }) => {
+const ExamCard: React.FC<ExamCardProps> = ({ exam, questionsUrl }) => {
+  const params: Record<string, string> = {
+    exam: exam.name,
+    type: 'unseen',
+  };
+
+  if (questionsUrl) {
+    params.questions = questionsUrl;
+  }
+
   return (
     <TouchableOpacity
       style={styles.examCard}
-      onPress={() => router.push(`/quiz?exam=${exam.name}&type=unseen`)}
+      onPress={() => router.push({ pathname: '/quiz', params })}
     >
       <Text style={styles.examTitle}>{exam.name}</Text>
       <Text style={styles.examCount}>{exam.count} questions</Text>

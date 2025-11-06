@@ -4,11 +4,15 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Stats from './components/Stats';
 
-type Params = { exam?: string };
+type Params = { exam?: string; questions?: string };
 
 export default function StatsPage() {
-  const { exam } = useLocalSearchParams<Params>();
+  const { exam, questions } = useLocalSearchParams<Params>();
   const router = useRouter();
+
+  const baseParams: Record<string, string> = {};
+  if (exam) baseParams.exam = exam;
+  if (questions) baseParams.questions = questions;
 
   return (
     <>
@@ -22,7 +26,7 @@ export default function StatsPage() {
           <View style={styles.navButtons}>
             <TouchableOpacity
               style={styles.navButton}
-              onPress={() => router.replace(`/quiz?exam=${exam}`)}
+              onPress={() => router.replace({ pathname: '/quiz', params: { ...baseParams } })}
             >
               <Text style={styles.navButtonText}>
                 Quiz
@@ -30,7 +34,7 @@ export default function StatsPage() {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.navButton, styles.activeNavButton]}
-              onPress={() => router.replace(`/stats?exam=${exam}`)}
+              onPress={() => router.replace({ pathname: '/stats', params: { ...baseParams } })}
             >
               <Text style={[styles.navButtonText, styles.activeNavButtonText]}>
                 Stats
