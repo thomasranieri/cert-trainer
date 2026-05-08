@@ -41023,5 +41023,905 @@
     "correct": "A",
     "explanation": "An RDS read replica offloads analytics (read-heavy) queries from the OLTP primary instance, isolating the workloads at significantly lower cost than a full RDS instance. Read replicas use asynchronous replication and are suitable for analytics queries that can tolerate slightly stale data. Migrating to Aurora + Redshift is a comprehensive but much more expensive and complex solution. Performance Insights identifies slow queries but cannot enforce workload isolation. The Multi-AZ standby is not accessible for read queries — it is a failover target only.",
     "id": "0fae99729d4b48bb42c5fead212114e0d9c0b2cf9e8dc51dca4da01856e38836"
+  },
+  {
+    "id": "7f1cc5ee79cdad153669eae085d1bec3c6aaed23d22c03578fb4b310e27006fd",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "MEDIUM",
+    "stem": "A workload uses a single Aurora writer in one Region and must meet an RTO of 4 hours and RPO of 24 hours at the lowest cost. Which DR strategy is most appropriate?",
+    "answers": {
+      "A": "Multi-Region active-active with global write forwarding",
+      "B": "Warm standby in a second Region with fully scaled application tier",
+      "C": "Backup and restore with automated snapshots and tested restore runbooks",
+      "D": "Pilot light with continuously replicated full traffic stack"
+    },
+    "correct": "C",
+    "explanation": "The RTO/RPO targets are relatively relaxed, so backup and restore provides the lowest-cost option that still meets objectives when recovery procedures are validated."
+  },
+  {
+    "id": "76562f74e8c4c8a85561afe928f1e5064d37ab1da320247f7171cb63eae708d9",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "HARD",
+    "stem": "A payments API requires RTO under 15 minutes and near-zero RPO across Regions. Which design best meets the requirement?",
+    "answers": {
+      "A": "Daily snapshots and manual restore in a secondary Region",
+      "B": "Pilot light with delayed replica promotion after incident triage",
+      "C": "Warm standby with asynchronous replication and manual DNS update",
+      "D": "Multi-Region active-active architecture with synchronous or conflict-aware replication and global traffic steering"
+    },
+    "correct": "D",
+    "explanation": "Near-zero RPO and very low RTO require an active-active strategy with cross-Region traffic and data design for continuous availability."
+  },
+  {
+    "id": "8745c42f468bc1d766e8fb0838172bf93d8c37a71325bdd466551bbc95ed7735",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "MEDIUM",
+    "stem": "A company chooses pilot light DR for a microservices platform. Which element is essential to keep pilot light valid?",
+    "answers": {
+      "A": "All application compute resources continuously scaled to production size",
+      "B": "Critical data and minimal core services continuously replicated and runnable in DR Region",
+      "C": "Only infrastructure templates stored in source control",
+      "D": "A single monthly full backup copied to Glacier"
+    },
+    "correct": "B",
+    "explanation": "Pilot light requires core systems and data to be continuously available in DR so remaining capacity can be scaled during failover."
+  },
+  {
+    "id": "fff8fc0a32e276c2d8db7215b0bf84953b99c9b03bf8dcb072c74772c313ea0c",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "MEDIUM",
+    "stem": "A retail site currently uses warm standby and wants lower recovery time without doubling costs. Which improvement is most appropriate?",
+    "answers": {
+      "A": "Move to backup-and-restore with shorter snapshot intervals",
+      "B": "Introduce active-active only for checkout and identity paths while keeping other services warm standby",
+      "C": "Disable cross-Region replication to reduce lag",
+      "D": "Rely on DNS TTL reduction alone"
+    },
+    "correct": "B",
+    "explanation": "Selective active-active on critical paths can reduce recovery impact while controlling spend compared with full active-active conversion."
+  },
+  {
+    "id": "fff586d39b08882e48164fead379394d7fed3125629936358312733fd3c9d2c0",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "EASY",
+    "stem": "Which DR strategy typically has the lowest steady-state cost but the longest recovery time?",
+    "answers": {
+      "A": "Active-active",
+      "B": "Warm standby",
+      "C": "Pilot light",
+      "D": "Backup and restore"
+    },
+    "correct": "D",
+    "explanation": "Backup and restore minimizes always-on infrastructure but requires provisioning and restore time during recovery."
+  },
+  {
+    "id": "83ebe2454eb860002d68324483edb9359ec6fb21a4fec93a08febd5d0ebbc015",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "MEDIUM",
+    "stem": "A media pipeline has RTO 1 hour and RPO 15 minutes. Which strategy is usually the best first fit?",
+    "answers": {
+      "A": "Warm standby with continuous data replication and preprovisioned minimal app stack",
+      "B": "Backup and restore with weekly backups",
+      "C": "Single-Region Multi-AZ only",
+      "D": "Active-active with full dual writes for every component"
+    },
+    "correct": "A",
+    "explanation": "Warm standby commonly aligns with moderate RTO/RPO targets by keeping a scaled-down environment ready."
+  },
+  {
+    "id": "a9d0f03808928797af18f7a9c93e03d54c2be5f485d916a46eafe01f309339f7",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "HARD",
+    "stem": "A team proposes pilot light but has no deterministic failover runbooks, no game days, and unknown dependency order. What is the primary risk?",
+    "answers": {
+      "A": "Higher NAT gateway cost",
+      "B": "Failover may not meet RTO because recovery sequence is unproven",
+      "C": "S3 durability decreases in DR Region",
+      "D": "CloudFront cannot route to secondary origins"
+    },
+    "correct": "B",
+    "explanation": "Without validated orchestration and rehearsals, pilot light can fail operationally even if data is replicated."
+  },
+  {
+    "id": "f12f2c23d660dfe423ffc253f072561aa2d8d7284c396c4d35c16fce7e278704",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "MEDIUM",
+    "stem": "A SaaS platform must choose DR strategy per service tier. Gold tier: RTO 5 min/RPO near-zero. Silver tier: RTO 2 hr/RPO 30 min. Which mapping is most appropriate?",
+    "answers": {
+      "A": "Gold backup-restore, Silver active-active",
+      "B": "Gold active-active, Silver warm standby",
+      "C": "Gold warm standby, Silver pilot light only",
+      "D": "Gold pilot light, Silver backup-restore"
+    },
+    "correct": "B",
+    "explanation": "Service tiering should align stricter objectives with active-active and moderate objectives with warm standby."
+  },
+  {
+    "id": "1fe72c27ad39d3b40c34da0ec0354af96c2f524e1dd7855c85563e0012ec1364",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "difficulty": "MEDIUM",
+    "stem": "An API backed by Lambda and DynamoDB is throttled during flash sales. Which change most effectively protects downstream systems while preserving requests?",
+    "answers": {
+      "A": "Increase API Gateway timeout to 60 seconds",
+      "B": "Insert SQS buffer between ingestion and processing with controlled consumer concurrency",
+      "C": "Use larger Lambda memory only",
+      "D": "Set DynamoDB TTL on all items"
+    },
+    "correct": "B",
+    "explanation": "Queue buffering decouples bursts from processing rate and prevents immediate downstream overload."
+  },
+  {
+    "id": "cf93a8c184b190390e5171961473eea9a322169047e8f2f9f583668914eac45a",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "difficulty": "HARD",
+    "stem": "A consumer retries failed messages immediately and causes retry storms when a dependency is degraded. Which pattern is best?",
+    "answers": {
+      "A": "Unlimited immediate retries",
+      "B": "Exponential backoff with jitter plus dead-letter queue after max attempts",
+      "C": "Disable retries entirely",
+      "D": "Single global mutex for all consumers"
+    },
+    "correct": "B",
+    "explanation": "Backoff with jitter reduces synchronized retries while DLQ isolates persistent failures."
+  },
+  {
+    "id": "e34e1446b9a04a18f0c13bc7fd3e48db04d1c66666e081e5f2f0df941ecc8fef",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "difficulty": "MEDIUM",
+    "stem": "A Kinesis-based ingestion tier repeatedly hits shard-level limits. Which action directly addresses partition-level hot spots?",
+    "answers": {
+      "A": "Increase Lambda timeout",
+      "B": "Use better partition key distribution and reshard to increase parallel throughput",
+      "C": "Lower record batch size to 1",
+      "D": "Disable enhanced fan-out"
+    },
+    "correct": "B",
+    "explanation": "Hot shards are a partitioning problem; key distribution and shard scaling are primary fixes."
+  },
+  {
+    "id": "1d536a4375fb6fec5ccbd142104fd3a271faabd3a00986408ae8ab4ac2e7c1e5",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "MEDIUM",
+    "stem": "A critical endpoint receives periodic 429 errors from an external API. Which architecture best maintains user experience?",
+    "answers": {
+      "A": "Block all requests until vendor recovers",
+      "B": "Queue requests and process asynchronously with idempotent retries and rate-aware workers",
+      "C": "Increase client-side polling rate",
+      "D": "Retry every failed request 10 times immediately"
+    },
+    "correct": "B",
+    "explanation": "Asynchronous buffering and rate-aware processing absorb throttling while preserving request intent."
+  },
+  {
+    "id": "774baff0fceb456af947dae2835fffb13abb9875897e4d8732302d69a72538c7",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "EASY",
+    "stem": "Which control helps prevent service interruption from account-level quota limits discovered too late?",
+    "answers": {
+      "A": "CloudTrail data event logging",
+      "B": "Service Quotas monitoring and proactive increase requests with alarms",
+      "C": "RDS read replica promotion",
+      "D": "S3 Transfer Acceleration"
+    },
+    "correct": "B",
+    "explanation": "Quota telemetry and pre-approved increases reduce sudden capacity ceilings in production."
+  },
+  {
+    "id": "94403f5ac89310261b95d63e3dce007ae476763e4232690cd8cb95ed1f4a0909",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "MEDIUM",
+    "stem": "A multi-tier app has web and worker tiers in the same subnet and security group. A compromise in web tier laterally moves to workers. What design best reduces blast radius?",
+    "answers": {
+      "A": "Use one larger subnet for simpler routing",
+      "B": "Separate tiers into distinct subnets and security groups with least-privilege east-west rules",
+      "C": "Disable VPC Flow Logs",
+      "D": "Use public IPs for worker nodes"
+    },
+    "correct": "B",
+    "explanation": "Segmentation and strict intra-tier rules reduce lateral movement and failure blast radius."
+  },
+  {
+    "id": "a22ba68c39bd9e8b0b9963914341c122d4f1888a5843ce1fae2a86df200caffc",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "MEDIUM",
+    "stem": "A platform team wants failure isolation for noisy tenants without creating separate accounts per tenant. Which pattern is most suitable?",
+    "answers": {
+      "A": "Single shared queue and shared database table only",
+      "B": "Cell-based architecture with tenant-to-cell mapping and independent scaling/failure boundaries",
+      "C": "One global lock around all writes",
+      "D": "Single NAT gateway for all traffic"
+    },
+    "correct": "B",
+    "explanation": "Cell architectures isolate capacity and failures for groups of tenants."
+  },
+  {
+    "id": "5bce832e792525cb9fb0b66140e8085ae338db61712ebdc24b57f697df751a66",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "HARD",
+    "stem": "A Region outage should not interrupt authentication for global users. Which option provides the strongest isolation?",
+    "answers": {
+      "A": "Single-Region identity service with Multi-AZ",
+      "B": "Multi-Region identity deployment with independent data stores and global routing failover",
+      "C": "Longer DNS TTL values",
+      "D": "Bastion host in each AZ"
+    },
+    "correct": "B",
+    "explanation": "Cross-Region active deployment with failover routing avoids Region-level single points of failure."
+  },
+  {
+    "id": "9792e433c4abf91c5220206a85f73e35c5abb52c37db491d3af06af20f15a2e0",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "MEDIUM",
+    "stem": "A team must ensure one Availability Zone loss does not impact write availability for transactional data. Which pattern is required?",
+    "answers": {
+      "A": "Single-AZ database with snapshots",
+      "B": "Multi-AZ database deployment with automatic failover",
+      "C": "Read replicas in same AZ",
+      "D": "Client retries only"
+    },
+    "correct": "B",
+    "explanation": "Multi-AZ synchronous standby with automatic failover maintains write availability during AZ failure."
+  },
+  {
+    "id": "e4a8d099d6e68b6716c83ce24c4e953493b9bfd7242d99741d4d2320f9398cfb",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "MEDIUM",
+    "stem": "An event-driven architecture must continue processing when a single microservice fails. Which design principle applies?",
+    "answers": {
+      "A": "Tight synchronous chaining of all services",
+      "B": "Decoupled asynchronous communication with independent retries and DLQs per service boundary",
+      "C": "Single shared retry counter for all workflows",
+      "D": "One monolithic Lambda handler"
+    },
+    "correct": "B",
+    "explanation": "Per-boundary decoupling and independent retry policies prevent one failure from halting all processing."
+  },
+  {
+    "id": "f0313c2082abf92ae69ef7f31e32735c3325e87e6469e193d6b33ce7852e205b",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "difficulty": "MEDIUM",
+    "stem": "A serverless application opens too many database connections during traffic spikes. Which approach most directly stabilizes connection usage?",
+    "answers": {
+      "A": "Increase Lambda reserved concurrency without limit",
+      "B": "Place Amazon RDS Proxy between Lambda and the database",
+      "C": "Turn off connection pooling in client libraries",
+      "D": "Move logs to CloudWatch Logs Insights"
+    },
+    "correct": "B",
+    "explanation": "RDS Proxy pools and manages connections, protecting the database from bursty concurrency."
+  },
+  {
+    "id": "4860ecbd24c8dac822451c3ad0be5ac5ba9a12eb701455975fa2a634580d7a9f",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.3",
+    "difficulty": "MEDIUM",
+    "stem": "A team sees frequent failover delays because application sessions are pinned to stale DB connections. Which change helps most?",
+    "answers": {
+      "A": "Increase DNS TTL for database endpoint",
+      "B": "Use RDS Proxy and short-lived transactions to reduce stale client connections",
+      "C": "Disable automatic failover",
+      "D": "Use larger EC2 instances for application servers only"
+    },
+    "correct": "B",
+    "explanation": "RDS Proxy and proper connection behavior reduce failover disruption from stale connections."
+  },
+  {
+    "id": "80c487f75872ecc1b1f0670de7c0853a0f268bfd4d057eb08eb4f44c67e18359",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.3",
+    "difficulty": "HARD",
+    "stem": "Which scenario is the strongest indicator to introduce RDS Proxy?",
+    "answers": {
+      "A": "Long-running analytical queries dominate workload",
+      "B": "Very high short-lived concurrent Lambda invocations against a relational database",
+      "C": "Need object storage lifecycle policies",
+      "D": "Large file-sharing workload requiring NFS"
+    },
+    "correct": "B",
+    "explanation": "Bursting serverless concurrency against relational engines is a core RDS Proxy use case."
+  },
+  {
+    "id": "840853567dd2b378333d5380b08b02d7cdfa1f208592c7b74d35c79da7f38d7e",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.3",
+    "difficulty": "MEDIUM",
+    "stem": "During a failover exercise, some stateless services still fail due to hardcoded writer endpoint IPs. What is the best correction?",
+    "answers": {
+      "A": "Increase instance class only",
+      "B": "Use managed endpoints, remove IP pinning, and validate failover-aware client settings",
+      "C": "Disable DNS resolution in containers",
+      "D": "Use single-AZ deployment for consistency"
+    },
+    "correct": "B",
+    "explanation": "Failover-safe endpoint usage and client behavior are essential for resilient stateful dependencies."
+  },
+  {
+    "id": "2d7499476ae407f50e5e49b1adfa0018ec11ec9ea44f8795e2db26a34858b06e",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "difficulty": "MEDIUM",
+    "stem": "A company uses AWS Organizations and wants centralized workforce access to 40 accounts with least privilege and short-lived credentials. Which approach is best?",
+    "answers": {
+      "A": "Create IAM users in every account and rotate keys quarterly",
+      "B": "Use IAM Identity Center permission sets mapped to directory groups and account assignments",
+      "C": "Share one admin role ARN and static secret via Secrets Manager",
+      "D": "Use root account credentials in a vault"
+    },
+    "correct": "B",
+    "explanation": "IAM Identity Center provides centralized federated access, account scoping, and role-based short-lived credentials."
+  },
+  {
+    "id": "f543ad6497a4f61f4f1a3420677e8f4e27ce52b7c299f45ef0f0f3002e18e25b",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "difficulty": "HARD",
+    "stem": "A team needs break-glass production access with approval and traceability across accounts. Which design is most appropriate?",
+    "answers": {
+      "A": "Persistent admin IAM users with MFA disabled during incidents",
+      "B": "Identity Center assignment to elevated permission set with approval workflow and session logging",
+      "C": "Shared access key in encrypted S3 bucket",
+      "D": "Use root user for emergency access"
+    },
+    "correct": "B",
+    "explanation": "Temporary elevation through federated roles with approvals and auditability meets security and operational requirements."
+  },
+  {
+    "id": "d8cf1bee709ef2a078919fd66be52b46e5f2fbfb9a8419758a6fd691281fa13d",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "difficulty": "MEDIUM",
+    "stem": "A platform team wants developers to deploy only to specific accounts based on job function. Which model scales best?",
+    "answers": {
+      "A": "One global AdministratorAccess role for all developers",
+      "B": "Permission sets per job function and account assignments via Identity Center groups",
+      "C": "Manual IAM policy edits in each account",
+      "D": "Long-term access keys stored in CI variables"
+    },
+    "correct": "B",
+    "explanation": "Group-based permission-set assignment is scalable and enforces role-based access boundaries."
+  },
+  {
+    "id": "a7f9f1338a7470f4fba1d13114bda629c22ea0985aec0c75eec74550c47987c5",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "difficulty": "MEDIUM",
+    "stem": "Which control best restricts role assumption from external accounts to a specific trusted principal?",
+    "answers": {
+      "A": "Trust policy with Principal * and condition on source IP only",
+      "B": "Trust policy listing the exact external role ARN and optional external ID condition",
+      "C": "Allow iam:* on all resources",
+      "D": "Rely only on identity policy in target account"
+    },
+    "correct": "B",
+    "explanation": "Precise trust principals and external ID constraints reduce confused-deputy and overbroad trust risk."
+  },
+  {
+    "id": "89e29a6879b14c6fce7dc59ed2d16063bc2cafbbec41949bf96be94dc67401e7",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "difficulty": "EASY",
+    "stem": "What is the primary advantage of short-lived role credentials over long-term access keys?",
+    "answers": {
+      "A": "Lower S3 request charges",
+      "B": "Reduced blast radius because credentials expire automatically",
+      "C": "No need for IAM policies",
+      "D": "Automatic cross-Region replication"
+    },
+    "correct": "B",
+    "explanation": "Ephemeral credentials limit exposure time and are easier to govern centrally."
+  },
+  {
+    "id": "a756f7898c16342fef3da0cf8ff5004f6c478cb2d1940b08363e70313f8221e1",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "difficulty": "MEDIUM",
+    "stem": "A web app needs customer sign-up/sign-in with social identity providers and JWT-based API authorization. Which service should provide user identity?",
+    "answers": {
+      "A": "AWS Organizations",
+      "B": "Amazon Cognito user pools and identity federation",
+      "C": "AWS Artifact",
+      "D": "AWS Backup"
+    },
+    "correct": "B",
+    "explanation": "Cognito is purpose-built for application user authentication and federation with token issuance."
+  },
+  {
+    "id": "62aff2420efdb7523eaf0d9c8b85e73cc24aa279daf94dc8a0ebdc7ecd175722",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "difficulty": "MEDIUM",
+    "stem": "An API must allow anonymous browsing but require authenticated actions for purchases. Which pattern is best?",
+    "answers": {
+      "A": "Single IAM role for all users",
+      "B": "Use Cognito for authenticated users and enforce fine-grained authorization in API layer",
+      "C": "Store passwords in DynamoDB manually",
+      "D": "Disable token expiration"
+    },
+    "correct": "B",
+    "explanation": "Cognito-based authentication with API authorization supports mixed anonymous/authenticated behavior securely."
+  },
+  {
+    "id": "7179eaf5cb3c0b74cf92ae99f7dac83a817701b894d0d7b693b02e02614acf21",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "difficulty": "HARD",
+    "stem": "A mobile app uses Cognito and must access S3 objects scoped to each user. What is the most secure design?",
+    "answers": {
+      "A": "Embed admin IAM keys in app and prefix-filter client-side",
+      "B": "Use Cognito identity federation to obtain temporary credentials with per-user IAM policy conditions",
+      "C": "Make bucket public and hide links",
+      "D": "Share one signed URL for all users"
+    },
+    "correct": "B",
+    "explanation": "Temporary scoped credentials with policy conditions enforce per-user access without distributing long-term secrets."
+  },
+  {
+    "id": "c618f4770de8a3acda8ca4cd0f6c7de57f0db029f8e7a8ec4aeb14171f22eb4e",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "difficulty": "MEDIUM",
+    "stem": "A third-party SaaS needs to assume a role in your account. Which trust-policy addition best mitigates confused deputy risk?",
+    "answers": {
+      "A": "Condition on aws:SecureTransport",
+      "B": "Condition on sts:ExternalId with unique value provided to the SaaS",
+      "C": "Condition on aws:PrincipalOrgID only",
+      "D": "Condition on source VPC endpoint only"
+    },
+    "correct": "B",
+    "explanation": "ExternalId is the standard control to prevent confused deputy when third parties assume roles."
+  },
+  {
+    "id": "a87b3065d69c1b63573c53e6371cccf0a8c27d4d931b85d37d51b9749bc3a59d",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "difficulty": "MEDIUM",
+    "stem": "A security team wants to prevent privilege escalation through policy edits. Which permission should be tightly restricted?",
+    "answers": {
+      "A": "ec2:DescribeInstances",
+      "B": "iam:PassRole and iam:AttachRolePolicy",
+      "C": "s3:GetObject",
+      "D": "logs:CreateLogStream"
+    },
+    "correct": "B",
+    "explanation": "PassRole and policy attachment capabilities can enable privilege escalation paths if overgranted."
+  },
+  {
+    "id": "2eaf15972f82813e92d4f5f4ed0a827e956d0f8c3f92949e36b3fb4f45ccd6e5",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "difficulty": "EASY",
+    "stem": "Which statement correctly describes the relationship of identity policies and resource policies in cross-account access?",
+    "answers": {
+      "A": "Either side alone is always sufficient",
+      "B": "Both policy evaluation paths must allow the action when applicable, and explicit deny overrides",
+      "C": "Resource policies are ignored for AWS services",
+      "D": "Identity policies cannot reference external resources"
+    },
+    "correct": "B",
+    "explanation": "Cross-account authorization commonly requires alignment of identity and resource permissions, with deny precedence."
+  },
+  {
+    "id": "899f3acd9930b6823beb11902fa99844bce2fd2edae061b59780539de5c4ae6c",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "difficulty": "MEDIUM",
+    "stem": "A company wants temporary elevated rights only during approved change windows. Which approach is best?",
+    "answers": {
+      "A": "Permanent admin role for on-call engineers",
+      "B": "Just-in-time role assignment with time-bound sessions and approval workflow",
+      "C": "Shared root credentials in a password manager",
+      "D": "Rotate long-term keys every 90 days"
+    },
+    "correct": "B",
+    "explanation": "JIT, time-bound elevation limits standing privilege while preserving operational access."
+  },
+  {
+    "id": "518f76f80c34a1acac77e0961b6f3c945145af1c6fa2173dca9a78c4b0778440",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "difficulty": "MEDIUM",
+    "stem": "A security team needs continuous threat detection for anomalous API activity and compromised credentials. Which service should be primary?",
+    "answers": {
+      "A": "AWS Budgets",
+      "B": "Amazon GuardDuty",
+      "C": "AWS Trusted Advisor",
+      "D": "AWS Backup"
+    },
+    "correct": "B",
+    "explanation": "GuardDuty analyzes telemetry sources to detect threats such as credential compromise and suspicious behavior."
+  },
+  {
+    "id": "63867102f14daa23222c14025c0172d119f50ae912faa52fc791ef014e83b221",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "difficulty": "MEDIUM",
+    "stem": "Developers need a centralized view of security findings from multiple services and accounts. Which service fits best?",
+    "answers": {
+      "A": "AWS Security Hub",
+      "B": "AWS Config",
+      "C": "Amazon CloudWatch",
+      "D": "AWS Cost Explorer"
+    },
+    "correct": "A",
+    "explanation": "Security Hub aggregates and normalizes findings across integrated security services and accounts."
+  },
+  {
+    "id": "8dd21535259e43fb4738eb7b4cc4f9f7ebeaa8cc6ee021c2ddf0c12a942ab912",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "difficulty": "MEDIUM",
+    "stem": "A container image fleet requires continuous vulnerability assessment integrated with remediation workflows. Which service should be enabled?",
+    "answers": {
+      "A": "Amazon Inspector",
+      "B": "Amazon Athena",
+      "C": "AWS Glue",
+      "D": "AWS DataSync"
+    },
+    "correct": "A",
+    "explanation": "Inspector provides continuous vulnerability management for compute and container environments."
+  },
+  {
+    "id": "547f7521959b5644c64ea754a9aa91102b36f8cfbbe7688e58f27a57ceaf2de9",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.3",
+    "difficulty": "MEDIUM",
+    "stem": "A data governance team wants automated discovery of sensitive data in S3 and alerts on policy violations. Which service is best?",
+    "answers": {
+      "A": "Amazon Macie",
+      "B": "AWS RAM",
+      "C": "AWS Systems Manager",
+      "D": "Amazon Route 53"
+    },
+    "correct": "A",
+    "explanation": "Macie is designed for sensitive data discovery and classification in S3."
+  },
+  {
+    "id": "95d7dd947651ec8db3c63fdfb642b369fd9f1f5c40bf94cd33121b61895a8cf1",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "difficulty": "MEDIUM",
+    "stem": "A workload must retain tamper-evident API audit trails for investigations. Which foundation is required?",
+    "answers": {
+      "A": "CloudTrail enabled organization-wide with secure central log archive and restricted access",
+      "B": "VPC Flow Logs only",
+      "C": "CloudWatch dashboard snapshots",
+      "D": "RDS slow query logs"
+    },
+    "correct": "A",
+    "explanation": "CloudTrail is the core API activity audit source; centralized protected storage supports forensic integrity."
+  },
+  {
+    "id": "dad174bee555039a19fc4b7e9843d334857da8ccf274158ff07f7ee24358ab13",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "difficulty": "HARD",
+    "stem": "A compliance control requires detecting drift from approved security groups and auto-remediation. Which combination is best?",
+    "answers": {
+      "A": "CloudTrail + Budgets",
+      "B": "AWS Config rules + Systems Manager Automation or Lambda remediation",
+      "C": "Route 53 health checks only",
+      "D": "S3 lifecycle rules"
+    },
+    "correct": "B",
+    "explanation": "Config evaluates resource compliance state and can trigger automated remediation actions."
+  },
+  {
+    "id": "a7b964aa1854ba9dc2c2d06f0399e5bcaf5f6f784277dd9abf450626d0bcc718",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.3",
+    "difficulty": "MEDIUM",
+    "stem": "An application must enforce TLS certificates for a public HTTPS endpoint without managing cert rotation manually. Which service should manage certificates?",
+    "answers": {
+      "A": "AWS Certificate Manager",
+      "B": "AWS Artifact",
+      "C": "IAM Access Analyzer",
+      "D": "AWS AppConfig"
+    },
+    "correct": "A",
+    "explanation": "ACM provisions and renews public certificates for integrated AWS endpoints."
+  },
+  {
+    "id": "569f94e4e69da70ce6453c7372840ac296660d9ad9a7b5150a41ec91d0bf0e43",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "difficulty": "MEDIUM",
+    "stem": "A public web app needs protection from common Layer 7 attacks like SQL injection and XSS. Which control is most direct?",
+    "answers": {
+      "A": "Amazon GuardDuty",
+      "B": "AWS WAF web ACL rules attached to ALB or CloudFront",
+      "C": "AWS Backup vault lock",
+      "D": "Route table entries"
+    },
+    "correct": "B",
+    "explanation": "WAF is designed for HTTP/S request filtering against application-layer attack patterns."
+  },
+  {
+    "id": "40b953a753c7703da33297d0520f0e4009a694c115bee52681ffc65fc442ec44",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "difficulty": "HARD",
+    "stem": "An internet-facing API experiences volumetric DDoS spikes. Which architecture improves resilience and mitigation posture?",
+    "answers": {
+      "A": "Single EC2 instance with larger size",
+      "B": "CloudFront plus AWS Shield protections in front of scalable regional origins",
+      "C": "Private subnet only with no edge",
+      "D": "Disable health checks"
+    },
+    "correct": "B",
+    "explanation": "Edge distribution with Shield and scalable origins improves DDoS absorption and availability."
+  },
+  {
+    "id": "8b6c5c87fef0aa2ad73ad280980674e1635a21fdd22caba6b9ad6fff3c25df16",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "difficulty": "EASY",
+    "stem": "Which statement is true about GuardDuty and Security Hub?",
+    "answers": {
+      "A": "They are the same service with different consoles",
+      "B": "GuardDuty generates threat findings; Security Hub aggregates and correlates findings across services",
+      "C": "Security Hub replaces CloudTrail logs",
+      "D": "GuardDuty performs backup scheduling"
+    },
+    "correct": "B",
+    "explanation": "GuardDuty is a detector; Security Hub is an aggregation and posture layer."
+  },
+  {
+    "id": "3991b2d622d853a2ed31614081e9c241cd02055b09955a45f916716f63ff6e2a",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.3",
+    "difficulty": "MEDIUM",
+    "stem": "A read-heavy relational workload has frequent identical query patterns and database CPU saturation. Which design improves performance most cost-effectively?",
+    "answers": {
+      "A": "Add more write replicas only",
+      "B": "Use ElastiCache for hot read caching with appropriate TTL and invalidation strategy",
+      "C": "Switch to larger NAT gateway",
+      "D": "Increase CloudTrail retention"
+    },
+    "correct": "B",
+    "explanation": "Caching frequent reads reduces direct database load and improves latency when consistency requirements allow."
+  },
+  {
+    "id": "782f4db0c0e662f86fbe5e77370b338d5d942718f95ae29cb996667e50fc5137",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.3",
+    "difficulty": "HARD",
+    "stem": "A shopping cart service cannot tolerate stale reads after write for checkout confirmation. Which cache strategy is safest?",
+    "answers": {
+      "A": "Cache-aside with long TTL and no invalidation",
+      "B": "Write-through or explicit invalidation on update for keys used in checkout path",
+      "C": "Read-only cache warmed weekly",
+      "D": "Client-side local storage cache only"
+    },
+    "correct": "B",
+    "explanation": "Stronger coherence patterns are needed where stale data directly affects transactional correctness."
+  },
+  {
+    "id": "a672998236cca31ccfa207adae3efd3d624392f607a9ad3db7476623e7a8482a",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.3",
+    "difficulty": "MEDIUM",
+    "stem": "A team uses ElastiCache but sees low hit rate because keys are unevenly distributed. What should they adjust first?",
+    "answers": {
+      "A": "Increase database instance size only",
+      "B": "Review key design and sharding/hash strategy to improve distribution and locality",
+      "C": "Disable connection pooling",
+      "D": "Move cache to single node"
+    },
+    "correct": "B",
+    "explanation": "Cache effectiveness depends on keying and distribution strategy before brute-force scaling."
+  },
+  {
+    "id": "92705646fc486559b7fd8513dbc6f6b7bc30daec847c8efae72d91b70d71040f",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "difficulty": "MEDIUM",
+    "stem": "A Lambda-based processor writing to PostgreSQL fails under burst load due to connection exhaustion. Which combined pattern is best?",
+    "answers": {
+      "A": "Increase Lambda concurrency and retry faster",
+      "B": "Throttle Lambda concurrency, buffer with SQS, and use RDS Proxy",
+      "C": "Disable retries and drop messages",
+      "D": "Move to larger EBS volumes"
+    },
+    "correct": "B",
+    "explanation": "Concurrency control plus buffering and connection pooling addresses both burst intake and DB limits."
+  },
+  {
+    "id": "7dba9c37931d2331841c9f39b0d4d44a741dbc46ccd6b1988ac06665fa736e35",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "difficulty": "MEDIUM",
+    "stem": "A containerized API spikes every hour and overwhelms a relational backend. Which architecture best protects the database while preserving throughput?",
+    "answers": {
+      "A": "Run more API tasks with no limits",
+      "B": "Introduce async command queue for write-heavy operations and bounded worker pool",
+      "C": "Use public subnet for DB",
+      "D": "Switch ALB to NLB only"
+    },
+    "correct": "B",
+    "explanation": "Bounded async workers smooth writes and protect backend saturation while sustaining ingest capacity."
+  },
+  {
+    "id": "a5bdb9198dd8175f4175854724fa2a02b7a1cddd6beb3758ff6616f455860cfb",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "difficulty": "MEDIUM",
+    "stem": "A data platform ingests millions of CSV files and queries them ad hoc. Which transformation most improves query performance and cost?",
+    "answers": {
+      "A": "Store gzipped CSV indefinitely",
+      "B": "Convert to columnar Parquet with partitioning aligned to query predicates",
+      "C": "Replicate data to more buckets",
+      "D": "Increase Route 53 TTL"
+    },
+    "correct": "B",
+    "explanation": "Columnar formats and partitioning reduce scanned data and improve analytical performance."
+  },
+  {
+    "id": "9c6b62585d6bf4976d009deb001e1615a000e02547e79e099999dc70be9d707f",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "difficulty": "HARD",
+    "stem": "A near-real-time analytics system needs sub-minute ingestion and transformations before dashboarding. Which pipeline is most suitable?",
+    "answers": {
+      "A": "Nightly batch copy via Snowball",
+      "B": "Kinesis stream ingestion with streaming transformation and sink to analytics store",
+      "C": "Weekly S3 inventory processing",
+      "D": "Manual CSV uploads through console"
+    },
+    "correct": "B",
+    "explanation": "Streaming ingestion and transformation are required for sub-minute end-to-end latency."
+  },
+  {
+    "id": "aaece0158c1e11ea2ab292e95e2086e96bb6d97e431f05a69a5a70f1797cd92d",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "difficulty": "EASY",
+    "stem": "A team must move large on-prem files to S3 repeatedly over constrained bandwidth with scheduling and incremental transfer support. Which service is best?",
+    "answers": {
+      "A": "AWS DataSync",
+      "B": "Amazon Inspector",
+      "C": "AWS WAF",
+      "D": "Amazon CloudFront"
+    },
+    "correct": "A",
+    "explanation": "DataSync is built for managed, scheduled, and incremental data transfer into AWS storage."
+  },
+  {
+    "id": "6558ab2f08c9551e363048de491e273f9b7422b7671fed532c1e11d833bf9c02",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "difficulty": "MEDIUM",
+    "stem": "A research organization shares a public dataset in S3 and wants downloaders to pay data transfer/request costs instead of the bucket owner. Which feature should be used?",
+    "answers": {
+      "A": "S3 Transfer Acceleration",
+      "B": "S3 Requester Pays",
+      "C": "S3 Object Lock",
+      "D": "S3 Access Points"
+    },
+    "correct": "B",
+    "explanation": "Requester Pays shifts request and transfer charges to the requester account."
+  },
+  {
+    "id": "d4a732eac94f3ecf6f5d2c79eafa444a8992db735f5040f007e0fac92145e598",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "difficulty": "MEDIUM",
+    "stem": "When is S3 Requester Pays most appropriate?",
+    "answers": {
+      "A": "Private internal application buckets only",
+      "B": "Shared large datasets where consumers are external and cost ownership should follow usage",
+      "C": "Encrypted backup vaults",
+      "D": "Cross-Region replication control plane"
+    },
+    "correct": "B",
+    "explanation": "Requester Pays is intended for shared data where requesting parties should bear access cost."
+  },
+  {
+    "id": "a547e28efd57bc1a803d1e1ffb2503e83dde051d56c762377a64c77fce4d323d",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "difficulty": "HARD",
+    "stem": "A team enabled Requester Pays but some clients now fail downloads. What is the likely required client change?",
+    "answers": {
+      "A": "Enable S3 Object Lambda",
+      "B": "Include requester-pays parameter/header in requests and ensure requester account permissions",
+      "C": "Disable TLS enforcement",
+      "D": "Use only path-style URLs"
+    },
+    "correct": "B",
+    "explanation": "Clients must explicitly indicate requester-pays usage and authenticate with billable requester credentials."
+  },
+  {
+    "id": "5fc33685eb6371bfe211f8a61bca4fd3674eece105647353a74032d8cf765229",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "difficulty": "MEDIUM",
+    "stem": "A finance team needs to attribute shared platform costs to products across 20 accounts consistently. Which design is best?",
+    "answers": {
+      "A": "Manual spreadsheet allocation monthly",
+      "B": "Mandatory cost allocation tags with tag policies plus consolidated billing analysis",
+      "C": "One account per developer",
+      "D": "Disable untagged resource creation by deleting IAM"
+    },
+    "correct": "B",
+    "explanation": "Standardized cost tags and consolidated billing provide scalable, auditable attribution."
+  },
+  {
+    "id": "5197c269d1ce35b2273693199f6fdd222fb6dddbf536b61d05364e7884d652ea",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "difficulty": "MEDIUM",
+    "stem": "Which setup best enables chargeback by environment and owner?",
+    "answers": {
+      "A": "Only resource names with naming convention",
+      "B": "Activate and enforce cost allocation tags, then analyze in CUR/Cost Explorer",
+      "C": "Use CloudWatch metrics only",
+      "D": "Store invoices in S3"
+    },
+    "correct": "B",
+    "explanation": "Tag activation and enforcement are prerequisites for reliable cost segmentation in billing datasets."
+  },
+  {
+    "id": "0cb3f02194f21760bdd192dab654ffd669cb5203c2c9891173b39a014a1821e6",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "difficulty": "EASY",
+    "stem": "What is a key benefit of AWS Organizations consolidated billing for multi-account environments?",
+    "answers": {
+      "A": "Removes need for IAM",
+      "B": "Centralized payment and improved visibility for aggregate and per-account costs",
+      "C": "Forces all resources into one VPC",
+      "D": "Automatically rightsizes all EC2 instances"
+    },
+    "correct": "B",
+    "explanation": "Consolidated billing centralizes spend management while preserving account isolation."
+  },
+  {
+    "id": "374590282f6f9f23c167693e161de5b2e794fd4fb1a6452f4a669fdacbfd6032",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "difficulty": "MEDIUM",
+    "stem": "A team wants daily anomaly detection and budget enforcement by business unit. Which workflow is most complete?",
+    "answers": {
+      "A": "Use CloudTrail only",
+      "B": "Use CUR for detailed data, Cost Explorer for trends, and Budgets with alert actions by tag/account",
+      "C": "Use Route 53 health checks",
+      "D": "Use S3 lifecycle rules"
+    },
+    "correct": "B",
+    "explanation": "CUR provides detail, Cost Explorer supports trend analysis, and Budgets drives proactive guardrails."
+  },
+  {
+    "id": "51dc757f204af39e2ced50104afc1a0def108eb5df734d44a8ac1107da792e68",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.3",
+    "difficulty": "MEDIUM",
+    "stem": "A database platform needs automated alerts before monthly spend exceeds forecast and visibility into which workload drove growth. Which approach is best?",
+    "answers": {
+      "A": "AWS Budgets threshold alerts plus CUR-based cost attribution by tags",
+      "B": "Increase backup retention only",
+      "C": "Disable Performance Insights",
+      "D": "Use larger instance classes by default"
+    },
+    "correct": "A",
+    "explanation": "Budget thresholds provide early warning, while CUR and tags reveal attribution drivers."
   }
 ]
