@@ -46048,5 +46048,1295 @@
       "D": "Use CloudFront to cache branch-to-branch communication."
     },
     "explanation": "The classic 'hub-and-spoke' VPN tromboning problem is solved by Transit Gateway. Each branch connects a VPN attachment to Transit Gateway. Branch-to-branch traffic routes directly through Transit Gateway (AWS's backbone) instead of traversing the hub VPC, reducing round-trip latency and eliminating the bandwidth bottleneck at the hub. VPN tunnels max at 1.25 Gbps and cannot be increased to 10 Gbps (A). ECMP (C) across tunnels increases aggregate bandwidth from a single branch to AWS but doesn't fix branch-to-branch tromboning. CloudFront (D) is for web content delivery, not VPN routing."
+  },
+  {
+    "id": "24605720dd5e57197a52665a7a483d18403e13ecb04993daf43838e8d97a6d29",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A company runs a legacy Java EE application on on-premises servers. The application cannot be modified and opens thousands of persistent database connections, causing frequent connection timeouts. The team is migrating the database to Amazon RDS MySQL. Which AWS service should they add to improve the reliability of the application without code changes?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable Multi-AZ on the RDS instance to handle failover automatically.",
+      "B": "Place Amazon RDS Proxy in front of the RDS instance to pool and multiplex database connections.",
+      "C": "Use Amazon ElastiCache for Redis to cache query results and reduce database load.",
+      "D": "Configure an Application Load Balancer with sticky sessions in front of the application servers."
+    },
+    "explanation": "RDS Proxy pools and multiplexes connections, reducing the number of open connections to RDS. This requires no application code changes and directly solves connection exhaustion \u2014 a common legacy-app reliability issue. Multi-AZ addresses availability, not connection exhaustion."
+  },
+  {
+    "id": "c2d39720c87732241bae667ec0a241d660dcf497b9da6d0b61f089250b0e211a",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A retail company has a monolithic .NET application running on Windows EC2 instances that they cannot refactor. During peak sales periods the application becomes unresponsive due to session-state memory pressure. Which approach improves reliability with the least application modification?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deploy the application behind an Application Load Balancer with connection draining enabled.",
+      "B": "Migrate the application to AWS Lambda using the .NET runtime.",
+      "C": "Externalize session state to Amazon ElastiCache for Redis and configure the application's session provider to use the ElastiCache endpoint.",
+      "D": "Enable EC2 Auto Scaling to add more instances when memory usage exceeds 80%."
+    },
+    "explanation": "Externalizing session state to ElastiCache for Redis requires a configuration change to the session provider (typically one config file change in .NET) rather than code refactoring. This decouples session state from the instance, enabling horizontal scaling and resolving memory pressure."
+  },
+  {
+    "id": "4445b2c475024d67219f035c429bf6d7c7258303f54931695e6cf21414aca9bf",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "An e-commerce company has a legacy application that connects directly to an Amazon RDS PostgreSQL instance. The application was not designed for cloud environments and cannot gracefully handle transient connection errors, causing crashes when the RDS instance fails over during a Multi-AZ event. Which solution addresses this with no application code changes?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Amazon RDS Proxy as the application's connection endpoint. RDS Proxy maintains persistent connections to RDS and transparently handles failover, presenting a stable endpoint to the application.",
+      "B": "Enable Enhanced Monitoring on the RDS instance to detect failovers earlier and restart the application faster.",
+      "C": "Configure the application's connection string to use the RDS Read Replica endpoint as a failover target.",
+      "D": "Increase the RDS instance class to reduce the duration of Multi-AZ failovers."
+    },
+    "explanation": "RDS Proxy absorbs failover events by maintaining a connection pool and re-routing connections to the new primary without the application seeing a connection drop. This requires only a connection-string endpoint change \u2014 no code modification."
+  },
+  {
+    "id": "84b7c844707a2b1f828ecb0e6fb575f9608a0ada084a11ed7a59ff6f75485ca6",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A financial company has a legacy message-processing application running on EC2 that polls an Oracle database for new work items. The application was designed for an on-premises single-server environment and has no retry logic. During maintenance windows, unprocessed messages are lost. Which AWS pattern improves reliability without modifying the application?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable automated backups on the RDS for Oracle instance to recover lost messages.",
+      "B": "Place the EC2 instances in an Auto Scaling group with a minimum size of 2.",
+      "C": "Enable Amazon RDS Multi-AZ to keep a synchronous standby replica for failover.",
+      "D": "Route new work items to an Amazon SQS queue and deploy an AWS Lambda function to insert messages from SQS into the database, acting as a buffer between producers and the legacy consumer."
+    },
+    "explanation": "Introducing SQS as a durable buffer decouples producers from the legacy consumer and ensures messages survive maintenance windows. The legacy application continues polling the database as before; the new Lambda bridges SQS to the database without changing the existing app."
+  },
+  {
+    "id": "3bf91c16a6ed3177b449c0d56c53868f62d8975872b2252c84249f8b76f766bc",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.1",
+    "stem": "A machine learning team needs storage for training datasets that must be simultaneously accessible from 50 SageMaker training instances across multiple Availability Zones. The data is read-heavy, rarely written, and can reach 50 TB. Which storage solution provides the highest read throughput with the simplest multi-instance access pattern?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Provision a single Amazon EBS io2 volume and attach it to a single EC2 instance that serves the data via NFS.",
+      "B": "Store the training data in Amazon S3 and configure SageMaker to use S3 as the input data source with File mode or Fast File mode.",
+      "C": "Use Amazon EFS in General Purpose mode, mount it on all training instances, and read data directly.",
+      "D": "Deploy an Amazon FSx for Lustre file system backed by S3 and mount it on every training instance."
+    },
+    "explanation": "S3 with SageMaker's native input modes (File or Fast File) is the standard pattern for multi-instance training at scale. EBS cannot be attached to multiple instances simultaneously for read/write. EFS works but is slower and more expensive for this read-heavy large-dataset pattern. FSx for Lustre is valid for HPC workloads but adds operational overhead."
+  },
+  {
+    "id": "584766b81dda4acc5f23aaf196c42c2be1d2d2f0f8163f2c14a13eb83469c0b4",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.1",
+    "stem": "A video editing company needs shared storage that multiple EC2 instances in the same Region can mount simultaneously as a POSIX filesystem. Files are frequently accessed by all instances at once. Which service is the most appropriate?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon EBS with Multi-Attach enabled on an io1 volume.",
+      "B": "Amazon S3 with AWS Transfer Family to expose an SFTP endpoint.",
+      "C": "Amazon EFS in Regional mode with the General Purpose performance tier.",
+      "D": "Amazon FSx for Windows File Server mounted via SMB."
+    },
+    "explanation": "Amazon EFS is AWS's managed NFS service designed for shared POSIX-compliant access across multiple EC2 instances simultaneously. EBS Multi-Attach is limited to up to 16 instances in the same AZ and has restricted use cases. S3 is object storage, not a filesystem. FSx for Windows uses SMB, not POSIX."
+  },
+  {
+    "id": "42e3aed4d8f67a6012401d77243c52a983e7f3dba1dba620478e4ff648160339",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.1",
+    "stem": "A web application stores user-uploaded files that are accessed once after upload, then rarely accessed again. The data must be retained for 7 years for compliance. Which combination of services minimizes storage cost while meeting these requirements?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Store uploads in Amazon S3 Standard, then transition to S3 Glacier Instant Retrieval after 30 days using an S3 Lifecycle policy.",
+      "B": "Store uploads in Amazon EBS gp3 volumes and take daily snapshots.",
+      "C": "Store uploads in Amazon EFS and configure Lifecycle Management to move files to EFS Infrequent Access after 30 days.",
+      "D": "Store uploads in Amazon S3 Standard-IA from day one with no lifecycle policy."
+    },
+    "explanation": "S3 Standard provides low-latency access for initial retrieval, and a Lifecycle policy to Glacier Instant Retrieval minimizes cost for the long retention tail. EBS is block storage and expensive for bulk archival. EFS with IA is more expensive than S3 Glacier. S3 Standard-IA charges a minimum storage duration and retrieval fee, making it less cost-effective for 7-year archival."
+  },
+  {
+    "id": "84949eaea895c4233466915d609ad9df5d8a37ed16da6879bf9bdd3988bcd6a5",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.1",
+    "stem": "A company is choosing between Amazon EBS and Amazon EFS for a new workload. Their application runs on a single EC2 instance, requires sub-millisecond latency for random I/O, and processes a database with frequent read/write operations. Which storage service and configuration is most appropriate?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon EFS with Max I/O performance mode for high throughput.",
+      "B": "Amazon EBS gp3 or io2 volume attached to the EC2 instance for low-latency block storage.",
+      "C": "Amazon S3 with S3 Select to retrieve only necessary data.",
+      "D": "Amazon EFS in General Purpose mode with Provisioned Throughput."
+    },
+    "explanation": "EBS provides block storage with sub-millisecond latency optimized for single-instance database workloads. EFS is a shared file system with higher latency than EBS for random I/O. S3 is object storage and not appropriate for a database. EFS Max I/O mode actually has higher per-operation latency than General Purpose."
+  },
+  {
+    "id": "b01bb7d4c299833141f97fe3a3ed5510a15d11c95ca5930060ba1e9210654fc5",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "A media company streams video content globally. They want to run custom authentication logic and modify HTTP headers at the edge, as close to end users as possible, to reduce latency. The logic is stateless and executes in milliseconds. Which solution meets these requirements?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deploy an AWS Lambda function in us-east-1 and configure CloudFront to forward all authentication requests to it as a Lambda@Edge origin.",
+      "B": "Run the authentication logic on EC2 instances in multiple Regions behind Route 53 latency-based routing.",
+      "C": "Use CloudFront with Lambda@Edge to execute the authentication function at CloudFront edge locations around the world.",
+      "D": "Deploy the authentication logic in AWS Wavelength zones in major metropolitan areas."
+    },
+    "explanation": "Lambda@Edge runs code at CloudFront's globally distributed edge locations, enabling request/response manipulation with minimal latency. It is purpose-built for stateless, low-latency logic at the CDN layer. A central Lambda origin would add round-trip latency. EC2 across regions adds management overhead. Wavelength is for ultra-low-latency 5G mobile use cases."
+  },
+  {
+    "id": "5f9624c981148cd6c50b356d39918b7944d57238cdb4fe237861c63f0a424130",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "A gaming company wants to reduce latency for API calls made by mobile clients in Europe and Asia-Pacific to their application running in us-east-1. They do not want to replicate the backend. Which AWS service provides the best improvement with minimal changes?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Global Accelerator, which routes traffic through the AWS global network from edge locations closest to users to the us-east-1 application endpoint.",
+      "B": "Amazon CloudFront with a custom origin pointing to the application's ALB in us-east-1.",
+      "C": "An Amazon Route 53 latency-based routing policy pointing to the single us-east-1 endpoint.",
+      "D": "Deploy the application to AWS Local Zones in Europe and Asia-Pacific."
+    },
+    "explanation": "AWS Global Accelerator uses the AWS backbone network to route traffic from the nearest edge location to the application, reducing internet jitter and latency without replicating the application. CloudFront is optimized for cacheable content, not API traffic. Route 53 latency routing doesn't improve network path. Local Zones would require replicating the backend."
+  },
+  {
+    "id": "c2b44b0396cb97c3b3ef6db2964449bb949994ad726eb99436c0c45811deaef9",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "A company processes IoT telemetry from factory floors around the world. The data must be analysed locally in near-real time before being sent to AWS. Network bandwidth to the cloud is limited. Which AWS deployment option best supports edge analytics with local processing and cloud integration?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deploy AWS Lambda functions in multiple AWS Regions to process telemetry close to users.",
+      "B": "Use Amazon Kinesis Data Streams with a single stream in us-east-1 to aggregate global telemetry.",
+      "C": "Use AWS Snowball Edge Compute Optimized devices at each factory to run local analytics and batch-sync data to S3.",
+      "D": "Deploy AWS IoT Greengrass on local gateway hardware at each factory to run Lambda functions at the edge and sync processed data to AWS IoT Core."
+    },
+    "explanation": "AWS IoT Greengrass extends AWS compute to edge devices, enabling local Lambda execution and low-latency processing without constant cloud connectivity. Snowball Edge is for offline data transfer, not ongoing analytics. Lambda and Kinesis in a central Region don't solve the bandwidth or latency constraint."
+  },
+  {
+    "id": "9c30dd6f11a06493936a29042c27c3f44a2174e5416caaa0c93e69b8b618601c",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "A startup is building a global multiplayer game that requires single-digit millisecond latency for real-time game state updates between players in different continents. Which AWS service is designed specifically for this low-latency, globally distributed use case?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon CloudFront with origin shield to reduce load on the game server.",
+      "B": "Amazon GameLift FleetIQ with AWS Global Accelerator to route players to the nearest game server fleet and reduce network latency.",
+      "C": "Amazon DynamoDB Global Tables to replicate game state across regions with multi-master writes.",
+      "D": "AWS Direct Connect to each major city to provide dedicated low-latency connectivity."
+    },
+    "explanation": "GameLift FleetIQ combined with Global Accelerator routes player traffic over the AWS global backbone to the nearest game server region, minimizing latency. DynamoDB Global Tables handles data replication but not real-time game routing. CloudFront is for content delivery. Direct Connect requires enterprise agreements in each city."
+  },
+  {
+    "id": "3fd70817a3ac7423da713c9c0ae64df4681c40865ec0184281e9df1c19704b9e",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A company operates a hub-and-spoke network with a central shared-services VPC (hub) and 20 application VPCs (spokes). All spoke VPCs need to access on-premises resources through a single VPN connection in the hub VPC. Which AWS service enables this topology with the least operational overhead?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Transit Gateway, attaching all spoke VPCs and the VPN connection to a single transit gateway.",
+      "B": "VPC peering between every spoke VPC and the hub VPC, and enable route propagation through the hub.",
+      "C": "Configure VPN connections from each spoke VPC directly to the on-premises data centre.",
+      "D": "Deploy a third-party routing appliance on EC2 in the hub VPC to route between all spoke VPCs."
+    },
+    "explanation": "AWS Transit Gateway acts as a cloud router, enabling transitive routing between attached VPCs and VPN/Direct Connect connections with a single managed resource. VPC peering is non-transitive (spoke-to-spoke traffic still can't flow), requiring N\u00d7(N-1)/2 peering connections. Separate VPNs per spoke is costly. A third-party appliance adds operational complexity."
+  },
+  {
+    "id": "da0266e84ddd50ba1a7897c594ca3cfe4123046418df3d931acdefaf721da5f9",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A global company runs workloads in AWS Regions in us-east-1 and eu-west-1 and must connect their on-premises data centre to both Regions. All inter-region and on-premises traffic must flow through a central security inspection layer. Which multi-tier network topology achieves this with the lowest management overhead?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Create a full mesh of VPC peering connections between all VPCs in both regions and the on-premises network.",
+      "B": "Deploy separate Transit Gateways in each region and connect them to individual VPNs to the on-premises data centre.",
+      "C": "Deploy a Transit Gateway in each Region, connect them with a Transit Gateway inter-region peering connection, centralize inspection in a shared Inspection VPC, and route all traffic through the inspection VPC using route table configurations.",
+      "D": "Use AWS Direct Connect with public virtual interfaces to connect both regions to the on-premises network and configure BGP route filtering."
+    },
+    "explanation": "Inter-region Transit Gateway peering with a centralized Inspection VPC implements a transit hub-and-spoke model suitable for multi-region security inspection. Full-mesh peering is non-scalable and non-transitive. Separate TGWs without peering don't provide centralized inspection. Direct Connect with public VIFs doesn't address inter-VPC routing."
+  },
+  {
+    "id": "9e6975736d0b699715eece95cba1a86d40f3fd41571eafd1a9727816457f6364",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A SaaS company needs to give each customer tenant their own isolated VPC while allowing them to access a central shared-services VPC (containing databases and internal APIs) without exposing the shared VPC to the internet. Customer tenants must NOT be able to communicate with each other. Which topology satisfies these requirements?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Peer all tenant VPCs to the shared-services VPC and enable transitive routing through the shared VPC.",
+      "B": "Use AWS PrivateLink to expose specific services from the shared-services VPC as VPC Endpoints, and create endpoint connections in each tenant VPC.",
+      "C": "Attach all VPCs to a Transit Gateway and use route tables to restrict communication between tenants.",
+      "D": "Deploy the shared services on EC2 instances with public IP addresses and restrict access using security groups."
+    },
+    "explanation": "AWS PrivateLink exposes specific services from the shared VPC as Interface Endpoints without any routing relationship between VPCs. Tenant VPCs cannot communicate with each other at all. VPC peering is non-transitive so tenants can't talk through the shared VPC, but it exposes the entire VPC CIDR. Transit Gateway route tables can isolate tenants but add operational overhead. Public IPs are a security anti-pattern."
+  },
+  {
+    "id": "019217f95a6aab3deaf80eddb659235bdab3f5c6436e5bd69f219a254e0dc79b",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A company is designing a three-tier web architecture in AWS. The web tier must be publicly accessible, the application tier must only communicate with the web tier and database tier, and the database tier must only communicate with the application tier. Which network topology implements these requirements?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deploy all tiers in the same public subnet and use security groups to restrict traffic between them.",
+      "B": "Place all tiers in private subnets and route all traffic through a NAT gateway.",
+      "C": "Create one public subnet for the web tier and one private subnet shared by the application and database tiers.",
+      "D": "Create public subnets for the web tier and separate private subnets for the application tier and database tier, using security groups to allow only the appropriate inter-tier traffic."
+    },
+    "explanation": "A proper three-tier topology uses a public subnet for internet-facing resources and separate private subnets for each internal tier, enforced by security group rules allowing only specific port/source combinations. Sharing a private subnet between app and DB tiers prevents fine-grained isolation. Placing all tiers in public subnets exposes database servers."
+  },
+  {
+    "id": "7bbbc0f50c9949af3605f7f90795fda9205f15600a882133f53b98a83d461d8e",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A financial services application requires the absolute lowest network latency between EC2 instances that process high-frequency trading data. The instances must exchange messages in microseconds. Which placement option achieves this?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Place the EC2 instances in a cluster placement group within a single Availability Zone.",
+      "B": "Place the EC2 instances in a spread placement group across multiple Availability Zones.",
+      "C": "Deploy the EC2 instances in multiple Availability Zones with an Application Load Balancer in front.",
+      "D": "Use AWS Local Zones to deploy the instances physically closer to the stock exchange."
+    },
+    "explanation": "Cluster placement groups pack instances physically close together on the same underlying hardware within a single AZ, providing the highest network throughput and lowest latency. Spread placement groups maximize fault tolerance by distributing instances across hardware \u2014 the opposite of what's needed here. Load balancers add latency. Local Zones address end-user latency, not inter-instance latency."
+  },
+  {
+    "id": "09b7faaa0ead176909e19778a5e4e3dfa9210503b14c1086a3ad94ed899621d0",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A company runs a three-tier application and wants to maximize fault tolerance across hardware failures while accepting a small latency increase between tiers. Which EC2 placement strategy should they use?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Cluster placement group for all tiers to minimize latency.",
+      "B": "Partition placement group with all instances in a single partition.",
+      "C": "Spread placement group, distributing instances across distinct underlying hardware racks.",
+      "D": "No placement group; rely on default placement by AWS."
+    },
+    "explanation": "A spread placement group ensures each instance is placed on separate hardware with independent power and networking, reducing the blast radius of hardware failures. Cluster groups sacrifice fault isolation for low latency. Partition groups suit large distributed systems (HDFS, Cassandra). Default placement provides no guarantees about hardware isolation."
+  },
+  {
+    "id": "fe7efdc7aa516c0d25a0ef90b349ba8cfee55d4eac5bf770727e0bc10d7608b6",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A global media company serves video-on-demand content to users in South America. Currently, users experience high latency because the origin servers are in us-east-1. The company wants to reduce latency without deploying full application servers in South America. Which resource placement strategy is most appropriate?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deploy EC2 instances in the sa-east-1 Region and replicate all application state there.",
+      "B": "Use Amazon CloudFront with edge locations in South America to cache video content close to viewers.",
+      "C": "Create an AWS Local Zone in S\u00e3o Paulo and replicate the application.",
+      "D": "Use Route 53 geolocation routing to direct South American users to a dedicated server in us-east-1."
+    },
+    "explanation": "CloudFront has edge locations throughout South America that cache content close to viewers, dramatically reducing latency without full application replication. Local Zones require you to deploy and manage infrastructure there. Geolocation routing directs to a specific Region but doesn't reduce the network distance. A new Region requires full application deployment and data replication."
+  },
+  {
+    "id": "8ca5c73a5183d2ff0bc85d04b09ff644bf2d302c069181fd49625c18a547b053",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A company runs an Apache Kafka cluster on EC2 instances in a single Availability Zone. They want to improve fault tolerance so that the cluster can survive the failure of one AZ without data loss, while keeping inter-broker replication latency low. Which placement decision achieves this?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Place all Kafka brokers in a cluster placement group within a single AZ for lowest latency.",
+      "B": "Place the Kafka brokers in a spread placement group across multiple hardware racks in a single AZ.",
+      "C": "Distribute brokers across three AZs and place all brokers in the same partition placement group.",
+      "D": "Distribute Kafka brokers evenly across three Availability Zones, configure replication factor of 3, and use partition placement groups within each AZ to minimize intra-AZ replication latency."
+    },
+    "explanation": "Spreading brokers across three AZs with a replication factor of 3 ensures that the cluster survives a full AZ failure without data loss. Partition placement groups within each AZ keep intra-AZ broker communication fast. A single AZ provides no fault isolation. Spread groups maximize hardware isolation but don't address AZ-level failures."
+  },
+  {
+    "id": "da35105920a0e91ede2b9fbdd797c000a24563703adbd56c0eaa512c19759909",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A business intelligence team needs to build interactive dashboards on top of data stored in Amazon S3 in Parquet format. Queries must run ad-hoc and the team does not want to manage any servers or ETL pipelines. Which combination of AWS services enables this with the least operational overhead?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Load the Parquet files into Amazon Redshift and use Redshift to power Amazon QuickSight dashboards.",
+      "B": "Register the S3 data as a table in AWS Glue Data Catalog, query it with Amazon Athena, and visualize results in Amazon QuickSight connected to Athena.",
+      "C": "Set up an Amazon EMR cluster, run Spark SQL queries on the Parquet files, and export results to QuickSight.",
+      "D": "Copy the Parquet files into Amazon RDS Aurora and connect QuickSight directly to Aurora."
+    },
+    "explanation": "Athena is a serverless query engine that queries S3 data directly using the Glue Data Catalog for schema. QuickSight connects natively to Athena as a data source, completing a fully serverless BI stack with no ETL or server management. Redshift, EMR, and RDS all require provisioning and data loading steps."
+  },
+  {
+    "id": "9547b086bca6097605166321ee080f023334de804729fd1db0d6a318d0b9a9e2",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A data analytics team has streaming clickstream data flowing into Amazon Kinesis Data Firehose, which delivers it to Amazon S3. They need to visualize trends in near-real time (within 1 minute) on a dashboard. Which approach meets the near-real-time requirement with the least infrastructure to manage?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Configure Kinesis Data Firehose to deliver to Amazon Redshift and connect Amazon QuickSight to Redshift.",
+      "B": "Use Amazon Kinesis Data Analytics (SQL) to query the stream, write results to DynamoDB, and build a custom dashboard that polls DynamoDB.",
+      "C": "Deliver the stream to Amazon OpenSearch Service (Amazon ES) via Kinesis Data Firehose and use OpenSearch Dashboards (Kibana) to visualize near-real-time data.",
+      "D": "Write a Lambda function that reads from the Kinesis stream every 60 seconds, stores aggregates in S3, and triggers an Athena query that feeds QuickSight SPICE."
+    },
+    "explanation": "OpenSearch Service (with Dashboards) is designed for near-real-time log and event visualization and integrates natively with Kinesis Data Firehose. Redshift and Athena/SPICE refresh cycles are minutes-to-hours, not sub-minute. A custom DynamoDB + dashboard solution adds significant development and operational work."
+  },
+  {
+    "id": "9119821f3ff77f27a4f308fec08886ee3a1da757b761fa576afd86284e2afc2e",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A company wants to enable non-technical business users to create ad-hoc visualizations and dashboards on their data stored in Amazon Redshift without writing SQL. Which AWS service is the most appropriate choice?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon QuickSight, connecting it directly to Amazon Redshift as a data source and using the drag-and-drop visual authoring interface.",
+      "B": "AWS Glue Studio, which provides a visual ETL interface for data transformation.",
+      "C": "Amazon Managed Grafana, configured with Redshift as a data source.",
+      "D": "AWS Lake Formation, which includes built-in dashboard creation tools."
+    },
+    "explanation": "Amazon QuickSight is AWS's managed BI service with a no-code visual authoring interface designed for business users. It connects natively to Redshift and allows non-technical users to create visualizations without SQL. Glue Studio is for ETL pipelines. Managed Grafana is for operational metrics and requires knowledge of PromQL or SQL. Lake Formation is a data governance service."
+  },
+  {
+    "id": "98bb5dacfb3aac334e09c6555bb6615f01e04d35cbf5c43c5a49fe53de4ed940",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A logistics company collects GPS tracking data for thousands of vehicles in Amazon S3. A data analyst needs to create a heatmap showing vehicle density by region over time. The analyst has no ML or coding experience. Which tool is most appropriate?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Amazon SageMaker Canvas to build a machine learning model that predicts vehicle density.",
+      "B": "Write a Python script using boto3 and matplotlib to generate static heatmap images stored in S3.",
+      "C": "Use Amazon EMR with Jupyter Notebooks to run PySpark aggregations and render maps.",
+      "D": "Use Amazon QuickSight with geospatial visualization, connecting to S3 data via Amazon Athena, to build an interactive heatmap with time-filter controls."
+    },
+    "explanation": "QuickSight supports native geospatial chart types including heatmaps with latitude/longitude fields and includes time-based filter controls. It requires no coding and connects to S3 data via Athena. SageMaker Canvas is ML-focused. Static scripts and EMR notebooks require technical skills the analyst lacks."
+  },
+  {
+    "id": "c899e29e3bc13dfc55c4a54778ac1fe7871afb282f91387e9e5bad1554b65ff6",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A company needs to migrate a Windows-based HPC workload to AWS. The workload requires a shared file system with SMB protocol support, Active Directory integration, and sub-millisecond latency. The solution must be fully managed. Which AWS storage service is most appropriate?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon EFS in Max I/O mode.",
+      "B": "Amazon S3 with AWS Transfer Family using an SFTP endpoint.",
+      "C": "Amazon FSx for Windows File Server.",
+      "D": "Amazon FSx for Lustre."
+    },
+    "explanation": "FSx for Windows File Server is a fully managed SMB-based file system with native Active Directory integration, designed for Windows workloads. EFS uses NFS (not SMB). S3 with Transfer Family is for file transfer, not a shared file system. FSx for Lustre is a high-performance POSIX file system for Linux HPC workloads."
+  },
+  {
+    "id": "b197830e9b3a17194fea9772eb143cf3412adb8fb2c21249fd500c806d4064a8",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A startup is running a Linux-based web application on multiple EC2 instances that need shared access to the same configuration files. The files are small (under 1 GB total), updated infrequently, and must be accessible via standard Linux file system calls. Cost minimization is the top priority. Which storage solution is most cost-effective?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon FSx for Lustre mounted on all instances.",
+      "B": "Amazon EFS with the default General Purpose performance mode and Infrequent Access storage class.",
+      "C": "Amazon EBS with Multi-Attach enabled on an io2 volume.",
+      "D": "Amazon S3 with a custom FUSE-based S3 mount on each instance."
+    },
+    "explanation": "EFS with the IA storage class is purpose-built for shared POSIX file access and is the most cost-effective managed option for small, infrequently accessed shared files. FSx for Lustre is for HPC and is significantly more expensive. EBS Multi-Attach is limited in scope and more expensive. S3 FUSE mounts (e.g., s3fs) have inconsistent performance and no POSIX consistency guarantees."
+  },
+  {
+    "id": "108845a725b0e0c7fa1bfc035d735a1fd42295371b48694b1265c73586ea90a3",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A data engineering team is building a genomics pipeline on AWS that processes large datasets sequentially. Each analysis job runs for 4\u20138 hours on a dedicated EC2 instance and requires high-throughput sequential I/O to a single attached disk. Which storage type is most cost-effective?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon EBS st1 (throughput-optimized HDD) volume, which provides low-cost, high-throughput sequential access.",
+      "B": "Amazon EBS io2 Block Express volume for maximum IOPS.",
+      "C": "Amazon EFS in Provisioned Throughput mode.",
+      "D": "Amazon S3 with byte-range fetches to read data sequentially."
+    },
+    "explanation": "EBS st1 (throughput-optimized HDD) is optimized and priced for sequential I/O workloads like big-data processing, at a much lower cost than SSD volumes. io2 is for high-IOPS random I/O workloads and is far more expensive. EFS Provisioned Throughput charges for unused throughput. S3 byte-range fetches add HTTP overhead and latency for sequential reads."
+  },
+  {
+    "id": "a34d5cee15f34fd24f194b591149eb896b2c5d4a88b4867c90856ca52821fdeb",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A media archive company needs to store petabytes of video master files that are accessed once a year for legal compliance reviews. The files must be retrievable within 12 hours. Which storage option minimizes cost?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon S3 Standard-IA with lifecycle rules moving objects to S3 Glacier after 90 days.",
+      "B": "Amazon EFS with Infrequent Access lifecycle policy.",
+      "C": "Amazon FSx for Lustre with data repository associations to S3.",
+      "D": "Amazon S3 Glacier Deep Archive, which offers the lowest per-GB price for data accessed less than once per year, with a standard retrieval time of 12 hours."
+    },
+    "explanation": "S3 Glacier Deep Archive is the lowest-cost AWS storage option (approximately $0.00099/GB/month) and supports a 12-hour retrieval SLA, which meets the once-a-year access pattern. S3 Standard-IA and S3 Standard charge more for infrequently accessed data. EFS is significantly more expensive. FSx for Lustre is a compute-oriented file system, not an archival solution."
+  },
+  {
+    "id": "b783ab035e11db40c560949c3b707437b96a6cb3a7bd6ec632b13b16a4acc929",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A development team runs EC2 instances that perform large in-memory computations. The jobs take 30 minutes to load data into RAM before processing begins. Jobs run Monday through Friday and are idle on weekends. The team wants to pause instances on weekends without losing in-memory state, resuming exactly where they left off on Monday. Which EC2 feature enables this?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "EC2 Stop and Start: stop the instance and restart it, which reloads the application from EBS.",
+      "B": "EC2 Hibernation: the in-memory RAM state is saved to the EBS root volume, and when the instance is started again the RAM is restored, resuming from the point of hibernation.",
+      "C": "EC2 Suspend: temporarily suspends CPU execution while keeping RAM live.",
+      "D": "EC2 Instance Store snapshots: snapshot the instance store volume and restore on restart."
+    },
+    "explanation": "EC2 Hibernation saves RAM contents to the EBS root volume (which must be large enough to hold the RAM snapshot). On restart, RAM is restored and the instance resumes exactly where it stopped, avoiding the 30-minute data-reload step. Standard Stop/Start loses RAM state. EC2 has no 'Suspend' feature. Instance store volumes cannot be snapshotted and are lost on stop."
+  },
+  {
+    "id": "7b125edae6eeb9ae647789ba5a92b1b7e7b92d68402ca3ecefcd7ba32e539f34",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "An e-commerce platform experiences predictable traffic spikes every Monday morning. The auto scaling policy adds EC2 instances horizontally during spikes. The team is evaluating whether to use horizontal or vertical scaling for the web tier. Which statement correctly distinguishes the two strategies?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Vertical scaling adds more instances of the same size; horizontal scaling increases the instance size.",
+      "B": "Horizontal scaling requires changing the instance type and causes downtime; vertical scaling adds more instances without downtime.",
+      "C": "Horizontal scaling adds more instances to distribute load (scale out) and requires no downtime; vertical scaling increases the resources of a single instance (scale up) and typically requires a stop/start.",
+      "D": "Both strategies are identical in AWS because Auto Scaling handles both automatically."
+    },
+    "explanation": "Horizontal scaling (scale out) distributes load across more instances and is performed with no downtime by Auto Scaling. Vertical scaling (scale up) increases the size/resources of existing instances, which requires stopping and starting EC2 instances to change instance type."
+  },
+  {
+    "id": "8879bc607f650656533c2d7b9cff6f0c7a2330389462015a4d762755ce2b3c99",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A stateless REST API runs on an EC2 Auto Scaling group. During peak hours, CPU utilization reaches 90% on all instances and response times increase. The architect must decide between scaling horizontally (adding more instances) or vertically (upgrading to a larger instance type). Which approach is more appropriate for a stateless application and why?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Horizontal scaling: add more instances of the same type. Stateless applications share no session state between instances, so requests can be load-balanced across any instance, and scaling out is faster and more resilient.",
+      "B": "Vertical scaling: upgrade to a larger instance. This reduces the number of instances to manage and eliminates the need for a load balancer.",
+      "C": "Vertical scaling: a single large instance has lower networking overhead than multiple small instances communicating with a load balancer.",
+      "D": "Horizontal scaling: add more instances, but only works if the application uses sticky sessions to pin users to a specific instance."
+    },
+    "explanation": "Stateless applications are ideally suited for horizontal scaling: any instance can handle any request, Auto Scaling can add or remove instances dynamically, and the architecture tolerates individual instance failures. Vertical scaling has upper limits (maximum instance size) and introduces a single point of failure. Sticky sessions are needed for stateful, not stateless, applications."
+  },
+  {
+    "id": "0c4569d47e2bcfe2a223453ebb85b465dde288b114db4d32a5749d65701ca823",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A company runs batch processing jobs on EC2 that take 2 hours to complete. Jobs are submitted at random intervals and can be delayed by up to 6 hours. The company currently uses On-Demand instances and wants to reduce compute costs. Which scaling and purchasing strategy provides the greatest cost reduction with acceptable delay?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Reserved Instances for the baseline capacity and On-Demand for burst.",
+      "B": "Use Spot Instances with EC2 Auto Scaling, configure the Auto Scaling group to use Spot instances, and implement a job queue in SQS with checkpointing so interrupted jobs can resume.",
+      "C": "Enable EC2 Hibernation on existing On-Demand instances to pause them between jobs.",
+      "D": "Use AWS Batch with Spot Instances as the compute resource. AWS Batch manages job scheduling, instance provisioning, and retry logic automatically."
+    },
+    "explanation": "AWS Batch with Spot Instances combines automatic job orchestration with the lowest compute pricing (up to 90% discount). It handles instance interruptions and job retries natively, making it the best fit for batch workloads with flexible deadlines. Reserved Instances require upfront commitment. Hibernation doesn't reduce costs. SQS + Auto Scaling with Spot works but requires custom retry logic that Batch provides out of the box."
+  },
+  {
+    "id": "7a14168f59394ddf635c8eefadf0171568cdfdaca606f7c8d1d87a693d2b9559",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A company runs both a production e-commerce platform and a development/testing environment on AWS. The production environment must have 99.99% availability. The development environment is used only on weekdays and can tolerate interruptions. Which combination of EC2 purchasing options optimizes cost for both environments?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use On-Demand Instances for both production and development to ensure maximum reliability.",
+      "B": "Use Reserved Instances (1-year, no-upfront) for production and Spot Instances for the development environment.",
+      "C": "Use Spot Instances for both production and development to minimize costs.",
+      "D": "Use On-Demand for production and Reserved Instances for development."
+    },
+    "explanation": "Reserved Instances provide capacity guarantees and significant cost savings (up to 40%) for steady-state production workloads. Spot Instances offer up to 90% savings and are appropriate for interruptible development/testing workloads. Using Spot for production risks unexpected interruptions. Using On-Demand for dev/test wastes budget."
+  },
+  {
+    "id": "985f5ebb87deff997dc953e9ca906d064919935a87ed2a63a19c368d7a3e8cfc",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A SaaS company has the following workload classes: (1) customer-facing payment processing that must never go down; (2) internal analytics jobs that run nightly and can be re-run; (3) a staging environment used 9am\u20135pm weekdays. What purchasing strategy correctly aligns availability requirements with cost?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Spot for payment processing; Reserved for analytics; On-Demand for staging.",
+      "B": "On-Demand for all three workloads to simplify management.",
+      "C": "Reserved Instances for payment processing; Spot Instances for analytics jobs (with checkpointing); Scheduled Reserved Instances or Savings Plans for the predictable staging hours.",
+      "D": "Reserved Instances for payment processing and staging; On-Demand for analytics."
+    },
+    "explanation": "Mission-critical payment processing requires Reserved Instances (or Savings Plans) for cost predictability and guaranteed capacity. Interruptible nightly analytics jobs are ideal Spot candidates with checkpointing. The staging environment with predictable hours suits Scheduled Reserved Instances or Compute Savings Plans. Using Spot for payments is unacceptable; On-Demand for analytics wastes significant budget."
+  },
+  {
+    "id": "c1b6700b295852dce030b9c4b3e8862c188e9680745cdf9968ab159e75257a09",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A startup runs all workloads on On-Demand EC2 instances. A cost audit reveals that 80% of their compute spend runs 24/7 for production systems, and 20% is for unpredictable experimental jobs. Which recommendation would most significantly reduce their EC2 costs?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Purchase 1-year Compute Savings Plans covering 80% of their baseline On-Demand spend, and continue using On-Demand for experimental workloads.",
+      "B": "Switch all workloads to Spot Instances to get the maximum discount across the board.",
+      "C": "Purchase 3-year Reserved Instances with All Upfront payment for the experimental 20% of workloads.",
+      "D": "Switch to larger instance types to improve utilization and reduce the number of instances needed."
+    },
+    "explanation": "Compute Savings Plans cover steady-state production workloads at up to 66% discount while preserving flexibility to change instance type, region, or OS. Switching production to Spot risks interruptions. Purchasing Reserved Instances for unpredictable experimental workloads wastes the commitment. Larger instances don't reduce total compute cost if workload is already well-sized."
+  },
+  {
+    "id": "6bf3de7e27181918d6c4610481a699c2afe5307ed5b41432cddf876873b2ea19",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.3",
+    "stem": "A company is migrating an Oracle database to Amazon Aurora PostgreSQL. The Oracle schema uses Oracle-specific data types and stored procedures that are not compatible with PostgreSQL. Which AWS service helps automate the schema conversion?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Database Migration Service (DMS) replication instance to migrate the schema automatically.",
+      "B": "AWS Schema Conversion Tool (SCT), which analyzes the Oracle schema, converts compatible objects automatically, and flags objects that require manual review.",
+      "C": "AWS Glue to transform Oracle DDL files to PostgreSQL-compatible SQL.",
+      "D": "Amazon RDS Snapshot export to S3, followed by import into Aurora PostgreSQL."
+    },
+    "explanation": "AWS SCT is specifically designed to convert database schemas from one engine to another (heterogeneous migrations), identifying and converting Oracle-specific types and procedures to their PostgreSQL equivalents, and flagging items that need manual remediation. DMS migrates data, not schemas. Glue is an ETL service. Snapshot export/import only works within the same database engine."
+  },
+  {
+    "id": "9706e46c0be067e51714dbdcef303c0bf759b4e10e678ab73076121160a0623b",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.3",
+    "stem": "A company needs to migrate 2 TB of data from an on-premises MySQL database to Amazon Aurora MySQL with minimal downtime. The application must remain live during migration. Which approach achieves this?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use mysqldump to export the database, copy to S3, and import into Aurora using the S3 import feature. Schedule a maintenance window for the switch.",
+      "B": "Use AWS Snowball to physically ship the data to AWS, then restore from Snowball to Aurora.",
+      "C": "Use AWS DMS with a Full Load + Change Data Capture (CDC) replication task. After the initial full load, DMS continuously replicates changes until cutover, minimizing downtime to the brief cutover window.",
+      "D": "Create an Aurora read replica of the on-premises MySQL instance and promote it after replication catches up."
+    },
+    "explanation": "DMS with Full Load + CDC is the standard approach for live migrations: the full load copies existing data, then CDC continuously replicates ongoing changes, keeping the source and target in sync until the brief cutover window. mysqldump requires a maintenance window sized for the full export/import time. Snowball is for offline bulk transfers. Aurora can't create a replica of an on-premises instance directly."
+  },
+  {
+    "id": "1d7e7b20df0ae736dcd4eabf68796edf4d1b893af36d97fe5d52d64ae50a43dd",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.3",
+    "stem": "A financial company is migrating from Microsoft SQL Server to Amazon Aurora MySQL as part of a cost-reduction initiative. After running AWS SCT, 30% of stored procedures are flagged as requiring manual remediation. What does this flag mean and what action should the team take?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "These objects cannot be migrated and must be removed from the application.",
+      "B": "SCT will automatically fix these objects during the DMS migration task.",
+      "C": "These objects use SQL Server features with no Aurora MySQL equivalent and must be rewritten using third-party tools.",
+      "D": "SCT cannot automatically convert these objects because they use SQL Server-specific syntax or features. The team must manually rewrite them in MySQL-compatible SQL, review SCT's conversion suggestions, and test the converted procedures before cutover."
+    },
+    "explanation": "SCT flags objects it cannot automatically convert due to engine-specific syntax, proprietary features, or ambiguous semantics. The team must manually review the action items, rewrite the flagged objects using MySQL-compatible equivalents (or redesign the logic), and validate behaviour before migration. SCT provides conversion suggestions but human review is required."
+  },
+  {
+    "id": "9a9c837eebfd8eed9504dbd84fa3eabd761479cff4d02eb80008c0341255fd8d",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.3",
+    "stem": "A startup is running a PostgreSQL database on EC2. They want to migrate to Amazon RDS for PostgreSQL with the least possible downtime. This is a homogeneous migration (same database engine). Which migration path is simplest?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use AWS DMS for a homogeneous migration: create a replication instance, configure the on-EC2 PostgreSQL as source and RDS PostgreSQL as target, run a Full Load + CDC task, and cut over when replication lag is near zero.",
+      "B": "Use AWS SCT to convert the schema, then use DMS for data migration.",
+      "C": "Take a pg_dump of the EC2 database, copy to S3, then restore using pg_restore on RDS.",
+      "D": "Create a logical replication slot on the EC2 instance and manually configure streaming replication to RDS."
+    },
+    "explanation": "For homogeneous migrations (same engine), DMS is the simplest path: no schema conversion is needed (SCT is for heterogeneous migrations), and Full Load + CDC enables near-zero-downtime cutover. pg_dump/restore requires downtime equal to the export/import duration. Manual logical replication is complex and requires network configuration and replication slot management."
+  },
+  {
+    "id": "7688bcccdf59da362bd50a391e153a178a97842c3bcdec141ec32ef02206a3da",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A retail company's web application is repeatedly targeted by a DDoS attack that floods the Application Load Balancer with HTTP floods at Layer 7. Basic infrastructure-level protection is already in place. Which AWS service should be added to detect and mitigate Layer 7 DDoS attacks automatically?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Shield Standard, which automatically protects against Layer 7 attacks at no extra cost.",
+      "B": "AWS WAF with rate-based rules attached to the Application Load Balancer, combined with AWS Shield Advanced for enhanced DDoS protection and access to the AWS DDoS Response Team.",
+      "C": "Amazon GuardDuty, which monitors CloudTrail logs for DDoS indicators and blocks attackers.",
+      "D": "AWS Network Firewall deployed in the VPC to block malicious HTTP requests."
+    },
+    "explanation": "AWS WAF with rate-based rules limits the number of requests from a single IP and blocks HTTP floods at Layer 7. Shield Advanced provides advanced DDoS protection, real-time visibility, and access to the DDoS Response Team. Shield Standard protects at Layers 3/4 only. GuardDuty detects threats but doesn't block traffic. Network Firewall operates at Layer 3/4."
+  },
+  {
+    "id": "c9cd32b243032fb8cc6d34d9bd54152d860ae2efdc1f73746e72a0d2af5785ce",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A company stores database passwords and API keys in EC2 instance environment variables. A security audit flags this as a risk. The company wants to centrally store, rotate, and audit access to all secrets without changing how the application retrieves them significantly. Which service is most appropriate?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Store secrets in an S3 bucket with server-side encryption and restrict access with bucket policies.",
+      "B": "Use AWS Systems Manager Parameter Store Standard tier to store secrets as plain text.",
+      "C": "Use AWS Secrets Manager to store and automatically rotate secrets, and update the application to call the Secrets Manager API to retrieve secrets at runtime.",
+      "D": "Encrypt secrets using AWS KMS and embed the encrypted values in the application's source code."
+    },
+    "explanation": "AWS Secrets Manager is purpose-built for secret lifecycle management: it stores secrets with encryption, rotates them automatically (for supported services like RDS), and provides audit logging via CloudTrail. Parameter Store Standard doesn't support automatic rotation. S3 is not a secrets management service. Embedding encrypted secrets in source code is a security anti-pattern."
+  },
+  {
+    "id": "8bdd82dc45067cf1986b8650184ebe8557d1128ebe10e64a717704fe9e377843",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "An organization has multiple AWS accounts. Developers federate into accounts using IAM Identity Center (SSO). The security team wants to enforce MFA for all federated users accessing the AWS Management Console. Where should MFA be enforced?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "In IAM Identity Center, enable MFA for all users in the Identity Center user portal. This enforces MFA at the federation layer before any account access.",
+      "B": "Enable MFA on every IAM user in every account individually.",
+      "C": "Create an SCP in AWS Organizations that denies all actions if MFA is not present in the request context.",
+      "D": "Configure AWS CloudTrail to alert when users access the console without MFA and manually revoke sessions."
+    },
+    "explanation": "IAM Identity Center is the central authentication layer for federated access across multiple accounts. Enforcing MFA there applies it universally before any account-level access. Enabling MFA per IAM user is impractical if users are federated (they have no IAM user). SCPs can reinforce but cannot substitute for MFA at the authentication layer. CloudTrail alerts are detective, not preventive."
+  },
+  {
+    "id": "890a2683dbe5e70c21ca9eee8b258fd625cfb8635758155b847bb58df6c8a1e7",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A company wants to run a backend API that handles between 0 and 10,000 requests per minute with unpredictable traffic patterns. The team wants to minimize server management and pay only for actual usage. Which compute option best fits this requirement?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Lambda with Amazon API Gateway, which scales automatically from zero to high concurrency with no idle costs.",
+      "B": "Amazon EC2 with an Auto Scaling group that scales between 0 and 10 instances based on CPU.",
+      "C": "Amazon ECS on EC2 with a minimum cluster size of 2 and Auto Scaling policies.",
+      "D": "An Amazon EC2 Reserved Instance sized for peak capacity."
+    },
+    "explanation": "Lambda scales instantly from zero with no minimum idle cost, making it ideal for variable, unpredictable workloads. API Gateway provides a serverless HTTP front end. EC2 Auto Scaling cannot scale to zero (minimum 1 instance), incurring idle cost. ECS on EC2 requires a baseline cluster. Reserved Instances are appropriate for predictable, steady workloads."
+  },
+  {
+    "id": "f07bdef76fc3aac7e09613893a841afce0ca38e871c3c63821455d34351152b1",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A company is choosing between AWS Lambda and Amazon ECS on Fargate to run a new microservice. The microservice processes images, takes 8 minutes per image, and requires 6 GB of memory. Which service is more appropriate?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Lambda, because it is serverless and requires no container management.",
+      "B": "Amazon ECS on AWS Fargate, because Lambda has a maximum execution timeout of 15 minutes and a 10 GB memory limit, and longer or memory-intensive tasks are better suited to container-based execution.",
+      "C": "AWS Lambda with provisioned concurrency to avoid cold starts for the 8-minute jobs.",
+      "D": "AWS Lambda using Lambda Container Images to extend the runtime limits."
+    },
+    "explanation": "While Lambda supports up to 15 minutes and 10 GB of memory, 8-minute image processing at 6 GB is pushing Lambda's boundaries and would be better suited to ECS on Fargate, which has no timeout or memory constraints. Lambda is better for short-duration, event-driven tasks. Lambda Container Images don't extend execution limits."
+  },
+  {
+    "id": "fcba94bf9d354dce9a7ed1723c54cff75ea985ac622916e478dc799c71058665",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A team has a monolithic Node.js application running on EC2 that they want to decompose into microservices. One component is a user authentication function called on every request (milliseconds of compute, thousands of times per day). Which decomposition approach uses serverless most appropriately?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Move the entire monolith to Lambda by packaging it as a single Lambda function.",
+      "B": "Keep all components on EC2 but trigger them via SQS to decouple them.",
+      "C": "Extract the authentication function to a Lambda function behind an API Gateway authorizer, while keeping other components that require persistent connections on EC2 or ECS.",
+      "D": "Deploy each function of the monolith as a separate Lambda function, regardless of execution time or resource requirements."
+    },
+    "explanation": "Serverless is most appropriate for small, stateless, event-driven functions. Lambda Authorizers are a perfect fit for authentication logic: triggered per request, milliseconds of execution, no idle cost. Monoliths should not be moved wholesale to a single Lambda. Components requiring persistent state or long execution are better left on EC2/ECS. Not all functions should be moved to Lambda indiscriminately."
+  },
+  {
+    "id": "f3c3fbb6d8c381fcf67498bfb222be4bc18b46415f35865210110ddc9ae5d950",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "A company runs an in-memory database (Redis) on a single EC2 instance. The database holds 500 GB of data in RAM and requires consistent, low-latency access. Which EC2 instance family is most appropriate?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Compute optimized (C-family): designed for CPU-intensive workloads.",
+      "B": "Memory optimized (R or X-family): designed for workloads that process large datasets in memory, offering high RAM-to-vCPU ratios.",
+      "C": "Storage optimized (I-family): designed for high I/O throughput to local NVMe storage.",
+      "D": "General purpose (M-family): balanced CPU, memory, and networking."
+    },
+    "explanation": "Memory-optimized instances (R and X families) offer high RAM-to-vCPU ratios specifically for memory-intensive workloads like in-memory databases. 500 GB of RAM requires an R6g.16xlarge or X-family instance. Compute-optimized instances have less RAM per vCPU. Storage-optimized instances are for I/O-intensive workloads, not in-memory workloads. General purpose instances are less cost-effective for memory-heavy workloads."
+  },
+  {
+    "id": "86ed806b1053f63cf472dced62d586f458425270e8bc335501321edc3f53dcf5",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "A genomics company runs compute-intensive DNA sequence alignment jobs that are CPU-bound and require no significant memory or storage. Jobs run for 4 hours and are submitted in batches. Which instance type and purchasing strategy is most appropriate?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "R5.8xlarge On-Demand: memory optimized for genomics data analysis.",
+      "B": "I3.4xlarge On-Demand: storage optimized for sequence file I/O.",
+      "C": "C5.9xlarge Spot Instances: compute optimized for CPU-intensive workloads at lowest cost, with re-run tolerance if interrupted.",
+      "D": "T3.2xlarge Reserved: general purpose burstable instances for variable workloads."
+    },
+    "explanation": "Compute-optimized (C-family) instances have the highest vCPU-to-memory ratio and are purpose-built for CPU-bound workloads like sequence alignment. Spot Instances offer up to 90% savings and are appropriate for batch jobs that can be rerun if interrupted. R-family instances are memory-optimized (overkill and more expensive). T3 burstable instances throttle CPU under sustained load, unsuitable for 4-hour CPU-bound jobs."
+  },
+  {
+    "id": "cba34ce24e77d57c8a12bf1a673d9f09f3d248e222f04eee8d89e8416fc9bf25",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "A startup is building a real-time video transcoding service. Jobs are CPU-bound, run for 10 minutes, and must be completed within 15 minutes of submission. Traffic is unpredictable and can spike 10x. Which compute strategy ensures latency SLAs are met at lowest cost?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use Reserved C-family instances at peak capacity to guarantee availability.",
+      "B": "Use On-Demand M-family general purpose instances with Auto Scaling.",
+      "C": "Use Lambda functions for transcoding with Provisioned Concurrency.",
+      "D": "Use a mixed fleet Auto Scaling group of On-Demand and Spot C-family instances, with On-Demand as base capacity and Spot for burst, using Spot interruption handling to re-queue interrupted jobs to On-Demand capacity."
+    },
+    "explanation": "A mixed fleet with On-Demand base + Spot burst provides cost savings during spikes while maintaining SLAs: if a Spot instance is interrupted, the job re-queues to On-Demand capacity. C-family instances are right for CPU-bound transcoding. Reserved Instances at peak capacity over-provisions for normal traffic. Lambda has a 15-minute limit and limited CPU, not suited for video transcoding."
+  },
+  {
+    "id": "094fdcd433f745e84b80b2a365f912ed66ff719704d370572cc3794fad3ce2bc",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.3",
+    "stem": "A web application experiences high read latency on an Amazon RDS MySQL database. The read traffic is 90% repetitive queries for the same product catalog data, which changes once per day. Which caching strategy reduces database load most effectively?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Add Amazon ElastiCache for Memcached in front of RDS. Cache product catalog query results with a TTL of 24 hours and invalidate the cache when the catalog is updated.",
+      "B": "Enable RDS read replicas to distribute read traffic across multiple instances.",
+      "C": "Enable RDS Performance Insights to identify slow queries and optimize them.",
+      "D": "Increase the RDS instance size to handle higher read throughput."
+    },
+    "explanation": "ElastiCache for Memcached caches frequently accessed, rarely changing data like product catalogs, serving results from memory in microseconds vs. milliseconds for RDS. A 24-hour TTL matches the update frequency. Read replicas reduce per-replica load but still hit the database; they don't eliminate repeated identical queries. Performance Insights and instance upgrades don't reduce query count."
+  },
+  {
+    "id": "d865914f59855738728963814224414bfa1279ae68e132c4da99769835e4d11b",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.3",
+    "stem": "An online gaming leaderboard requires sub-millisecond reads and writes for millions of users. The leaderboard rankings must be maintained in real-time sorted order. Which caching and data structure approach is most appropriate?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon ElastiCache for Memcached with manual sorted list management.",
+      "B": "Amazon DynamoDB with a Global Secondary Index on the score attribute.",
+      "C": "Amazon ElastiCache for Redis using its native Sorted Sets data structure, which maintains real-time rank ordering automatically.",
+      "D": "Amazon RDS Aurora with a sorted score column and a database trigger to update rankings."
+    },
+    "explanation": "Redis Sorted Sets maintain elements in score order with O(log N) insertion and O(log N) range queries, making them ideal for real-time leaderboards. ElastiCache for Redis provides sub-millisecond latency. Memcached is a simple key-value store with no sorted data structure support. DynamoDB GSIs support sorting but don't provide sub-millisecond latency at scale. RDS with triggers doesn't meet the sub-millisecond requirement."
+  },
+  {
+    "id": "7bb6be6a098068b595a0c23d72197085aa12d8eb8dc7cc680bfa1f14940f859d",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.3",
+    "stem": "A read-heavy e-commerce application uses Amazon DynamoDB. Over time, 80% of read traffic is for the same 1,000 popular item records (hot keys) while the rest is for millions of other items. DynamoDB throttling errors are occurring. Which caching approach specifically addresses hot-key throttling?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Increase DynamoDB read capacity units (RCUs) to handle the hot-key traffic.",
+      "B": "Add Amazon DynamoDB Accelerator (DAX) as an in-memory cache in front of DynamoDB. DAX caches individual item reads and reduces hot-key reads to microseconds without any application code changes.",
+      "C": "Use DynamoDB Streams to pre-populate ElastiCache for Redis with hot items.",
+      "D": "Enable DynamoDB auto scaling to increase RCUs during traffic spikes automatically."
+    },
+    "explanation": "DAX is a purpose-built DynamoDB-compatible in-memory cache that intercepts hot-key reads before they hit DynamoDB, eliminating throttling on frequently accessed items with zero application code changes (it uses the same DynamoDB SDK calls). Increasing RCUs is expensive for hot-key patterns. ElastiCache works but requires application code changes. Auto scaling addresses capacity but not hot-key concentration."
+  },
+  {
+    "id": "8daf473d0a274e2d9ead17473ce2225295df1b4125df9568bbc9d570ced8bb75",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A company is ingesting 1 TB of data per day from IoT sensors into AWS for analytics. They need to determine the correct data ingestion service. The data arrives as a continuous stream of small JSON messages at ~50,000 events/second. Which service is most appropriate for this throughput requirement?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Snowball Edge: physically ship data weekly for batch ingestion.",
+      "B": "Amazon Kinesis Data Streams with enough shards to handle 50,000 records/second, delivering to Amazon S3 via Kinesis Data Firehose.",
+      "C": "AWS Direct Connect with a 1 Gbps connection for dedicated high-speed ingestion.",
+      "D": "Amazon S3 Transfer Acceleration to upload JSON files directly from IoT devices."
+    },
+    "explanation": "Kinesis Data Streams is designed for real-time streaming ingestion at high throughput. Each shard handles up to 1,000 records/second or 1 MB/second; 50 shards handle 50,000 records/second. Firehose then delivers batched data to S3. Snowball is for offline bulk transfer. Direct Connect is for hybrid connectivity, not streaming ingestion. S3 Transfer Acceleration is for large file uploads, not event streams."
+  },
+  {
+    "id": "2340d2a0354640d9e3fb1c43fe2b71677627d386690f1af4b0abb6895bf6ceb8",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A company must transfer 500 TB of historical data from on-premises to Amazon S3 within 2 weeks. Their internet connection is 1 Gbps and is fully utilized by production workloads. What is the most practical transfer solution?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use AWS DataSync over the existing internet connection to transfer data in the background.",
+      "B": "Upgrade the internet connection to 10 Gbps and use aws s3 sync for the transfer.",
+      "C": "Order multiple AWS Snowball Edge Storage Optimized devices to physically transport the data to AWS.",
+      "D": "Use Amazon S3 Transfer Acceleration to speed up uploads over the existing connection."
+    },
+    "explanation": "Transferring 500 TB over a 1 Gbps link (even at full utilization) would take over 45 days. Snowball Edge devices each hold up to 80 TB; 7 devices would move 500 TB physically within days. DataSync and aws s3 sync are limited by internet bandwidth. Upgrading connectivity takes longer than 2 weeks to provision. Transfer Acceleration improves upload performance but is still constrained by the 1 Gbps pipe."
+  },
+  {
+    "id": "04fb26c29e43d4cbe2caba88802ad513411554155e066185e08ec2af9f277d87",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A retail company needs to deliver real-time inventory updates to their mobile app. Updates arrive at 10,000 events/second and must be delivered to clients within 500 milliseconds. Downstream systems consume the data for analytics and fraud detection simultaneously. Which architecture meets the throughput and latency requirements?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon Kinesis Data Streams (multiple shards) to ingest events, with multiple consumer applications (Lambda for mobile push, Kinesis Data Analytics for fraud detection, Kinesis Data Firehose for analytics) each reading from the stream independently.",
+      "B": "Amazon SQS standard queue to buffer events, with Lambda polling the queue for each consumer.",
+      "C": "Amazon SNS to fan out events to multiple SQS queues, each with a Lambda consumer reading at its own pace.",
+      "D": "Write events directly to Amazon DynamoDB and have each consumer application poll DynamoDB for new records."
+    },
+    "explanation": "Kinesis Data Streams supports multiple independent consumers reading from the same stream simultaneously (Enhanced Fan-Out provides dedicated throughput per consumer), meeting both the 10,000 events/second ingest and the 500ms delivery requirement. SQS doesn't support multiple independent consumers without SNS fan-out. SNS/SQS fan-out adds latency and is harder to manage at this scale. DynamoDB polling adds latency and is not a streaming architecture."
+  },
+  {
+    "id": "fb1f3c4e251773d5e0136ab5c5276163baa29b4f3b62ae061243be5cfaa192b0",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A company is running a big data analytics workload on Amazon EMR that reads and writes large sequential files. The workload does not require high IOPS. Which Amazon EBS volume type is the most cost-effective for this use case?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "io2 Block Express: highest IOPS and lowest latency.",
+      "B": "gp3: general purpose SSD balancing price and performance.",
+      "C": "st1 (Throughput Optimized HDD): designed for large, sequential I/O workloads like big data and log processing at a lower cost per GB than SSD.",
+      "D": "sc1 (Cold HDD): lowest-cost EBS option for infrequently accessed data."
+    },
+    "explanation": "st1 is optimized for large sequential reads and writes (up to 500 MB/s throughput) at a significantly lower cost per GB than SSD volumes. It is the standard choice for EMR, data warehouses, and log processing. io2 and gp3 are designed for random I/O workloads. sc1 is for cold, infrequently accessed data with lower throughput limits."
+  },
+  {
+    "id": "521ec8130927f6bd46af3bbd40d63bde9c20dd6b14de192789360a03a2f05b00",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A startup runs a content archiving application that stores infrequently accessed files. Files are read at most once a month for review. The primary requirement is the lowest possible EBS storage cost. Which volume type is most appropriate?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "gp3 SSD: cost-effective general purpose storage.",
+      "B": "st1 HDD: throughput-optimized for sequential workloads.",
+      "C": "io1 SSD: provisioned IOPS for high-performance workloads.",
+      "D": "sc1 (Cold HDD): the lowest-cost EBS volume type, designed for infrequently accessed sequential workloads."
+    },
+    "explanation": "sc1 is the cheapest EBS volume type, priced around $0.015/GB/month vs $0.025/GB for st1. It suits cold storage workloads where data is accessed rarely. The lower throughput ceiling (up to 250 MB/s) is acceptable for once-a-month access. gp3, io1, and st1 are all more expensive and designed for more frequent or higher-performance access patterns."
+  },
+  {
+    "id": "d385dda1ea61094ac1d4d4961a9385e9f00ff38f2cf3b3f7d00769452723defa",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A developer is deploying an Amazon RDS for MySQL production database that runs OLTP transactions requiring 10,000 IOPS and consistent sub-10ms latency. Which EBS volume type should be selected for the RDS storage?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "st1 (Throughput Optimized HDD): high throughput for sequential workloads.",
+      "B": "io2 (Provisioned IOPS SSD): delivers consistent, high IOPS with 99.999% durability, designed for I/O-intensive database workloads.",
+      "C": "gp3: general purpose SSD that can be configured up to 16,000 IOPS.",
+      "D": "sc1 (Cold HDD): lowest cost option for database storage."
+    },
+    "explanation": "io2 provides consistent provisioned IOPS with the highest durability (99.999%) and is the recommended choice for production databases requiring consistent IOPS performance. gp3 can reach 16,000 IOPS and is cost-effective for moderate workloads, but io2 provides stronger consistency guarantees for critical databases. HDD volumes (st1, sc1) are not suitable for OLTP random I/O workloads."
+  },
+  {
+    "id": "bc2383c442604c44d2490de8db4379f9e962364d1d04c4f5e9ba9d06af3d305a",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.3",
+    "stem": "A company is migrating from Oracle Database Enterprise Edition (on-premises) to Amazon Aurora PostgreSQL as part of a cost-reduction initiative. This is classified as which type of migration?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Homogeneous migration: both databases are relational.",
+      "B": "Heterogeneous migration: the source and target use different database engines (Oracle to PostgreSQL), requiring schema and code conversion.",
+      "C": "Lift-and-shift migration: the database is moved to EC2 with no engine change.",
+      "D": "In-place migration: the database engine is upgraded in place on the same infrastructure."
+    },
+    "explanation": "A heterogeneous migration involves different source and target database engines (Oracle \u2192 PostgreSQL), requiring schema and stored procedure conversion using AWS Schema Conversion Tool (SCT) and data migration via DMS. A homogeneous migration uses the same engine (e.g., MySQL \u2192 MySQL). Lift-and-shift and in-place migrations don't involve engine changes."
+  },
+  {
+    "id": "f11e8377d2d974f91e64f89f0f00693617068d3dcb30def0062a8c72fab4d80e",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.3",
+    "stem": "A company is migrating a SQL Server database to Amazon RDS for SQL Server. Which type of migration is this, and which AWS tools are needed?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Homogeneous migration (same engine, SQL Server to SQL Server). AWS DMS can migrate the data without schema conversion. AWS SCT is not required.",
+      "B": "Heterogeneous migration. AWS SCT must convert the schema from SQL Server to RDS SQL Server dialect, then DMS migrates data.",
+      "C": "Homogeneous migration. AWS SCT is required to optimize the schema for RDS.",
+      "D": "Heterogeneous migration. Only pg_dump/pg_restore can perform this type of migration."
+    },
+    "explanation": "Migrating SQL Server to RDS for SQL Server is a homogeneous migration \u2014 the database engine is unchanged. DMS can handle the data transfer directly without schema conversion. SCT is needed for heterogeneous migrations (different source and target engines). pg_dump/pg_restore is for PostgreSQL only."
+  },
+  {
+    "id": "837a17b825cc4a1bf440c8a286f75c82b64f9bc99a4d106398b4ccfccc22d6e2",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.3",
+    "stem": "After migrating a MySQL database from on-premises to Amazon Aurora MySQL using AWS DMS, the team notices that some Oracle-specific functions referenced in views are failing. What is the most likely explanation?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "The DMS replication instance ran out of storage during the migration.",
+      "B": "Aurora MySQL does not support views.",
+      "C": "The original database was likely Oracle, not MySQL, and object references in views used Oracle-specific syntax not compatible with Aurora MySQL. SCT was not used to convert these objects.",
+      "D": "Amazon Aurora MySQL has a different MySQL dialect that doesn't support standard views."
+    },
+    "explanation": "Oracle-specific functions in views indicate the source was Oracle, not MySQL. This is a heterogeneous migration that requires AWS SCT to convert schema objects including views. DMS migrates data but not incompatible schema objects. Aurora MySQL fully supports MySQL-compatible views and functions."
+  },
+  {
+    "id": "3d40dcfba6b263c42c98bf9e7221bae081d61c3145d38207cdf0ce1b40e28a81",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A company's web application has recently suffered a SQL injection attack that extracted customer data from an Amazon RDS database. The application is behind an Application Load Balancer. Which combination of AWS services prevents future SQL injection attacks?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable AWS Shield Advanced on the ALB to detect and block SQL injection at Layer 7.",
+      "B": "Deploy AWS WAF on the ALB with a managed rule group for SQL injection (e.g., AWS Managed Rules SQL database rule group) to inspect and block HTTP requests containing SQL injection payloads.",
+      "C": "Enable Amazon Inspector on the EC2 instances running the application to scan for vulnerabilities.",
+      "D": "Use Amazon GuardDuty to detect SQL injection attempts in real time and automatically update security groups."
+    },
+    "explanation": "AWS WAF with the SQL database managed rule group inspects incoming HTTP/HTTPS requests for SQL injection patterns and blocks matching requests before they reach the application. Shield Advanced is a DDoS protection service, not a WAF. Inspector assesses EC2 vulnerabilities \u2014 it doesn't block runtime attacks. GuardDuty detects threats via log analysis but doesn't actively block requests."
+  },
+  {
+    "id": "4207f94ab8de4ee989519365cae99c45ccb7b00fb1f2f9e0be771acc90583670",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "An application is experiencing a volumetric DDoS attack that is saturating the network interface of the EC2 instances behind a Network Load Balancer. The attack involves SYN floods and UDP reflection. Which AWS protection is appropriate?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Shield Standard, which is automatically enabled on all AWS accounts at no cost, protects against common Layer 3 and Layer 4 DDoS attacks including SYN floods and UDP reflection.",
+      "B": "AWS WAF with rate-based rules to block the attacking IPs.",
+      "C": "Amazon GuardDuty to detect the attack and automatically update NACLs to block the source IPs.",
+      "D": "Amazon CloudWatch alarms to alert the team when network traffic exceeds a threshold."
+    },
+    "explanation": "AWS Shield Standard is automatically enabled for all AWS customers and provides protection against common infrastructure-level DDoS attacks (Layers 3 and 4), including SYN floods and UDP amplification, at no additional charge. WAF operates at Layer 7 and doesn't handle volumetric Layer 3/4 attacks. GuardDuty and CloudWatch are detective tools, not active protections."
+  },
+  {
+    "id": "b906f55f61f892d6e11f810fb036d3519d4d2e995593ac389dc6973274fd52ce",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A company runs a public REST API behind Amazon API Gateway. A security audit identifies that the API is vulnerable to HTTP parameter tampering where attackers modify request parameters to access other users' data. Which service and feature helps mitigate this at the API layer?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable AWS Shield Advanced on the API Gateway to detect parameter manipulation.",
+      "B": "Configure Amazon GuardDuty to monitor API Gateway access logs for suspicious parameter patterns.",
+      "C": "Deploy AWS WAF on the API Gateway with custom rules or managed rule groups that validate and restrict request parameter values, blocking requests with suspicious or out-of-range parameter values.",
+      "D": "Use Amazon Cognito to authenticate all API requests, which prevents parameter tampering."
+    },
+    "explanation": "AWS WAF custom rules can validate request parameters (size constraints, regex patterns, value ranges) and block requests that violate expected patterns, directly mitigating parameter tampering at the API layer. Shield Advanced is for DDoS protection. GuardDuty is detective only. Cognito authentication prevents unauthorized access but doesn't validate the content of authenticated requests."
+  },
+  {
+    "id": "c948a46f2c981e51069b9fb1f709baf28f2645517d277f82fd4d11a7c3182256",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A company wants to ensure their EC2 instances always run a known, tested AMI and that configuration drift (manual changes to running instances) is automatically detected and remediated. Which approach implements immutable infrastructure with automated integrity checks?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use AWS Systems Manager Patch Manager to patch running EC2 instances in place.",
+      "B": "Use EC2 Image Builder to build and test golden AMIs, deploy new instances from those AMIs via Auto Scaling launch templates, and use AWS Config rules to detect and alert on configuration drift.",
+      "C": "Use AWS CloudTrail to log all API calls and manually review changes to EC2 instances weekly.",
+      "D": "Deploy AWS Inspector on all instances to continuously scan for configuration issues."
+    },
+    "explanation": "Immutable infrastructure means replacing instances rather than modifying them: EC2 Image Builder creates tested golden AMIs, Auto Scaling deploys from those AMIs, and AWS Config continuously evaluates resource configurations against desired state. Patch Manager modifies running instances (mutable). CloudTrail provides audit logs but not automated remediation. Inspector assesses security vulnerabilities, not configuration drift."
+  },
+  {
+    "id": "cc2b27b98c9c869bfad2bed7d95d917a5ad6341d235e22e98a0f229cafe67b46",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A company wants to automatically detect and remediate EC2 instances whose security group configurations have changed from the approved baseline (e.g., a port 22 rule was added). Which AWS service automates this?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon GuardDuty, which detects security misconfigurations and automatically reverts them.",
+      "B": "AWS CloudTrail, which logs security group changes and triggers a Lambda to revert them via an EventBridge rule.",
+      "C": "AWS Config with a managed rule (restricted-ssh) and an automatic remediation action via AWS Systems Manager Automation to revert unauthorized security group changes.",
+      "D": "Amazon Inspector, which scans security groups and removes unauthorized rules automatically."
+    },
+    "explanation": "AWS Config continuously evaluates resource configurations against rules (e.g., restricted-ssh checks for unrestricted SSH access). When a rule is non-compliant, Config can trigger automatic remediation via SSM Automation documents to revert the change. CloudTrail logs changes and can trigger Lambda via EventBridge but requires custom implementation. GuardDuty and Inspector don't automatically revert security group changes."
+  },
+  {
+    "id": "c04c09519461fee3115cd8c502388f4398b2ef65de41da0f51bee19e127042a9",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A company needs to guarantee that all S3 buckets in their AWS account never have public access enabled. New buckets are created regularly by developers. Which automation strategy enforces this at scale?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable S3 Block Public Access at the AWS account level in the S3 console, which prevents any bucket or object in the account from being made public, and use an AWS Config rule to detect and remediate any buckets where it is disabled.",
+      "B": "Write a daily Lambda function that checks all S3 buckets and removes public access policies.",
+      "C": "Apply a Service Control Policy (SCP) in AWS Organizations that denies s3:PutBucketPolicy on all member accounts.",
+      "D": "Use Amazon Macie to detect publicly accessible S3 buckets and alert the security team."
+    },
+    "explanation": "Account-level S3 Block Public Access is the most effective preventive control \u2014 it overrides bucket and object ACLs regardless of what developers configure. AWS Config continuously monitors compliance. An SCP can complement this but denying PutBucketPolicy would prevent legitimate bucket policies. Daily Lambda checks are reactive, not preventive. Macie is a detective tool."
+  },
+  {
+    "id": "d96ce173a8b406a31288d20985f11cf6292dd7b8f79acdbe0b564226b715f6bd",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A company runs an application on EC2 instances in a single Availability Zone. They need to make the application highly available against AZ failures with no data loss and automatic failover. Which architecture achieves this?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Use EC2 Auto Scaling to replace failed instances within the same AZ automatically.",
+      "B": "Deploy EC2 instances across multiple Availability Zones behind an Application Load Balancer, with an RDS Multi-AZ database. Configure the Auto Scaling group to span all AZs.",
+      "C": "Deploy instances in two AZs using Route 53 health checks for DNS failover.",
+      "D": "Replicate EC2 instances using AWS Backup across AZs to restore quickly if an AZ fails."
+    },
+    "explanation": "An ALB spans multiple AZs and automatically routes traffic to healthy instances. Auto Scaling across multiple AZs ensures capacity is maintained if an AZ fails. RDS Multi-AZ provides synchronous replication and automatic failover. Auto Scaling within a single AZ only replaces instances, not AZ failures. DNS failover adds propagation delay. AWS Backup provides recovery, not active failover."
+  },
+  {
+    "id": "de094190bf1ce1d0d90a99b94174d533368daff0f1107b509bfe25addc2e2b62",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A company must ensure their application remains available even if an entire AWS Region becomes unavailable. They require an RTO of under 1 hour. Which multi-region architecture pattern achieves this at the lowest cost?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Active-active multi-region: deploy the full application stack in two regions and route 50% of traffic to each region continuously.",
+      "B": "Backup and restore: take daily RDS snapshots and copy to a second region; restore if the primary region fails.",
+      "C": "Pilot light: replicate core data (RDS read replica in second region) and keep a minimal compute footprint ready. Scale out the application in the secondary region in under 1 hour when a failover is triggered.",
+      "D": "Warm standby: run a fully scaled-down but active replica of the production stack in the secondary region at 50% capacity, continuously routing 10% of traffic there."
+    },
+    "explanation": "Pilot light keeps the data continuously replicated but computes at minimal cost. Scaling out within 1 hour is feasible with automation. It's cheaper than active-active or warm standby. Backup and restore typically exceeds a 1-hour RTO for large databases. Active-active provides the lowest RTO but at double the infrastructure cost."
+  },
+  {
+    "id": "830e97d7ae6d574b07941d5ebb1dea1c6f633faeddad73789fa988b46416bc33",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "An application uses Amazon DynamoDB as its database and must be highly available across two AWS Regions with active-active read/write capability. Which DynamoDB feature enables this?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "DynamoDB Global Tables, which replicate table data across multiple Regions in real time and support multi-region, multi-active write capability.",
+      "B": "DynamoDB Streams, which can be read by Lambda functions in multiple regions to replicate data.",
+      "C": "DynamoDB DAX clusters deployed in each region for low-latency reads.",
+      "D": "DynamoDB On-Demand mode, which automatically scales to accommodate multi-region traffic."
+    },
+    "explanation": "DynamoDB Global Tables is the native multi-region, multi-active feature that replicates table data across chosen Regions in near-real time, enabling reads and writes in all configured Regions. DynamoDB Streams + Lambda can build custom replication but with added complexity and latency. DAX is a read cache, not a replication mechanism. On-Demand mode governs billing, not replication."
+  },
+  {
+    "id": "3cfec2753fe481b7d45ebe6cb1664b22926360d42e46c77be8620e0b6f9e36eb",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.1",
+    "stem": "A company's application stores and retrieves millions of small objects (average 50 KB) from Amazon S3. Read performance is poor. A solutions architect is evaluating options to improve throughput without changing the application's S3 API calls. Which configuration change most improves S3 read performance?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable S3 Cross-Region Replication to keep a copy in a closer region.",
+      "B": "Use Amazon S3 Transfer Acceleration for uploads and implement a CloudFront distribution in front of S3 for reads, caching objects at edge locations.",
+      "C": "Change the S3 bucket to use the S3 Express One Zone storage class for lower latency.",
+      "D": "Increase the S3 request rate by using multiple prefixes in object key names to parallelize requests."
+    },
+    "explanation": "CloudFront caches S3 objects at edge locations, reducing latency for repeated reads of the same objects and offloading requests from S3. This is the most impactful change for read performance with no application changes. S3 Express One Zone provides lower latency but is a different storage class requiring a different API. Multiple prefixes improve S3 request rate limits but not end-user latency. Transfer Acceleration improves upload speed."
+  },
+  {
+    "id": "70334176799b36a8f83f5aa72612174d541c44445a89868f5df6f7e95286d892",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.1",
+    "stem": "A video production company uses Amazon EFS to share video project files across 20 EC2 instances. They observe poor throughput when multiple instances simultaneously read large files. Which EFS configuration change improves throughput performance?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Switch EFS to use the Infrequent Access storage class to reduce latency.",
+      "B": "Change the EFS performance mode from General Purpose to Max I/O.",
+      "C": "Switch to EFS Elastic Throughput mode (or Provisioned Throughput) and choose Max I/O performance mode to handle high aggregate throughput from many concurrent clients.",
+      "D": "Reduce the number of EC2 instances accessing EFS to below 10 to stay within the file system's throughput limits."
+    },
+    "explanation": "Max I/O performance mode is designed for highly parallelized workloads with many clients, providing higher aggregate throughput at the cost of slightly higher per-operation latency. Elastic or Provisioned Throughput allows the file system to scale or guarantee throughput independent of storage size. Infrequent Access increases latency. Reducing concurrent clients defeats the purpose of shared storage."
+  },
+  {
+    "id": "8a5e8cbbec9cc7254b6f0b7daebc6dbdcba1cc35c85a532faf568631b971d533",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "A company wants to run containerized microservices on AWS. The team is familiar with Kubernetes and wants to use standard Kubernetes APIs and tooling (kubectl, Helm, etc.) while minimizing cluster management overhead. Which service is most appropriate?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon ECS on EC2 with a custom task definition that supports kubectl commands.",
+      "B": "Amazon EKS (Elastic Kubernetes Service), which runs managed Kubernetes control plane and supports standard Kubernetes APIs, kubectl, and Helm.",
+      "C": "AWS Fargate without an orchestrator, running containers directly on serverless compute.",
+      "D": "AWS Elastic Beanstalk, which supports Docker containers with automatic orchestration."
+    },
+    "explanation": "EKS is AWS's managed Kubernetes service that runs a compliant Kubernetes control plane and supports all standard Kubernetes tooling. Teams already familiar with Kubernetes can use EKS with no tooling changes. ECS uses AWS-specific task definitions and does not support kubectl. Fargate is a compute engine used with ECS or EKS, not a standalone orchestrator. Elastic Beanstalk is not a Kubernetes-compatible service."
+  },
+  {
+    "id": "70936016a75d7905bbf14338bd97101617e4268ad91691059fde80624a3d9be2",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "A startup is containerizing a simple web application and wants the fastest path to production with containers on AWS. The team has no Kubernetes experience and wants to minimize infrastructure management. Which orchestration service is most appropriate?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon ECS on AWS Fargate: a serverless container orchestration service with a simpler model than Kubernetes, requiring no cluster management or Kubernetes expertise.",
+      "B": "Amazon EKS on AWS Fargate: runs Kubernetes without managing nodes, but still requires Kubernetes knowledge.",
+      "C": "Amazon EKS on EC2: provides full Kubernetes control with self-managed worker nodes.",
+      "D": "AWS App Runner: fully managed container deployment service requiring no orchestration knowledge, but limited to simple web applications and APIs."
+    },
+    "explanation": "ECS on Fargate is the simplest AWS container orchestration option: it abstracts away the underlying infrastructure, has a straightforward task/service model, and requires no Kubernetes expertise. EKS on Fargate still requires Kubernetes knowledge. EKS on EC2 requires managing worker nodes. App Runner is even simpler but limited in capabilities for production microservices."
+  },
+  {
+    "id": "342832eda8f11533575b4677ebff84a033088dea9ae6870b440a432abeb2a42c",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "A company runs 200 microservices across Amazon ECS and wants to migrate to Kubernetes for standardized tooling and better portability. They want to run Kubernetes without managing the control plane. Which option is correct?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Self-install Kubernetes on EC2 using kubeadm and manage the control plane manually.",
+      "B": "Use Amazon ECS with Kubernetes compatibility mode enabled.",
+      "C": "Use Amazon EKS, which provides a fully managed Kubernetes control plane (etcd, API server, scheduler) with automatic updates and high availability.",
+      "D": "Use AWS App Mesh to orchestrate the existing ECS microservices with Kubernetes-compatible APIs."
+    },
+    "explanation": "Amazon EKS manages the Kubernetes control plane (etcd, API server, controller manager, scheduler) including high availability and version upgrades, so the team only manages worker nodes (or uses Fargate for serverless nodes). ECS has no Kubernetes compatibility mode. Self-managed Kubernetes on EC2 requires full control plane management. App Mesh is a service mesh, not a container orchestrator."
+  },
+  {
+    "id": "6c3197704ef2588dd33afbf793676c3814680992c83a162714d0aceee627baff",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.3",
+    "stem": "A company wants to migrate from a commercial Oracle database to reduce licensing costs. They are willing to refactor stored procedures. Which AWS-managed database service is the most Oracle-compatible, offering Oracle-to-Aurora migration tooling?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon DynamoDB: a NoSQL database that eliminates licensing costs entirely.",
+      "B": "Amazon Aurora PostgreSQL: supports most Oracle SQL syntax through compatibility features and is supported by AWS SCT for schema conversion from Oracle.",
+      "C": "Amazon RDS for SQL Server: a different commercial engine with similar licensing costs.",
+      "D": "Amazon Redshift: a data warehouse optimized for analytical queries, not OLTP."
+    },
+    "explanation": "Aurora PostgreSQL is the most common Oracle migration target for OLTP workloads, offering strong SQL compatibility and supported by AWS SCT and DMS for heterogeneous migrations. DynamoDB requires significant application refactoring and is not SQL-compatible. RDS for SQL Server still requires Microsoft licensing. Redshift is for analytics, not transactional workloads."
+  },
+  {
+    "id": "6c95c91df60073d8b4f7487a7d3f1358a080d112e878d05bfca481489477adb2",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.3",
+    "stem": "A company runs a MySQL 5.7 database on EC2. They want to migrate to a managed service without changing the MySQL engine. Which migration is homogeneous and which tool migrates the data with minimal downtime?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Migrate to Amazon RDS for MySQL or Amazon Aurora MySQL (homogeneous migration). Use AWS DMS with Full Load + CDC to replicate data continuously until cutover.",
+      "B": "Migrate to Amazon Aurora PostgreSQL (heterogeneous migration). Use AWS SCT to convert the schema and DMS to migrate data.",
+      "C": "Migrate to Amazon Redshift (heterogeneous migration). Use AWS Glue to transform and load MySQL data.",
+      "D": "Migrate to Amazon DynamoDB (heterogeneous migration). Use AWS Database Migration Service in NoSQL migration mode."
+    },
+    "explanation": "MySQL to RDS/Aurora MySQL is a homogeneous migration \u2014 same engine family, no schema conversion required. DMS with Full Load + CDC provides near-zero-downtime migration. Aurora PostgreSQL and DynamoDB are heterogeneous targets requiring additional conversion. Redshift is an analytical data warehouse, not a drop-in MySQL replacement."
+  },
+  {
+    "id": "a6e5a285e85e5aef2abca0237d4c02349df8f27c3a032b453c9e1fa88c1cbabf",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.3",
+    "stem": "A financial company currently runs a Microsoft SQL Server database for OLTP workloads and pays significant licensing fees. They want to evaluate a PostgreSQL-compatible managed service to reduce costs. Which AWS service provides the highest PostgreSQL compatibility with enterprise features like global replication?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon RDS for PostgreSQL: fully managed PostgreSQL with standard features.",
+      "B": "Amazon DynamoDB: eliminates SQL licensing costs with a NoSQL model.",
+      "C": "Amazon Aurora PostgreSQL: a PostgreSQL-compatible engine with up to 5x the performance of standard PostgreSQL, Global Database for cross-region replication, and Serverless v2 for variable workloads.",
+      "D": "Amazon Redshift with Spectrum: PostgreSQL-compatible analytical queries on S3."
+    },
+    "explanation": "Aurora PostgreSQL provides PostgreSQL compatibility with enterprise-grade features (Global Database, Multi-AZ, Serverless v2, automated backups) at lower licensing cost than SQL Server. RDS for PostgreSQL is also valid but lacks Aurora's performance and Global Database features. DynamoDB requires significant application changes. Redshift is an analytical warehouse, not an OLTP replacement."
+  },
+  {
+    "id": "d1f65a8421241786af48e53dedcb867e2bd797dd2e91fc37339bfbf81cc20311",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A company wants to build a data lake on Amazon S3 that aggregates data from multiple sources. They need to control which teams can access which datasets, enforce column-level security on sensitive tables, and provide a central data catalog. Which AWS service simplifies these data lake governance requirements?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon Macie, to classify and protect sensitive data in S3.",
+      "B": "AWS Lake Formation, which provides centralized data lake access control, column-level and row-level security, fine-grained permissions, and integration with the AWS Glue Data Catalog.",
+      "C": "Amazon S3 bucket policies with prefix-based access control for each team.",
+      "D": "AWS IAM policies with resource-level permissions on each S3 prefix."
+    },
+    "explanation": "AWS Lake Formation is purpose-built for data lake governance: it manages a central Data Catalog, enforces table/column/row-level access control on top of S3 data, and integrates with Athena, Redshift Spectrum, and EMR. Macie detects sensitive data but doesn't enforce access. S3 bucket policies and IAM policies operate at the object/prefix level and don't support column-level security."
+  },
+  {
+    "id": "8f3d8af763708dc5859343d8982c863d17b833964fa9f02922ccb7d8f1b4fe63",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A company is building a data lake in Amazon S3. Raw data from various sources lands in S3 and must be catalogued automatically so analysts can discover and query it with Amazon Athena. Which AWS service should be used to crawl the S3 data and populate a metadata catalog?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "AWS Glue Crawlers, which automatically scan S3 data, infer schemas, and create/update tables in the AWS Glue Data Catalog.",
+      "B": "Amazon Macie, which classifies S3 data and creates a data inventory.",
+      "C": "Amazon Athena, which can directly infer schemas from S3 files without a catalog.",
+      "D": "AWS Lake Formation Blueprint, which automatically imports data from databases into S3 and creates catalog entries."
+    },
+    "explanation": "Glue Crawlers scan S3 paths, detect file formats and schemas, and populate the Glue Data Catalog with table definitions that Athena uses for queries. Macie is a security service for sensitive data detection. Athena requires pre-defined table definitions (via Glue Data Catalog or manual DDL). Lake Formation Blueprints import data from databases into S3 but don't crawl existing S3 data."
+  },
+  {
+    "id": "7a05340c64af22b86398ed45478f50ea62136f56a321813fb2e9b41d0c25eaec",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A security team needs to ensure that sensitive customer PII data stored in a data lake on Amazon S3 is encrypted at rest and that only authorized ETL jobs (running on AWS Glue) can access the raw data. Which combination of controls achieves this?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Enable S3 default encryption with SSE-S3 and use S3 ACLs to restrict access to the Glue service role.",
+      "B": "Enable Amazon Macie on the S3 bucket to block unauthorized access automatically.",
+      "C": "Enable S3 default encryption with SSE-KMS using a customer-managed KMS key, restrict KMS key usage to the Glue IAM role, and use Lake Formation permissions to grant table access only to the Glue ETL job's IAM role.",
+      "D": "Use S3 Block Public Access and restrict the bucket policy to deny all principals except the Glue service."
+    },
+    "explanation": "SSE-KMS with a customer-managed key provides encryption with fine-grained access control (only the Glue role's key policy allows decryption). Lake Formation adds table/column-level permissions on top of the S3 access. SSE-S3 provides encryption but uses AWS-managed keys with less access control. Macie is detective, not preventive. S3 Block Public Access + bucket policies operate at the object level, not table/column level."
+  },
+  {
+    "id": "3c335ec9ec52a9574806e572ba0dab8a6aac590e85d3daec5e49f01acc7f42a1",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.3",
+    "stem": "A company collects temperature sensor readings every second from 10,000 sensors and needs to query trends over time (e.g., average temperature per hour per sensor over the last 30 days). Which database type and AWS service is most cost-effective for this workload?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon RDS for MySQL with a timestamp index on the readings table.",
+      "B": "Amazon DynamoDB with a partition key of sensor ID and sort key of timestamp.",
+      "C": "Amazon Timestream, a purpose-built time series database optimized for ingesting and querying time-stamped data with automatic data tiering from memory to magnetic storage.",
+      "D": "Amazon Redshift for analytical queries on time-series data."
+    },
+    "explanation": "Amazon Timestream is AWS's managed time series database, purpose-built for IoT and telemetry data. It automatically tiers data from in-memory (recent) to cost-effective magnetic storage (historical), and supports time series functions natively. RDS and DynamoDB can store time series data but are not optimized for time-based aggregations at this scale. Redshift works but requires manual data tiering and is more expensive."
+  },
+  {
+    "id": "b4946679cb8b8421f58a79d649a7b24872013079134c7ed38f2a6af3985232f4",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.3",
+    "stem": "A data analytics team runs complex aggregation queries on a 10 TB dataset that joins multiple large tables. Query performance is poor on their Amazon RDS PostgreSQL instance. They need a database optimized for analytical (OLAP) workloads at the lowest cost. Which AWS service is most appropriate?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon RDS for PostgreSQL with read replicas to distribute analytical query load.",
+      "B": "Amazon Redshift, a columnar, massively parallel processing (MPP) data warehouse optimized for OLAP analytical queries on large datasets.",
+      "C": "Amazon DynamoDB with on-demand capacity mode to handle analytical query spikes.",
+      "D": "Amazon ElastiCache for Redis to cache query results and reduce RDS load."
+    },
+    "explanation": "Amazon Redshift uses columnar storage and MPP execution, making it orders of magnitude faster and more cost-effective than row-based RDS for analytical queries on large datasets. RDS read replicas reduce per-replica load but don't change the OLTP query execution model. DynamoDB is a key-value/document NoSQL store, not suited for complex SQL analytics. ElastiCache can cache results but doesn't solve the underlying query performance issue."
+  },
+  {
+    "id": "e789a6295a8b0996c4214428675704254d6f7fc377999a92a2653572acafed18",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.3",
+    "stem": "A FinTech startup stores financial transaction records in Amazon RDS and needs to run quarterly analytical reports that aggregate billions of rows. The reports are currently timing out. The transactions table uses a row-based storage format. Which approach reduces query cost and time most effectively?",
+    "correct": "D",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Add a read replica to RDS and run analytical queries on it.",
+      "B": "Increase the RDS instance size to a db.r6g.16xlarge for more CPU and memory.",
+      "C": "Export the transactions table to S3 and query it with Amazon Athena using row-based CSV format.",
+      "D": "Export the transactions table to S3 in Parquet columnar format, partition by year and quarter, and query with Amazon Athena \u2014 or load into Amazon Redshift for structured reporting."
+    },
+    "explanation": "Columnar formats like Parquet allow Athena (or Redshift) to read only the columns needed for a query, reducing I/O by up to 99% compared to row-based formats on analytical queries. Partitioning further limits data scanned. RDS read replicas use the same row-based format and don't improve analytical performance significantly. Larger RDS instances help marginally but don't change the fundamental I/O model."
+  },
+  {
+    "id": "8881b459f4f704b97cadf98df3846ad5a48c6815da6e2202a15c4fb68ddbde73",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "A global media company hosts a popular news website with millions of daily visitors worldwide. Most of the page content changes infrequently (articles are published once and rarely updated). The origin servers in us-east-1 are experiencing high load and latency for global users. Which cost optimization strategy has the greatest impact?",
+    "correct": "A",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Deploy Amazon CloudFront in front of the origin servers with appropriate cache-control headers (long TTLs for static content). CloudFront serves cached content from edge locations globally, reducing origin load and improving latency.",
+      "B": "Deploy EC2 instances in each AWS Region where users are located and use Route 53 latency-based routing.",
+      "C": "Use AWS Global Accelerator to route all traffic over the AWS backbone network to us-east-1.",
+      "D": "Enable S3 Transfer Acceleration on the origin S3 bucket to speed up content delivery."
+    },
+    "explanation": "CloudFront caches content at 400+ edge locations globally. For infrequently changing content with long TTLs, the majority of requests are served from cache, dramatically reducing origin load and cost while improving global latency. Multi-region EC2 deployment requires replication and significantly higher infrastructure cost. Global Accelerator routes to the origin (us-east-1) faster but doesn't cache content. S3 Transfer Acceleration improves upload speeds, not download/delivery performance."
+  },
+  {
+    "id": "0c2aeaaaa02e46f8d0f07d7857571537bfcc96ed263fdb4d428f00649d15d434",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "A company wants to decide whether to use Amazon CloudFront or AWS Global Accelerator to improve performance for their application. The application is an API that handles personalized, non-cacheable requests. Which service is more appropriate and why?",
+    "correct": "B",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Amazon CloudFront: it can cache API responses at edge locations to reduce origin load.",
+      "B": "AWS Global Accelerator: it routes non-cacheable API traffic over the AWS global backbone network to the origin in the optimal Region, reducing latency without caching.",
+      "C": "Amazon CloudFront with cache TTL set to 0: it proxies requests to the origin with no caching, providing the same benefit as Global Accelerator.",
+      "D": "Neither; both services only benefit static content delivery and have no value for dynamic APIs."
+    },
+    "explanation": "Global Accelerator is designed for dynamic, non-cacheable traffic: it uses anycast routing to direct users to AWS edge locations and then forwards traffic over the low-latency AWS backbone to the application. CloudFront is optimized for cacheable content; setting TTL to 0 wastes the caching infrastructure and adds CloudFront overhead without benefit. Both services provide value for dynamic content \u2014 Global Accelerator is the right choice."
+  },
+  {
+    "id": "71c2c4ed9c92295a853754cd6efe1ae216adf4070951c4663e975b6f50097c8d",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "A retail company serves product images globally from an S3 bucket in us-east-1. They want to reduce costs by minimizing S3 data transfer charges and improving load times for users in Asia and Europe. What is the most cost-effective strategy?",
+    "correct": "C",
+    "difficulty": "MEDIUM",
+    "answers": {
+      "A": "Replicate the S3 bucket to additional regions using S3 Cross-Region Replication and use Route 53 geolocation routing.",
+      "B": "Use AWS Global Accelerator to route image requests to the S3 bucket in us-east-1.",
+      "C": "Create a CloudFront distribution with the S3 bucket as the origin. CloudFront caches images at edge locations globally, reducing repeated S3 GET requests and inter-regional data transfer charges.",
+      "D": "Use S3 Transfer Acceleration to speed up image delivery to global users."
+    },
+    "explanation": "CloudFront caches S3 objects at edge locations. Once cached, subsequent requests are served from the edge with no additional S3 GET or inter-regional data transfer charge. S3 CRR replicates data to multiple regions at replication cost plus ongoing S3 storage cost. Global Accelerator routes to the origin without caching. S3 Transfer Acceleration improves upload performance, not download delivery."
   }
 ]
