@@ -47338,5 +47338,335 @@
       "D": "Use S3 Transfer Acceleration to speed up image delivery to global users."
     },
     "explanation": "CloudFront caches S3 objects at edge locations. Once cached, subsequent requests are served from the edge with no additional S3 GET or inter-regional data transfer charge. S3 CRR replicates data to multiple regions at replication cost plus ongoing S3 storage cost. Global Accelerator routes to the origin without caching. S3 Transfer Acceleration improves upload performance, not download delivery."
+  },
+  {
+    "id": "f31a7e4d95b4ac4f741309d6785a0c6a2bc7a4ef90d1decd8e2b450f1964b1a7",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A startup is building an image-processing pipeline that receives unpredictable bursts from 0 to 8,000 requests per minute. Each request runs for 2-4 seconds, must complete within 15 seconds end-to-end, and requires occasional access to a VPC-hosted PostgreSQL database. The team has only two engineers and wants to minimize operational overhead while keeping cost low during idle periods. Which architecture is MOST appropriate?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use Amazon API Gateway with AWS Lambda functions in a VPC, decouple work with Amazon SQS, and scale Lambda concurrency with reserved concurrency controls.",
+      "B": "Run a continuously provisioned Amazon ECS service on Fargate behind an ALB and scale tasks on CPU utilization.",
+      "C": "Deploy Amazon EKS with Karpenter and HPA to autoscale pods based on queue depth.",
+      "D": "Run EC2 Auto Scaling instances with a custom AMI and process requests through an NLB."
+    },
+    "explanation": "This is a classic bursty, short-lived workload with long idle periods and small team capacity constraints. API Gateway + Lambda + SQS provides serverless elasticity, low idle cost, and simpler operations while still supporting VPC access. ECS/Fargate and EKS can work but generally introduce more operational tuning and baseline cost for this request profile. EC2 adds the most management burden."
+  },
+  {
+    "id": "1c5f0d9ae34b2cb7718df0f4a5d40f3eae0a2bcf4319d1d2f0f897c80d087c55",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A media company runs a workflow that ingests uploaded videos, triggers parallel transcode and metadata extraction steps, retries failed steps with exponential backoff, and sends a final callback only after all branches succeed. The workload volume fluctuates heavily, and the team wants minimal infrastructure management. Which design BEST fits the requirement?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use Amazon ECS services for each stage with EventBridge rules and custom state-tracking tables in DynamoDB.",
+      "B": "Use AWS Batch for all steps and poll job states from an AWS Lambda coordinator.",
+      "C": "Use AWS Step Functions to orchestrate parallel branches and retries, with AWS Lambda and service integrations for each task.",
+      "D": "Use Amazon MQ with worker consumers and implement workflow state transitions in application code."
+    },
+    "explanation": "The requirement is orchestration-centric: parallel branches, retries, backoff, and completion coordination with minimal ops. Step Functions is purpose-built for this serverless pattern and reduces custom state-management code. Other options can implement the behavior but require significant custom orchestration logic and operational overhead."
+  },
+  {
+    "id": "72ad5fe9031143b039f57aa72d88c1fd9f30cd7c9eb4b1fe4b40a7f32db8b78d",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A company is modernizing a monolithic Java application that requires sidecar agents for service mesh, custom kernel tuning, and strict control over container runtime behavior. Teams already run Kubernetes on-prem and need workload portability between on-prem and AWS with minimal re-platforming risk. Which compute strategy is MOST suitable?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Refactor into AWS Lambda functions and use API Gateway for all service endpoints.",
+      "B": "Adopt Amazon EKS and deploy the existing Kubernetes manifests with incremental adjustments.",
+      "C": "Use Amazon ECS on Fargate because it removes all cluster management and supports all Kubernetes-native controls.",
+      "D": "Migrate directly to AWS App Runner to preserve all current sidecar and runtime controls."
+    },
+    "explanation": "The key signal is Kubernetes portability plus deep runtime control requirements. EKS aligns best with existing K8s operations and minimizes migration risk from on-prem Kubernetes. Lambda is a major re-architecture; Fargate/ECS simplifies operations but does not provide Kubernetes-native portability and control parity; App Runner is not designed for this level of runtime customization."
+  },
+  {
+    "id": "bb93f6e01f27d0eb85f5b565e774f5e4180b7065b7a925f215f83d16e6f69a92",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A regulated healthcare platform needs to containerize workloads, but security policy requires per-task IAM roles, no host management, and predictable cost for steady 24x7 baseline traffic. Engineers want to avoid Kubernetes control plane complexity. Which option is BEST?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use Amazon EKS on EC2 with managed node groups and Kubernetes RBAC mapped to IAM.",
+      "B": "Use AWS Lambda with container images and provisioned concurrency.",
+      "C": "Use Amazon ECS on EC2 with Auto Scaling groups for workers.",
+      "D": "Use Amazon ECS on AWS Fargate with task roles and service auto scaling."
+    },
+    "explanation": "ECS on Fargate matches the need for containerization without cluster host management, supports per-task IAM roles, and fits steady baseline traffic with predictable scaling behavior. EKS introduces more control-plane and Kubernetes operational complexity. Lambda is not a direct fit for long-running containerized services. ECS on EC2 adds host lifecycle management overhead."
+  },
+  {
+    "id": "4ec8d9b8970a9fdb61a5d3c332ce1f2a3df6a8d3f0a4e2f6b5c4e1d8a2f7c9b1",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "An organization wants to reduce EC2 spend across 40 accounts. They need to identify which instance families drive the highest compute costs by environment tag, forecast month-end spend, and alert when projected spend exceeds team budgets. Which approach provides the MOST complete solution with minimal custom tooling?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Activate cost allocation tags, use AWS Cost Explorer for service and instance-family analysis plus forecasting, and configure AWS Budgets with forecasted cost alerts per team.",
+      "B": "Use CloudWatch metrics and alarms on CPUUtilization, then notify teams when utilization is low.",
+      "C": "Enable Trusted Advisor checks and notify teams when underutilized EC2 instances are detected.",
+      "D": "Use AWS Compute Optimizer only, and rely on its recommendations as a budgeting and forecasting replacement."
+    },
+    "explanation": "The question asks for cost attribution, forecasting, and threshold alerting. Cost allocation tags + Cost Explorer + Budgets directly address all three. CloudWatch utilization is operational telemetry, not cost allocation/forecasting. Trusted Advisor and Compute Optimizer are useful optimization inputs but do not replace budgeting and forecast governance."
+  },
+  {
+    "id": "15c38d8f2f4a1d6b8c9e7f3a5b2d1c4e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b12",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A platform team must enforce compute cost accountability. Any new EC2, Auto Scaling group, or ECS service must include CostCenter and Environment tags, or creation should fail. They also need monthly chargeback reporting by those tags. Which design BEST satisfies both control and reporting?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use AWS Config required-tags rules and auto-remediate missing tags with Lambda.",
+      "B": "Use SCPs that deny all compute actions unless principal tags are present.",
+      "C": "Use tag policies and IAM/SCP condition keys to deny untagged create actions, activate cost allocation tags, and report using Cost Explorer/CUR.",
+      "D": "Use CloudTrail Lake queries to find untagged resources and send weekly reports."
+    },
+    "explanation": "Prevention plus reporting is required. Deny-on-create controls with tag condition keys (in IAM/SCP patterns), reinforced by tag policy governance, prevent drift at creation time. Cost allocation tags with Cost Explorer/CUR provide chargeback reporting. Config or CloudTrail-only approaches are mostly detective and allow noncompliant creates before remediation."
+  },
+  {
+    "id": "8e2f4b6a9c1d3e5f7a8b0c2d4e6f8a1b3c5d7e9f0a2b4c6d8e1f3a5b7c9d0e2f",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A high-throughput TCP gaming backend must expose static anycast IPs globally and handle millions of long-lived connections. The team is evaluating ALB, NLB, and GWLB, and wants the most cost-efficient service that still meets protocol and latency requirements. Which choice is MOST appropriate?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use ALB because L7 routing is cheaper for all connection types and supports static IPs natively.",
+      "B": "Use NLB because it supports L4 TCP at high scale with static IP/EIP support and lower overhead for this traffic profile.",
+      "C": "Use GWLB because it is optimized for distributing internet-facing application traffic directly to containers.",
+      "D": "Use ALB plus Global Accelerator because ALB is required for all long-lived TCP sessions."
+    },
+    "explanation": "For massive TCP workloads needing static IP semantics, NLB is the right fit and is typically more cost-effective than ALB for pure L4 forwarding at scale. ALB is L7 and does not natively provide the same static IP model. GWLB is for transparent appliance insertion, not general application load balancing."
+  },
+  {
+    "id": "3f8a1b6c4d9e2f7a0b5c3d1e8f6a4b2c9d7e5f3a1b0c8d6e4f2a9b7c5d3e1f0a",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A workload runs continuously at 20-30% CPU on c6i.4xlarge instances, with memory utilization under 40%. Performance tests show c6i.2xlarge meets latency SLOs with 55% CPU at peak. Which action provides the BEST cost optimization with controlled risk?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Keep the current size and purchase a 3-year Compute Savings Plan immediately.",
+      "B": "Switch to t3 instances because burst credits always lower cost for steady workloads.",
+      "C": "Move to Spot Instances only because interruption risk is negligible for all production traffic.",
+      "D": "Right-size to c6i.2xlarge in a phased rollout with CloudWatch alarms and rollback thresholds."
+    },
+    "explanation": "The data indicates systematic over-provisioning, and validated load tests show smaller instances still meet SLOs. Right-sizing with phased deployment and rollback controls is the best cost/risk tradeoff. Savings Plans optimize pricing but do not solve over-sizing. T-class and Spot-only choices introduce different performance/availability risks for a steady production profile."
+  },
+  {
+    "id": "92c4d6e8f1a3b5d7c9e0f2a4b6d8c1e3f5a7b9d0c2e4f6a8b1d3c5e7f9a0b2d4",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A low-latency trading dashboard is used only by users in one metro area. The app currently runs in the parent Region and misses latency targets. Management asks for the lowest-cost architecture that meets latency, without over-deploying globally. Which option is MOST appropriate?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Deploy active-active across three Regions with Route 53 latency routing.",
+      "B": "Use CloudFront only, because edge caching solves dynamic transaction latency.",
+      "C": "Deploy latency-sensitive components in a Local Zone near users, keep core systems in the parent Region, and route selectively.",
+      "D": "Deploy Outposts racks in the office building to minimize latency regardless of cost."
+    },
+    "explanation": "The workload is geographically concentrated; Local Zones can reduce latency with lower footprint than multi-Region active-active. CloudFront mainly helps cacheable content and cannot solve all dynamic low-latency requirements. Outposts may meet latency but usually at much higher operational and capital cost for this use case."
+  },
+  {
+    "id": "a1d3f5b7c9e0a2c4d6f8b1d3e5f7a9c0b2d4f6e8a1c3d5f7b9e0a2c4d6f8b1d3",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "stem": "A company stores sensitive files in Amazon S3 with server-side encryption and versioning enabled. During an audit, the security lead asks who is responsible for patching the underlying storage hardware, rotating application IAM access keys, and configuring bucket policies to block public access. Which answer correctly maps responsibilities under the AWS Shared Responsibility Model?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Customer is responsible for patching storage hardware; AWS is responsible for IAM key rotation and bucket policies.",
+      "B": "AWS is responsible for storage hardware patching; customer is responsible for IAM key rotation and S3 bucket policy/public access settings.",
+      "C": "AWS is responsible for all three because S3 is a fully managed service.",
+      "D": "Customer and AWS share equal responsibility for all three tasks."
+    },
+    "explanation": "For managed services like S3, AWS handles security of the cloud (infrastructure, physical hosts, foundational services). Customers handle security in the cloud, including IAM credential hygiene and resource policies such as bucket policies and public access controls."
+  },
+  {
+    "id": "b0e2d4f6a8c1e3d5f7b9a0c2e4d6f8a1b3d5f7c9e0a2d4f6b8c1e3d5f7a9b0c2",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "stem": "An enterprise uses on-premises Active Directory and wants employees to access AWS accounts without long-lived IAM users. They need centralized AD authentication, short-lived AWS credentials, and group-based access across multiple accounts. Which approach is MOST appropriate?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Create IAM users for all employees and synchronize passwords from AD using a custom Lambda function.",
+      "B": "Use AWS Directory Service AD Connector and map users directly to access keys for each account.",
+      "C": "Use Amazon Cognito user pools federated with AD and attach IAM user policies per employee.",
+      "D": "Federate AD to IAM Identity Center and assign permission sets that issue role-based, short-lived credentials across accounts."
+    },
+    "explanation": "The requirement is workforce federation with centralized identity, multi-account access, and short-lived credentials. IAM Identity Center with AD federation and permission sets provides this natively through role-based access. IAM users with synced passwords or per-user keys violate least privilege and credential lifecycle goals."
+  },
+  {
+    "id": "c9f1a3d5b7e0c2f4a6d8b1e3c5f7a9d0b2e4c6f8a1d3b5e7c9f0a2d4b6e8c1f3",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A SaaS platform has synchronous checkout calls to a payment microservice. During downstream slowness, thread pools saturate and checkout availability drops across the stack. The team needs a resilience design that limits cascading failure and recovers automatically with minimal custom infrastructure. Which option BEST addresses this?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Implement circuit breaker behavior with AWS App Mesh retries/timeouts and route asynchronous fallback events through SQS for deferred processing.",
+      "B": "Scale up checkout EC2 instances vertically to absorb downstream latency spikes.",
+      "C": "Increase client-side HTTP timeout from 2 seconds to 30 seconds to avoid early failures.",
+      "D": "Move payment and checkout into the same EC2 Auto Scaling group to reduce inter-service calls."
+    },
+    "explanation": "The failure mode is cascading dependency failure. Circuit breakers, bounded retries/timeouts, and asynchronous decoupling are core resilience patterns that isolate downstream faults and preserve availability. Vertical scaling and longer timeouts often worsen saturation. Co-locating services does not solve dependency failure semantics."
+  },
+  {
+    "id": "de0a2c4e6f8b1d3f5a7c9e0b2d4f6a8c1e3d5f7b9a0c2e4d6f8b1a3c5e7d9f0b",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A manufacturing company must ingest 250 TB of historical data from an on-prem NFS environment, then continuously sync daily deltas (~4 TB/day) for analytics in S3. The WAN link cannot complete the initial transfer within the deadline. Which solution is MOST appropriate?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use AWS DataSync for both the initial load and deltas over the WAN link.",
+      "B": "Use AWS Transfer Family SFTP for historical load and deltas.",
+      "C": "Use AWS Snowball Edge for the bulk historical transfer, then use AWS DataSync for ongoing incremental synchronization.",
+      "D": "Use S3 Transfer Acceleration for historical load and AWS Glue jobs for deltas."
+    },
+    "explanation": "When network bandwidth cannot meet a large initial migration deadline, Snowball Edge is the best fit for bulk transfer. DataSync is then ideal for automated, recurring incremental sync. Transfer Family targets protocol-based file transfer use cases, not petabyte-scale seeding."
+  },
+  {
+    "id": "e7b9d0f2a4c6e8b1d3f5a7c9e0b2d4f6a8c1e3d5f7b9a0c2e4d6f8a1b3c5d7e9",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A streaming platform ingests partner events into Amazon MSK. Security requires encryption in transit and at rest, IAM-based authentication for producers/consumers, and private access only from VPC workloads. Which configuration BEST satisfies the requirement?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Enable plaintext listeners, use SASL/SCRAM with local users, and restrict access through security groups only.",
+      "B": "Enable TLS for client-broker traffic, enable at-rest encryption with AWS KMS, use IAM access control for MSK clients, and keep brokers in private subnets.",
+      "C": "Use public brokers with TLS and enforce IAM roles only at the EC2 instance profile level.",
+      "D": "Disable broker encryption and rely on application-level payload encryption to simplify operations."
+    },
+    "explanation": "The requirements explicitly include in-transit and at-rest encryption, IAM-based auth, and private access. MSK supports this via TLS, KMS-backed encryption at rest, IAM access control, and private subnet deployment. Other options miss one or more mandatory controls."
+  },
+  {
+    "id": "f2a4c6e8b1d3f5a7c9e0b2d4f6a8c1e3d5f7b9a0c2e4d6f8a1b3c5d7e9f0a2b4",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A team ingests sensitive clickstream data to Amazon Kinesis Data Streams from private subnets. They must avoid internet egress, enforce least-privilege producer permissions, and encrypt records with customer-managed keys. Which design is MOST secure and operationally efficient?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Route producer traffic through a NAT gateway to the public Kinesis endpoint and use SSE-S3 encryption.",
+      "B": "Use an internet gateway, allow egress only to AWS IP ranges, and rely on default Kinesis encryption.",
+      "C": "Use VPC peering to a shared services VPC and publish with wildcard IAM permissions on all streams.",
+      "D": "Use an interface VPC endpoint (PrivateLink) for Kinesis, grant producers IAM permissions scoped to specific stream ARNs, and enable KMS CMK encryption on the stream."
+    },
+    "explanation": "PrivateLink removes internet egress dependency for Kinesis access from private subnets. Stream-level IAM scoping enforces least privilege, and CMK-backed encryption meets strict key-control requirements. NAT/internet-based options increase exposure and operational/cost overhead."
+  },
+  {
+    "id": "a4c6e8b1d3f5a7c9e0b2d4f6a8c1e3d5f7b9a0c2e4d6f8a1b3c5d7e9f0a2b4c6",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A company must migrate 120 TB of archived compliance files to S3 Glacier Flexible Retrieval at the lowest total cost. Most files are on-prem and disconnected from applications; no incremental sync is needed after migration. The site has only a 200 Mbps link and a 3-week deadline. Which option is MOST cost-effective and feasible?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use AWS DataSync continuously over the 200 Mbps link until all files are uploaded.",
+      "B": "Use AWS Snowball Edge for bulk transfer, then lifecycle objects to S3 Glacier Flexible Retrieval.",
+      "C": "Use AWS Transfer Family SFTP endpoints and ask teams to upload archives manually.",
+      "D": "Use S3 Transfer Acceleration from on-prem clients with multipart uploads."
+    },
+    "explanation": "The constrained bandwidth and deadline make network transfer impractical. Snowball Edge is designed for large offline bulk migration and minimizes transfer time risk. DataSync and Transfer Acceleration are network dependent; Transfer Family is not suited for this bulk archival migration model."
+  },
+  {
+    "id": "b6d8f1a3c5e7f9a0b2d4f6a8c1e3d5f7b9a0c2e4d6f8a1b3c5d7e9f0a2b4c6d8",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A data provider hosts a 700 TB public dataset in S3. External consumers run large analytics jobs directly against the bucket, creating unpredictable egress and request costs for the owner. The provider wants consumers to bear data access costs without changing object ownership. Which feature should be used?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Enable S3 Requester Pays on the bucket and update access guidance for consumers.",
+      "B": "Move data to S3 One Zone-IA and keep access controls unchanged.",
+      "C": "Enable S3 Intelligent-Tiering and rely on automatic storage class movement.",
+      "D": "Use CloudFront signed URLs so the provider can cache and absorb less cost."
+    },
+    "explanation": "Requester Pays directly shifts request and data transfer charges to the requester, which is exactly the requirement for externally consumed shared datasets. Storage class changes optimize storage cost but do not transfer request/egress billing responsibility."
+  },
+  {
+    "id": "c8e1f3a5b7d9f0a2c4e6f8b1d3f5a7c9e0b2d4f6a8c1e3d5f7b9a0c2e4d6f8a1",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.3",
+    "stem": "A database platform team needs monthly chargeback for Amazon RDS, Aurora, and DynamoDB by business unit across 30 accounts. They also need queryable historical cost detail (resource IDs and usage types) for finance audits. Which approach BEST meets the requirement?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use CloudWatch billing alarms and export alarm history for audit evidence.",
+      "B": "Use only AWS Budgets per account and email monthly totals to finance.",
+      "C": "Activate cost allocation tags, enable CUR delivery to S3, and query CUR with Athena for database-specific chargeback and audit reporting.",
+      "D": "Use Trusted Advisor cost checks and manually map findings to business units."
+    },
+    "explanation": "The requirement needs granular, historical, queryable billing data by tagged ownership and resource attributes. CUR in S3 with Athena is the standard foundation for detailed finance analytics, while cost allocation tags enable business-unit chargeback. Budgets and alarms are useful for thresholds but lack detailed audit-grade queryability."
+  },
+  {
+    "id": "d0f2a4c6e8b1d3f5a7c9e0b2d4f6a8c1e3d5f7b9a0c2e4d6f8a1b3c5d7e9f0a2",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.3",
+    "stem": "A company is migrating from Oracle on-premises to Amazon Aurora PostgreSQL. Management wants to minimize migration licensing and transformation cost while reducing cutover risk. Which DMS strategy is MOST cost-effective and appropriate?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use homogeneous migration tooling because both engines are relational and require no conversion.",
+      "B": "Use AWS DMS with AWS SCT for heterogeneous schema conversion and ongoing CDC until cutover.",
+      "C": "Export Oracle tables to CSV and bulk load manually into Aurora to avoid DMS costs.",
+      "D": "Replicate Oracle block storage with AWS DataSync and attach it directly to Aurora."
+    },
+    "explanation": "Oracle to Aurora PostgreSQL is a heterogeneous migration, so schema and code conversion is needed. AWS SCT + DMS (with CDC) is typically the most controlled and cost-effective AWS-native path for minimizing downtime and migration risk. Homogeneous assumptions are incorrect, and manual CSV pipelines increase operational risk and transformation effort."
+  },
+  {
+    "id": "e2f4a6c8b1d3f5a7c9e0b2d4f6a8c1e3d5f7b9a0c2e4d6f8a1b3c5d7e9f0a2b4",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "A networking team must identify why AWS data transfer spend increased 40% month-over-month across Transit Gateway, NAT Gateway, and inter-AZ traffic. They need resource-level visibility and trend analysis before making architecture changes. Which approach should they take FIRST?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use CUR with Athena and Cost Explorer filters/groupings (service, usage type, linked account, tags) to isolate cost drivers, then validate with VPC Flow Logs patterns.",
+      "B": "Immediately replace all NAT Gateways with NAT instances to reduce hourly charges.",
+      "C": "Enable Global Accelerator in every VPC to reduce all inter-AZ transfer charges.",
+      "D": "Throttle all API traffic at API Gateway to reduce network cost regardless of workload patterns."
+    },
+    "explanation": "The first step in cost optimization is measurement and attribution. CUR and Cost Explorer provide billing truth for transfer-related usage types and dimensions, while flow logs help correlate traffic behavior. Immediate architecture changes without attribution can shift costs or degrade reliability without fixing the root driver."
+  },
+  {
+    "id": "f4a6c8e1b3d5f7a9c0e2b4d6f8a1c3e5d7f9a0b2d4c6e8f1a3b5d7c9e0f2a4b6",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "An API platform is seeing runaway downstream cost due to abusive client traffic. The team needs a throttling strategy that protects backend systems and reduces excess spend without blocking normal burst behavior from legitimate customers. Which design is BEST?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Apply a single global fixed rate limit in security groups to all clients equally.",
+      "B": "Disable API caching and rely on larger backend instances to absorb spikes.",
+      "C": "Use only AWS Budgets alerts and notify operators after overspend is detected.",
+      "D": "Use API Gateway usage plans and per-client throttles/quotas, combined with AWS WAF rate-based rules for abusive patterns."
+    },
+    "explanation": "Cost control and protection require proactive traffic governance. API Gateway usage plans provide tenant-aware throttling and quotas, while WAF rate-based rules mitigate abusive behavior patterns. Budgets are reactive, and infrastructure overprovisioning without traffic controls raises cost."
+  },
+  {
+    "id": "a6c8e1f3b5d7a9c0e2b4d6f8a1c3e5d7f9a0b2d4c6e8f1a3b5d7c9e0f2a4b6d8",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "A company runs microservices across three AZs. Cost analysis shows high NAT data processing charges and significant inter-AZ data transfer. The architecture team wants the highest-impact optimization that preserves high availability. Which change is MOST effective?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Centralize all private subnets through one NAT Gateway in a single AZ to reduce hourly NAT cost.",
+      "B": "Add gateway/interface VPC endpoints for frequently accessed AWS services and keep NAT Gateways per AZ for remaining internet egress.",
+      "C": "Move all services to one AZ so inter-AZ transfer is eliminated.",
+      "D": "Replace ALB with NLB regardless of protocol to remove inter-AZ charges."
+    },
+    "explanation": "NAT data processing often spikes when traffic to AWS services traverses NAT unnecessarily. VPC endpoints offload that traffic from NAT and can materially reduce cost while preserving HA. A single NAT across AZs introduces cross-AZ dependencies and transfer charges. Collapsing to one AZ harms resilience."
   }
 ]
