@@ -1,7 +1,8 @@
-import Head from 'expo-router/head';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import ExamSelection from './components/ExamSelection';
+import Head from "expo-router/head";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import ExamSelection from "./components/ExamSelection";
+import { SyncToggle } from "./components/SyncToggle";
 
 export default function Index() {
   return (
@@ -11,6 +12,7 @@ export default function Index() {
       </Head>
       <View style={styles.container}>
         <ExamSelection />
+        <SyncToggle />
       </View>
     </>
   );
