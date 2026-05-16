@@ -43988,11 +43988,7 @@
     },
     "correct": "B",
     "explanation": "Requester Pays shifts request and transfer charges to the requester account.",
-    "tags": [
-      "Data lifecycles",
-      "Managing S3 object lifecycles",
-      "Amazon S3"
-    ]
+    "tags": ["Data lifecycles", "Managing S3 object lifecycles", "Amazon S3"]
   },
   {
     "id": "d4a732eac94f3ecf6f5d2c79eafa444a8992db735f5040f007e0fac92145e598",
@@ -53988,5 +53984,297 @@
       "Amazon Lex",
       "Resiliency"
     ]
+  },
+  {
+    "taskStatement": "4.3",
+    "stem": "A retail company runs three MySQL environments on Amazon RDS: dev, staging, and production. Production is steady and requires predictable performance, but dev and staging are idle most nights and weekends. Leadership wants lower monthly database spend without introducing operational toil or reducing production stability. Which design is the most cost-effective while still matching these different workload patterns?",
+    "correct": "B",
+    "answers": {
+      "A": "Move all environments to fixed-size Multi-AZ RDS instances and increase backup retention to 35 days.",
+      "B": "Keep production on provisioned RDS with a rightsized instance and Reserved Instances, and migrate dev/staging to Amazon Aurora Serverless v2 with autoscaling limits.",
+      "C": "Migrate all environments to self-managed MySQL on Amazon EC2 Spot Instances.",
+      "D": "Consolidate all environments into one large RDS instance and separate by schema."
+    },
+    "explanation": "B is correct because it combines predictable pricing for steady production with elastic serverless capacity for intermittent non-production usage. A increases cost for non-production idle time. C introduces high operational overhead and interruption risk from Spot capacity loss. D reduces isolation and increases blast radius while not guaranteeing lower cost during mixed usage.",
+    "tags": ["Cost management"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "6e4ca8526eabd889ac3524807f659dff9325c75c084a0899c2d3e2a9df3716c9"
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "An enterprise is onboarding 40 AWS accounts across multiple business units. Security requires mandatory guardrails, centralized account vending, and consistent baseline logging controls before teams can deploy workloads. Platform engineers also want to minimize custom automation. Which approach best meets these governance requirements?",
+    "correct": "C",
+    "answers": {
+      "A": "Create each account manually and apply IAM policies from a shared wiki checklist.",
+      "B": "Use AWS Organizations only, then ask each team to configure detective controls in their own accounts.",
+      "C": "Deploy AWS Organizations with AWS Control Tower landing zone, enforce SCP guardrails, and centralize logging in designated audit accounts.",
+      "D": "Use one shared account and separate business units by IAM groups and naming conventions."
+    },
+    "explanation": "C is correct because Control Tower provides automated account provisioning and baseline governance integrated with Organizations and guardrails. A and B rely on inconsistent manual execution and miss enforceable baseline controls. D violates multi-account governance best practices and creates unnecessary risk concentration.",
+    "tags": ["Management and governance", "AWS Control Tower"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "fa76b3d074bc3c27de552b602f1029809b6ddcd6b6e56f8766c9951e9aa3b246"
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A ticketing platform has a checkout API that intermittently fails under traffic bursts, causing synchronous downstream timeouts in payment and notification services. The company needs independent scaling and graceful degradation while preserving event ordering per order ID. Which architecture best improves this microservices workflow?",
+    "correct": "A",
+    "answers": {
+      "A": "Publish checkout events to Amazon EventBridge, route to Amazon SQS FIFO queues per consumer, and process asynchronously with idempotent workers.",
+      "B": "Keep synchronous service-to-service HTTP calls and increase instance sizes for all services.",
+      "C": "Replace all services with one larger monolith behind an Application Load Balancer.",
+      "D": "Write all events directly to Amazon S3 and have services poll the bucket every 5 seconds."
+    },
+    "explanation": "A is correct because event routing plus FIFO queuing decouples services, smooths bursts, and maintains ordering constraints. B scales cost but not coupling. C removes service boundaries and worsens deployment agility. D adds polling latency and weak delivery guarantees for transactional workflows.",
+    "tags": ["Microservices and component delivery"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "ea3d82aa9f6a8374f4b048f2fa163071fa74de9badf79bbd0883bf2f56beb1e8"
+  },
+  {
+    "taskStatement": "3.5",
+    "stem": "A media company must migrate 1.2 PB of archive files from on-premises NAS to Amazon S3 within 8 weeks. Their WAN link is 1 Gbps and already heavily utilized by production traffic. After the initial move, they need weekly incremental syncs for changed files. Which approach best meets the timeline with minimal operational overhead?",
+    "correct": "D",
+    "answers": {
+      "A": "Use only AWS DataSync over the 1 Gbps link for both initial and incremental transfers.",
+      "B": "Use only AWS Storage Gateway File Gateway for one-time bulk transfer and stop there.",
+      "C": "Build custom rsync pipelines on Amazon EC2 and throttle manually during business hours.",
+      "D": "Use AWS Snow Family devices for the initial bulk transfer, then use AWS DataSync for recurring incremental synchronization."
+    },
+    "explanation": "D is correct because physical transfer removes WAN bottlenecks for the initial PB-scale load and DataSync efficiently handles ongoing deltas. A is unlikely to meet the deadline over constrained bandwidth. B does not address managed large-scale one-time seeding plus ongoing delta orchestration. C increases operational burden and reliability risk.",
+    "tags": ["Migration and data transfer", "AWS Snow Family"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "98113c7c07fe0b5f13009c742b3d8787f7eb99cea8629633694d00a6b223d9c7"
+  },
+  {
+    "taskStatement": "3.4",
+    "stem": "A gaming company serves players from North America, Europe, and Asia with both dynamic API traffic and static game assets. They need lower global latency and fast regional failover without changing client DNS frequently. Which design best satisfies these networking and content delivery requirements?",
+    "correct": "B",
+    "answers": {
+      "A": "Use only Amazon Route 53 weighted records across Regions and place all traffic behind one regional ALB.",
+      "B": "Use Amazon CloudFront for static asset caching and AWS Global Accelerator in front of regional ALBs for dynamic traffic with health-based failover.",
+      "C": "Use AWS Site-to-Site VPN from clients to the nearest Region.",
+      "D": "Serve both static and dynamic traffic directly from one Amazon EC2 instance in a single Region."
+    },
+    "explanation": "B is correct because CloudFront optimizes global static delivery while Global Accelerator improves dynamic path performance and failover using AWS edge network routing. A may improve distribution but does not provide the same accelerator behavior for dynamic paths. C is not a public-user delivery pattern. D fails latency and resilience objectives.",
+    "tags": ["Networking, connectivity, and content delivery"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "e8d9a9c605e2c5c6fab5a0ff999bf9ba9e8125d0b48d33d5ad3a200c53bf4f6a"
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "An insurance workflow ingests claim-submitted events and must execute branching validation steps, retries, and compensation logic when downstream systems fail. The team wants to avoid server management and keep integration patterns event-driven. Which architecture is most appropriate?",
+    "correct": "C",
+    "answers": {
+      "A": "Run a cron-based EC2 fleet that polls an RDS table for new claim rows and invokes scripts.",
+      "B": "Use one long-running Lambda function with while-loops to coordinate every downstream step.",
+      "C": "Use Amazon EventBridge to trigger AWS Step Functions state machines that orchestrate AWS Lambda tasks with native retries and error handling.",
+      "D": "Use Amazon S3 event notifications only and encode all workflow state in object names."
+    },
+    "explanation": "C is correct because EventBridge plus Step Functions and Lambda provides managed event-driven orchestration, retries, and compensation patterns without server management. A is polling-heavy and operationally expensive. B creates brittle orchestration and timeout risk. D lacks robust state management and workflow control.",
+    "tags": ["Serverless and event-driven design principles"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "141344e03a6e6009892560a56664cfe6695deb3edf39cecfac6b70d084c6efd6"
+  },
+  {
+    "taskStatement": "3.5",
+    "stem": "A finance team needs executive dashboards combining Athena query results and curated KPI datasets. They require fast interactive visuals, row-level access for business units, and minimal infrastructure operations. Which solution best fits?",
+    "correct": "A",
+    "answers": {
+      "A": "Use Amazon QuickSuite with Athena as a source, SPICE for acceleration where needed, and row-level security rules for business-unit isolation.",
+      "B": "Deploy self-managed BI servers on EC2 and export Athena results nightly to CSV.",
+      "C": "Use Amazon EMR notebooks as the primary dashboarding interface for executives.",
+      "D": "Build custom dashboards directly in CloudWatch for all financial reporting."
+    },
+    "explanation": "A is correct because QuickSuite natively supports managed dashboards, accelerated in-memory datasets, and access controls with low ops. B and C increase management complexity and are not optimized for executive BI consumption. D lacks the required analytics and governance depth for this use case.",
+    "tags": ["Amazon QuickSuite"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "485679fc6d11a9e53764816def5587cfab8ad5ae0d0092df3961c3328ad758f1"
+  },
+  {
+    "taskStatement": "3.5",
+    "stem": "A legal firm stores millions of documents across SharePoint and S3 and needs semantic search that respects document-level permissions. Attorneys expect natural-language queries and ranked relevance without building custom ranking infrastructure. Which approach is best?",
+    "correct": "D",
+    "answers": {
+      "A": "Index all files in Amazon OpenSearch Service with custom NLP pipelines built in-house.",
+      "B": "Store metadata in Amazon DynamoDB and scan tables per query using contains filters.",
+      "C": "Use Amazon Athena over S3 inventory reports for full-text discovery.",
+      "D": "Use Amazon Kendra with source connectors and access control integration to deliver relevance-ranked enterprise search."
+    },
+    "explanation": "D is correct because Kendra is purpose-built for enterprise search with semantic relevance and access-aware retrieval. A can work but requires substantial custom relevance engineering. B and C are not suitable for high-quality full-text semantic search with permissions.",
+    "tags": ["Amazon Kendra"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "8218f68ea4b1f9b7bbf27aeac62ea6102abaf8d5816be4c0527f6187310a7694"
+  },
+  {
+    "taskStatement": "3.5",
+    "stem": "A manufacturer wants demand forecasting across thousands of SKUs and regions, but the architecture team has limited ML engineering capacity. They need a managed path from data preparation to model training and deployment with governance controls. Which option is most suitable?",
+    "correct": "B",
+    "answers": {
+      "A": "Build custom forecasting models on self-managed Kubernetes clusters and maintain all training orchestration manually.",
+      "B": "Use Amazon SageMaker AI managed training and deployment workflows with built-in integrations for experiment tracking and model operations.",
+      "C": "Use Amazon Comprehend for time-series forecasting and inventory optimization.",
+      "D": "Use AWS Glue jobs only and avoid model hosting by exporting CSV forecasts."
+    },
+    "explanation": "B is correct because SageMaker AI provides managed ML lifecycle capabilities that reduce operational burden while supporting scalable forecasting workflows. A is heavy operationally. C is for NLP, not time-series forecasting pipelines. D does not provide robust model lifecycle and serving capabilities.",
+    "tags": ["Amazon SageMaker AI"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "e08a496a194cf84fefb4d06b243cd38e2fc50361e1ef43cff83143d946f7dca2"
+  },
+  {
+    "taskStatement": "3.5",
+    "stem": "An insurer receives 200,000 scanned claim packets daily and must extract key-value pairs and table line items for downstream adjudication. Accuracy and throughput are required, and the team wants to avoid maintaining OCR models. Which design is best?",
+    "correct": "C",
+    "answers": {
+      "A": "Use Amazon Rekognition image labels and map labels to claim fields with custom rules.",
+      "B": "Use AWS Lambda with open-source OCR binaries in each function and tune models manually.",
+      "C": "Use Amazon Textract asynchronous APIs for forms and tables, then route structured outputs to downstream processing.",
+      "D": "Use Amazon S3 Select directly on PDF files to retrieve policy numbers and totals."
+    },
+    "explanation": "C is correct because Textract is purpose-built for managed document text, form, and table extraction at scale using asynchronous workflows. A does not provide structured document extraction fidelity for this use case. B adds significant maintenance complexity. D is not applicable to OCR extraction from scanned PDFs.",
+    "tags": ["Amazon Textract"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "0e672ae3981d358e87e304dd21cf676ff87e81ecb75819486b6431e9d5e3d7c4"
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A multinational plans rapid multi-account expansion and needs standardized guardrails, audit baseline, and networking foundations from day one. The security team also requires delegated administration and repeatable account lifecycle controls. Which service should anchor this operating model?",
+    "correct": "B",
+    "answers": {
+      "A": "AWS Config conformance packs only",
+      "B": "AWS Control Tower landing zone with guardrails and account factory",
+      "C": "AWS Trusted Advisor organization checks",
+      "D": "Amazon CloudWatch dashboards with cross-account metrics"
+    },
+    "explanation": "B is correct because Control Tower is designed to establish and govern a secure multi-account landing zone with built-in lifecycle controls. A and C provide partial governance visibility but not full account-vending and guardrail orchestration. D is monitoring-focused and does not enforce governance posture.",
+    "tags": ["AWS Control Tower"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "85388699cbd9094424bc4995d9e57434b13cf0b45f8d9478b1ff09d9037bf5d8"
+  },
+  {
+    "taskStatement": "1.1",
+    "stem": "A platform SRE team needs proactive alerting when AWS service events affect specific production resources across multiple accounts. They need machine-readable event integration for automatic incident routing without scraping status pages. Which option best meets this requirement?",
+    "correct": "A",
+    "answers": {
+      "A": "Use AWS Health Dashboard organizational view and AWS Health events integration with EventBridge for automated alert routing.",
+      "B": "Rely on weekly AWS Trusted Advisor reports and manual email triage.",
+      "C": "Use VPC Flow Logs to detect all AWS service degradation events.",
+      "D": "Create custom CloudTrail data event filters for all services and infer health impact manually."
+    },
+    "explanation": "A is correct because AWS Health provides account/resource-scoped service event signals and EventBridge integration for automation. B is delayed and manual. C is network telemetry, not managed service health status. D is indirect, noisy, and not intended for service health event detection.",
+    "tags": ["AWS Health Dashboard"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "8015e78c5f174fcb1f1e8c196c187d93e59d9cb546a56b2c9ec7b534abcc9592"
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "A research lab must move 2 PB of historical imaging data to AWS within one month. Their available network bandwidth cannot sustain that transfer window, and they need chain-of-custody tracking during transport. Which method is most appropriate?",
+    "correct": "D",
+    "answers": {
+      "A": "Use AWS DataSync over the internet continuously until complete.",
+      "B": "Use Amazon S3 Transfer Acceleration from each workstation.",
+      "C": "Ship third-party NAS appliances to AWS and import manually.",
+      "D": "Use AWS Snow Family devices for bulk offline transfer with managed shipment tracking and then ingest to S3."
+    },
+    "explanation": "D is correct because Snow Family is designed for PB-scale transfers when network links cannot meet deadlines and includes managed logistics tracking. A and B remain bandwidth-bound. C lacks the managed ingestion and operational model provided by Snow services.",
+    "tags": ["AWS Snow Family"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "897bedbe07d77e2cb2b2d7a69733ed65919e971dd14d169ce28de1636ae483db"
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "A company is migrating Windows-based line-of-business applications to AWS. EC2 Windows instances and Amazon WorkSpaces must authenticate against a centrally managed Active Directory with trust to on-prem AD and minimal directory patching overhead. Which service best fits?",
+    "correct": "C",
+    "answers": {
+      "A": "Use IAM users and long-lived access keys for Windows logon.",
+      "B": "Run a custom OpenLDAP cluster on Amazon ECS.",
+      "C": "Use AWS Directory Service for Microsoft Active Directory (AWS Managed Microsoft AD) and establish trust with on-prem AD.",
+      "D": "Store user accounts in Amazon S3 and query with Lambda authorizers."
+    },
+    "explanation": "C is correct because AWS Managed Microsoft AD provides managed AD capabilities, trust relationships, and integration with AWS Windows workloads. A is not an AD authentication model for Windows login. B increases operational complexity and may not meet Microsoft AD compatibility needs. D is not a directory service architecture.",
+    "tags": ["AWS Directory Service"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "492d625d5daa9bca0fe3996459f889488ab867ab85caae81a39eeee3fb4c2141"
+  },
+  {
+    "taskStatement": "1.2",
+    "stem": "A security team must enforce consistent AWS WAF rules and Shield Advanced protections across hundreds of accounts in an AWS Organization. New accounts should automatically inherit policies, and noncompliant resources should be flagged centrally. Which approach best satisfies these requirements?",
+    "correct": "B",
+    "answers": {
+      "A": "Deploy separate WAF rule sets manually in each account using local scripts.",
+      "B": "Use AWS Firewall Manager with AWS Organizations to centrally apply and audit WAF and Shield policies across accounts.",
+      "C": "Use Amazon GuardDuty only and map findings to firewall changes manually.",
+      "D": "Use security groups in each VPC to replace all web ACL protections."
+    },
+    "explanation": "B is correct because Firewall Manager provides centralized, organization-wide policy management and compliance visibility for WAF/Shield. A is operationally fragile and inconsistent. C is a detection service, not centralized policy enforcement for WAF. D cannot replace Layer 7 protections provided by WAF.",
+    "tags": ["AWS Firewall Manager"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "a1849b88da068e0ffb194fd276cc6e4189dc024798e74135aee47a6cc47c20b7"
+  },
+  {
+    "taskStatement": "1.3",
+    "stem": "A healthcare platform stores patient exports in Amazon S3 and must enforce least-privilege access, 7-year retention, immutable legal-hold capability, and automatic archival of cold data. Auditors also require customer-managed key control. Which design best meets all requirements?",
+    "correct": "A",
+    "answers": {
+      "A": "Use S3 bucket policies with least privilege, S3 Object Lock for immutability, lifecycle transitions to S3 Glacier tiers, and SSE-KMS with customer-managed keys and restricted key policies.",
+      "B": "Enable S3 versioning only and rely on IAM AdministratorAccess for emergency restores.",
+      "C": "Copy data nightly to EFS and apply POSIX permissions for legal hold requirements.",
+      "D": "Use client-side encryption only and disable lifecycle policies to avoid accidental transitions."
+    },
+    "explanation": "A is correct because it combines access policy control, lifecycle management, retention immutability, and managed key governance in a compliant architecture. B lacks immutable retention controls and violates least privilege. C is not an object-retention architecture for long-term compliance. D ignores cost-optimized retention and does not provide policy-driven immutability.",
+    "tags": [
+      "Implementing policies for data access, lifecycle, and protection"
+    ],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "fb1c29997d6ba6bd4613d06f1fc7077c444787d42f2d3fdbe1cda043fbe6f70d"
+  },
+  {
+    "taskStatement": "2.1",
+    "stem": "A company runs a Java monolith on EC2 and wants to migrate to containers gradually with minimal downtime and no full Kubernetes operations team. They need independent scaling of web and worker components and controlled release rollouts. Which migration approach is most appropriate?",
+    "correct": "D",
+    "answers": {
+      "A": "Rehost the monolith on a larger EC2 instance and defer container migration.",
+      "B": "Move directly to a self-managed Kubernetes cluster across Regions before decomposing services.",
+      "C": "Split every module into separate Lambdas immediately with no transition period.",
+      "D": "Containerize components and deploy to Amazon ECS with AWS Fargate, place services behind an ALB, and use phased deployments to incrementally shift traffic."
+    },
+    "explanation": "D is correct because ECS with Fargate enables pragmatic container migration with managed orchestration, independent scaling, and controlled rollout patterns. A does not migrate to containers. B adds unnecessary operational burden for the team constraints. C is a risky rewrite strategy that ignores phased migration needs.",
+    "tags": ["How to migrate applications into containers"],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "75c959d8314e36ece593f538fd3c74abb570d3537028e3d43310e5f4ac730ba7"
+  },
+  {
+    "taskStatement": "4.1",
+    "stem": "An IoT vendor has 500,000 devices uploading telemetry objects every few seconds to Amazon S3. Request charges have spiked, and small-object overhead is impacting downstream analytics throughput. The business needs a lower-cost ingestion pattern without losing durability. Which strategy is best?",
+    "correct": "C",
+    "answers": {
+      "A": "Continue per-event uploads and add more S3 prefixes to reduce storage cost.",
+      "B": "Switch all data to Amazon EFS to avoid S3 request charges.",
+      "C": "Buffer telemetry and upload compressed batch objects at short intervals using multipart uploads when appropriate, then apply lifecycle tiering for colder data.",
+      "D": "Upload each object to a separate S3 bucket per device to isolate request rates."
+    },
+    "explanation": "C is correct because batching reduces request volume and small-file overhead while preserving durable object storage and enabling lifecycle cost optimization. A keeps the cost driver unchanged. B changes storage semantics and cost profile inappropriately for this pattern. D increases management complexity and does not solve request-cost inefficiency.",
+    "tags": [
+      "Designing appropriate storage strategies (for example, batch uploads to Amazon S3 compared with individual uploads)"
+    ],
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "difficulty": "HARD",
+    "id": "bf734c1ab26e425ca56adaf44ece035e77c6ad46994affbcad7aacf4cbb35a71"
   }
 ]
