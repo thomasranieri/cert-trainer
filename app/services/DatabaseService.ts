@@ -38,6 +38,7 @@ export interface QuizBackupData {
   version: number;
   exportedAt: string;
   quizHistory: ExportedQuizActivity[];
+  skippedQuestionIds?: string[];
 }
 
 export type ImportMode = 'merge' | 'replace';
@@ -159,22 +160,26 @@ class DatabaseService {
         .map(question => [question.id, question]),
     );
 
-    const exportedHistory = quizHistory.map((activity) => {
+    const skippedQuestionIds = new Set<string>();
+
+    const exportedHistory = quizHistory.flatMap((activity) => {
       const question = questionById.get(activity.questionId);
       if (!question) {
-        throw new Error(`Unable to export question data for questionId=${activity.questionId}`);
+        skippedQuestionIds.add(activity.questionId);
+        return [];
       }
 
-      return {
+      return [{
         ...activity,
         question,
-      };
+      }];
     });
 
     return {
       version: this.backupVersion,
       exportedAt: new Date().toISOString(),
       quizHistory: exportedHistory,
+      skippedQuestionIds: Array.from(skippedQuestionIds),
     };
   }
 

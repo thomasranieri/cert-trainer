@@ -65,6 +65,9 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
     const link = document.createElement("a");
     link.href = url;
     link.download = fileName;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.style.display = "none";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -76,6 +79,8 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
       const backup = await exportData();
       const fileName = getExportFileName();
       const content = JSON.stringify(backup, null, 2);
+      const skippedCount = backup.skippedQuestionIds?.length ?? 0;
+      const exportedCount = backup.quizHistory.length;
 
       if (Platform.OS === "web") {
         exportToWebDownload(content, fileName);
@@ -99,13 +104,21 @@ const Stats: React.FC<StatsProps> = ({ selectedExam }) => {
         }
       }
 
-      Alert.alert(
-        "Export complete",
-        `Exported ${backup.quizHistory.length} records.`,
-      );
+      const skippedSuffix =
+        skippedCount > 0
+          ? `\n\n${skippedCount} records were skipped because their question IDs are not in the current question set.`
+          : "";
+
+      Alert.alert("Export complete", `Exported ${exportedCount} records.${skippedSuffix}`);
     } catch (error) {
       console.error("Error exporting data:", error);
-      Alert.alert("Export failed", "Unable to export data. Please try again.");
+
+      const message =
+        error instanceof Error && error.message
+          ? error.message
+          : "Unable to export data. Please try again.";
+
+      Alert.alert("Export failed", message);
     }
   };
 
