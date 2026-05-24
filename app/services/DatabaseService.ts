@@ -1,23 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Entire service now uses AsyncStorage only
-
-export interface Question {
-  id?: string;
-  taskStatement: string;
-  exam?: string;
-  stem: string;
-  correct: string;
-  difficulty: 'EASY' | 'MEDIUM' | 'HARD';
-  answers: {
-    A: string;
-    B: string;
-    C: string;
-    D: string;
-  };
-  explanation: string;
-}
-
 export interface QuizActivity {
   questionId: string;
   questionIndex: number;

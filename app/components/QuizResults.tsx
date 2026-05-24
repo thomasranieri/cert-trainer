@@ -20,9 +20,21 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
   isLastQuestion
 }) => {
   const openAIExplanation = () => {
-    if (typeof window !== 'undefined') {
-      window.open(`https://chatgpt.com/?q=${encodeURIComponent(`Explain the answer to the question: ${currentQuestion.stem} with options ${JSON.stringify(currentQuestion.answers)}`)}`);
+    if (typeof window === 'undefined') return;
+    const q = currentQuestion;
+    let prompt: string;
+    if (q.type === 'MATCH' && q.subquestions?.length) {
+      const items = q.subquestions.map(sub => `  - ${sub.prompt}`).join('\n');
+      const options = Object.entries(q.answers).map(([k, v]) => `  ${k}: ${v}`).join('\n');
+      prompt = `For the following matching question, explain which option best fits each item and why:\n\n${q.stem}\n\nOptions:\n${options}\n\nItems to match:\n${items}`;
+    } else if (q.type === 'MAMCQ') {
+      const options = Object.entries(q.answers).map(([k, v]) => `  ${k}: ${v}`).join('\n');
+      prompt = `For the following multiple-select question, explain which answers are correct and why:\n\n${q.stem}\n\nOptions:\n${options}`;
+    } else {
+      const options = Object.entries(q.answers).map(([k, v]) => `  ${k}: ${v}`).join('\n');
+      prompt = `Explain the answer to the following question:\n\n${q.stem}\n\nOptions:\n${options}`;
     }
+    window.open(`https://chatgpt.com/?q=${encodeURIComponent(prompt)}`);
   };
 
   if (!showResult) return null;

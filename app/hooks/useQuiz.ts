@@ -13,7 +13,13 @@ export interface UseQuizOptions {
 
 export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  // MCQ
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  // MAMCQ
+  const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
+  // MATCH
+  const [matchSelections, setMatchSelections] = useState<Record<string, string>>({});
+
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [stats, setStats] = useState<QuizStats>({ total: 0, correct: 0, percentage: 0 });
@@ -22,7 +28,7 @@ export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
   const [loading, setLoading] = useState(true);
 
   const questionService = useMemo(() => new QuestionService(questions), [questions]);
-  
+
   const loadStats = useCallback(async () => {
     try {
       const currentStats = await databaseService.getStats(options.selectedExam);
@@ -45,16 +51,17 @@ export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
   const resetQuizState = useCallback(() => {
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
+    setSelectedAnswers([]);
+    setMatchSelections({});
     setShowResult(false);
     setIsCorrect(false);
   }, []);
-  
+
   const currentQuestion = useMemo(() => filteredQuestions[currentQuestionIndex], [filteredQuestions, currentQuestionIndex]);
-  
+
   const isLastQuestion = currentQuestionIndex === filteredQuestions.length - 1;
   const progress = filteredQuestions.length > 0 ? ((currentQuestionIndex + 1) / filteredQuestions.length) * 100 : 0;
 
-  // Initialize database and load data
   useEffect(() => {
     const initialize = async () => {
       try {
@@ -71,7 +78,6 @@ export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
     initialize();
   }, [options.selectedExam, loadStats, loadSeenQuestions]);
 
-  // Filter questions based on options
   useEffect(() => {
     if (loading) return;
 
@@ -89,7 +95,6 @@ export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
       filtered = filtered.filter((q: Question) => q.id !== undefined && !seenQuestionHashes.has(q.id));
     }
 
-    // Shuffle the filtered questions
     const shuffled = questionService.shuffleQuestions(filtered);
     setFilteredQuestions(shuffled);
     resetQuizState();
@@ -101,7 +106,7 @@ export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
     options.type,
     seenQuestionHashes,
     questionService,
-    resetQuizState
+    resetQuizState,
   ]);
 
   const selectAnswer = useCallback((answer: string) => {
@@ -109,36 +114,86 @@ export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
     setSelectedAnswer(answer);
   }, [showResult]);
 
+  const toggleAnswer = useCallback((answer: string) => {
+    if (showResult) return;
+    setSelectedAnswers(prev =>
+      prev.includes(answer) ? prev.filter(a => a !== answer) : [...prev, answer]
+    );
+  }, [showResult]);
+
+  const selectMatchAnswer = useCallback((subId: string, answerKey: string) => {
+    if (showResult) return;
+    setMatchSelections(prev => ({ ...prev, [subId]: answerKey }));
+  }, [showResult]);
+
   const submitAnswer = useCallback(async () => {
-    if (!selectedAnswer || !currentQuestion) {
-      Alert.alert('Please select an answer', 'You must choose an answer before submitting.');
-      return;
+    if (!currentQuestion) return;
+
+    const questionType = currentQuestion.type ?? 'MCQ';
+    let correct = false;
+    let serializedSelected = '';
+    let serializedCorrect = '';
+
+    if (questionType === 'MCQ') {
+      if (!selectedAnswer) {
+        Alert.alert('Please select an answer', 'You must choose an answer before submitting.');
+        return;
+      }
+      correct = selectedAnswer === currentQuestion.correct;
+      serializedSelected = selectedAnswer;
+      serializedCorrect = String(currentQuestion.correct ?? '');
+    } else if (questionType === 'MAMCQ') {
+      if (selectedAnswers.length === 0) {
+        Alert.alert('Please select answers', 'You must choose at least one answer before submitting.');
+        return;
+      }
+      const correctSet = new Set(currentQuestion.correct as string[]);
+      const selectedSet = new Set(selectedAnswers);
+      correct = correctSet.size === selectedSet.size && [...correctSet].every(a => selectedSet.has(a));
+      serializedSelected = JSON.stringify([...selectedAnswers].sort());
+      serializedCorrect = JSON.stringify([...(currentQuestion.correct as string[])].sort());
+    } else if (questionType === 'MATCH') {
+      const subs = currentQuestion.subquestions ?? [];
+      const unanswered = subs.filter(s => !matchSelections[s.id]);
+      if (unanswered.length > 0) {
+        Alert.alert('Please answer all parts', 'You must match all items before submitting.');
+        return;
+      }
+      correct = subs.every(s => matchSelections[s.id] === s.correct);
+      serializedSelected = JSON.stringify(matchSelections);
+      const correctMap = Object.fromEntries(subs.map(s => [s.id, s.correct]));
+      serializedCorrect = JSON.stringify(correctMap);
     }
 
-    const correct = selectedAnswer === currentQuestion.correct;
     setIsCorrect(correct);
     setShowResult(true);
 
-    // Save to database
     try {
       await databaseService.saveQuizActivity({
         questionIndex: currentQuestionIndex,
         exam: options.selectedExam,
-        selectedAnswer,
-        correctAnswer: currentQuestion.correct,
+        selectedAnswer: serializedSelected,
+        correctAnswer: serializedCorrect,
         isCorrect: correct,
         timestamp: new Date().toISOString(),
-        difficulty: currentQuestion.difficulty || 'MEDIUM',
-        taskStatement: currentQuestion.taskStatement,
-        questionId: currentQuestion.id || 'UNKNOWN'
+        difficulty: currentQuestion.difficulty ?? 'MEDIUM',
+        taskStatement: currentQuestion.taskStatement ?? '',
+        questionId: currentQuestion.id ?? 'UNKNOWN',
       });
 
-      // Update stats
       await loadStats();
     } catch (error) {
       console.error('Error saving quiz activity:', error);
     }
-  }, [selectedAnswer, currentQuestion, currentQuestionIndex, options.selectedExam, loadStats]);
+  }, [
+    selectedAnswer,
+    selectedAnswers,
+    matchSelections,
+    currentQuestion,
+    currentQuestionIndex,
+    options.selectedExam,
+    loadStats,
+  ]);
 
   const nextQuestion = useCallback(() => {
     if (isLastQuestion) {
@@ -149,16 +204,13 @@ export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
       Alert.alert(
         'Quiz Complete!',
         `Your overall score: ${finalScore}/${finalTotal} (${finalPercentage}%)`,
-        [
-          {
-            text: 'Restart',
-            onPress: resetQuizState,
-          },
-        ]
+        [{ text: 'Restart', onPress: resetQuizState }]
       );
     } else {
       setCurrentQuestionIndex(prev => prev + 1);
       setSelectedAnswer(null);
+      setSelectedAnswers([]);
+      setMatchSelections({});
       setShowResult(false);
       setIsCorrect(false);
     }
@@ -168,6 +220,8 @@ export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(prev => prev - 1);
       setSelectedAnswer(null);
+      setSelectedAnswers([]);
+      setMatchSelections({});
       setShowResult(false);
       setIsCorrect(false);
     }
@@ -179,14 +233,15 @@ export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
 
   const availableTaskStatements = useMemo((): string[] => {
     const examQuestions = questionService.getQuestionsByExam(options.selectedExam);
-    return [...new Set(examQuestions.map((q: Question) => q.taskStatement))].sort() as string[];
+    return [...new Set(examQuestions.map((q: Question) => q.taskStatement ?? '').filter(Boolean))].sort() as string[];
   }, [questionService, options.selectedExam]);
 
   return {
-    // State
     currentQuestion,
     currentQuestionIndex,
     selectedAnswer,
+    selectedAnswers,
+    matchSelections,
     showResult,
     isCorrect,
     stats,
@@ -194,18 +249,16 @@ export const useQuiz = (questions: Question[], options: UseQuizOptions) => {
     loading,
     progress,
     isLastQuestion,
-    
-    // Actions
+
     selectAnswer,
+    toggleAnswer,
+    selectMatchAnswer,
     submitAnswer,
     nextQuestion,
     previousQuestion,
     restartQuiz,
-    
-    // Computed values
+
     availableTaskStatements,
-    
-    // Utilities
     questionService,
   };
 };

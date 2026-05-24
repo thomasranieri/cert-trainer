@@ -1,16 +1,21 @@
+export type QuestionTypeId = 'MCQ' | 'MAMCQ' | 'MATCH';
+
+export interface SubQuestion {
+  id: string;
+  prompt: string;
+  correct: string;
+}
+
 export interface Question {
   id?: string;
-  taskStatement: string;
+  type?: QuestionTypeId;
+  taskStatement?: string;
   exam?: string;
   stem: string;
-  correct: string;
-  difficulty: 'EASY' | 'MEDIUM' | 'HARD';
-  answers: {
-    A: string;
-    B: string;
-    C: string;
-    D: string;
-  };
+  correct?: string | string[];
+  difficulty?: 'EASY' | 'MEDIUM' | 'HARD';
+  answers: Record<string, string>;
+  subquestions?: SubQuestion[];
   explanation: string;
 }
 

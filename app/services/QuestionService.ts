@@ -39,9 +39,9 @@ export class QuestionService {
 
   searchQuestions(query: string): Question[] {
     const lowercaseQuery = query.toLowerCase();
-    return this.questions.filter(q => 
+    return this.questions.filter(q =>
       q.stem.toLowerCase().includes(lowercaseQuery) ||
-      q.taskStatement.toLowerCase().includes(lowercaseQuery)
+      (q.taskStatement ?? '').toLowerCase().includes(lowercaseQuery)
     );
   }
 
@@ -55,11 +55,13 @@ export class QuestionService {
     return {
       total: pool.length,
       byDifficulty: pool.reduce((acc, q) => {
-        acc[q.difficulty] = (acc[q.difficulty] || 0) + 1;
+        const d = q.difficulty ?? 'MEDIUM';
+        acc[d] = (acc[d] || 0) + 1;
         return acc;
       }, {} as Record<Difficulty, number>),
       byTask: pool.reduce((acc, q) => {
-        acc[q.taskStatement] = (acc[q.taskStatement] || 0) + 1;
+        const t = q.taskStatement ?? '';
+        if (t) acc[t] = (acc[t] || 0) + 1;
         return acc;
       }, {} as Record<string, number>)
     };
@@ -67,7 +69,7 @@ export class QuestionService {
 
   getAvailableTaskStatements(examType?: ExamType): string[] {
     const pool = examType ? this.getQuestionsByExam(examType) : this.questions;
-    return [...new Set(pool.map(q => q.taskStatement))].sort();
+    return [...new Set(pool.map(q => q.taskStatement ?? '').filter(Boolean))].sort();
   }
 
   getDifficultyColor(difficulty: string): string {

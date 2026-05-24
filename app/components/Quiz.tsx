@@ -60,6 +60,8 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
     currentQuestion,
     currentQuestionIndex,
     selectedAnswer,
+    selectedAnswers,
+    matchSelections,
     showResult,
     isCorrect,
     stats,
@@ -67,6 +69,8 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
     loading,
     isLastQuestion,
     selectAnswer,
+    toggleAnswer,
+    selectMatchAnswer,
     submitAnswer,
     nextQuestion,
     restartQuiz,
@@ -173,6 +177,10 @@ const Quiz: React.FC<QuizProps> = ({ selectedExam, onBackToHome }) => {
           question={currentQuestion}
           selectedAnswer={selectedAnswer || undefined}
           onAnswerSelect={selectAnswer}
+          selectedAnswers={selectedAnswers}
+          onAnswerToggle={toggleAnswer}
+          matchSelections={matchSelections}
+          onMatchSelect={selectMatchAnswer}
           showResult={showResult}
           isCorrect={isCorrect}
           getDifficultyColor={questionService.getDifficultyColor.bind(questionService)}
