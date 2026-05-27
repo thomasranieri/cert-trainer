@@ -58156,5 +58156,1444 @@
       "operational excellence",
       "Well-Architected"
     ]
+  },
+  {
+    "id": "662223bf3b8a31a4ddebaddcbca4c59fb119807e0015246eda5ccff8c7f40ca9",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "2.1",
+    "stem": "A solutions architect is selecting AWS managed services for five integration and application delivery requirements. Match each requirement to the MOST appropriate service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Data Exchange",
+      "B": "Amazon AppFlow",
+      "C": "AWS AppSync",
+      "D": "Amazon MQ",
+      "E": "AWS Amplify"
+    },
+    "subquestions": [
+      {
+        "id": "batch9-q1-s1",
+        "prompt": "A trading platform needs to subscribe to a third-party market data product and receive revisions automatically into its AWS account under the provider's subscription terms, without negotiating a custom data-sharing API.",
+        "correct": "A"
+      },
+      {
+        "id": "batch9-q1-s2",
+        "prompt": "A sales operations team wants incremental Salesforce opportunity updates copied into Amazon S3 every 15 minutes with field mapping and filtering, but does not want to build or operate custom integration code.",
+        "correct": "B"
+      },
+      {
+        "id": "batch9-q1-s3",
+        "prompt": "A mobile application needs a single GraphQL endpoint that can combine DynamoDB, Lambda, and OpenSearch data sources, while supporting offline synchronization, conflict detection, and fine-grained authorization.",
+        "correct": "C"
+      },
+      {
+        "id": "batch9-q1-s4",
+        "prompt": "An order-processing system already uses JMS durable subscriptions on Apache ActiveMQ and must move to a managed broker in AWS with minimal client code changes and built-in high availability.",
+        "correct": "D"
+      },
+      {
+        "id": "batch9-q1-s5",
+        "prompt": "A frontend team wants Git-based CI/CD, managed hosting on a global CDN, preview environments for pull requests, and simple integration with authentication and GraphQL APIs.",
+        "correct": "E"
+      }
+    ],
+    "explanation": "AWS Data Exchange is the purpose-built service for subscribing to third-party data products and receiving ongoing revisions under provider-managed entitlements. Amazon AppFlow is a fully managed SaaS integration service that can move incremental Salesforce data into AWS targets with mappings and filters. AWS AppSync provides managed GraphQL APIs with offline sync and multiple data-source integrations. Amazon MQ is the managed choice when existing JMS-compatible ActiveMQ clients must be preserved. AWS Amplify combines frontend hosting, Git-based deployments, previews, and integration with backend services.",
+    "tags": [
+      "AWS Data Exchange",
+      "Amazon AppFlow",
+      "AWS AppSync",
+      "Amazon MQ",
+      "AWS Amplify",
+      "Designing event-driven, microservice, and/or multi-tier architectures based on requirements"
+    ]
+  },
+  {
+    "id": "eced34cfbff8348a9ec5419db9b19342eedc8ece682da411660fee84d1983a6d",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "3.2",
+    "stem": "A solutions architect must choose the best AWS deployment model for four workloads. Match each workload to the MOST appropriate service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Outposts",
+      "B": "VMware Cloud on AWS",
+      "C": "AWS Wavelength",
+      "D": "AWS Elastic Beanstalk"
+    },
+    "subquestions": [
+      {
+        "id": "batch9-q2-s1",
+        "prompt": "A manufacturer must process regulated plant-floor data on premises but wants to use AWS-managed hardware and familiar AWS APIs such as EC2 and EBS locally in the factory.",
+        "correct": "A"
+      },
+      {
+        "id": "batch9-q2-s2",
+        "prompt": "A company running hundreds of vSphere virtual machines wants to extend the same VMware tooling and HCX-based migration workflows into AWS quickly, without changing the hypervisor model or guest operating systems.",
+        "correct": "B"
+      },
+      {
+        "id": "batch9-q2-s3",
+        "prompt": "A telecom workload must place compute inside a 5G provider's metro network so round-trip latency for mobile users stays below 10 ms.",
+        "correct": "C"
+      },
+      {
+        "id": "batch9-q2-s4",
+        "prompt": "A small team wants to deploy a Java web application from source code with managed load balancing, health checks, rolling updates, and Auto Scaling, without defining all of the underlying infrastructure themselves.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "AWS Outposts places AWS-managed infrastructure on premises when workloads must stay local but still use AWS APIs and services. VMware Cloud on AWS is the fastest path for extending existing vSphere estates into AWS without refactoring or retraining operations teams on a new virtualization layer. AWS Wavelength is specifically designed for ultra-low-latency applications that need compute at the telecom edge of 5G networks. Elastic Beanstalk is a platform service that provisions and manages the surrounding infrastructure for traditional web applications from source bundles or container images.",
+    "tags": [
+      "AWS Outposts",
+      "VMware Cloud on AWS",
+      "AWS Wavelength",
+      "AWS Elastic Beanstalk",
+      "Determining the appropriate placement of resources to meet business requirements"
+    ]
+  },
+  {
+    "id": "e88a1d515d7e867d1df010e7a76751137aab07a5c3de3b3bd2a1ddcb5101b394",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "3.2",
+    "stem": "A platform team is standardizing how containerized and serverless workloads are packaged and run on customer-managed infrastructure. Match each requirement to the MOST appropriate AWS service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon ECS Anywhere",
+      "B": "Amazon EKS Anywhere",
+      "C": "Amazon EKS Distro",
+      "D": "AWS Serverless Application Repository"
+    },
+    "subquestions": [
+      {
+        "id": "batch9-q3-s1",
+        "prompt": "The operations team wants to register existing on-premises Linux servers as external container hosts that can run ECS tasks and appear in the same ECS control plane as cloud services.",
+        "correct": "A"
+      },
+      {
+        "id": "batch9-q3-s2",
+        "prompt": "A retailer wants a supported Kubernetes distribution that runs on its own hardware and can be created, upgraded, and managed with the same EKS-oriented tooling used for AWS clusters.",
+        "correct": "B"
+      },
+      {
+        "id": "batch9-q3-s3",
+        "prompt": "A platform group needs the exact Kubernetes components and EKS add-ons used by Amazon EKS so it can build and operate its own clusters in disconnected environments.",
+        "correct": "C"
+      },
+      {
+        "id": "batch9-q3-s4",
+        "prompt": "A central team wants to publish versioned Lambda-based applications that other teams can discover and deploy as prepackaged serverless stacks from the console or the SAM CLI.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Amazon ECS Anywhere extends the ECS control plane to customer-managed servers. Amazon EKS Anywhere provides a supported deployment and lifecycle experience for running Kubernetes clusters on customer infrastructure with EKS-aligned tooling. Amazon EKS Distro is the distribution of Kubernetes components and add-ons used by Amazon EKS for teams that want to assemble and operate clusters themselves. AWS Serverless Application Repository is the distribution mechanism for versioned serverless applications packaged for reuse.",
+    "tags": [
+      "Amazon ECS Anywhere",
+      "Amazon EKS Anywhere",
+      "Amazon EKS Distro",
+      "AWS Serverless Application Repository",
+      "Determining when to use containers"
+    ]
+  },
+  {
+    "id": "8eabb367b2f72dade9695581c08169c60c935f127cb85d79a69a88c728060885",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "2.1",
+    "stem": "A solutions architect is selecting managed AWS AI services for five product requirements. Match each requirement to the MOST appropriate service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon Comprehend",
+      "B": "Amazon Kendra",
+      "C": "Amazon Rekognition",
+      "D": "Amazon Transcribe",
+      "E": "Amazon Polly"
+    },
+    "subquestions": [
+      {
+        "id": "batch9-q4-s1",
+        "prompt": "A compliance team needs to detect sentiment, entities, and key phrases from multilingual customer complaints after the text has already been collected in Amazon S3.",
+        "correct": "A"
+      },
+      {
+        "id": "batch9-q4-s2",
+        "prompt": "Employees need natural-language search across SharePoint, Confluence, and internal PDF repositories, with built-in connectors, ranking, and answer passages rather than keyword-only results.",
+        "correct": "B"
+      },
+      {
+        "id": "batch9-q4-s3",
+        "prompt": "A retailer wants to identify whether warehouse workers are wearing safety vests and to detect text and faces in still images captured by existing security cameras.",
+        "correct": "C"
+      },
+      {
+        "id": "batch9-q4-s4",
+        "prompt": "A call center platform must convert audio to text with speaker labels and custom vocabulary for product names before downstream analytics can run.",
+        "correct": "D"
+      },
+      {
+        "id": "batch9-q4-s5",
+        "prompt": "An accessibility feature must turn dynamically generated text into natural-sounding speech in multiple voices and languages for a public website.",
+        "correct": "E"
+      }
+    ],
+    "explanation": "Amazon Comprehend is the managed service for NLP tasks such as sentiment, entities, and key phrases. Amazon Kendra is purpose-built for enterprise search with connectors and semantic ranking. Amazon Rekognition handles image and video analysis such as labels, text, PPE, and faces. Amazon Transcribe converts speech to text and supports speaker separation and custom vocabulary. Amazon Polly converts text into natural-sounding speech.",
+    "tags": [
+      "Amazon Comprehend",
+      "Amazon Kendra",
+      "Amazon Rekognition",
+      "Amazon Transcribe",
+      "Amazon Polly",
+      "Using purpose-built AWS services for workloads"
+    ]
+  },
+  {
+    "id": "4c70c8e2bc3669558bd863f6bef047e28a3e4a069951bfc09f2fc89b84160a2f",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "1.1",
+    "stem": "A multi-account platform team needs to pick the right AWS governance and review service for each requirement. Match each requirement to the MOST appropriate service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Control Tower",
+      "B": "AWS Audit Manager",
+      "C": "AWS Service Catalog",
+      "D": "AWS Well-Architected Tool",
+      "E": "AWS Health Dashboard"
+    },
+    "subquestions": [
+      {
+        "id": "batch9-q5-s1",
+        "prompt": "The company needs a governed landing zone with account vending, mandatory guardrails, and centralized baseline configuration for new AWS accounts.",
+        "correct": "A"
+      },
+      {
+        "id": "batch9-q5-s2",
+        "prompt": "Compliance managers want evidence collected continuously and mapped to frameworks such as PCI DSS and SOC, instead of manually assembling screenshots and logs each audit cycle.",
+        "correct": "B"
+      },
+      {
+        "id": "batch9-q5-s3",
+        "prompt": "Application teams should self-service provision only approved VPC, database, and container blueprints, with centrally controlled versions, constraints, and launch permissions.",
+        "correct": "C"
+      },
+      {
+        "id": "batch9-q5-s4",
+        "prompt": "Architects want a structured review of a production workload against AWS best-practice pillars and a place to record risks, milestones, and improvement plans over time.",
+        "correct": "D"
+      },
+      {
+        "id": "batch9-q5-s5",
+        "prompt": "Operations engineers need personalized notifications when an AWS service event affects specific resources in their accounts, rather than only viewing generic public status updates.",
+        "correct": "E"
+      }
+    ],
+    "explanation": "AWS Control Tower establishes and governs a multi-account landing zone. AWS Audit Manager automates evidence collection and mapping to compliance controls. AWS Service Catalog is the governed self-service provisioning layer for approved products. The AWS Well-Architected Tool supports structured workload reviews and improvement tracking. AWS Health Dashboard provides account-specific health events for affected resources and services.",
+    "tags": [
+      "AWS Control Tower",
+      "AWS Audit Manager",
+      "AWS Service Catalog",
+      "AWS Well-Architected Tool",
+      "AWS Health Dashboard",
+      "Designing a security strategy for multiple AWS accounts (for example, AWS Control Tower, service control policies [SCPs])"
+    ]
+  },
+  {
+    "id": "9cc43728dd2883311233d1a0b220769eb5781dd457e8395e538593205f302dd7",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "4.2",
+    "stem": "A solutions architect is choosing the correct AWS service for four FinOps, licensing, and observability requirements. Match each requirement to the MOST appropriate service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Cost and Usage Report",
+      "B": "AWS License Manager",
+      "C": "Amazon Managed Grafana",
+      "D": "Amazon Managed Service for Prometheus"
+    },
+    "subquestions": [
+      {
+        "id": "batch9-q6-s1",
+        "prompt": "Finance needs hourly line-item usage, amortized Savings Plans and Reserved Instance data, and resource-level cost records delivered to Amazon S3 so Athena can power chargeback dashboards.",
+        "correct": "A"
+      },
+      {
+        "id": "batch9-q6-s2",
+        "prompt": "An enterprise must track Microsoft and SQL Server entitlements across EC2 and on-premises hosts and prevent the estate from exceeding the number of licenses it owns.",
+        "correct": "B"
+      },
+      {
+        "id": "batch9-q6-s3",
+        "prompt": "Platform engineers want fully managed dashboards that can visualize data from Prometheus, CloudWatch, and X-Ray without patching or operating their own Grafana servers.",
+        "correct": "C"
+      },
+      {
+        "id": "batch9-q6-s4",
+        "prompt": "An EKS platform needs a managed Prometheus-compatible metrics backend that stores container metrics queried with PromQL, without self-managing Cortex or Thanos clusters.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "AWS Cost and Usage Report is the authoritative detailed billing export used for chargeback and advanced analysis. AWS License Manager tracks license entitlements and consumption for bring-your-own-license scenarios. Amazon Managed Grafana provides managed dashboards that can query multiple AWS observability backends. Amazon Managed Service for Prometheus is the managed Prometheus-compatible metrics store and query engine for container and infrastructure telemetry.",
+    "tags": [
+      "AWS Cost and Usage Report",
+      "AWS License Manager",
+      "Amazon Managed Grafana",
+      "Amazon Managed Service for Prometheus",
+      "AWS cost management tools with appropriate use cases (for example, AWS Cost Explorer, AWS Budgets, AWS Cost and Usage Report)"
+    ]
+  },
+  {
+    "id": "2a41567d3d801a3ca23a4657022ef8fbe14d7775e69564e9a326f244324b652d",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "1.3",
+    "stem": "A security architect is selecting the correct AWS security service for each control requirement. Match each requirement to the MOST appropriate service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon Inspector",
+      "B": "AWS Security Hub",
+      "C": "Amazon Detective",
+      "D": "AWS CloudHSM"
+    },
+    "subquestions": [
+      {
+        "id": "batch9-q7-s1",
+        "prompt": "The team needs continuous vulnerability assessment of EC2 instances, ECR container images, and Lambda functions, with findings prioritized by exploitability and exposure.",
+        "correct": "A"
+      },
+      {
+        "id": "batch9-q7-s2",
+        "prompt": "The CISO wants a single place to aggregate and normalize findings from GuardDuty, Macie, Inspector, and partner products, while also tracking security posture against AWS best-practice controls.",
+        "correct": "B"
+      },
+      {
+        "id": "batch9-q7-s3",
+        "prompt": "Incident responders need to pivot from a suspicious IAM principal to related API calls, IP addresses, EC2 instances, and timing relationships through an investigation graph.",
+        "correct": "C"
+      },
+      {
+        "id": "batch9-q7-s4",
+        "prompt": "A payment application must store and use cryptographic keys inside dedicated FIPS 140-2 Level 3 hardware security modules that the customer manages directly.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Amazon Inspector is AWS's managed vulnerability assessment service for EC2, ECR, and Lambda. AWS Security Hub aggregates findings and security posture data across services and partners. Amazon Detective builds an investigation graph that helps analysts understand relationships and timelines during incident response. AWS CloudHSM provides dedicated HSM appliances for customer-controlled cryptographic key operations.",
+    "tags": [
+      "Amazon Inspector",
+      "AWS Security Hub",
+      "Amazon Detective",
+      "AWS CloudHSM",
+      "Aligning AWS technologies to meet compliance requirements"
+    ]
+  },
+  {
+    "id": "c84820153d54ba116692fc8be4f22c4171f0b23a530a275880c18f7f4569bfd7",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "2.1",
+    "stem": "A fintech company is launching a customer-facing React web app and companion mobile app. The team wants Git-based frontend hosting with branch previews and a managed path to connect frontend code to backend services, while also running automated tests on a large matrix of real iOS and Android devices before each release. Which TWO services BEST meet these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Amplify",
+      "B": "Amazon CloudFront with custom CodeDeploy deployment groups",
+      "C": "Amazon AppFlow",
+      "D": "AWS Device Farm",
+      "E": "AWS Elastic Beanstalk"
+    },
+    "correct": [
+      "A",
+      "D"
+    ],
+    "explanation": "AWS Amplify provides Git-based frontend hosting, branch previews, CI/CD, and client-side integration patterns for backend services. AWS Device Farm executes automated tests on fleets of real mobile devices, which is the right service when test coverage must span many iOS and Android models. CloudFront is only a CDN, AppFlow is a SaaS integration service, and Elastic Beanstalk is an application platform rather than a mobile-device testing service or frontend delivery workflow.",
+    "tags": [
+      "AWS Amplify",
+      "AWS Device Farm",
+      "Designing event-driven, microservice, and/or multi-tier architectures based on requirements"
+    ]
+  },
+  {
+    "id": "7b44c7b3ef70ebe6a29bc717eb1aac7fc04b450853a3dff26d844116897f873a",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "1.1",
+    "stem": "A company needs to give remote engineers secure access from corporate laptops to private administration endpoints inside multiple VPCs. Users must authenticate with their existing Microsoft Active Directory credentials, and the design must avoid exposing bastion hosts to the public internet. Which TWO services should the solutions architect use? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Client VPN",
+      "B": "AWS Directory Service integrated with the corporate directory",
+      "C": "AWS Site-to-Site VPN",
+      "D": "Amazon WorkSpaces",
+      "E": "Network Load Balancer with TLS passthrough"
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "AWS Client VPN is the user-based remote-access service for connecting employee laptops to VPC resources without publicly exposed bastions. AWS Directory Service provides the identity integration path for Microsoft Active Directory credentials, whether through a managed directory or integration with an existing one. Site-to-Site VPN is designed for network-to-network connectivity, WorkSpaces is a managed desktop service, and an NLB does not solve user authentication or private remote network access.",
+    "tags": [
+      "AWS Client VPN",
+      "AWS Directory Service",
+      "Control ports, protocols, and network traffic on AWS"
+    ]
+  },
+  {
+    "id": "e8a0e123b6e58bb35c551ea4dd225f4386635a77f142d49c2f1b045871dc0686",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "3.3",
+    "stem": "A solutions architect is selecting AWS managed database services for five new applications. Match each requirement to the MOST appropriate database service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon Keyspaces (for Apache Cassandra)",
+      "B": "Amazon Neptune",
+      "C": "Amazon DocumentDB (with MongoDB compatibility)",
+      "D": "Amazon Aurora",
+      "E": "Amazon DynamoDB"
+    },
+    "subquestions": [
+      {
+        "id": "batch9-q10-s1",
+        "prompt": "An IoT platform already uses Apache Cassandra schemas and CQL queries and wants a serverless managed target with minimal application rewrites.",
+        "correct": "A"
+      },
+      {
+        "id": "batch9-q10-s2",
+        "prompt": "A fraud engine must traverse dense relationships among users, devices, merchants, and IP addresses in milliseconds using graph traversal queries.",
+        "correct": "B"
+      },
+      {
+        "id": "batch9-q10-s3",
+        "prompt": "A content platform stores flexible JSON documents and relies on MongoDB drivers and aggregation pipelines for its application logic.",
+        "correct": "C"
+      },
+      {
+        "id": "batch9-q10-s4",
+        "prompt": "A payment system requires relational ACID transactions, read replicas, and high availability with MySQL or PostgreSQL compatibility for traditional OLTP queries.",
+        "correct": "D"
+      },
+      {
+        "id": "batch9-q10-s5",
+        "prompt": "A global gaming leaderboard needs single-digit millisecond key-value access at massive scale, optional Global Tables, and on-demand capacity without server management.",
+        "correct": "E"
+      }
+    ],
+    "explanation": "Amazon Keyspaces is the managed Cassandra-compatible service. Amazon Neptune is the correct choice for graph workloads and relationship traversals. Amazon DocumentDB provides MongoDB compatibility for document-oriented applications. Amazon Aurora is the managed relational database for high-performance OLTP with engine compatibility. Amazon DynamoDB is the serverless key-value and document service designed for massive scale and consistent low latency.",
+    "tags": [
+      "Amazon Keyspaces",
+      "Amazon Neptune",
+      "Amazon DocumentDB",
+      "Database types and services (for example, relational compared with non-relational, Amazon Aurora, Amazon DynamoDB)",
+      "Determining an appropriate database type (for example, Amazon Aurora, Amazon DynamoDB)"
+    ]
+  },
+  {
+    "id": "c511c81a7104ffdcaf2c1e71893e11a21c59f260c61839ed8762d4fb58b3d400",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "1.3",
+    "stem": "A SaaS platform fronts its application with Amazon CloudFront and an Application Load Balancer. The company must terminate TLS at CloudFront for internet clients and also encrypt traffic from CloudFront to the ALB, with automatic certificate renewal and no manual private-key handling. Which TWO actions should the solutions architect take? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Request an ACM public certificate in us-east-1 and attach it to the CloudFront distribution.",
+      "B": "Request an ACM public certificate in the ALB's Region and attach it to the ALB HTTPS listener.",
+      "C": "Export the CloudFront certificate private key from ACM and install the same certificate manually on the ALB.",
+      "D": "Use a self-signed certificate on the ALB because CloudFront does not validate the origin certificate chain when HTTPS is selected.",
+      "E": "Replace the ALB with a Network Load Balancer because ACM certificates cannot be used with ALB listeners."
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "CloudFront requires ACM certificates to be requested or imported in us-east-1, so an ACM public certificate in that Region is the correct choice for internet-facing TLS termination. The ALB needs its own certificate in the ALB's Region so CloudFront can use HTTPS to the origin with a trusted certificate chain. ACM public certificates cannot have their private keys exported, self-signed origin certificates complicate trust and validation, and ALBs fully support ACM-managed TLS listeners.",
+    "tags": [
+      "Encrypting data in transit (for example, AWS Certificate Manager [ACM] using TLS)",
+      "AWS Certificate Manager (ACM)",
+      "Amazon CloudFront",
+      "Application Load Balancer"
+    ]
+  },
+  {
+    "id": "d64b4792894c5bf03237b5e74c8bb668f1496fa72ea23122a6dc6f35fa7b7476",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "2.1",
+    "stem": "A media company is selecting AWS managed services for a video ingestion, processing, and analysis pipeline. Match each requirement to the MOST appropriate service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon Kinesis Video Streams",
+      "B": "Amazon Elastic Transcoder",
+      "C": "Amazon Rekognition Video",
+      "D": "Amazon Rekognition"
+    },
+    "subquestions": [
+      {
+        "id": "batch9-q12-s1",
+        "prompt": "A security platform must ingest live H.264 camera feeds with durable storage, timestamped fragments, and playback access so downstream analytics services can process the streams.",
+        "correct": "A"
+      },
+      {
+        "id": "batch9-q12-s2",
+        "prompt": "A media site needs to convert uploaded MP4 files into multiple bitrate and resolution renditions, plus thumbnails, for playback on phones, tablets, and web browsers.",
+        "correct": "B"
+      },
+      {
+        "id": "batch9-q12-s3",
+        "prompt": "A compliance team wants to detect people, labels, and unsafe activities across stored or streamed video, with time-based metadata for when each object appears.",
+        "correct": "C"
+      },
+      {
+        "id": "batch9-q12-s4",
+        "prompt": "An e-commerce site needs to detect labels and text from still product images uploaded by sellers before publishing them.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Amazon Kinesis Video Streams is the ingestion and storage service for live video streams. Amazon Elastic Transcoder is the managed service for converting stored video files into different playback formats and bitrates. Amazon Rekognition Video analyzes video and returns time-indexed detections. Amazon Rekognition analyzes still images for labels, text, moderation, and other visual features.",
+    "tags": [
+      "Amazon Kinesis Video Streams",
+      "Amazon Elastic Transcoder",
+      "Amazon Rekognition",
+      "Designing event-driven, microservice, and/or multi-tier architectures based on requirements"
+    ]
+  },
+  {
+    "id": "4282a303df760bf7078d82699a88120af20dabf00fe5e6f525dca2c3471a85ce",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "4.2",
+    "stem": "An enterprise is migrating 1,200 VMware virtual machines to AWS with minimal application changes. During the migration, the company must preserve replicated cutover workflows and also track Microsoft and SQL Server license consumption so existing entitlements are not exceeded. Which TWO services BEST address these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Application Migration Service",
+      "B": "AWS Elastic Disaster Recovery",
+      "C": "AWS License Manager",
+      "D": "AWS Outposts",
+      "E": "AWS Systems Manager Fleet Manager"
+    },
+    "correct": [
+      "A",
+      "C"
+    ],
+    "explanation": "AWS Application Migration Service replicates source servers at the block level and supports non-disruptive testing and orchestration for lift-and-shift migrations to AWS. AWS License Manager tracks and enforces license usage for supported software such as Microsoft products. Elastic Disaster Recovery is for recovery posture rather than primary migration planning, Outposts is an on-premises deployment model, and Fleet Manager is an administration tool rather than a migration or license-governance service.",
+    "tags": [
+      "AWS Application Migration Service",
+      "AWS License Manager",
+      "Selecting the appropriate service for data migration to storage services"
+    ]
+  },
+  {
+    "id": "dd37fecd9ccd6cd7f8c02df454281a27590d3297186fddf3cca681c592f0ed30",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "2.1",
+    "stem": "A platform team wants developers to self-service deploy approved serverless applications across multiple accounts. The solution must support versioned Lambda-based application packages and also enforce that only centrally curated products with approved parameters are provisioned in production. Which TWO AWS services should be combined? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Serverless Application Repository",
+      "B": "AWS Service Catalog",
+      "C": "AWS Amplify",
+      "D": "AWS Elastic Beanstalk",
+      "E": "AWS Management Console"
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "AWS Serverless Application Repository provides the packaging and versioning layer for reusable serverless applications. AWS Service Catalog provides the governance layer that restricts production provisioning to curated products, versions, and parameters. Amplify and Elastic Beanstalk solve different application-delivery problems, and the AWS Management Console is only an interface, not a governance or packaging service.",
+    "tags": [
+      "AWS Serverless Application Repository",
+      "AWS Service Catalog",
+      "AWS Management Console",
+      "Designing a security strategy for multiple AWS accounts (for example, AWS Control Tower, service control policies [SCPs])"
+    ]
+  },
+  {
+    "id": "d19fe8e470b3915438832f0e84ed62735d1b5996abc5d2f4f47fe681cbca1629",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "3.4",
+    "stem": "A solutions architect is selecting the correct AWS load balancing technology for each scenario. Match each scenario to the MOST appropriate load balancer type. Each type is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Application Load Balancer (ALB)",
+      "B": "Network Load Balancer (NLB)",
+      "C": "Gateway Load Balancer (GWLB)"
+    },
+    "subquestions": [
+      {
+        "id": "batch9-q15-s1",
+        "prompt": "A microservices platform needs host- and path-based routing for HTTP/2 and gRPC requests, AWS WAF integration, and OIDC authentication at the load balancer.",
+        "correct": "A"
+      },
+      {
+        "id": "batch9-q15-s2",
+        "prompt": "A market data service handles millions of long-lived TCP and UDP connections, requires static IP addresses per Availability Zone for allowlists, and must preserve the client source IP.",
+        "correct": "B"
+      },
+      {
+        "id": "batch9-q15-s3",
+        "prompt": "A security architecture must transparently steer ingress and egress traffic through third-party firewall appliances without changing application endpoints or requiring proxy configuration.",
+        "correct": "C"
+      }
+    ],
+    "explanation": "ALB is the Layer 7 choice for HTTP features such as host and path routing, gRPC, WAF integration, and authentication. NLB is the Layer 4 choice for ultra-high scale TCP or UDP traffic, static IPs, and source IP preservation. GWLB is purpose-built to insert fleets of third-party network appliances transparently into traffic paths.",
+    "tags": [
+      "Load balancing concepts (for example, Application Load Balancer [ALB])",
+      "Selecting the appropriate load balancing strategy",
+      "Elastic Load Balancing (ELB)"
+    ]
+  },
+  {
+    "id": "40e879290523af0c66517bc3dea4721e0c6a4113e3f4cf4c276c5d5b9328ea08",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "3.1",
+    "stem": "A solutions architect must recommend the most appropriate Amazon EBS volume type for each workload. Match each workload to the BEST-FIT volume type. Each type is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "gp3 (General Purpose SSD)",
+      "B": "io2 Block Express",
+      "C": "st1 (Throughput Optimized HDD)",
+      "D": "sc1 (Cold HDD)"
+    },
+    "subquestions": [
+      {
+        "id": "batch9-q16-s1",
+        "prompt": "A high-end OLTP database requires predictable sub-millisecond latency, 99.999% durability, and tens of thousands of provisioned IOPS independent of volume size.",
+        "correct": "B"
+      },
+      {
+        "id": "batch9-q16-s2",
+        "prompt": "A fleet of application servers needs cost-efficient SSD boot and data volumes with separately configurable baseline IOPS and throughput, without gp2-style performance coupling to size.",
+        "correct": "A"
+      },
+      {
+        "id": "batch9-q16-s3",
+        "prompt": "A log-processing cluster reads large sequential datasets for ETL jobs and values low cost per throughput more than high random IOPS.",
+        "correct": "C"
+      },
+      {
+        "id": "batch9-q16-s4",
+        "prompt": "A rarely accessed compliance archive kept on block storage prioritizes the lowest per-GB monthly cost and can tolerate reduced throughput and infrequent sequential reads.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "io2 Block Express is the premium EBS option for mission-critical databases that need very high IOPS and low latency. gp3 is the cost-efficient SSD option when IOPS and throughput must be configured independently of size. st1 is optimized for high-throughput sequential workloads such as log processing and ETL. sc1 is the lowest-cost EBS option for infrequently accessed sequential data.",
+    "tags": [
+      "Block storage options (for example, hard disk drive [HDD] volume types, solid state drive [SSD] volume types)",
+      "Amazon EBS",
+      "Storage types with associated characteristics (for example, object, file, block)"
+    ]
+  },
+  {
+    "id": "95217109c0993a5cdd4b25f1d2d93873cdb2afbc302abbfff8ebaf643ab272ec",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "4.1",
+    "stem": "A storage architect is selecting the right transfer or object-management approach for four S3-centric scenarios. Match each scenario to the MOST appropriate strategy or service. Each answer is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Multipart Upload",
+      "B": "S3 Transfer Acceleration",
+      "C": "S3 Batch Operations",
+      "D": "AWS DataSync"
+    },
+    "subquestions": [
+      {
+        "id": "batch9-q17-s1",
+        "prompt": "A genomics lab uploads 300 GB result files over unreliable WAN links and wants failed retries to resend only smaller chunks in parallel instead of restarting the entire upload.",
+        "correct": "A"
+      },
+      {
+        "id": "batch9-q17-s2",
+        "prompt": "Global branch offices frequently upload large objects to a single S3 bucket over the public internet and need the shortest transfer path into AWS using the edge network.",
+        "correct": "B"
+      },
+      {
+        "id": "batch9-q17-s3",
+        "prompt": "An operations team must add a new object tag and invoke a Lambda function across billions of existing S3 objects without writing a custom crawler.",
+        "correct": "C"
+      },
+      {
+        "id": "batch9-q17-s4",
+        "prompt": "A data center must copy changing NFS and SMB shares to Amazon S3 on a schedule with incremental transfers, integrity checks, and configurable bandwidth limits.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Multipart Upload is the right approach for very large object uploads over imperfect networks because parts can be uploaded and retried independently. S3 Transfer Acceleration uses the AWS edge network to improve long-distance internet uploads. S3 Batch Operations applies large-scale actions across existing objects without custom inventory walkers. AWS DataSync is the managed service for scheduled, incremental, integrity-checked movement of file data into AWS storage services.",
+    "tags": [
+      "Designing appropriate storage strategies (for example, batch uploads to Amazon S3 compared with individual uploads)",
+      "Selecting the appropriate service for data migration to storage services",
+      "AWS DataSync",
+      "Amazon S3"
+    ]
+  },
+  {
+    "id": "b7256339c88c7118e0441d3abab2f391affa8df357ce326330fd7174554bf9d6",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "4.4",
+    "stem": "A research company needs at least 2.5 Gbps of encrypted connectivity from its on-premises network to AWS within days, not months. Using the public internet is acceptable temporarily, but a single VPN tunnel is not sufficient. The company also wants automatic path load sharing across tunnels. Which TWO design choices BEST meet these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Terminate the VPNs on an AWS Transit Gateway and enable Equal-Cost Multi-Path (ECMP) routing.",
+      "B": "Use a Virtual Private Gateway because it automatically load-balances all tunnels from all customer gateways equally.",
+      "C": "Establish multiple AWS Site-to-Site VPN connections from separate customer gateway devices or appliances.",
+      "D": "Use a single AWS Client VPN endpoint because client sessions can aggregate throughput for data center traffic.",
+      "E": "Order a 1 Gbps hosted AWS Direct Connect connection as the only path and expect it to be provisioned immediately."
+    },
+    "correct": [
+      "A",
+      "C"
+    ],
+    "explanation": "When internet-based connectivity must exceed the practical throughput of a single tunnel, the AWS pattern is to use multiple Site-to-Site VPN connections from separate customer gateways and terminate them on a Transit Gateway. Transit Gateway supports ECMP so traffic can be load-shared across equal-cost BGP paths. Client VPN is for individual remote users, a single hosted Direct Connect does not meet the immediate timeline or bandwidth target by itself, and Virtual Private Gateway is not the preferred design for ECMP-based aggregation across multiple connections in this scenario.",
+    "tags": [
+      "Selecting the appropriate bandwidth allocation for a network device (for example, a single VPN compared with multiple VPNs, Direct Connect speed)",
+      "AWS Site-to-Site VPN",
+      "AWS Transit Gateway",
+      "AWS Direct Connect"
+    ]
+  },
+  {
+    "id": "3a24b4a7d598450576fbc746822c6be7834107e5ccfb5f9993f2e898e2fa5049",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "1.1",
+    "stem": "A cloud operations team is deciding which AWS interface or resource-sharing mechanism best fits each operational requirement. Match each requirement to the MOST appropriate choice. Each answer is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Resource Access Manager (AWS RAM)",
+      "B": "AWS Management Console",
+      "C": "AWS CLI",
+      "D": "AWS CloudFormation"
+    },
+    "subquestions": [
+      {
+        "id": "batch9-q19-s1",
+        "prompt": "A network team must centrally own a Transit Gateway and share it with dozens of application accounts without duplicating the resource or transferring ownership.",
+        "correct": "A"
+      },
+      {
+        "id": "batch9-q19-s2",
+        "prompt": "An incident commander needs immediate interactive access to inspect and manually change a misconfigured Route 53 health check and an ALB listener rule in a single account, with visual context and no automation artifact.",
+        "correct": "B"
+      },
+      {
+        "id": "batch9-q19-s3",
+        "prompt": "A release pipeline running in CodeBuild must invoke repeatable, scriptable AWS operations such as invalidating CloudFront caches and updating parameter values.",
+        "correct": "C"
+      },
+      {
+        "id": "batch9-q19-s4",
+        "prompt": "An infrastructure team needs idempotent, reviewable, declarative provisioning of VPCs, IAM roles, and RDS clusters through change sets instead of imperative scripts.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "AWS RAM is the service for sharing supported resources such as Transit Gateways across accounts. The AWS Management Console is the right interface for ad hoc interactive inspection and one-off manual changes. The AWS CLI is appropriate when scripted, repeatable command execution is required. AWS CloudFormation is the declarative infrastructure-as-code service for versioned, reviewable, idempotent provisioning.",
+    "tags": [
+      "AWS Resource Access Manager (AWS RAM)",
+      "AWS Management Console",
+      "AWS CloudFormation",
+      "Access controls and management across multiple accounts"
+    ]
+  },
+  {
+    "id": "6baf364623e7909f7d44ce4718c7f0a4da6df58eb6333f5140ad633ee4d81358",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "2.1",
+    "stem": "A bank is modernizing an order system built around JMS queues and topics on on-premises ActiveMQ brokers. The application code cannot be rewritten this quarter, but the company wants a managed highly available broker on AWS and a design that continues to decouple the web tier from worker throughput spikes. Which TWO design choices BEST satisfy these constraints? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use Amazon MQ for ActiveMQ with a managed highly available broker deployment so existing JMS clients can reconnect with minimal code changes.",
+      "B": "Replace the broker with Amazon SQS FIFO queues and rewrite all JMS producers and consumers to the native SQS APIs immediately.",
+      "C": "Expose the broker behind an Application Load Balancer so messages can be distributed to consumers based on URL path rules.",
+      "D": "Keep the asynchronous message-broker pattern between the web tier and worker tier so the producer rate can be buffered independently of consumer processing speed.",
+      "E": "Replace the messaging layer with AWS AppSync subscriptions because they are a drop-in replacement for JMS durable topics."
+    },
+    "correct": [
+      "A",
+      "D"
+    ],
+    "explanation": "Amazon MQ for ActiveMQ is the managed AWS service designed for organizations that need to preserve JMS-compatible broker semantics with minimal code changes. Retaining an asynchronous broker between producers and consumers is the architectural step that protects the web tier from worker backlogs and lets each tier scale independently. SQS could be a future redesign target, but it is not a minimal-change drop-in for existing JMS code. ALB and AppSync subscriptions do not replace broker semantics for this scenario.",
+    "tags": [
+      "Amazon MQ",
+      "Queuing and messaging concepts (for example, publish/subscribe)",
+      "Multi-tier architectures"
+    ]
+  },
+  {
+    "id": "c3d94fbc139cf549e5c1ab935ec71c3e4018eff9ba809937bfac173dedb84b32",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "2.1",
+    "stem": "A data platform team has two separate requirements: acquire a licensed third-party demographics dataset with automatic refreshes into AWS, and move incremental Salesforce lead changes into Amazon S3 every hour without maintaining custom code. Which TWO services BEST satisfy these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Data Exchange",
+      "B": "Amazon AppFlow",
+      "C": "Amazon MQ",
+      "D": "AWS Glue jobs written in Scala and maintained by the team",
+      "E": "AWS AppSync"
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "AWS Data Exchange is the service for subscribing to third-party data products with managed entitlements and dataset revisions. Amazon AppFlow is the fully managed SaaS integration service for moving Salesforce data to S3 on a schedule without custom code. Amazon MQ is a managed message broker, Glue would add operational overhead that the requirement explicitly wants to avoid, and AppSync is a GraphQL API service rather than a SaaS-to-S3 data movement tool.",
+    "tags": [
+      "AWS Data Exchange",
+      "Amazon AppFlow",
+      "Data transfer services with appropriate use cases (for example, AWS DataSync, AWS Storage Gateway)"
+    ]
+  },
+  {
+    "id": "219a14f0130ff7b907922cc0a6f0c80061173406aa102e3656c65d4747955786",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "2.1",
+    "stem": "A product team is building mobile and web clients that require a managed GraphQL API with offline sync and conflict resolution. The frontend itself should be hosted with Git-based CI/CD, preview deployments, and a low-ops path to connect to backend services. Which TWO services should the team use? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS AppSync",
+      "B": "AWS Amplify",
+      "C": "Amazon API Gateway with custom polling logic",
+      "D": "Amazon AppFlow",
+      "E": "AWS Elastic Beanstalk"
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "AWS AppSync is the managed GraphQL service that supports offline sync and conflict resolution patterns for distributed clients. AWS Amplify provides frontend hosting, branch previews, CI/CD, and client integration libraries. API Gateway with custom polling would require more custom logic, AppFlow is for SaaS data integration, and Elastic Beanstalk is an application platform rather than a frontend delivery and GraphQL client workflow.",
+    "tags": [
+      "AWS AppSync",
+      "AWS Amplify",
+      "Designing event-driven, microservice, and/or multi-tier architectures based on requirements"
+    ]
+  },
+  {
+    "id": "324816d2dd62e94ec8470a38c276f2283a5162db4e06678370b266805ad7e9ed",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "3.2",
+    "stem": "A solutions architect is matching workloads to the most appropriate AWS deployment or migration service. Match each requirement to the BEST-FIT service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Outposts",
+      "B": "VMware Cloud on AWS",
+      "C": "AWS Wavelength",
+      "D": "AWS Application Migration Service"
+    },
+    "subquestions": [
+      {
+        "id": "batch10-q3-s1",
+        "prompt": "A regulated manufacturing line must keep compute and storage inside the factory while still using AWS APIs and AWS-managed hardware on premises.",
+        "correct": "A"
+      },
+      {
+        "id": "batch10-q3-s2",
+        "prompt": "An enterprise wants the fastest way to move its vSphere estate into AWS while retaining VMware operational tooling and avoiding guest-level refactoring.",
+        "correct": "B"
+      },
+      {
+        "id": "batch10-q3-s3",
+        "prompt": "A 5G mobile application needs compute placed in the carrier network to minimize latency for users moving across a metropolitan area.",
+        "correct": "C"
+      },
+      {
+        "id": "batch10-q3-s4",
+        "prompt": "A company must replicate large numbers of physical and virtual servers at the block level into AWS and perform non-disruptive test cutovers before moving production traffic to EC2.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "AWS Outposts is the on-premises AWS deployment model for workloads that must remain local but still use AWS APIs. VMware Cloud on AWS is the VMware-native landing zone in AWS for rapid vSphere extension and migration. AWS Wavelength places compute at the telecom edge for ultra-low-latency mobile workloads. AWS Application Migration Service is the lift-and-shift migration service for physical and virtual servers moving into EC2 with minimal change.",
+    "tags": [
+      "AWS Outposts",
+      "VMware Cloud on AWS",
+      "AWS Wavelength",
+      "AWS Application Migration Service",
+      "Determining the appropriate placement of resources to meet business requirements"
+    ]
+  },
+  {
+    "id": "00d557e4da4d179e7a64fc713f7abaa5eb23b78862bd6443e5c80a54bb8cd3a4",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "3.2",
+    "stem": "A platform engineering team is choosing the right service for running or packaging workloads across customer-managed environments. Match each requirement to the MOST appropriate AWS service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon ECS Anywhere",
+      "B": "Amazon EKS Anywhere",
+      "C": "Amazon EKS Distro",
+      "D": "AWS Serverless Application Repository"
+    },
+    "subquestions": [
+      {
+        "id": "batch10-q4-s1",
+        "prompt": "The operations team wants existing Linux hosts in branch offices to register as external instances and run centrally scheduled ECS tasks.",
+        "correct": "A"
+      },
+      {
+        "id": "batch10-q4-s2",
+        "prompt": "A retailer wants a supported Kubernetes experience on its own hardware, including installation and lifecycle management aligned to Amazon EKS tooling.",
+        "correct": "B"
+      },
+      {
+        "id": "batch10-q4-s3",
+        "prompt": "A defense contractor needs the same Kubernetes distribution and add-ons used by EKS so it can operate fully self-managed clusters in isolated environments.",
+        "correct": "C"
+      },
+      {
+        "id": "batch10-q4-s4",
+        "prompt": "A central cloud team wants to publish versioned, prepackaged serverless applications that other teams can discover and deploy directly as reusable building blocks.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Amazon ECS Anywhere extends the ECS control plane to customer-managed external instances. Amazon EKS Anywhere provides the supported cluster deployment and lifecycle experience for running Kubernetes on customer infrastructure. Amazon EKS Distro is the self-managed distribution of the Kubernetes components and add-ons used by EKS. AWS Serverless Application Repository is the reusable packaging and publishing layer for serverless applications.",
+    "tags": [
+      "Amazon ECS Anywhere",
+      "Amazon EKS Anywhere",
+      "Amazon EKS Distro",
+      "AWS Serverless Application Repository",
+      "Determining when to use containers"
+    ]
+  },
+  {
+    "id": "ae29e7a83aba8b48fd9029ee15d7e239317233bf89c1cf9c2e8fdfe46d0c3cee",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "2.1",
+    "stem": "An insurer records all contact-center conversations. The business wants accurate transcripts with speaker attribution and then wants sentiment and entity analysis on those transcripts, all with minimal custom ML development. Which TWO services BEST meet these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon Transcribe",
+      "B": "Amazon Comprehend",
+      "C": "Amazon Kendra",
+      "D": "Amazon Polly",
+      "E": "Amazon Rekognition"
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "Amazon Transcribe converts audio to text and supports features such as speaker separation and custom vocabulary. Amazon Comprehend performs NLP analysis such as sentiment and entity extraction on the resulting text. Kendra is an enterprise search service, Polly is text-to-speech, and Rekognition is for visual analysis rather than speech analytics.",
+    "tags": [
+      "Amazon Transcribe",
+      "Amazon Comprehend",
+      "Using purpose-built AWS services for workloads"
+    ]
+  },
+  {
+    "id": "dbba04d94b55ca777c97989b0019583476ab642a5ca5fb5f4af359c8fa86576a",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "2.1",
+    "stem": "A warehouse operator wants a voice-enabled internal help kiosk. Employees should ask natural-language questions over a large document corpus and hear the returned answer spoken aloud. Which TWO AWS services BEST fit this design? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon Kendra",
+      "B": "Amazon Polly",
+      "C": "Amazon Comprehend",
+      "D": "Amazon AppSync",
+      "E": "Amazon MQ"
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "Amazon Kendra is the managed enterprise search service for natural-language questions over document repositories with ranked results and answer passages. Amazon Polly is the text-to-speech service that can vocalize the returned answer. Comprehend analyzes text rather than serving as a search engine or speech synthesizer, and AppSync and Amazon MQ are unrelated to this requirement.",
+    "tags": [
+      "Amazon Kendra",
+      "Amazon Polly",
+      "Using purpose-built AWS services for workloads"
+    ]
+  },
+  {
+    "id": "90b2c959c187c34007dde94aa538ed608fe7fe3f965936cd640ae9640be54c88",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "2.1",
+    "stem": "A retailer wants near-real-time analytics on live camera feeds from stores. The architecture must ingest the video streams durably and run managed object and person detection on those feeds with as little custom media infrastructure as possible. Which TWO services BEST meet these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon Kinesis Video Streams",
+      "B": "Amazon Rekognition",
+      "C": "Amazon Elastic Transcoder",
+      "D": "Amazon AppFlow",
+      "E": "Amazon Transcribe"
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "Amazon Kinesis Video Streams is the ingestion and storage service for live video streams. Amazon Rekognition provides managed image and video analysis capabilities, including object and person detection. Elastic Transcoder is for converting stored video files, AppFlow is for SaaS integration, and Transcribe is for speech-to-text rather than computer vision.",
+    "tags": [
+      "Amazon Kinesis Video Streams",
+      "Amazon Rekognition",
+      "Using purpose-built AWS services for workloads"
+    ]
+  },
+  {
+    "id": "b592bdea6fed898db6a184412732aa2ee7e57a46f44574402c095ff3d7c42d7b",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "1.1",
+    "stem": "A cloud governance office is choosing the right AWS service for each governance, audit, or review activity. Match each requirement to the MOST appropriate service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Control Tower",
+      "B": "AWS Service Catalog",
+      "C": "AWS Audit Manager",
+      "D": "AWS Health Dashboard",
+      "E": "AWS Well-Architected Tool"
+    },
+    "subquestions": [
+      {
+        "id": "batch10-q8-s1",
+        "prompt": "An enterprise is onboarding acquired business units and needs a landing zone with centralized guardrails and account setup baselines.",
+        "correct": "A"
+      },
+      {
+        "id": "batch10-q8-s2",
+        "prompt": "Application teams must self-service provision only approved platform products such as standard VPC stacks and container platforms, using versions and parameters controlled by the central team.",
+        "correct": "B"
+      },
+      {
+        "id": "batch10-q8-s3",
+        "prompt": "Auditors want continuously collected evidence that maps operational data to compliance controls without manual screenshot gathering.",
+        "correct": "C"
+      },
+      {
+        "id": "batch10-q8-s4",
+        "prompt": "Operations needs to know whether a current AWS service event is affecting specific resources that belong to the company's accounts.",
+        "correct": "D"
+      },
+      {
+        "id": "batch10-q8-s5",
+        "prompt": "A solutions architect wants to run a structured review of a workload against AWS best-practice pillars and track remediation milestones afterward.",
+        "correct": "E"
+      }
+    ],
+    "explanation": "AWS Control Tower establishes a governed landing zone for multi-account environments. AWS Service Catalog is the curated self-service layer for approved products. AWS Audit Manager automates evidence collection for compliance assessments. AWS Health Dashboard provides account-specific health events. The AWS Well-Architected Tool supports formal workload reviews against AWS architectural best practices.",
+    "tags": [
+      "AWS Control Tower",
+      "AWS Service Catalog",
+      "AWS Audit Manager",
+      "AWS Health Dashboard",
+      "AWS Well-Architected Tool"
+    ]
+  },
+  {
+    "id": "1f87873c33b213c686186cf1646a4aaf70b7c96e4e824b110b8ea9070c2f0c61",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "1.3",
+    "stem": "A central security team must continuously scan EC2 instances, ECR images, and Lambda packages for vulnerabilities and then review all prioritized findings from multiple AWS security services in one place across accounts. Which TWO services BEST satisfy these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon Inspector",
+      "B": "AWS Security Hub",
+      "C": "Amazon Detective",
+      "D": "AWS Audit Manager",
+      "E": "AWS Systems Manager Patch Manager"
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "Amazon Inspector performs the continuous vulnerability assessments for supported compute and container artifacts. AWS Security Hub aggregates and normalizes findings across AWS security services and accounts. Detective is an investigation tool rather than the scanning or aggregation layer, Audit Manager is for compliance evidence, and Patch Manager handles patch orchestration rather than multi-service finding aggregation.",
+    "tags": [
+      "Amazon Inspector",
+      "AWS Security Hub",
+      "Aligning AWS technologies to meet compliance requirements"
+    ]
+  },
+  {
+    "id": "17ebcd6676ee540964cad8ab3c69bcf40802ca184e5d966e373178b2a9bfd4c9",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "1.3",
+    "stem": "An analyst receives high-severity GuardDuty and Inspector findings from several accounts. The team needs one place to triage the findings and then a graph-based tool to pivot through related IPs, roles, API activity, and resources during investigation. Which TWO services should the architect use? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Security Hub",
+      "B": "Amazon Detective",
+      "C": "AWS CloudHSM",
+      "D": "AWS Health Dashboard",
+      "E": "AWS Control Tower"
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "AWS Security Hub is the central triage layer for normalized findings from services such as GuardDuty and Inspector. Amazon Detective is the investigation service that builds relationship graphs across principals, API calls, IPs, and resources. CloudHSM, Health Dashboard, and Control Tower do not provide this paired triage-and-investigation capability.",
+    "tags": [
+      "AWS Security Hub",
+      "Amazon Detective",
+      "Workload visibility (for example, AWS X-Ray)"
+    ]
+  },
+  {
+    "id": "8f61254f9547769e54731f767288716b66a37d7453c8a59df32282cf96e4bf87",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "4.2",
+    "stem": "A platform team is selecting the correct AWS service for four cost, licensing, and observability requirements. Match each requirement to the MOST appropriate service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Cost and Usage Report",
+      "B": "Amazon Managed Grafana",
+      "C": "Amazon Managed Service for Prometheus",
+      "D": "AWS License Manager"
+    },
+    "subquestions": [
+      {
+        "id": "batch10-q11-s1",
+        "prompt": "A FinOps team needs line-item AWS billing data, usage records, and amortized commitment information exported to S3 for Athena-based showback reporting.",
+        "correct": "A"
+      },
+      {
+        "id": "batch10-q11-s2",
+        "prompt": "Platform engineers need a managed dashboarding layer that can visualize CloudWatch, Prometheus, and X-Ray data sources without operating their own Grafana servers.",
+        "correct": "B"
+      },
+      {
+        "id": "batch10-q11-s3",
+        "prompt": "An EKS estate needs a managed PromQL-compatible backend for metrics scraped from Kubernetes workloads and queried by multiple teams.",
+        "correct": "C"
+      },
+      {
+        "id": "batch10-q11-s4",
+        "prompt": "A company must track software entitlements across EC2 and on-premises hosts to ensure it does not exceed purchased core-based licenses.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "AWS Cost and Usage Report is the detailed billing export for advanced cost analysis. Amazon Managed Grafana is the managed visualization layer for multiple observability data sources. Amazon Managed Service for Prometheus is the managed metrics store and query engine for PromQL workloads. AWS License Manager tracks and governs software entitlements across hybrid estates.",
+    "tags": [
+      "AWS Cost and Usage Report",
+      "Amazon Managed Grafana",
+      "Amazon Managed Service for Prometheus",
+      "AWS License Manager"
+    ]
+  },
+  {
+    "id": "5877bd0478e9dab70b5a53e4689292bbb0a92f95d31277aed8ee643d08008c1b",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "1.1",
+    "stem": "A central networking account owns a shared services VPC. Application accounts need to deploy into shared subnets, and remote administrators must reach those private resources from laptops without exposing bastion hosts to the internet. Which TWO AWS services BEST satisfy these needs? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Resource Access Manager (AWS RAM)",
+      "B": "AWS Client VPN",
+      "C": "Amazon AppFlow",
+      "D": "AWS Management Console",
+      "E": "AWS Transfer Family"
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "AWS RAM is the service for sharing supported resources such as VPC subnets across accounts. AWS Client VPN provides secure remote user access from laptops into private VPC resources without publicly reachable bastions. The other options do not solve cross-account resource sharing or user-based remote network access.",
+    "tags": [
+      "AWS Resource Access Manager (AWS RAM)",
+      "AWS Client VPN",
+      "Access controls and management across multiple accounts"
+    ]
+  },
+  {
+    "id": "f2c482490fa5ee98ae51bc54e2f9ae13f5cce570a2ce77de1d56d11225d71f1f",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "3.3",
+    "stem": "A solutions architect is selecting the correct AWS database service for each workload pattern. Match each workload to the MOST appropriate service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon Keyspaces (for Apache Cassandra)",
+      "B": "Amazon Neptune",
+      "C": "Amazon DocumentDB (with MongoDB compatibility)",
+      "D": "Amazon Aurora",
+      "E": "Amazon DynamoDB"
+    },
+    "subquestions": [
+      {
+        "id": "batch10-q13-s1",
+        "prompt": "A telemetry platform uses Cassandra drivers and wide-column schemas and wants a serverless AWS target without changing its CQL-based application logic.",
+        "correct": "A"
+      },
+      {
+        "id": "batch10-q13-s2",
+        "prompt": "A recommendation engine needs fast traversals across product, user, and interaction relationships using graph query patterns rather than joins.",
+        "correct": "B"
+      },
+      {
+        "id": "batch10-q13-s3",
+        "prompt": "A content management system stores evolving JSON documents and depends on MongoDB-compatible drivers and aggregation semantics.",
+        "correct": "C"
+      },
+      {
+        "id": "batch10-q13-s4",
+        "prompt": "A financial reporting application needs a managed relational database with ACID transactions, SQL joins, and read replicas using a familiar MySQL or PostgreSQL engine model.",
+        "correct": "D"
+      },
+      {
+        "id": "batch10-q13-s5",
+        "prompt": "A session store requires single-digit millisecond latency at scale, automatic key expiration, and no server management.",
+        "correct": "E"
+      }
+    ],
+    "explanation": "Amazon Keyspaces is the Cassandra-compatible managed service. Amazon Neptune is the graph database for highly connected traversal-heavy workloads. Amazon DocumentDB provides MongoDB compatibility for document-oriented applications. Amazon Aurora serves relational transactional workloads with SQL features and engine compatibility. Amazon DynamoDB is the serverless key-value and document database for low-latency at scale.",
+    "tags": [
+      "Amazon Keyspaces",
+      "Amazon Neptune",
+      "Amazon DocumentDB",
+      "Database types and services (for example, relational compared with non-relational, Amazon Aurora, Amazon DynamoDB)"
+    ]
+  },
+  {
+    "id": "df1b2c8893edf25bfd81f297748337e41ea55a71ba276f473076c3aefa74bb09",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "3.5",
+    "stem": "A solutions architect is selecting the most appropriate AWS migration or transfer service for each scenario. Match each scenario to the BEST-FIT service. Each service is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Application Migration Service",
+      "B": "AWS DataSync",
+      "C": "AWS Database Migration Service (AWS DMS)",
+      "D": "AWS Snow Family (Snowball Edge)",
+      "E": "AWS Transfer Family"
+    },
+    "subquestions": [
+      {
+        "id": "batch10-q14-s1",
+        "prompt": "A company wants to lift and shift hundreds of physical and virtual application servers into EC2 with block-level replication, test cutovers, and minimal application changes.",
+        "correct": "A"
+      },
+      {
+        "id": "batch10-q14-s2",
+        "prompt": "An analytics team needs a scheduled, incremental, checksum-verified transfer from on-premises NFS shares into Amazon EFS.",
+        "correct": "B"
+      },
+      {
+        "id": "batch10-q14-s3",
+        "prompt": "A production Oracle database must be migrated to Aurora PostgreSQL with ongoing change data capture to minimize cutover downtime.",
+        "correct": "C"
+      },
+      {
+        "id": "batch10-q14-s4",
+        "prompt": "A media archive contains multiple petabytes of NAS data, and the available WAN bandwidth is too low to complete the migration within the required timeline.",
+        "correct": "D"
+      },
+      {
+        "id": "batch10-q14-s5",
+        "prompt": "External partners must continue using SFTP clients to send files into the company's AWS environment without retooling their client software.",
+        "correct": "E"
+      }
+    ],
+    "explanation": "AWS Application Migration Service is for minimal-change server migrations into EC2. AWS DataSync is for scheduled, incremental file transfers into AWS storage. AWS DMS handles database migrations and change data capture. Snowball Edge is the offline transfer mechanism when network transfer is impractical at petabyte scale. AWS Transfer Family provides managed SFTP, FTPS, and FTP endpoints backed by AWS storage services.",
+    "tags": [
+      "AWS Application Migration Service",
+      "Selecting the appropriate service for data migration to storage services",
+      "AWS DataSync",
+      "AWS Transfer Family"
+    ]
+  },
+  {
+    "id": "4eaa73069d359df39dd8b8c6623da39038d1eaa36ca69b9f43b6862728037cec",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "1.3",
+    "stem": "A payment processor operates a custom TLS termination service on EC2 because regulatory requirements mandate that private keys remain inside customer-controlled FIPS 140-2 Level 3 HSMs. The processor still needs a highly available load balancer in front of the fleet, but TLS must terminate on the application instances, not on the load balancer. Which TWO AWS services or features BEST meet these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS CloudHSM",
+      "B": "Network Load Balancer with TCP listeners so TLS can terminate on the instances",
+      "C": "Application Load Balancer with ACM public certificates",
+      "D": "AWS KMS customer managed keys",
+      "E": "Gateway Load Balancer"
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "AWS CloudHSM provides customer-controlled FIPS 140-2 Level 3 HSMs for private key generation and use. A Network Load Balancer operating at Layer 4 can pass TCP connections through so TLS terminates on the instances that use those HSM-backed keys. An ALB would terminate TLS itself, KMS is not a drop-in HSM for custom TLS stacks, and GWLB is for inline network appliances rather than application traffic distribution.",
+    "tags": [
+      "AWS CloudHSM",
+      "Encrypting data in transit (for example, AWS Certificate Manager [ACM] using TLS)",
+      "Load balancing concepts (for example, Application Load Balancer [ALB])"
+    ]
+  },
+  {
+    "id": "0cd19bcae42388860327cd9b7eff4600f39dad1fec4c24d63bf9ee28198c1a34",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "4.1",
+    "stem": "A storage architect is selecting the most appropriate data movement or object management approach for each requirement. Match each requirement to the BEST-FIT strategy or service. Each answer is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Storage Gateway - File Gateway",
+      "B": "Multipart Upload",
+      "C": "S3 Batch Operations",
+      "D": "AWS DataSync"
+    },
+    "subquestions": [
+      {
+        "id": "batch10-q16-s1",
+        "prompt": "Legacy on-premises applications need an NFS or SMB file interface that transparently stores objects in Amazon S3 without changing the application code.",
+        "correct": "A"
+      },
+      {
+        "id": "batch10-q16-s2",
+        "prompt": "A browser-based application regularly uploads 50 GB design assets to Amazon S3 and needs resilient retries that resend only failed chunks.",
+        "correct": "B"
+      },
+      {
+        "id": "batch10-q16-s3",
+        "prompt": "An operations team must apply a new object tag or invoke a Lambda function across a massive existing S3 object set without custom inventory traversal.",
+        "correct": "C"
+      },
+      {
+        "id": "batch10-q16-s4",
+        "prompt": "A company needs scheduled, incremental migration of changing NAS data into Amazon EFS with integrity verification and bandwidth control.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "File Gateway exposes S3-backed file shares to existing applications. Multipart Upload is the right large-object upload pattern when retries should occur at the part level. S3 Batch Operations performs large-scale actions across existing objects. AWS DataSync is the managed service for scheduled incremental file transfer with verification and throttling controls.",
+    "tags": [
+      "Designing appropriate storage strategies (for example, batch uploads to Amazon S3 compared with individual uploads)",
+      "Selecting the appropriate service for data migration to storage services",
+      "AWS Storage Gateway",
+      "AWS DataSync"
+    ]
+  },
+  {
+    "id": "50f089eb72d9a671fd038c2c0f2767e257147ab521e7025660781b5bc4aa91fa",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "3.4",
+    "stem": "A solutions architect must pick the correct Elastic Load Balancing option for three network and application scenarios. Match each scenario to the MOST appropriate load balancer type. Each type is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Application Load Balancer (ALB)",
+      "B": "Network Load Balancer (NLB)",
+      "C": "Gateway Load Balancer (GWLB)"
+    },
+    "subquestions": [
+      {
+        "id": "batch10-q17-s1",
+        "prompt": "A SaaS control plane needs cookie-based stickiness, WebSocket support, and user authentication integrated at the HTTP layer.",
+        "correct": "A"
+      },
+      {
+        "id": "batch10-q17-s2",
+        "prompt": "A private service must expose static IP addresses, preserve client source IP, and handle very high-scale TCP traffic with TLS termination left to the targets.",
+        "correct": "B"
+      },
+      {
+        "id": "batch10-q17-s3",
+        "prompt": "A security team needs to insert a fleet of virtual IDS and firewall appliances inline so traffic is steered through them transparently.",
+        "correct": "C"
+      }
+    ],
+    "explanation": "ALB is the Layer 7 load balancer for HTTP-aware features such as stickiness, WebSockets, and authentication. NLB is the Layer 4 option for very high-scale TCP traffic, static IPs, and source-IP preservation. GWLB is the transparent bump-in-the-wire option for fleets of third-party security appliances.",
+    "tags": [
+      "Load balancing concepts (for example, Application Load Balancer [ALB])",
+      "Selecting the appropriate load balancing strategy",
+      "Elastic Load Balancing (ELB)"
+    ]
+  },
+  {
+    "id": "7cbbddafc836942ff70d4175d89de577b62c3102c5d6eb197462e05cd2f52fd1",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MATCH",
+    "taskStatement": "3.1",
+    "stem": "A solutions architect is choosing the best Amazon EBS volume type for four workloads. Match each workload to the MOST appropriate volume type. Each type is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "gp3 (General Purpose SSD)",
+      "B": "io2 Block Express",
+      "C": "st1 (Throughput Optimized HDD)",
+      "D": "sc1 (Cold HDD)"
+    },
+    "subquestions": [
+      {
+        "id": "batch10-q18-s1",
+        "prompt": "A mission-critical transactional database requires extreme durability and consistently high provisioned IOPS with low latency.",
+        "correct": "B"
+      },
+      {
+        "id": "batch10-q18-s2",
+        "prompt": "Kubernetes worker nodes need cost-effective SSD root and data volumes with configurable IOPS and throughput independent of size.",
+        "correct": "A"
+      },
+      {
+        "id": "batch10-q18-s3",
+        "prompt": "A Hadoop and Spark estate performs mostly large sequential reads and writes, making throughput more important than high random IOPS.",
+        "correct": "C"
+      },
+      {
+        "id": "batch10-q18-s4",
+        "prompt": "An infrequently accessed compliance archive on block storage prioritizes the absolute lowest cost per GiB.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "io2 Block Express is the premium high-performance EBS option for mission-critical databases. gp3 is the flexible SSD tier for general-purpose workloads that need decoupled size and performance. st1 is the throughput-focused HDD option for large sequential workloads. sc1 is the lowest-cost HDD option for cold, infrequently accessed block data.",
+    "tags": [
+      "Block storage options (for example, hard disk drive [HDD] volume types, solid state drive [SSD] volume types)",
+      "Amazon EBS",
+      "Storage options and characteristics (for example, durability, replication)"
+    ]
+  },
+  {
+    "id": "bc42242325e278b3667ea888aed32094858528cde950c959e474f099457176f4",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "4.2",
+    "stem": "A principal architect is launching a quarterly cost-optimization program. The team needs detailed spend and usage evidence that can be queried at a granular level, and it also needs a structured AWS-native review workflow to record risks, best-practice gaps, and improvement plans. Which TWO services BEST meet these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Cost and Usage Report",
+      "B": "AWS Well-Architected Tool",
+      "C": "AWS Health Dashboard",
+      "D": "Amazon Managed Grafana",
+      "E": "AWS License Manager"
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "AWS Cost and Usage Report is the detailed cost and usage dataset needed for granular financial analysis. The AWS Well-Architected Tool provides the structured review process for documenting risks, architectural gaps, and remediation plans over time. Health Dashboard, Managed Grafana, and License Manager solve adjacent operational problems but not this paired cost-evidence and architecture-review requirement.",
+    "tags": [
+      "AWS Cost and Usage Report",
+      "AWS Well-Architected Tool",
+      "Design Cost-Optimized Architectures"
+    ]
+  },
+  {
+    "id": "b9476860865614b5025eb227d3c99a70a7415fd847a5783ff19e19264bf37fe8",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "type": "MAMCQ",
+    "taskStatement": "1.1",
+    "stem": "An operations team must stop an active outage caused by a misconfigured security group and then ensure the corrected rule set is preserved in future environments through versioned, reviewable infrastructure as code. Which TWO AWS interfaces or services BEST support those immediate and long-term needs? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Management Console for the immediate break-glass remediation",
+      "B": "AWS CloudFormation to codify the corrected steady state",
+      "C": "Repeated manual console changes in every environment after each release",
+      "D": "AWS Service Catalog without updating the underlying template",
+      "E": "Long-lived root credentials shared among administrators"
+    },
+    "correct": [
+      "A",
+      "B"
+    ],
+    "explanation": "The AWS Management Console is appropriate for an immediate interactive break-glass fix during an outage. AWS CloudFormation is the correct long-term mechanism to codify and version the corrected infrastructure state so future environments remain consistent. Repeating manual changes is not reliable, Service Catalog does not help unless the underlying infrastructure definition is updated, and shared root credentials violate AWS security best practices.",
+    "tags": [
+      "AWS Management Console",
+      "AWS CloudFormation",
+      "Determining automation strategies to ensure infrastructure integrity"
+    ]
   }
 ]
