@@ -52323,10 +52323,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.2",
     "stem": "An enterprise must establish a private 10 Gbps connection from its on-premises data center to six Amazon VPCs spread across three AWS Regions. The connection must never traverse the public internet, and ALL six VPCs must be reachable over a SINGLE physical AWS port simultaneously. Which TWO services are REQUIRED to satisfy these requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "AWS Direct Connect with a dedicated connection (10 Gbps port speed)",
@@ -52392,10 +52389,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "2.1",
     "stem": "A company is architecting a three-tier e-commerce application. The web tier must absorb sudden traffic spikes without dropping requests. The application tier performs variable-duration order-processing tasks and must scale independently of the web tier. The database tier must survive an Availability Zone failure with automatic failover and no data loss. Which TWO design choices BEST address ALL three requirements? (Select TWO.)",
-    "correct": [
-      "B",
-      "D"
-    ],
+    "correct": ["B", "D"],
     "difficulty": "HARD",
     "answers": {
       "A": "Front the web tier with an Application Load Balancer; configure the application tier to poll ALB access logs stored in S3 to determine current load and scale accordingly",
@@ -52463,10 +52457,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "2.2",
     "stem": "A team is troubleshooting intermittent latency spikes in a distributed application spanning Amazon API Gateway, AWS Lambda, and containerized microservices on Amazon ECS. They need end-to-end request traces, service dependency maps, and the ability to pinpoint which downstream component is responsible for the added latency. Which TWO actions should the solutions architect take to enable this capability? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Enable X-Ray active tracing on the API Gateway stage and set the Lambda function tracing mode to Active so that X-Ray captures traces for every invocation",
@@ -52529,10 +52520,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.3",
     "stem": "A security team must ensure that the AWS KMS customer managed key (CMK) used for data encryption and the TLS certificate on an Application Load Balancer are both rotated automatically with zero service interruption and no manual steps. Which TWO actions achieve this? (Select TWO.)",
-    "correct": [
-      "B",
-      "D"
-    ],
+    "correct": ["B", "D"],
     "difficulty": "HARD",
     "answers": {
       "A": "Export the ACM public certificate and private key, store the key in AWS Secrets Manager with a rotation Lambda, and configure the ALB listener to retrieve the certificate from Secrets Manager on each TLS handshake",
@@ -52592,10 +52580,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "4.1",
     "stem": "A healthcare company stores patient scan files in Amazon S3. Scans are actively accessed for the first 30 days, then accessed occasionally and unpredictably between 31 and 90 days, then rarely after 90 days. After 365 days, files must be retained for 6 additional years for HIPAA compliance and will never be accessed in normal operations \u2014 though retrieval within 12 hours must be possible when required. The company wants to minimise S3 costs. Which TWO lifecycle actions should the architect configure? (Select TWO.)",
-    "correct": [
-      "B",
-      "E"
-    ],
+    "correct": ["B", "E"],
     "difficulty": "HARD",
     "answers": {
       "A": "Transition objects to S3 Glacier Instant Retrieval at 30 days to immediately reduce costs for the unpredictable access window",
@@ -52656,10 +52641,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.1",
     "stem": "A security audit reveals that the AWS root account has no MFA configured and that IAM users in member accounts can perform any API action from the console without MFA. The security team must immediately enforce MFA for both root and IAM user activity with the least operational overhead. Which TWO actions should the solutions architect take FIRST? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Immediately enable a virtual or hardware MFA device on the AWS management account root user and store the recovery codes in a physical secure location",
@@ -52726,10 +52708,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "2.2",
     "stem": "A platform team manages infrastructure across 60 AWS accounts in an AWS Organisation. They must ensure identical VPC configurations (subnets, NACLs, security groups) are deployed in every account and that any out-of-band manual changes to those resources are automatically detected and reverted. Which TWO actions should the solutions architect implement? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Use AWS CloudFormation StackSets with service-managed permissions to deploy and maintain the VPC stack across all Organisation member accounts automatically, including accounts added in future",
@@ -52797,10 +52776,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "3.2",
     "stem": "A manufacturing company runs containerised workloads on-premises for data-residency reasons and also runs workloads on AWS. Some applications use Kubernetes (managed via Amazon EKS in the cloud) and others use Amazon ECS. The team wants a unified AWS-native control plane for BOTH on-premises Kubernetes and on-premises ECS workloads using their existing on-premises servers \u2014 without purchasing additional dedicated hardware from AWS. Which TWO services satisfy this requirement? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Amazon EKS Anywhere \u2014 deploys and manages Kubernetes clusters on the company's existing on-premises infrastructure using the same EKS tooling and control plane APIs",
@@ -52867,10 +52843,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.3",
     "stem": "A security team requires continuous assessment of EC2 instances and Amazon ECR container images for known CVEs and must automatically patch EC2 instances that fall outside the approved patch baseline without manual intervention. Which TWO services should the solutions architect implement to fulfil BOTH requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "D"
-    ],
+    "correct": ["A", "D"],
     "difficulty": "HARD",
     "answers": {
       "A": "Enable Amazon Inspector v2 to continuously scan EC2 instances and ECR container images for software vulnerabilities (CVEs) and unintended network exposure, generating prioritised findings",
@@ -52935,10 +52908,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "4.2",
     "stem": "A company runs two EC2-based workloads. The first is a large-scale ML training job that can tolerate interruptions, checkpoints its progress every 30 minutes to Amazon S3, and runs 8\u201312 hours per job with 20 jobs per month. The second is a real-time inference API that has run 24/7 for two years with stable, predictable compute requirements and cannot tolerate interruptions. Which TWO purchasing options minimise total EC2 cost for BOTH workloads? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Use EC2 Spot Instances for the ML training workload; if interrupted, the checkpoint in S3 limits recomputation to at most 30 minutes",
@@ -53012,10 +52982,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.3",
     "stem": "A financial services company stores sensitive payment card data in Amazon S3. The security team has two requirements: (1) automatically discover and alert on any S3 bucket containing unprotected PII or financial data, and (2) encrypt data using cryptographic keys stored in FIPS 140-2 Level 3 validated hardware where AWS has NO access to the key material. Which TWO services satisfy these requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Amazon Macie \u2014 uses ML to automatically discover, classify, and alert on sensitive data (PII, financial records, credentials) stored in S3 buckets",
@@ -53082,10 +53049,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "4.2",
     "stem": "A FinOps team has two requirements: (1) build custom Amazon Athena queries and Amazon QuickSight dashboards against the most granular AWS billing data available (hourly, resource-level, with usage type and tags), and (2) automatically send an SNS alert when monthly spend for a specific AWS service exceeds a defined dollar threshold. Which TWO services should they configure? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "AWS Cost and Usage Report (CUR) delivered to an S3 bucket in Parquet format, enabling Athena queries with an AWS Glue crawler-generated table for granular resource-level cost analysis",
@@ -53152,10 +53116,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.2",
     "stem": "A company with 35 AWS accounts must enforce consistent AWS WAF web ACL rules across ALL public-facing Application Load Balancers and Amazon CloudFront distributions. New ALBs created in any member account must be automatically protected without requiring the individual account team to take any action. Which TWO services should the solutions architect configure? (Select TWO.)",
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "difficulty": "HARD",
     "answers": {
       "A": "AWS WAF \u2014 create web ACLs containing AWS Managed Rules groups (e.g., AWSManagedRulesCommonRuleSet, AWSManagedRulesSQLiRuleSet) that define the actual filtering rules",
@@ -53213,10 +53174,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "2.1",
     "stem": "A healthcare organization has 600,000 clinical research PDFs and patient notes. Doctors need to ask natural-language questions ('What is the first-line treatment for type 2 diabetes in patients over 65?') and receive precise document excerpts as answers. The compliance team also needs to automatically extract diagnosed conditions, medications, and dosages from unstructured patient notes at scale. Which TWO services should the solutions architect recommend? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Amazon Kendra \u2014 an intelligent enterprise search service that indexes documents and answers natural-language questions by returning precise text excerpts with relevance ranking",
@@ -53287,10 +53245,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "2.2",
     "stem": "A company needs to migrate 300 physical on-premises servers to AWS with minimal downtime, preserving each server's existing OS, applications, and data exactly as-is. The project manager wants the ability to conduct non-disruptive cutover tests before the final migration date, and the team must be able to revert to on-premises if a test reveals issues. Which TWO statements accurately describe how AWS Application Migration Service (AWS MGN) meets these requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "AWS MGN installs a lightweight replication agent on each source server that continuously replicates block-level data to a staging area in AWS \u2014 eliminating the need to convert physical servers to VMs before migration",
@@ -53312,10 +53267,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "2.1",
     "stem": "A digital-publishing platform wants to automatically generate audio versions of English-language articles in 20 languages so users can listen while commuting. The pipeline must convert English text to 19 other languages and then synthesize natural-sounding speech in each language with no managed server infrastructure. Which TWO services form the CORE of this pipeline? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Amazon Polly \u2014 synthesizes natural-sounding speech from text using neural text-to-speech (NTTS) voices in dozens of languages and accents, storing the MP3/OGG output directly in S3",
@@ -53337,10 +53289,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.2",
     "stem": "A company uses a hub-and-spoke network with an AWS Transit Gateway connecting 25 VPCs across multiple accounts. Remote employees need secure private access to resources in any of these VPCs from their laptops without exposing resources to the internet. As new accounts join the organisation, they must inherit connectivity automatically without any re-provisioning. Which TWO services should the architect implement? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "AWS Client VPN \u2014 provides a managed OpenVPN-based SSL/TLS VPN endpoint that employees install on their laptops; attach it to the central VPC's Transit Gateway to route authenticated client traffic into the private network",
@@ -53406,10 +53355,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "3.5",
     "stem": "A retail analytics team has two integration requirements: (1) automatically transfer Salesforce CRM records into Amazon S3 on a daily schedule with field-level mapping and PII masking \u2014 without writing or maintaining custom integration code, and (2) subscribe to licensed third-party consumer-spending datasets from external providers and have them delivered directly into their S3 data lake. Which TWO services address these requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Amazon AppFlow \u2014 a fully managed integration service with no-code flows that connect SaaS sources (Salesforce, ServiceNow, Marketo) to AWS destinations (S3, Redshift) on a schedule, with built-in field mapping and data masking",
@@ -53475,10 +53421,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "2.1",
     "stem": "A data science team has trained a fraud-detection model in Amazon SageMaker AI and must deploy it for real-time scoring of transactions with p99 latency under 50 ms. After deployment, the team must automatically detect when the statistical distribution of incoming feature values deviates significantly from the training baseline \u2014 indicating data quality issues upstream. Which TWO SageMaker capabilities should the architect configure? (Select TWO.)",
-    "correct": [
-      "A",
-      "D"
-    ],
+    "correct": ["A", "D"],
     "difficulty": "HARD",
     "answers": {
       "A": "Deploy the model to a SageMaker Real-Time Inference endpoint with auto-scaling configured on the InvocationsPerInstance metric to handle traffic variability while maintaining p99 latency targets",
@@ -53500,10 +53443,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "2.1",
     "stem": "A startup is building a React Native mobile application with an expected release cadence of weekly App Store updates. The team needs: (1) a managed backend providing authentication (Cognito), a GraphQL API (AppSync), and file storage (S3) provisioned from a single CLI command with a CI/CD pipeline, and (2) automated compatibility testing across 200 real physical iOS and Android device models before each release \u2014 without managing device infrastructure. Which TWO AWS services satisfy these requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "AWS Amplify \u2014 provisions and manages a serverless mobile/web backend (Cognito, AppSync, S3, Lambda) through a CLI-driven workflow and deploys a hosted CI/CD pipeline with preview environments for each Git branch",
@@ -53525,10 +53465,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "3.5",
     "stem": "A sports streaming company has two requirements: (1) ingest live video streams from 5,000 stadium cameras to AWS in real time for ML-based player tracking and highlight detection with time-indexed storage, and (2) transcode on-demand replay files uploaded to S3 into multiple output resolutions (1080p, 720p, 480p) in MP4 format for delivery via CloudFront \u2014 without managing transcoding servers. Which TWO services directly address these requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Amazon Kinesis Video Streams \u2014 ingests live video streams from cameras using the producer SDK, stores them with time-indexed frames, and provides APIs for real-time and historical frame retrieval by ML models",
@@ -53594,10 +53531,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "2.2",
     "stem": "A global SaaS application has primary deployments in us-east-1 and eu-west-1. The requirements are: (1) users must be routed to the nearest Region for lowest latency during normal operation, (2) if one Region's ALB becomes unhealthy, ALL traffic must automatically fail over to the healthy Region within two DNS TTL cycles, and (3) the architecture must detect health proactively so Route 53 stops returning the unhealthy endpoint before clients receive errors. Which TWO Route 53 configurations achieve ALL three requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "difficulty": "HARD",
     "answers": {
       "A": "Configure Amazon Route 53 Latency routing records for both Regional ALBs \u2014 Route 53 evaluates network latency from AWS edge locations to each Region and returns the record with the lowest measured latency for each client",
@@ -53662,10 +53596,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "4.1",
     "stem": "A company must implement a centralised backup strategy across EC2 (EBS volumes), RDS, Amazon EFS, and DynamoDB spanning 25 AWS accounts. Requirements are: (1) a single backup policy (daily/7-day retention, weekly/1-year retention) enforced automatically across all accounts and resource types, and (2) recovery points must be immutable \u2014 even account administrators and root users must not be able to delete backups before the minimum retention period. Which TWO actions fulfill both requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Enable AWS Backup with an AWS Organizations integration; create a backup plan with daily and weekly rules, tag-based resource assignment, and cross-account backup to a central vault \u2014 the plan is automatically enforced in all member accounts",
@@ -53688,10 +53619,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "2.1",
     "stem": "A company exposes a processing API via Amazon API Gateway to 500 enterprise customers. Premium customers are contracted for 1,000 requests per second (RPS); free-tier customers are limited to 10 RPS. The backend Lambda processes each request in 5\u201330 seconds and must not be overwhelmed by traffic bursts \u2014 all in-flight requests must be durably preserved if Lambda concurrency is saturated. Which TWO architectural components address BOTH the per-customer throttling and the backend overflow requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "API Gateway Usage Plans with API Keys \u2014 assign premium customers a usage plan with throttle rate 1,000 RPS and burst 2,000; free-tier customers get 10 RPS; each API Key enforces its plan independently",
@@ -53801,10 +53729,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "4.4",
     "stem": "A company's AWS bill shows $22,000/month in networking costs. Traffic analysis reveals two problems: (1) all three Availability Zones route internet-bound and S3-bound traffic through a SINGLE NAT Gateway in us-east-1a, generating $0.01/GB cross-AZ charges for traffic originating in us-east-1b and us-east-1c, and (2) EC2 instances in private subnets send millions of S3 API calls through the NAT Gateway, incurring $0.045/GB NAT data processing charges. Which TWO changes eliminate the MOST cost? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Deploy a dedicated NAT Gateway in EACH Availability Zone so that EC2 instances route internet traffic through their local AZ NAT Gateway, eliminating cross-AZ data transfer charges",
@@ -53863,10 +53788,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "3.4",
     "stem": "A global fintech application serves two traffic types from AWS: (1) static assets (JavaScript, CSS, images) that should be edge-cached globally for lowest latency, and (2) real-time transaction API calls that are unique per request (cannot be cached) but require consistent, low-jitter network performance and must not traverse unreliable public internet paths between clients and the ALB. Which TWO services address these two distinct requirements? (Select TWO.)",
-    "correct": [
-      "B",
-      "C"
-    ],
+    "correct": ["B", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Amazon CloudFront with a cache behavior TTL of 0 for all transaction API paths \u2014 CloudFront passes all API requests through to the origin ALB while caching static assets under a separate cache behavior with long TTL",
@@ -53890,10 +53812,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.2",
     "stem": "A company's private EC2 instances in a VPC without internet access must: (1) access Amazon S3 without any per-GB data processing charges or hourly endpoint charges, and (2) access Amazon Kinesis Data Streams using the private DNS name (kinesis.us-east-1.amazonaws.com) resolving to a private IP inside the VPC. Which TWO VPC endpoint configurations are required? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "S3 Gateway VPC Endpoint \u2014 add the endpoint route to private subnet route tables; S3 traffic routes over the AWS private network with no hourly charge and no data processing charge; the endpoint requires no security group",
@@ -54003,10 +53922,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "3.2",
     "stem": "A solutions architect must select EC2 placement strategies for two workloads: (1) an MPI-based weather simulation requiring the lowest possible network latency and highest bisection bandwidth between 64 EC2 P4d instances in a single Availability Zone \u2014 instances must be physically co-located, and (2) a fault-tolerant Hadoop cluster with 300 nodes where a single hardware rack failure must not take down more than ~10% of the cluster. Which TWO Placement Group strategies should the architect use for these two workloads respectively? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Cluster Placement Group for the HPC simulation \u2014 places all 64 instances on the same high-bandwidth network segment (and often the same physical rack), enabling 10/25/100 Gbps enhanced networking with the lowest inter-node latency",
@@ -54028,10 +53944,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "3.3",
     "stem": "A gaming platform uses Amazon DynamoDB Provisioned capacity for its leaderboard. During tournaments (unpredictable timing), read traffic spikes 200\u00d7 within seconds \u2014 the current provisioned capacity causes ProvisionedThroughputExceeded errors. Traffic analysis shows 95% of reads request the same top-20 leaderboard entries. Between tournaments traffic is very low. Which TWO changes minimise throttling AND reduce DynamoDB read cost? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Switch DynamoDB from Provisioned to On-Demand capacity mode \u2014 the table scales instantly to handle 200\u00d7 traffic spikes without pre-provisioning, eliminating ProvisionedThroughputExceeded errors",
@@ -54054,10 +53967,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "3.5",
     "stem": "A genomics company receives 200 GB compressed dataset files from partner labs in Japan, Germany, and Brazil. Current uploads to an S3 bucket in us-east-1 take 6+ hours and frequently fail mid-transfer due to transient internet outages, requiring full retransmission. The company needs faster and more reliable uploads without changing the S3 bucket Region. Which TWO S3 capabilities should be enabled? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Amazon S3 Multipart Upload \u2014 the SDK splits each 200 GB file into parallel parts; if a part fails only that part retransmits; all parts upload concurrently, maximising available bandwidth",
@@ -54115,10 +54025,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "4.4",
     "stem": "A solutions architect reviews a $20,000/month AWS networking bill and identifies two cost drivers: (1) EC2 instances in private subnets route all S3 traffic through a NAT Gateway, generating $0.045/GB data processing charges on terabytes of daily S3 access, and (2) a public-facing EC2 bastion host in a public subnet incurs EC2 hourly charges and internet data transfer costs for SSH sessions. Which TWO changes eliminate MOST of the excess cost? (Select TWO.)",
-    "correct": [
-      "A",
-      "D"
-    ],
+    "correct": ["A", "D"],
     "difficulty": "HARD",
     "answers": {
       "A": "Create an S3 Gateway VPC Endpoint and add the endpoint route to all private subnet route tables \u2014 S3 traffic bypasses the NAT Gateway entirely, routing over AWS's free internal network with zero data-processing charge",
@@ -54177,10 +54084,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.3",
     "stem": "A healthcare company stores PHI (Protected Health Information) in Amazon S3. The CISO mandates: (1) all objects must be encrypted with keys whose material is generated, stored, and controlled entirely outside AWS \u2014 AWS must never have access to or store the key material, and (2) any PutObject request that does NOT include the customer's key material must be automatically rejected by S3 before the object is written. Which TWO configurations enforce both requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Use S3 Server-Side Encryption with Customer-Provided Keys (SSE-C) \u2014 the application provides the 256-bit AES key in every PUT request header; S3 encrypts the object, discards the key immediately, and never stores it; the same key must be provided on every GET request",
@@ -54204,10 +54108,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "3.1",
     "stem": "A company's primary workloads run on-premises. It needs AWS as a disaster recovery target with two requirements: (1) on-premises servers must access block storage volumes via iSCSI with locally cached hot data, while all primary data is durably stored as EBS snapshots in AWS for recovery, and (2) the company's SFTP-based file exchange with external partners must be migrated to a managed cloud service without requiring any partner-side SFTP client reconfiguration. Which TWO services satisfy BOTH requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "D"
-    ],
+    "correct": ["A", "D"],
     "difficulty": "HARD",
     "answers": {
       "A": "AWS Storage Gateway \u2014 Volume Gateway in Cached mode: presents iSCSI block volumes to on-premises servers with frequently accessed data cached locally; all volume data is stored durably as EBS snapshots in AWS for recovery",
@@ -54231,10 +54132,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "3.5",
     "stem": "A company runs a real-time event streaming platform using self-managed Apache Kafka on EC2. They want to migrate to a managed AWS streaming service that: (1) allows existing Kafka producer and consumer applications to connect with NO code changes, and (2) supports the Kafka Transactions API for exactly-once semantics in their stream-processing consumers. Which TWO statements correctly explain why Amazon MSK satisfies these requirements compared to Amazon Kinesis Data Streams? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Amazon MSK is Apache Kafka \u2014 it runs fully managed Kafka brokers; existing Kafka clients (Java, Python, Go) using the Kafka protocol connect to MSK clusters using the same producer and consumer APIs with no code changes",
@@ -54306,10 +54204,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "3.3",
     "stem": "A serverless application uses hundreds of Lambda functions that open short-lived connections to an Amazon Aurora MySQL database. During peak traffic the database receives thousands of simultaneous connection requests causing Too many connections errors. The team also needs database compute capacity to scale automatically based on actual workload without manual capacity planning. Which TWO services directly address BOTH problems? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Amazon RDS Proxy \u2014 maintains a pool of persistent connections to Aurora and multiplexes thousands of Lambda connection requests through the pool, dramatically reducing the number of simultaneous open database connections",
@@ -54375,10 +54270,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "3.5",
     "stem": "A company is building a data lake on Amazon S3. Requirements are: (1) different analyst teams must see only specific columns of a shared dataset \u2014 the PII team must be blocked from columns containing names and SSNs when querying through Amazon Athena, and (2) new data sources (RDS MySQL databases, S3 prefixes with CSV files) must be automatically discovered, schema-inferred, and registered into a central searchable catalog without writing custom code. Which TWO services address both requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "AWS Lake Formation \u2014 provides fine-grained table, column, row-filter, and cell-level access control on the AWS Glue Data Catalog, enforced transparently for queries from Athena, Redshift Spectrum, and EMR",
@@ -54450,10 +54342,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.2",
     "stem": "A security team requires automated responses to two events within seconds of their occurrence in an AWS account: (1) any security group modification that allows inbound SSH (port 22) from 0.0.0.0/0 must be immediately revoked by calling RevokeSecurityGroupIngress, and (2) any AWS Management Console login by the root user must trigger an immediate SNS notification to the security team. Which TWO components form the correct event-driven remediation architecture?",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "An Amazon EventBridge rule matching CloudTrail EC2 API events (AuthorizeSecurityGroupIngress) with a condition checking for port 22 and 0.0.0.0/0 CIDR \u2014 the rule targets a Lambda function that evaluates and revokes the offending rule",
@@ -54519,10 +54408,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.3",
     "stem": "A financial services company stores trade confirmations in Amazon S3 in us-east-1. Regulations require: (1) an automated copy in a different AWS Region (eu-west-1) that is created within minutes of the original write without manual processes, and (2) ALL copies (source and destination) must be immutable for exactly 7 years \u2014 even the AWS account root user must be unable to delete or overwrite any object during this period. Which TWO configurations achieve both requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Enable S3 Cross-Region Replication (CRR) on the us-east-1 source bucket with a replication rule targeting the eu-west-1 destination bucket \u2014 new objects are replicated automatically within minutes using S3-managed replication",
@@ -54587,10 +54473,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "2.1",
     "stem": "A company must choose between Amazon ECS and Amazon EKS for two workloads. Workload A is a new cloud-native microservices application whose small team has no Kubernetes expertise and wants AWS-native integration with minimal operational complexity. Workload B is an ML team's existing Kubeflow-based MLOps pipeline that relies on Kubernetes Operators, custom resource definitions (CRDs), Helm chart deployments, and GPU scheduling. Which TWO statements correctly guide the platform decision? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Amazon ECS with the Fargate launch type is the lower-overhead choice for Workload A \u2014 it uses AWS-native constructs (task definitions, services, clusters) without a Kubernetes control plane, and integrates natively with ALB, IAM, CloudWatch, and Service Discovery",
@@ -54649,10 +54532,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.2",
     "stem": "A premium video streaming service distributes licensed content through Amazon CloudFront. Two requirements must be enforced at the CDN edge: (1) only authenticated subscribers with a time-limited token may access individual video files \u2014 unauthenticated requests must receive 403 Forbidden, and (2) users in countries where the content is not licensed must be blocked at CloudFront before the request reaches the origin. Which TWO CloudFront features should the architect configure? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "CloudFront Signed URLs \u2014 each video URL is signed with an RSA private key, embedding a policy with an expiration time and (optionally) allowed IP range; CloudFront validates the signature at the edge and returns 403 for invalid or expired requests",
@@ -54717,10 +54597,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "3.5",
     "stem": "An e-commerce company needs two capabilities: (1) a product-catalog search backend supporting full-text queries with fuzzy matching, relevance scoring, and autocomplete suggestions, and (2) real-time operational dashboards showing error-rate trends, p99 latency, and user-activity patterns from application logs shipped from Amazon EC2 instances. Which TWO Amazon OpenSearch Service capabilities directly address these requirements? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "OpenSearch's Lucene-based full-text search engine with custom analyzers, fuzzy matching (Levenshtein edit distance), BM25 relevance scoring, and completion suggester for product-catalog autocomplete",
@@ -54784,10 +54661,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "3.3",
     "stem": "A company stores 10 TB of structured sales data in Amazon RDS MySQL where complex analytical queries take 30+ minutes. An analytics team also has 500 TB of semi-structured historical data in Amazon S3 (Parquet format) that they need to join with the structured data without running ETL jobs. The team runs unpredictable ad-hoc queries with no consistent workload pattern. Which TWO Amazon Redshift capabilities should the architect recommend? (Select TWO.)",
-    "correct": [
-      "B",
-      "C"
-    ],
+    "correct": ["B", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "Amazon Redshift RA3 nodes \u2014 separate storage and compute, automatically archiving cold data to S3 with AQUA acceleration for sub-second query performance on the 10 TB structured dataset",
@@ -54851,10 +54725,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.2",
     "stem": "A large enterprise uses AWS Transit Gateway to connect 200 VPCs across multiple accounts and on-premises networks. The security team requires ALL east-west traffic between VPCs to pass through a centralised intrusion detection and prevention system (IDPS) transparently \u2014 without making changes to individual VPC routing or application configuration. Which TWO services form the correct centralised inspection architecture? (Select TWO.)",
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "difficulty": "HARD",
     "answers": {
       "A": "AWS Transit Gateway with a dedicated inspection VPC attachment and Transit Gateway route tables configured so all inter-VPC traffic is directed to the inspection VPC's appliance subnet before continuing to its destination",
@@ -54912,10 +54783,7 @@
     "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
     "taskStatement": "1.1",
     "stem": "A company grants developers the ability to create IAM roles for their Lambda functions. The security team has two concerns: (1) developers must not be able to create Lambda execution roles with permissions exceeding their own IAM permissions \u2014 preventing privilege escalation through role creation, and (2) team-created roles that grant unintended cross-account access to S3 buckets or other resources must be automatically detected. Which TWO IAM capabilities address both concerns? (Select TWO.)",
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "difficulty": "HARD",
     "answers": {
       "A": "IAM Permission Boundaries attached to developer IAM roles \u2014 the boundary defines the MAXIMUM permissions any role the developer creates can have; even if the developer attaches AdministratorAccess to a Lambda role, effective permissions are the intersection of the attached policies and the boundary",
@@ -54997,10 +54865,7 @@
       "D": "Create cross-region Aurora Read Replicas in each target region using binary log replication.",
       "E": "Enable Aurora Serverless v2 to automatically scale read capacity based on global traffic patterns."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "Aurora Global Database replicates with typical lag under 1 second (physical replication at the storage layer, not binlog) and managed failover completes in under 1 minute, meeting both RPO and RTO requirements. Write forwarding (option C) allows applications connected to secondary clusters in other regions to send writes, which are forwarded to the primary \u2014 enabling true multi-region read/write without application-level routing logic. Option B (Multi-AZ) protects against AZ failure only, not regional failure. Option D (cross-region read replicas via binlog) has much higher replication lag \u2014 typically seconds to minutes \u2014 failing the RPO. Option E (Serverless v2) scales capacity but doesn't address cross-region DR or RPO/RTO.",
     "tags": [
       "Aurora Global Database",
@@ -55077,10 +54942,7 @@
       "D": "Use S3 Batch Operations to trigger processing of uploaded Parquet files across multiple targets.",
       "E": "Enable S3 Event Notifications to a single SQS FIFO queue and use Lambda event source mapping with parallelization factor to fan out to multiple destinations."
     },
-    "correct": [
-      "B",
-      "C"
-    ],
+    "correct": ["B", "C"],
     "explanation": "S3 Event Notifications (option A) cannot target multiple destinations simultaneously \u2014 each notification configuration points to a single target (Lambda, SQS, or SNS). Option B uses EventBridge (which S3 natively integrates with) \u2014 EventBridge supports prefix/suffix filtering via object key patterns, fan-out via multiple rules, and DLQ per target. Option C (SNS fan-out) is a valid classic pattern: S3 notifies SNS, which fans out to Lambda, SQS, HTTP, and Kinesis (via Firehose subscription). Lambda/SQS can be directly subscribed; Kinesis requires a Lambda subscriber. Both B and C correctly satisfy multi-target fan-out. Option D (Batch Operations) processes existing objects, not new uploads. Option E (FIFO SQS) doesn't natively fan out \u2014 consumers compete for messages.",
     "tags": [
       "S3 event notifications",
@@ -55157,10 +55019,7 @@
       "D": "Configure a Lambda@Edge function at the origin request event to deduplicate identical requests before forwarding to the ALB.",
       "E": "Enable CloudFront field-level encryption to reduce the payload size of cache misses sent to the origin."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "Origin Shield adds a centralized caching layer between all 25+ regional edge caches and the origin. Instead of each POP sending cache miss requests directly to the origin, they funnel through Origin Shield \u2014 which serves from its own cache. This dramatically reduces origin load during peak events. Request collapsing (coalescing) is a built-in CloudFront behavior: when multiple requests for the same object arrive simultaneously at an edge location while a cache miss is in flight, CloudFront holds the subsequent requests and serves them all from the single origin response. To maximize coalescing, the cache key must be as narrow as possible \u2014 unnecessary headers/cookies/query strings create spurious cache key variations that prevent collapsing. Option B describes TTL configuration but does not reduce origin requests. Option D (Lambda@Edge deduplication) is complex, adds latency, incurs per-request costs, and is not the correct mechanism. Option E (field-level encryption) is for data protection, not request reduction.",
     "tags": [
       "CloudFront",
@@ -55237,10 +55096,7 @@
       "D": "Increase the Lambda reserved concurrency limit and use Lambda's maximum batch window of 300 seconds to batch messages.",
       "E": "Request a service quota increase for Lambda concurrent executions and configure the SQS event source mapping to use a maximum concurrency setting that matches the quota."
     },
-    "correct": [
-      "A",
-      "E"
-    ],
+    "correct": ["A", "E"],
     "explanation": "Duplicate processing occurs because the visibility timeout (default 30 seconds) expires before the 8\u201312 minute job completes, making the message visible again and triggering another consumer. Setting visibility timeout to 15 minutes (the maximum) ensures the message stays hidden during processing. The concurrent execution cap at 1000 causes a backlog \u2014 when Lambda throttles, the SQS event source mapping retries retrieval, which can cause messages whose visibility timeout expired to be re-delivered. Requesting a quota increase and configuring maximum concurrency on the event source mapping (a newer feature that limits per-source concurrency without affecting other Lambda functions) both address throughput and reduce the backlog-driven redelivery. Option B (long polling) reduces empty responses but does not address duplicate processing. Option C (FIFO) has a 3,000 msg/sec throughput cap and exactly-once requires deduplication IDs \u2014 helpful for exact-once but doesn't fix the timeout issue and limits scale. Option D (batch window) is for aggregating messages, not preventing duplicates.",
     "tags": [
       "SQS",
@@ -55316,10 +55172,7 @@
       "D": "Order a single 100 Gbps Dedicated Connection and configure a minimum links setting of 1 in the LAG to provide automatic failover.",
       "E": "Create a LAG with four 10 Gbps Dedicated Connections, achieving 40 Gbps total capacity with the LAG minimum links set to 2 so the LAG fails if more than two ports fail."
     },
-    "correct": [
-      "B",
-      "C"
-    ],
+    "correct": ["B", "C"],
     "explanation": "A Link Aggregation Group (LAG) bundles multiple Dedicated Connections from the same Direct Connect location into a single managed connection. Two 10 Gbps connections in a LAG provide 20 Gbps aggregate and survive a single port failure if minimum-links is set to 1. Option C uses ECMP across two connections at different locations \u2014 BGP with equal-cost paths aggregates bandwidth and provides location-level redundancy (stronger than port-level). Option A is incorrect: jumbo frames reduce overhead but do not increase the 10 Gbps physical port limit. Option D (single 100 Gbps connection) provides no port redundancy \u2014 it is a single point of failure. Option E achieves 40 Gbps with redundancy but exceeds the 20 Gbps requirement with more connections than necessary.",
     "tags": [
       "Direct Connect",
@@ -55398,10 +55251,7 @@
       "D": "Configure the ALB to use slow start mode with a 240-second duration so new instances receive a gradually increasing share of traffic during their 4-minute initialization.",
       "E": "Set instance scale-in protection on all instances and use a custom script to remove protection only after sessions drain, triggered by an SNS notification from the lifecycle hook."
     },
-    "correct": [
-      "A",
-      "D"
-    ],
+    "correct": ["A", "D"],
     "explanation": "Lifecycle hooks (option A) pause instance termination at the EC2_INSTANCE_TERMINATING state, allowing a Lambda function to detect the termination, drain active sessions, and then call CompleteLifecycleAction to proceed. The heartbeat timeout can be extended up to 2 hours. Option D (ALB slow start mode) gradually ramps traffic to new instances over a configurable duration (30\u2013900 seconds), preventing new instances from being overwhelmed before their 4-minute initialization completes. Option B (Connection Draining) handles ALB-level session draining for registering/deregistering targets but it works with target deregistration \u2014 not the lifecycle hook directly. The question specifies sessions that must complete on termination, which requires the lifecycle hook to trigger the drain action first. Option C (cooldown) prevents subsequent scale-in events but does not drain sessions from the terminating instance. Option E (instance scale-in protection + SNS) is overly complex and protection removal via scripts is error-prone.",
     "tags": [
       "Auto Scaling",
@@ -55479,10 +55329,7 @@
       "D": "Require each customer to add the vendor's IAM role ARN to the aws:PrincipalArn condition of a resource-based policy on each monitored resource.",
       "E": "Configure STS session policies when calling AssumeRole to scope the vendor's permissions to only the resources required for monitoring, reducing the blast radius if credentials are compromised."
     },
-    "correct": [
-      "A",
-      "E"
-    ],
+    "correct": ["A", "E"],
     "explanation": "The confused deputy problem occurs when a vendor's service is tricked into using its elevated privileges to access a customer's account without the customer's authorization. The mitigation is the ExternalId condition (option A): each customer generates a unique external ID, embeds it in their trust policy, and shares it with the vendor privately. When the vendor's service assumes the role, it must provide the correct external ID \u2014 preventing an attacker who knows the vendor's account ID from having the vendor access their account. Option E (session policies) further limits the permissions in each AssumeRole session to exactly what's needed, reducing blast radius. Option B (IAM user access keys) is an anti-pattern for cross-account access and violates least privilege/credential rotation best practices. Option C is incorrect \u2014 RAM shares resources (not IAM roles) across accounts. Option D (resource-based policies) works for some services but requires updating policies on every monitored resource \u2014 impractical at 500 customers.",
     "tags": [
       "IAM",
@@ -55559,10 +55406,7 @@
       "D": "Enable multi-AZ deployment for the downstream service's RDS database to improve its recovery time.",
       "E": "Implement bulkhead isolation using separate thread pools or Lambda reserved concurrency limits for the downstream service call, preventing it from consuming all available connections from the web tier."
     },
-    "correct": [
-      "A",
-      "E"
-    ],
+    "correct": ["A", "E"],
     "explanation": "Cascading failures occur when a slow dependency holds connections/threads, exhausting the calling service's resource pool. The circuit breaker pattern (option A) \u2014 implemented via App Mesh outlier detection or application-level libraries \u2014 detects failure and stops sending requests to the unhealthy endpoint, allowing fast-fail rather than timeout-induced connection exhaustion. Bulkhead isolation (option E) limits the blast radius: by constraining the slow service call to a dedicated thread pool or Lambda concurrency allocation, the failure cannot consume resources needed for other operations. Option B (scale-out) adds capacity but does not prevent connection exhaustion \u2014 more instances hitting the slow service scales the problem. Option C (SQS decoupling) is valid for asynchronous workloads but fundamentally changes the architecture \u2014 it cannot be applied to synchronous web request handling without redesign. Option D (Multi-AZ) improves database availability but doesn't address connection exhaustion in the calling service.",
     "tags": [
       "circuit breaker",
@@ -55641,10 +55485,7 @@
       "D": "Create a CloudWatch Events rule in the management account that detects account creation and triggers a Lambda function to deploy the VPC baseline template via CloudFormation StackSets.",
       "E": "Enable AWS Security Hub with the AWS Foundational Security Best Practices standard and suppress findings for the 120 accounts using suppression rules."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "SCPs (option A) are preventive guardrails \u2014 they enforce policy by denying API calls regardless of IAM permissions. Denying cloudtrail:StopLogging/DeleteTrail at the org root means no account, including the root user, can disable CloudTrail (unless the management account is exempt). Similarly, denying disabling S3 public access block enforces it organization-wide. Option C (Control Tower Account Factory customizations) automatically provisions VPC baselines to new accounts \u2014 this is the correct mechanism for infrastructure baselining of new accounts using CT's lifecycle events. Option B (Config rules) are detective controls, not preventive \u2014 they detect non-compliance but cannot block the API call. Option D (CloudWatch Events + Lambda + StackSets) is a valid DIY alternative to Control Tower but is more operationally complex. Option E (Security Hub) is purely detective and reporting.",
     "tags": [
       "AWS Organizations",
@@ -55721,10 +55562,7 @@
       "D": "Inject AWS credentials as Kubernetes Secrets from AWS Secrets Manager using the External Secrets Operator, mounting them as environment variables in each pod.",
       "E": "Use Kubernetes Network Policies to restrict which pods can communicate with the AWS metadata endpoint, preventing unauthorized pods from accessing instance profile credentials."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "IRSA (option A) is the original mechanism for pod-level IAM in EKS. Each Kubernetes Service Account is annotated with an IAM role ARN, and the IAM role's trust policy specifies the EKS cluster's OIDC provider and the specific service account namespace/name as conditions. The EKS webhook injects AWS_ROLE_ARN and AWS_WEB_IDENTITY_TOKEN_FILE environment variables into pods, allowing the AWS SDK to assume the correct role. EKS Pod Identity (option C) is the newer, simpler mechanism launched in 2023 that uses an agent DaemonSet instead of OIDC federation. It associates roles with service accounts via EKS API calls rather than requiring manual trust policy edits \u2014 simpler to configure and supports role chaining. Option B (node-level instance profile) violates least privilege \u2014 all pods inherit the same permissions. Option D (injected secrets) works but rotates credentials statically and doesn't use IAM role assumption. Option E (Network Policies blocking metadata) is a partial security mitigation, not an IAM mechanism.",
     "tags": [
       "EKS",
@@ -55751,10 +55589,7 @@
       "D": "Switch the table to use DynamoDB Streams and process all writes through a Lambda function that distributes items across multiple tables by region.",
       "E": "Enable DynamoDB Accelerator (DAX) write-through caching to absorb the 80,000 writes per second and reduce the load on the underlying DynamoDB table."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "Write sharding (option A) is the canonical solution for hot partition keys in DynamoDB. By appending a random suffix (e.g., UserId#1 through UserId#20), writes are distributed across 20 partitions at 4,000 WCUs each, easily handling 80,000 WPS. Reads require scatter-gather across all 20 shards, but this is acceptable for read-heavy workloads. A GSI on Region (option C) creates a separate index maintained by DynamoDB, allowing efficient queries like 'all posts from US-WEST' without scanning the full table. Option B (Auto Scaling) adjusts provisioned capacity but cannot split a single hot partition \u2014 the partition key determines which physical partition handles the write. Option D (Streams + Lambda + multiple tables) is an anti-pattern that dramatically increases complexity. Option E (DAX) is a read-through/write-through cache but does not reduce write load on the underlying table for unique writes.",
     "tags": [
       "DynamoDB",
@@ -55832,10 +55667,7 @@
       "D": "Create a CloudWatch alarm on the RDS CPUUtilization metric and trigger an Auto Scaling action to scale up to a larger instance class when CPU exceeds 80%.",
       "E": "Enable Multi-AZ on the RDS instance so that read traffic can be distributed to the standby replica, reducing CPU load on the primary."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "Performance Insights (option A) provides a dashboard showing database load (average active sessions) broken down by wait events \u2014 critical for diagnosing lock contention. The wait event breakdown shows exactly which locks (innodb_lock, io/file, etc.) are contributing to load. Slow query log (option C) with long_query_time=0 captures every query including those causing locks \u2014 publishing to CloudWatch Logs enables querying the logs with Logs Insights. Together, these provide real-time wait event visibility and historical query-level analysis. Enhanced Monitoring (option B) provides OS-level metrics but not database-internal wait events or SQL-level visibility. Option D (scale-up alarm) treats the symptom, not the cause. Option E is incorrect: Multi-AZ standby replicas do NOT serve read traffic \u2014 that requires a Read Replica.",
     "tags": [
       "RDS",
@@ -55912,10 +55744,7 @@
       "D": "Create a failover routing policy with eu-central-1 as the primary and us-east-1 as the secondary, with a weighted record sending 10% of traffic to eu-central-1.",
       "E": "Use a combination of latency-based routing as the primary tier and weighted routing within each region using Route 53 alias records, with health checks on all endpoints."
     },
-    "correct": [
-      "B",
-      "E"
-    ],
+    "correct": ["B", "E"],
     "explanation": "Option B uses latency routing for the two primary regions (directing EU users to eu-west-1 and US users to us-east-1 based on lowest latency) and a weighted record for eu-central-1 at 10% weight \u2014 this achieves the canary deployment while preserving latency-based primary routing. Health checks on all records enable automatic failover. Option E describes the nested routing approach: latency routing selects the closest region, then weighted routing within that region splits traffic. Route 53 supports combining routing policies through alias records pointing to other record sets. Option A uses weighted records globally \u2014 this doesn't ensure EU users get the lowest latency, as a US user could be routed to eu-west-1. Option C (geoproximity) controls geographic boundaries with bias values but doesn't provide percentage-based canary control. Option D incorrectly uses failover routing (primary/secondary) which doesn't enable percentage-based canary.",
     "tags": [
       "Route 53",
@@ -55992,10 +55821,7 @@
       "D": "Enable S3 Intelligent-Tiering to automatically move uploaded parts to the most cost-effective storage class during upload.",
       "E": "Use S3 Byte-Range Fetches to parallelize the download of incomplete parts and restart the upload from the last successful byte."
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "Transfer Acceleration (option A) uses CloudFront edge locations as upload proxies \u2014 uploads from Australia/Japan connect to the nearest edge location (Sydney, Tokyo) and transfer over AWS's private backbone to the bucket in us-east-1, bypassing congested public internet paths. This typically improves intercontinental throughput by 50-500%. Multipart Upload (option B) allows parallel uploads of parts (minimum 5 MB, up to 10,000 parts) and enables resumability \u2014 if a part fails, only that part is retried using the UploadId without restarting the entire file. These two features are explicitly designed to work together. Option C (Content-MD5) validates integrity but does not improve throughput or resumability. Option D (Intelligent-Tiering) is a storage class \u2014 not applicable during upload. Option E (Byte-Range Fetches) is for parallel downloads, not uploads.",
     "tags": [
       "S3",
@@ -56071,10 +55897,7 @@
       "D": "AWS Lambda functions triggered by SNS notifications from Route 53 health checks to execute boto3 calls for RDS snapshot restore and EC2 AMI-based launch in the secondary region.",
       "E": "AWS Elastic Disaster Recovery (DRS) to continuously replicate EC2 instances and automatically fail over within 30 minutes when the primary region becomes unavailable."
     },
-    "correct": [
-      "C",
-      "E"
-    ],
+    "correct": ["C", "E"],
     "explanation": "Option C combines Route 53 health checks (which emit events to EventBridge when state changes to Unhealthy) with Step Functions \u2014 a state machine provides sequential orchestration with built-in retry, error handling, parallel execution, and auditable execution history. Step Functions can call the Aurora Global Database PromoteReadReplicaToStandalone API and trigger EC2 fleet launch. Option E (Elastic Disaster Recovery) continuously replicates EC2 block storage to the secondary region and enables sub-30-minute RTO for server failover without manual AMI-based launch. Option A (SSM Automation) is valid but SSM runbooks have less sophisticated branching and error handling than Step Functions for complex orchestration. Option B (CloudFormation StackSets) deploys stacks from templates \u2014 this requires the AMIs and snapshots to already exist and cannot launch pre-warmed instances within 30 minutes. Option D (Lambda + SNS) is architecturally simpler and would work but lacks orchestration visibility and retry capabilities for complex DR workflows.",
     "tags": [
       "disaster recovery",
@@ -56152,10 +55975,7 @@
       "D": "Amazon Textract to extract text from scanned PDF documents, followed by Amazon Translate to normalize documents in different languages to English before indexing.",
       "E": "Amazon SageMaker AI to train a custom BERT model on the legal document corpus and deploy it as a real-time endpoint for semantic similarity search."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "Kendra (option A) is the ML-powered enterprise search service purpose-built for natural language queries. It understands question intent, returns direct answers with supporting passages, and has S3/SharePoint/Confluence connectors \u2014 no keyword optimization required. For 'What are the indemnification clauses in contracts after 2020?' Kendra returns the relevant passage rather than a list of documents. Comprehend (option C) provides managed NLP for entity extraction \u2014 it supports custom entity recognizers trained on domain-specific entities like CONTRACT_PARTY and JURISDICTION. Together, Kendra (search) + Comprehend (enrichment) form the correct architecture. OpenSearch (option B) is a keyword search engine \u2014 BM25 cannot answer natural language questions about document content semantics. Option D (Textract) is useful for OCR of scanned documents but the question specifies documents already in S3 \u2014 Kendra can process PDFs natively. Option E (custom BERT on SageMaker) would work but requires significant ML expertise, training data, and ongoing model maintenance compared to managed services.",
     "tags": [
       "Kendra",
@@ -56233,10 +56053,7 @@
       "D": "Configure a NACL rule on the app subnet to allow inbound from the web subnet CIDR on port 8080, and also add an outbound rule allowing ephemeral ports (1024-65535) back to the web subnet, because NACLs are stateless.",
       "E": "Security groups are stateless \u2014 you must add both inbound and outbound rules for bidirectional communication between the web and app tiers."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "NACLs (option A) operate at the subnet level, process rules in order by rule number, and support explicit DENY rules \u2014 essential for blocking specific IP addresses that have already passed the internet gateway. Security groups do not support DENY rules (option B is wrong). Option C correctly describes security group chaining: referencing another security group as the source/destination creates a dynamic rule that tracks instances in that group. Since security groups are stateful (return traffic is automatically allowed), no outbound rule on the web SG or inbound return rule on the app SG is needed \u2014 only the forward-direction rules. Option D is correct about NACL statefulness requiring ephemeral port return rules, but it describes the NACL design, not the security group design required for the second part of the question. Option E is false \u2014 security groups are stateful, not stateless.",
     "tags": [
       "NACL",
@@ -56314,10 +56131,7 @@
       "D": "A Cognito Identity Pool that uses IAM roles to define authenticated and unauthenticated access policies, with the authenticated role granting s3:GetObject on the private prefix and the unauthenticated role granting s3:GetObject on the public prefix only.",
       "E": "A Cognito User Pool group that maps to an IAM role, and an S3 bucket policy with a Condition key of cognito-identity.amazonaws.com:amr to restrict access based on group membership."
     },
-    "correct": [
-      "B",
-      "D"
-    ],
+    "correct": ["B", "D"],
     "explanation": "Cognito Identity Pools (option B) are the component that exchanges identity tokens (from Google directly or from a Cognito User Pool) for temporary AWS credentials via STS. The app receives AWS access/secret keys scoped to an IAM role. Option D correctly describes how the Identity Pool is configured: separate IAM roles for authenticated and unauthenticated users, with different S3 permissions per role. The unauthenticated role grants access only to the public catalog prefix. Option A (User Pool) handles authentication and issues JWTs, but JWTs alone cannot authorize S3 API calls \u2014 AWS SDK requires AWS credentials. Option C (Lambda trigger injecting IAM ARNs in JWT) is not a mechanism that S3 understands \u2014 S3 evaluates IAM policies and resource policies, not JWT claims. Option E describes an IAM role mapping from User Pool groups, but the Condition key cognito-identity.amazonaws.com:amr is used in trust policies, not bucket policies \u2014 this is an incorrect mechanism for guest access.",
     "tags": [
       "Cognito",
@@ -56396,10 +56210,7 @@
       "D": "Use CloudFront with a Lambda@Edge origin request function to cache product catalog pages at edge locations worldwide, with a TTL of 3600 seconds matching the hourly update cadence.",
       "E": "Use ElastiCache for Redis with lazy loading (cache-aside) for product catalog and a separate Redis sorted set to store shopping cart data with replication groups (replication factor \u2265 2) for resilience."
     },
-    "correct": [
-      "A",
-      "E"
-    ],
+    "correct": ["A", "E"],
     "explanation": "Both A and E correctly use Redis for these requirements. Redis (unlike Memcached) supports replication for high availability, which is required for shopping cart data that must survive node failures. Option A (read-through with Redis Cluster Mode + multi-AZ) is correct: multi-AZ with automatic failover ensures shopping cart data persists if a primary node fails. Option E (lazy loading for catalog + sorted sets for cart with replication) is also correct \u2014 lazy loading is appropriate for catalog data (cache-miss loads from DB), and sorted sets store complex cart objects reliably. Option B is wrong: Memcached does NOT replicate data between nodes \u2014 a node failure loses all cached data on that node, violating the shopping cart availability requirement. Option C (DAX) is valid for DynamoDB tables but the question specifies a database (relational context implied by 'database overload'). Option D (CloudFront) handles HTTP caching but cannot serve application-layer database reads or session data.",
     "tags": [
       "ElastiCache",
@@ -56478,10 +56289,7 @@
       "D": "Enable S3 MFA Delete to require multi-factor authentication for deletion of objects, preventing unauthorized deletion of WORM records.",
       "E": "Configure an S3 Lifecycle policy with a minimum retention of 7 years that prevents objects from transitioning to Glacier until the retention period completes."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "S3 Object Lock in Compliance mode (option A) provides true WORM \u2014 not even the AWS root account or AWS itself can delete or overwrite locked objects before the retention period. This is the specific mode required for SEC 17a-4(f) compliance. Governance mode (option B) allows users with s3:BypassGovernanceRetention permission to override the lock \u2014 even with an SCP, this is not acceptable for strict WORM requirements. S3 Versioning (option C) is a prerequisite for Object Lock \u2014 it must be enabled, and each version receives independent lock settings. When a locked object is 'deleted,' a delete marker is created but the locked version persists, ensuring immutability. Option D (MFA Delete) adds authentication for deletion but does not prevent root account deletion. Option E (Lifecycle) controls storage class transitions and expiration, but cannot prevent manual deletion by privileged users.",
     "tags": [
       "S3 Object Lock",
@@ -56559,10 +56367,7 @@
       "D": "Use host network mode for all tasks so they share the host EC2 instance's network namespace and can communicate over localhost.",
       "E": "Configure an ALB for each ECS service and use Route 53 alias records for private DNS-based service discovery."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "awsvpc network mode (option A) is the only ECS network mode that provides task-level ENI assignment, enabling security groups to be applied directly to tasks rather than instances. This is required for per-service security group policies. AWS Cloud Map (option C) integrates natively with ECS service discovery \u2014 services register SRV or A records in Route 53 private hosted zones, enabling DNS-based inter-service communication using stable names. Option B (bridge mode) shares the instance security group across all tasks on that host \u2014 per-task security groups are not possible. Option D (host mode) exposes tasks directly on the host's network and port conflicts occur with multiple tasks \u2014 not suitable for microservices. Option E (ALB per service) is an overly expensive pattern for internal service-to-service communication and not private DNS discovery.",
     "tags": [
       "ECS",
@@ -56640,10 +56445,7 @@
       "D": "Configure the DLQ on the SNS subscription itself using the RedrivePolicy attribute, pointing to an SQS DLQ for messages that SNS cannot deliver to the express fulfillment queue.",
       "E": "Use an SQS FIFO queue for the compliance logger to ensure all order types are processed in order, with deduplication IDs based on the order ID."
     },
-    "correct": [
-      "A",
-      "D"
-    ],
+    "correct": ["A", "D"],
     "explanation": "SNS filter policies (option A) evaluate MessageAttributes before delivering to each subscriber \u2014 subscriptions without a filter policy receive all messages. This correctly routes standard orders to standard processor, express orders to express processor, and all orders to the compliance logger. SNS subscription DLQ (option D) handles the case where SNS cannot deliver to the SQS queue (queue deleted, access denied, etc.) \u2014 distinct from the SQS-level DLQ which handles message processing failures. The question asks about failures in delivery TO the express queue, which is SNS-level DLQ. Option B (multiple topics) achieves filtering but requires application changes and doesn't allow the compliance logger to receive all types from one subscription elegantly. Option C (SQS redrive policy) handles Lambda/consumer processing failures \u2014 not SNS delivery failures. The distinction matters: SNS DLQ catches SNS\u2192SQS delivery failures, SQS DLQ catches consumer processing failures.",
     "tags": [
       "SNS",
@@ -56721,10 +56523,7 @@
       "D": "AWS Firewall Manager to centrally deploy and manage WAF rules, Shield Advanced protections, and Network Firewall policies across all 30 accounts from a central administrator account.",
       "E": "Amazon GuardDuty to detect the DDoS attack signature and automatically invoke Lambda to update Security Group rules blocking the attack source IPs."
     },
-    "correct": [
-      "A",
-      "D"
-    ],
+    "correct": ["A", "D"],
     "explanation": "Shield Advanced (option A) provides managed L3/L4 DDoS protection including SYN floods at scale \u2014 it includes DDoS Response Team access, attack diagnostics, and automatic mitigation. Shield Advanced + WAF together address both attack vectors, but the question asks which TWO services are required. Firewall Manager (option D) is the correct answer for centralized management across 30 accounts \u2014 it deploys WAF Web ACLs, Shield Advanced protections, and security group policies from a central administrator account in Organizations. Together, Shield Advanced + Firewall Manager satisfy all three requirements (volumetric DDoS protection, centralized management, and Firewall Manager implicitly manages WAF for L7). Option B (WAF alone) addresses L7 but not L3/L4 volumetric attacks. Option C (Network Firewall) operates inside the VPC after traffic reaches your infrastructure \u2014 a 100 Gbps volumetric attack would exhaust internet gateway capacity before Network Firewall could act. Option E (GuardDuty) detects threats but cannot automatically block DDoS traffic at the scale described.",
     "tags": [
       "Shield Advanced",
@@ -56801,10 +56600,7 @@
       "D": "Deploy Storage Gateway in Volume Gateway (cached mode) with the primary dataset stored in S3, caching frequently accessed data on-premises for low-latency access.",
       "E": "Use DataSync to continuously synchronize the on-premises tape backup data to S3, replacing the Storage Gateway entirely."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "File Gateway (option A) presents an NFS/SMB interface to on-premises applications backed by S3 \u2014 files appear as S3 objects, enabling lifecycle policies, versioning, and S3-native tools while keeping the NFS interface the application team is familiar with. Tape Gateway (option C) presents a virtual tape library to backup software (Veeam, NetBackup, Backup Exec) via iSCSI \u2014 the software sees VTL devices and virtual tapes exactly as physical tapes. Virtual tapes are stored in S3 and can be archived to Glacier Deep Archive, preserving existing workflows with zero software changes. Option B (Volume Gateway stored mode) is for block storage workloads, not file share access. Option D (Volume Gateway cached) is also block-level (iSCSI), not NFS file shares. Option E (DataSync) requires replacing the tape workflow \u2014 the question specifies keeping existing tape-based workflows.",
     "tags": [
       "Storage Gateway",
@@ -56882,10 +56678,7 @@
       "D": "Amplify DataStore with AppSync and DynamoDB backend: provides offline data synchronization with conflict resolution strategies (auto-merge, optimistic concurrency) without backend code.",
       "E": "Amplify Functions (Lambda) to create a custom GraphQL resolver that handles offline data synchronization through a custom DynamoDB conflict resolution algorithm."
     },
-    "correct": [
-      "A",
-      "D"
-    ],
+    "correct": ["A", "D"],
     "explanation": "The question asks which TWO capabilities address ALL THREE requirements. Amplify Hosting (option A) provides Git-based CI/CD with automatic builds on push \u2014 this covers requirement 1 (CI/CD from GitHub). Amplify DataStore (option D) provides offline sync with AppSync GraphQL backend and DynamoDB, including built-in conflict resolution strategies (optimistic locking, custom Lambda, auto-merge) \u2014 this covers requirements 2 (GraphQL API) and 3 (offline sync). Amplify Auth is part of the Amplify ecosystem and handles social login, but it's implicitly included in the Amplify setup \u2014 the question asks for TWO capabilities that collectively address all requirements. Option C (Amplify Auth) is a correct service but covers only authentication, not all three requirements. Option B (standalone CloudFront+CodePipeline) is a valid approach but bypasses Amplify entirely. Option E (custom Lambda resolver) requires significant backend code, contradicting the 'no backend expertise' constraint.",
     "tags": [
       "Amplify",
@@ -56963,10 +56756,7 @@
       "D": "Enable EventBridge Pipes with DynamoDB Streams as the source, a Lambda enrichment function to transform the event, and an EventBridge custom bus as the target. Create separate rules routing to CloudFront and OpenSearch Lambda functions.",
       "E": "Configure DynamoDB TTL to expire old product records and use an S3 Export job to periodically export the full table to S3 for bulk OpenSearch indexing."
     },
-    "correct": [
-      "B",
-      "D"
-    ],
+    "correct": ["B", "D"],
     "explanation": "Both B and D correctly achieve fan-out from a single DynamoDB Streams event to multiple consumers. Option B uses the classic SNS fan-out pattern from DynamoDB Streams \u2014 a single Lambda reads the stream and publishes to SNS, which fans out to multiple independent Lambda consumers. Each consumer can fail independently without affecting the other. Option D uses EventBridge Pipes (DynamoDB Streams \u2192 Lambda enrichment \u2192 EventBridge bus \u2192 rules \u2192 targets) which is cleaner for complex routing with transformation. Option A (single Lambda doing both actions) creates tight coupling \u2014 if CloudFront invalidation fails, OpenSearch won't update, and retry logic is complex. Option C (global tables) is for multi-region read/write availability, not CDC fan-out. Option E (TTL + S3 export) is batch-oriented and doesn't provide real-time change propagation.",
     "tags": [
       "DynamoDB Streams",
@@ -57044,10 +56834,7 @@
       "D": "Use Athena workgroups to set per-query data scan limits, preventing individual queries from scanning more than 1 TB and alerting when thresholds are exceeded.",
       "E": "Migrate the S3 data to an Amazon Redshift cluster and run the queries there instead, as Athena is not designed for large datasets."
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "Converting to Parquet/ORC (option A) is typically the single largest optimization for Athena costs and speed. Columnar formats allow Athena to read only the columns referenced in the SELECT clause and predicate pushdown eliminates entire row groups. Combined with Snappy compression, data scanned drops by 70-90% \u2014 transforming a 50 TB scan into 5-15 TB. Granular partitioning (option B) enables partition pruning: a query filtered on a specific day scans only that day's data rather than the full year's partition. Combining year/month/day/hour partitions with a date range filter can reduce scanned data by 99%. Partition projection avoids the need to sync partition metadata with Glue. Options A and B together routinely achieve 10-100x cost reduction. Option C (result reuse) only helps for identical repeated queries. Option D (scan limits) prevents expensive queries but doesn't reduce cost for necessary queries. Option E (Redshift) is a valid alternative but represents a complete architecture change \u2014 the question asks for optimizations.",
     "tags": [
       "Athena",
@@ -57126,10 +56913,7 @@
       "D": "Scale the database tier horizontally by adding four r5.8xlarge RDS instances in a cluster and distributing writes across them using application-level sharding.",
       "E": "Scale the database tier by enabling RDS Multi-AZ, which provides additional compute capacity from the standby instance to handle peak CPU load."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "The stateless API tier (option A) is perfectly suited for horizontal scaling \u2014 stateless services share no session state between instances, so adding instances behind an ALB is architecturally correct. Target tracking on ALBRequestCountPerTarget automatically adjusts instance count to maintain a target request rate. Spot Instances provide up to 90% savings for Auto Scaling groups that can replace instances quickly. The stateful RDS database (option C) is not horizontally scalable using vanilla RDS (no write sharding support without Aurora or custom sharding) \u2014 the correct approach is vertical scaling (larger instance type) to add CPU, plus Read Replicas to offload read queries. Option B is incorrect because stateless APIs scale better horizontally at lower cost. Option D (application-level sharding across 4 RDS instances) requires significant application refactoring and is not appropriate for a standard RDS deployment. Option E (Multi-AZ standby) does NOT provide additional compute capacity \u2014 the standby is passive and does not serve traffic.",
     "tags": [
       "horizontal scaling",
@@ -57207,10 +56991,7 @@
       "D": "Create multiple SQS Standard queues (one per customer) and use a Lambda function to route messages to the correct queue based on customer ID.",
       "E": "Use a single SQS Standard queue with a Lambda consumer that re-orders messages by submission timestamp within a 500ms window before processing."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "MessageGroupId (option A) is the FIFO queue feature that enables per-group ordering \u2014 all messages with the same MessageGroupId (customer account ID) are processed in strict FIFO order, while different groups are processed in parallel by different consumers. This exactly matches the requirement. High-throughput FIFO mode (option C) uses multiple partitions to overcome the standard FIFO limit of 3,000 TPS (with batching) and supports up to 70,000 TPS \u2014 required to handle 15,000 messages/second. Option B (content-based deduplication) is about preventing duplicate messages using SHA-256 of the body \u2014 not related to ordering or throughput. Option D (multiple Standard queues) achieves ordering but requires maintaining per-customer queues (complex, doesn't scale to millions of customers). Option E (Standard queue + re-ordering in Lambda) is not reliable \u2014 SQS Standard doesn't guarantee delivery order, and 500ms windowing doesn't guarantee correct ordering under load.",
     "tags": [
       "SQS FIFO",
@@ -57287,10 +57068,7 @@
       "D": "Rehost Application B by replicating the WebLogic VMs to EC2, retaining the existing WebLogic license and configuration exactly as-is.",
       "E": "Retire Application B: the Java EE stack is outdated and should be decommissioned and replaced with a new microservices architecture before migration."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "Application A (Oracle approaching EoS with stored procedure business logic) is a Refactor candidate \u2014 the business pressure of EoS combined with cost and licensing creates the ROI for a deeper migration to Aurora PostgreSQL with SCT (Schema Conversion Tool). This is more work but eliminates Oracle licensing costs and technical debt. Application B (Java EE on WebLogic, needs AWS quickly with minimal changes) is a Replatform candidate \u2014 moving to ECS containers or Elastic Beanstalk removes VM management overhead without requiring application code changes, gaining managed patching, auto-scaling, and monitoring. Option B (rehosting Oracle) misses the EoS problem and perpetuates expensive licensing. Option D (rehosting WebLogic to EC2) is a rehost \u2014 valid but slower and doesn't take advantage of managed services as specified. Option E (retiring the Java app) is a business decision, not a migration strategy \u2014 the question specifies the team wants it on AWS.",
     "tags": [
       "migration strategies",
@@ -57368,10 +57146,7 @@
       "D": "Subnets in different Availability Zones can overlap CIDR ranges within the same VPC, enabling IP address reuse across AZs.",
       "E": "The minimum subnet size in a VPC is /28 (16 addresses, 11 usable). The maximum subnet size must be smaller than the VPC CIDR block, so a /16 VPC can have at most a /17 subnet."
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "AWS reserves exactly 5 addresses per subnet: .0 (network), .1 (VPC router), .2 (DNS), .3 (future use), and the last address (broadcast). A /28 has 16 total, 11 usable \u2014 correct for the database subnets but with minimal headroom for the 10-IP requirement. A /23 has 512 total, 507 usable \u2014 correct for 500-IP EC2 requirements. Option C is partially true about .2 being the DNS resolver but the statement about it being included in the 5 reserved is correct \u2014 this is informational, not a trap answer. Option D is false \u2014 subnet CIDRs within a VPC CANNOT overlap. Option E is partially correct about minimum /28 and maximum being smaller than VPC, but the claim about /16 VPC limiting to /17 is correct only if you want a single subnet covering half the VPC \u2014 you can have many subnets of any size that together don't exceed the VPC CIDR.",
     "tags": [
       "VPC",
@@ -57448,10 +57223,7 @@
       "D": "Enable EKS Managed Node Groups with Bottlerocket AMI to use an immutable OS that prevents pods from modifying host system files.",
       "E": "Configure Kubernetes RBAC ClusterRoles to restrict which AWS API calls each team can make from within the cluster."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "Kubernetes NetworkPolicy (option A) with a compatible CNI plugin enforces Layer 3/4 traffic rules between pods based on label selectors and namespace selectors. Without a policy engine, pods in the same VPC can communicate freely. The VPC CNI's network policy controller (or Calico) enforces these rules at the pod ENI level. IRSA (option C) scopes AWS IAM permissions per Kubernetes Service Account \u2014 pods using Team A's service account assume Team A's IAM role, while Team B's pods assume a different role. This provides the AWS-level least privilege without over-granting node-level IAM permissions. Option B (node-level security groups) is coarser granularity \u2014 teams sharing a node group cannot be isolated without awsvpc mode and per-pod security groups. Option D (Bottlerocket) hardens the OS but doesn't control pod-to-pod networking or AWS IAM. Option E (RBAC) controls Kubernetes API access, not AWS API access.",
     "tags": [
       "EKS",
@@ -57528,10 +57300,7 @@
       "D": "API Gateway REST API with a Lambda authorizer and a Kinesis Data Streams integration to buffer incoming requests and process them asynchronously.",
       "E": "API Gateway Private API (VPC Endpoint) to expose the chat API to internal VPC clients only via PrivateLink, without internet exposure."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "REST API (option A) is the only API Gateway type that supports all three required features: request validators (body schema and parameter validation), usage plans with API key-based throttling, and WAF Web ACL association. HTTP API is cheaper and lower-latency but lacks usage plans, request validation, and WAF support (as of current feature parity). WebSocket API (option C) maintains persistent bidirectional connections \u2014 the browser connects once and sends/receives messages without polling. Route keys ($connect, $disconnect, custom) handle connection lifecycle and message routing. The @connections management API allows the backend to push messages to specific connected clients. Option B incorrectly claims HTTP API supports WAF and usage plans. Option D describes a valid async pattern but doesn't address the chat API requirement. Option E (Private API) restricts access to VPC, which is the opposite of a public chat application requirement.",
     "tags": [
       "API Gateway",
@@ -57609,10 +57378,7 @@
       "D": "Enable CloudFront field-level encryption on the distribution to encrypt the subscriber's cookie at the edge, preventing CloudFront from reading the authentication token.",
       "E": "Configure CloudFront to require HTTPS with a minimum TLS 1.2 policy and an ACM certificate, encrypting content in transit between subscribers and the CloudFront edge."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "Origin Access Control (option A) is the current recommended replacement for OAI \u2014 it uses the CloudFront service principal with SigV4 authentication and supports S3 server-side encryption with SSE-KMS, including newer S3 features. The bucket policy with the distribution ARN condition ensures ONLY that CloudFront distribution can access S3. Option B (OAI) is the legacy mechanism \u2014 still functional but OAC is preferred for new deployments. CloudFront Signed URLs (option C) bind access to a specific subscriber with an expiration time and optional IP/time restrictions, cryptographically preventing URL sharing. The signer uses RSA private key pairs managed via CloudFront key groups. Option D (field-level encryption) protects specific form fields from backend systems \u2014 not relevant to origin access restriction. Option E (TLS enforcement) is a transport security baseline but doesn't address origin access control or subscriber-specific access.",
     "tags": [
       "CloudFront",
@@ -57689,10 +57455,7 @@
       "D": "Create an S3 bucket policy that denies the analytics team's IAM role from reading objects in the 'deleted_accounts' S3 prefix.",
       "E": "Enable Lake Formation tag-based access control (LF-Tags) with a sensitivity=HIGH tag on the email_address column, and deny the analytics team's role access to HIGH sensitivity columns."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "Lake Formation column-level permissions (option A) allow granting access to specific columns in a table, effectively hiding sensitive columns like email_address from the grantee. When the analytics team queries the table in Athena, they only see the permitted columns \u2014 the query engine enforces this. Lake Formation data filters (option C) combine both column and row filtering in a single policy: the row filter expression 'account_status != DELETED' excludes deleted rows, and the column filter excludes email_address. Data filters are the native Lake Formation mechanism for fine-grained access control at both dimensions simultaneously. Option B (Glue view) is a valid alternative but is a table-level solution, not a Lake Formation permission, and requires maintaining the view. Option D (S3 bucket policy) operates at the object level \u2014 it cannot filter rows or columns within a file. Option E (LF-Tags) provides coarser attribute-based control but requires tag maintenance on every column and table.",
     "tags": [
       "Lake Formation",
@@ -57769,10 +57532,7 @@
       "D": "Enable RDS encryption using a CloudHSM-backed external key store (XKS) in AWS KMS, where the actual cryptographic operations occur in the company's CloudHSM cluster outside AWS, and the key material never leaves the HSM.",
       "E": "Enable RDS transparent data encryption (TDE) with Oracle TDE key management, storing the master key in AWS Secrets Manager."
     },
-    "correct": [
-      "A",
-      "D"
-    ],
+    "correct": ["A", "D"],
     "explanation": "SSE-KMS with CMK (option A) gives the company exclusive control via key policy \u2014 the CMK policy specifies exactly which principals can use the key, and CloudTrail logs every kms:Decrypt, kms:GenerateDataKey operation, providing the required auditability. AWS cannot access the key without policy permission. External Key Store (XKS) in KMS (option D) allows KMS to proxy cryptographic operations to an external key manager (CloudHSM, on-premises HSM) \u2014 the key material never leaves the HSM and AWS cannot perform operations without calling the external key store. This satisfies 'key never exposed to AWS' for RDS. Option B (SSE-S3) uses an AWS-managed key \u2014 the company does not exclusively control it. Option C (SSE-C) is for S3 only \u2014 each API call must include the key, which is impractical for RDS and doesn't provide audit logging. Option E (TDE with Secrets Manager) stores key metadata in Secrets Manager, not the key material in an external HSM.",
     "tags": [
       "SSE-KMS",
@@ -57849,10 +57609,7 @@
       "D": "Aurora Serverless v2 pauses completely to 0 ACUs after a configurable idle period, providing zero-cost idle periods \u2014 this pause behavior is the same as Serverless v1.",
       "E": "Aurora Serverless v2 can be used as a Global Database secondary, providing serverless read scaling in a secondary region for globally distributed reads."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "Aurora Serverless v2 (option A) scales in 0.5 ACU increments in response to load changes within seconds \u2014 much finer-grained and faster than v1's coarser, slower scaling. The minimum can be set to 0.5 ACU (near zero cost when idle, but NOT fully paused). Option C is correct \u2014 you CAN mix Serverless v2 writers with Serverless v2 or provisioned readers in the same cluster. Each reader scales independently. Option B is false \u2014 mixed clusters are supported. Option D is false \u2014 Serverless v2 does NOT pause to 0 ACUs (minimum is 0.5 ACU). Serverless v1 supported pausing to 0; v2 maintains warm capacity. Option E is true but not one of the key design considerations \u2014 it's a bonus feature.",
     "tags": [
       "Aurora Serverless v2",
@@ -57929,10 +57686,7 @@
       "D": "Enable CloudWatch Logs Insights to compress log data in place, reducing storage costs by 60-80% without changing the retention policy.",
       "E": "Move the application to emit logs directly to Kinesis Data Firehose instead of CloudWatch Logs, storing them in S3 from the start and using Athena for ad-hoc log analysis."
     },
-    "correct": [
-      "B",
-      "C"
-    ],
+    "correct": ["B", "C"],
     "explanation": "Option B (subscription filter to Kinesis Firehose to S3) continuously streams logs to S3 as they are ingested. Combined with setting log group retention to 7 days, this retains logs in CloudWatch for troubleshooting while archiving to much cheaper S3 storage (Intelligent-Tiering archives to Glacier tier at $0.004/GB vs CloudWatch Logs at ~$0.03/GB). Option C (export to S3 + 7-day retention) is the batch equivalent \u2014 use CreateExportTask to export old logs to S3 before they expire in CloudWatch. Both approaches move logs to S3 where long-term storage costs are 90%+ cheaper. Option A alone violates the 2-year compliance requirement by deleting logs after 7 days. Option D is false \u2014 CloudWatch Logs Insights is a query tool; it cannot compress stored log data. Option E is a valid architectural change but requires application code changes and is a bigger scope than an optimization.",
     "tags": [
       "CloudWatch Logs",
@@ -58010,10 +57764,7 @@
       "D": "Also register the first consumer as an Enhanced Fan-Out consumer. With both registered, each gets 2 MB/s per shard (20 MB/s total for 10 shards) independently, allowing simultaneous consumption without throttling.",
       "E": "Split each shard into two using SplitShard operations, doubling total shard count to 20 and providing each consumer with dedicated shards by partitioning by consumer ID."
     },
-    "correct": [
-      "A",
-      "D"
-    ],
+    "correct": ["A", "D"],
     "explanation": "Standard GetRecords has a shared 2 MB/s per shard read limit across ALL consumers on a shard. With two consumers sharing standard reads, each gets at most 1 MB/s per shard \u2014 insufficient for 8 MB/s ingest. Enhanced Fan-Out (option A) gives each registered consumer a dedicated 2 MB/s per shard push-based subscription via HTTP/2, completely isolated from other consumers. Registering BOTH consumers as Enhanced Fan-Out consumers (option D) provides each with 2 MB/s per shard \u00d7 10 shards = 20 MB/s per consumer \u2014 adequate to keep up with 8 MB/s ingest plus margin. Option B (resharding) increases ingest capacity but doesn't address the multi-consumer read isolation problem \u2014 both consumers would still share standard read limits. Option C (LATEST iterator) affects where reading starts, not throughput. Option E (SplitShard for dedicated shards) is an anti-pattern \u2014 it doubles costs without solving multi-consumer isolation.",
     "tags": [
       "Kinesis Data Streams",
@@ -58090,10 +57841,7 @@
       "D": "Amazon ElastiCache Global Datastore (Redis) with two-region replication, where both clusters can accept writes and synchronize changes bidirectionally.",
       "E": "Amazon Keyspaces (for Apache Cassandra) multi-region replication, which supports writes to any region with eventual consistency replication between regions."
     },
-    "correct": [
-      "A",
-      "E"
-    ],
+    "correct": ["A", "E"],
     "explanation": "DynamoDB Global Tables (option A) is the canonical AWS multi-master database \u2014 all replica tables in all regions accept writes simultaneously. Conflicts are resolved by last-writer-wins (based on timestamps). Replication lag is typically sub-second. Option E (Keyspaces multi-region) also supports writes to any region with eventual consistency \u2014 it uses Cassandra's multi-master replication model. Option B is incorrect about Aurora Global Database: write forwarding allows secondary regions to process writes, but they are forwarded to the single primary \u2014 this is NOT active-active. The primary is still the sole writer; the secondary forwards writes to the primary via the PrivateLink network. Option C (RDS read replicas) requires manual promotion \u2014 not near-zero RTO. Option D is incorrect: ElastiCache Global Datastore has a primary cluster and secondary read-only clusters \u2014 writes go to primary only.",
     "tags": [
       "multi-region",
@@ -58500,10 +58248,7 @@
       "D": "AWS Device Farm",
       "E": "AWS Elastic Beanstalk"
     },
-    "correct": [
-      "A",
-      "D"
-    ],
+    "correct": ["A", "D"],
     "explanation": "AWS Amplify provides Git-based frontend hosting, branch previews, CI/CD, and client-side integration patterns for backend services. AWS Device Farm executes automated tests on fleets of real mobile devices, which is the right service when test coverage must span many iOS and Android models. CloudFront is only a CDN, AppFlow is a SaaS integration service, and Elastic Beanstalk is an application platform rather than a mobile-device testing service or frontend delivery workflow.",
     "tags": [
       "AWS Amplify",
@@ -58525,10 +58270,7 @@
       "D": "Amazon WorkSpaces",
       "E": "Network Load Balancer with TLS passthrough"
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "AWS Client VPN is the user-based remote-access service for connecting employee laptops to VPC resources without publicly exposed bastions. AWS Directory Service provides the identity integration path for Microsoft Active Directory credentials, whether through a managed directory or integration with an existing one. Site-to-Site VPN is designed for network-to-network connectivity, WorkSpaces is a managed desktop service, and an NLB does not solve user authentication or private remote network access.",
     "tags": [
       "AWS Client VPN",
@@ -58600,10 +58342,7 @@
       "D": "Use a self-signed certificate on the ALB because CloudFront does not validate the origin certificate chain when HTTPS is selected.",
       "E": "Replace the ALB with a Network Load Balancer because ACM certificates cannot be used with ALB listeners."
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "CloudFront requires ACM certificates to be requested or imported in us-east-1, so an ACM public certificate in that Region is the correct choice for internet-facing TLS termination. The ALB needs its own certificate in the ALB's Region so CloudFront can use HTTPS to the origin with a trusted certificate chain. ACM public certificates cannot have their private keys exported, self-signed origin certificates complicate trust and validation, and ALBs fully support ACM-managed TLS listeners.",
     "tags": [
       "Encrypting data in transit (for example, AWS Certificate Manager [ACM] using TLS)",
@@ -58669,10 +58408,7 @@
       "D": "AWS Outposts",
       "E": "AWS Systems Manager Fleet Manager"
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "AWS Application Migration Service replicates source servers at the block level and supports non-disruptive testing and orchestration for lift-and-shift migrations to AWS. AWS License Manager tracks and enforces license usage for supported software such as Microsoft products. Elastic Disaster Recovery is for recovery posture rather than primary migration planning, Outposts is an on-premises deployment model, and Fleet Manager is an administration tool rather than a migration or license-governance service.",
     "tags": [
       "AWS Application Migration Service",
@@ -58694,10 +58430,7 @@
       "D": "AWS Elastic Beanstalk",
       "E": "AWS Management Console"
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "AWS Serverless Application Repository provides the packaging and versioning layer for reusable serverless applications. AWS Service Catalog provides the governance layer that restricts production provisioning to curated products, versions, and parameters. Amplify and Elastic Beanstalk solve different application-delivery problems, and the AWS Management Console is only an interface, not a governance or packaging service.",
     "tags": [
       "AWS Serverless Application Repository",
@@ -58841,10 +58574,7 @@
       "D": "Use a single AWS Client VPN endpoint because client sessions can aggregate throughput for data center traffic.",
       "E": "Order a 1 Gbps hosted AWS Direct Connect connection as the only path and expect it to be provisioned immediately."
     },
-    "correct": [
-      "A",
-      "C"
-    ],
+    "correct": ["A", "C"],
     "explanation": "When internet-based connectivity must exceed the practical throughput of a single tunnel, the AWS pattern is to use multiple Site-to-Site VPN connections from separate customer gateways and terminate them on a Transit Gateway. Transit Gateway supports ECMP so traffic can be load-shared across equal-cost BGP paths. Client VPN is for individual remote users, a single hosted Direct Connect does not meet the immediate timeline or bandwidth target by itself, and Virtual Private Gateway is not the preferred design for ECMP-based aggregation across multiple connections in this scenario.",
     "tags": [
       "Selecting the appropriate bandwidth allocation for a network device (for example, a single VPN compared with multiple VPNs, Direct Connect speed)",
@@ -58910,10 +58640,7 @@
       "D": "Keep the asynchronous message-broker pattern between the web tier and worker tier so the producer rate can be buffered independently of consumer processing speed.",
       "E": "Replace the messaging layer with AWS AppSync subscriptions because they are a drop-in replacement for JMS durable topics."
     },
-    "correct": [
-      "A",
-      "D"
-    ],
+    "correct": ["A", "D"],
     "explanation": "Amazon MQ for ActiveMQ is the managed AWS service designed for organizations that need to preserve JMS-compatible broker semantics with minimal code changes. Retaining an asynchronous broker between producers and consumers is the architectural step that protects the web tier from worker backlogs and lets each tier scale independently. SQS could be a future redesign target, but it is not a minimal-change drop-in for existing JMS code. ALB and AppSync subscriptions do not replace broker semantics for this scenario.",
     "tags": [
       "Amazon MQ",
@@ -58935,10 +58662,7 @@
       "D": "AWS Glue jobs written in Scala and maintained by the team",
       "E": "AWS AppSync"
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "AWS Data Exchange is the service for subscribing to third-party data products with managed entitlements and dataset revisions. Amazon AppFlow is the fully managed SaaS integration service for moving Salesforce data to S3 on a schedule without custom code. Amazon MQ is a managed message broker, Glue would add operational overhead that the requirement explicitly wants to avoid, and AppSync is a GraphQL API service rather than a SaaS-to-S3 data movement tool.",
     "tags": [
       "AWS Data Exchange",
@@ -58960,10 +58684,7 @@
       "D": "Amazon AppFlow",
       "E": "AWS Elastic Beanstalk"
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "AWS AppSync is the managed GraphQL service that supports offline sync and conflict resolution patterns for distributed clients. AWS Amplify provides frontend hosting, branch previews, CI/CD, and client integration libraries. API Gateway with custom polling would require more custom logic, AppFlow is for SaaS data integration, and Elastic Beanstalk is an application platform rather than a frontend delivery and GraphQL client workflow.",
     "tags": [
       "AWS AppSync",
@@ -59073,10 +58794,7 @@
       "D": "Amazon Polly",
       "E": "Amazon Rekognition"
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "Amazon Transcribe converts audio to text and supports features such as speaker separation and custom vocabulary. Amazon Comprehend performs NLP analysis such as sentiment and entity extraction on the resulting text. Kendra is an enterprise search service, Polly is text-to-speech, and Rekognition is for visual analysis rather than speech analytics.",
     "tags": [
       "Amazon Transcribe",
@@ -59098,10 +58816,7 @@
       "D": "Amazon AppSync",
       "E": "Amazon MQ"
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "Amazon Kendra is the managed enterprise search service for natural-language questions over document repositories with ranked results and answer passages. Amazon Polly is the text-to-speech service that can vocalize the returned answer. Comprehend analyzes text rather than serving as a search engine or speech synthesizer, and AppSync and Amazon MQ are unrelated to this requirement.",
     "tags": [
       "Amazon Kendra",
@@ -59123,10 +58838,7 @@
       "D": "Amazon AppFlow",
       "E": "Amazon Transcribe"
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "Amazon Kinesis Video Streams is the ingestion and storage service for live video streams. Amazon Rekognition provides managed image and video analysis capabilities, including object and person detection. Elastic Transcoder is for converting stored video files, AppFlow is for SaaS integration, and Transcribe is for speech-to-text rather than computer vision.",
     "tags": [
       "Amazon Kinesis Video Streams",
@@ -59198,10 +58910,7 @@
       "D": "AWS Audit Manager",
       "E": "AWS Systems Manager Patch Manager"
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "Amazon Inspector performs the continuous vulnerability assessments for supported compute and container artifacts. AWS Security Hub aggregates and normalizes findings across AWS security services and accounts. Detective is an investigation tool rather than the scanning or aggregation layer, Audit Manager is for compliance evidence, and Patch Manager handles patch orchestration rather than multi-service finding aggregation.",
     "tags": [
       "Amazon Inspector",
@@ -59223,10 +58932,7 @@
       "D": "AWS Health Dashboard",
       "E": "AWS Control Tower"
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "AWS Security Hub is the central triage layer for normalized findings from services such as GuardDuty and Inspector. Amazon Detective is the investigation service that builds relationship graphs across principals, API calls, IPs, and resources. CloudHSM, Health Dashboard, and Control Tower do not provide this paired triage-and-investigation capability.",
     "tags": [
       "AWS Security Hub",
@@ -59291,10 +58997,7 @@
       "D": "AWS Management Console",
       "E": "AWS Transfer Family"
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "AWS RAM is the service for sharing supported resources such as VPC subnets across accounts. AWS Client VPN provides secure remote user access from laptops into private VPC resources without publicly reachable bastions. The other options do not solve cross-account resource sharing or user-based remote network access.",
     "tags": [
       "AWS Resource Access Manager (AWS RAM)",
@@ -59414,10 +59117,7 @@
       "D": "AWS KMS customer managed keys",
       "E": "Gateway Load Balancer"
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "AWS CloudHSM provides customer-controlled FIPS 140-2 Level 3 HSMs for private key generation and use. A Network Load Balancer operating at Layer 4 can pass TCP connections through so TLS terminates on the instances that use those HSM-backed keys. An ALB would terminate TLS itself, KMS is not a drop-in HSM for custom TLS stacks, and GWLB is for inline network appliances rather than application traffic distribution.",
     "tags": [
       "AWS CloudHSM",
@@ -59560,10 +59260,7 @@
       "D": "Amazon Managed Grafana",
       "E": "AWS License Manager"
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "AWS Cost and Usage Report is the detailed cost and usage dataset needed for granular financial analysis. The AWS Well-Architected Tool provides the structured review process for documenting risks, architectural gaps, and remediation plans over time. Health Dashboard, Managed Grafana, and License Manager solve adjacent operational problems but not this paired cost-evidence and architecture-review requirement.",
     "tags": [
       "AWS Cost and Usage Report",
@@ -59585,15 +59282,1272 @@
       "D": "AWS Service Catalog without updating the underlying template",
       "E": "Long-lived root credentials shared among administrators"
     },
-    "correct": [
-      "A",
-      "B"
-    ],
+    "correct": ["A", "B"],
     "explanation": "The AWS Management Console is appropriate for an immediate interactive break-glass fix during an outage. AWS CloudFormation is the correct long-term mechanism to codify and version the corrected infrastructure state so future environments remain consistent. Repeating manual changes is not reliable, Service Catalog does not help unless the underlying infrastructure definition is updated, and shared root credentials violate AWS security best practices.",
     "tags": [
       "AWS Management Console",
       "AWS CloudFormation",
       "Determining automation strategies to ensure infrastructure integrity"
     ]
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A solutions architect is validating outbound connectivity and private AWS service access for a dual-stack VPC. Match each requirement to the AWS networking component that BEST satisfies it. Each component can be used once or more than once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Internet Gateway",
+      "B": "NAT Gateway",
+      "C": "Egress-only Internet Gateway",
+      "D": "Gateway VPC Endpoint"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "Amazon EC2 instances in private IPv4 subnets must download patches from public package repositories without accepting unsolicited inbound internet connections.",
+        "correct": "B"
+      },
+      {
+        "id": "sq2",
+        "prompt": "Amazon EC2 instances in private IPv6 subnets must initiate outbound internet connections, but inbound sessions from the internet must remain blocked.",
+        "correct": "C"
+      },
+      {
+        "id": "sq3",
+        "prompt": "Workloads must reach Amazon S3 privately from the VPC without using NAT, internet routing, or per-hour interface endpoint charges.",
+        "correct": "D"
+      },
+      {
+        "id": "sq4",
+        "prompt": "An internet-facing Application Load Balancer in public subnets must be reachable by clients on the public internet over the VPC's public routing path.",
+        "correct": "A"
+      }
+    ],
+    "explanation": "A NAT gateway lets private IPv4 subnets initiate outbound internet connections while remaining unreachable from unsolicited inbound traffic. An egress-only internet gateway serves the same purpose for IPv6. A gateway VPC endpoint provides private route-table-based access to Amazon S3 without NAT charges or internet routing. An internet gateway is the VPC component that enables public subnets and internet-facing resources, such as a public ALB, to exchange traffic with the public internet.",
+    "tags": [
+      "Designing VPC architectures with security components (for example, security groups, route tables, network ACLs, NAT gateways)",
+      "Determining network segmentation strategies (for example, using public subnets and private subnets)",
+      "Amazon VPC"
+    ],
+    "id": "94716e26bf6ac8cb633c7b408bfef4bd3dfd54c1cf7c1ef43ff000e61c5c697f"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A company deploys third-party inspection appliances in a centralized security VPC. All east-west traffic between spoke VPCs must be steered through the appliances transparently, without changing application endpoints, and the appliances must scale horizontally. Which TWO design choices are REQUIRED? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Deploy a Gateway Load Balancer in the security VPC in front of the appliances.",
+      "B": "Deploy an Application Load Balancer in the security VPC in front of the appliances.",
+      "C": "Create Gateway Load Balancer endpoints in the spoke VPCs and update subnet route tables to send inspected traffic to those endpoints.",
+      "D": "Create interface VPC endpoints in the spoke VPCs and point subnet routes to the endpoint ENIs.",
+      "E": "Replace routing with VPC peering between every spoke VPC and the security VPC."
+    },
+    "correct": ["A", "C"],
+    "explanation": "Gateway Load Balancer is purpose-built for transparent insertion of third-party appliances by using the GENEVE protocol and preserving the original traffic flow semantics. Gateway Load Balancer endpoints are placed in the spoke VPCs so route tables can steer traffic to the inspection layer without changing application endpoints. ALBs and interface endpoints do not provide this transparent bump-in-the-wire behavior, and VPC peering alone cannot deliver managed traffic distribution and appliance scaling.",
+    "tags": [
+      "Control ports, protocols, and network traffic on AWS",
+      "Load balancing concepts (for example, Application Load Balancer [ALB])",
+      "Elastic Load Balancing (ELB)"
+    ],
+    "id": "1e747f1e72e70120da4afab4add9edce495f9b41a48fdd8be19e18874cf0ce97"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A solutions architect is deciding how to connect workloads across AWS and on-premises environments. Match each requirement to the AWS connectivity option that BEST fits. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Site-to-Site VPN",
+      "B": "AWS Direct Connect",
+      "C": "AWS PrivateLink",
+      "D": "VPC Peering"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "A branch office needs an encrypted connection to AWS that can be provisioned quickly over its existing internet connection, even though throughput is lower and internet dependency remains.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "A data center needs a dedicated private circuit into AWS for more consistent throughput and reduced internet jitter.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "A service provider must expose a single TCP service privately to many customer VPCs, including customers with overlapping CIDR ranges, without granting broader network reachability.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "Two VPCs with non-overlapping CIDR ranges need full bidirectional private IP connectivity, but no transitive routing or centralized hub is required.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Site-to-Site VPN is the quickest way to establish encrypted hybrid connectivity over the public internet. Direct Connect provides a dedicated private connection with more predictable performance. PrivateLink exposes specific services privately to consumer VPCs, even when CIDR ranges overlap, without exposing the rest of the provider network. VPC peering offers direct private IP reachability between two VPCs, but it does not support transitive routing.",
+    "tags": [
+      "Securing external network connections to and from the AWS Cloud (for example, VPN, AWS Direct Connect)",
+      "Secure application access",
+      "Networking, connectivity, and content delivery"
+    ],
+    "id": "0062b0b5c4b66b63f293fbcc3c8aa830181ebefd6d38b08d43a61eda03cd7274"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A company places Amazon CloudFront in front of an internet-facing Application Load Balancer that serves a public web application. The security team wants malicious requests such as SQL injection attempts blocked at the edge, and the origin must accept HTTPS traffic only from CloudFront rather than directly from arbitrary internet hosts. Which TWO actions BEST meet these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Associate an AWS WAF web ACL with the CloudFront distribution and add rules that block SQL injection patterns.",
+      "B": "Restrict the ALB security group inbound source to the AWS-managed CloudFront origin-facing prefix list.",
+      "C": "Replace CloudFront with AWS Global Accelerator so the ALB is no longer publicly reachable.",
+      "D": "Add a network ACL to the ALB subnets listing all current CloudFront IP ranges manually and update it whenever ranges change.",
+      "E": "Enable AWS Shield Advanced on the ALB only; this will also block SQL injection patterns."
+    },
+    "correct": ["A", "B"],
+    "explanation": "AWS WAF attached to CloudFront can block SQL injection and similar application-layer attacks at the edge before the requests reach the origin. Restricting the ALB security group to the AWS-managed CloudFront prefix list helps ensure the origin accepts traffic only from CloudFront origin-facing infrastructure. Global Accelerator does not replace edge caching or WAF behavior for this use case, manually curating CloudFront IPs in a NACL is operationally brittle, and Shield Advanced is for DDoS protection rather than SQL injection filtering.",
+    "tags": [
+      "Integrating AWS services to secure applications (for example, AWS Shield, AWS WAF, IAM Identity Center, AWS Secrets Manager)",
+      "Threat vectors external to AWS (for example, DDoS, SQL injection)",
+      "AWS WAF"
+    ],
+    "id": "7a68d1e30f510f115a0395f3e641f5142ce999fd65d37ea23c73aa83997c8248"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A solutions architect must choose the most appropriate AWS traffic-distribution service for each requirement. Match each requirement to the BEST-FIT service or load-balancing option. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Application Load Balancer",
+      "B": "Network Load Balancer",
+      "C": "Gateway Load Balancer",
+      "D": "Amazon Route 53"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "HTTP and HTTPS microservices need host-based routing, path-based routing, and WebSocket support behind a single endpoint.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "A latency-sensitive TCP service needs static IP addresses, very high connection rates, and client source IP preservation.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "Third-party virtual appliances must inspect traffic transparently while scaling horizontally behind a managed distribution layer.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "Traffic should be directed at the DNS layer to healthy regional endpoints rather than proxied through a load balancer.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "ALB is the right choice for advanced Layer 7 routing features such as host-based and path-based routing. NLB is designed for high-performance Layer 4 traffic, static IPs, and source IP preservation. GWLB is purpose-built for transparent insertion of virtual appliances. Route 53 performs DNS-layer traffic steering to endpoints instead of proxying connections itself.",
+    "tags": [
+      "Selecting the appropriate load balancing strategy",
+      "Load balancing concepts (for example, Application Load Balancer)",
+      "Elastic Load Balancing (ELB)"
+    ],
+    "id": "eeb1560ce11b9bed62c9a2a7de37a6089bc12aa8a2637ef7f94477a4f9c5f01b"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A retailer is decomposing a monolithic application into microservices across multiple AWS accounts. One payments service must be consumed synchronously and privately from many consumer VPCs that use overlapping CIDR ranges. Separately, checkout requests must be buffered so frontend traffic spikes do not overwhelm downstream order processors. Which TWO design choices BEST satisfy these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Expose the payments service through a Network Load Balancer and publish it as an AWS PrivateLink endpoint service.",
+      "B": "Connect every consumer VPC to the payments VPC with VPC peering.",
+      "C": "Put Amazon SQS between the frontend and order-processing microservices.",
+      "D": "Use Amazon SNS only for order buffering so consumers can poll messages when ready.",
+      "E": "Use a shared AWS Transit Gateway for the payments service requirement because overlapping CIDR ranges are supported natively for attached VPCs."
+    },
+    "correct": ["A", "C"],
+    "explanation": "PrivateLink is the correct pattern when a single service must be consumed privately by many VPCs, including VPCs with overlapping CIDR ranges, without exposing full network reachability. Amazon SQS provides durable buffering so the frontend and order processors can scale independently and absorb spikes. VPC peering and Transit Gateway require routable non-overlapping networks for general connectivity. SNS is pub/sub fanout, not queue-based load leveling for independently scaled workers.",
+    "tags": [
+      "Determining the AWS services required to achieve loose coupling based on requirements",
+      "Queuing and messaging concepts (for example, publish/subscribe)",
+      "AWS PrivateLink"
+    ],
+    "id": "901160f4dca25744caf5d221520906d3d301829e5f8ee0a821863e283e134fd8"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A global application uses Amazon Route 53 to steer users among regional endpoints. Match each routing requirement to the Route 53 routing policy that BEST implements it. Each policy is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Failover",
+      "B": "Weighted",
+      "C": "Latency-based",
+      "D": "Geolocation"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "A new regional endpoint must receive exactly 10% of production traffic while the existing endpoint continues to receive 90%, regardless of client location.",
+        "correct": "B"
+      },
+      {
+        "id": "sq2",
+        "prompt": "Users in Europe must be sent to eu-west-1 and users in Asia Pacific must be sent to ap-southeast-2 based on geographic origin rather than measured latency.",
+        "correct": "D"
+      },
+      {
+        "id": "sq3",
+        "prompt": "Users should normally reach the healthy Region with the lowest measured network latency from their DNS resolver location.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "A secondary Region should receive traffic only when the primary endpoint becomes unhealthy.",
+        "correct": "A"
+      }
+    ],
+    "explanation": "Weighted routing is used for deliberate percentage-based traffic splitting such as canaries. Geolocation routing selects endpoints based on the user geographic location rather than latency. Latency-based routing selects the Region with the best measured network latency from the resolver. Failover routing supports active-passive architectures in which the secondary is used only when the primary fails health checks.",
+    "tags": [
+      "Failover strategies",
+      "AWS global infrastructure (for example, Availability Zones, AWS Regions, Amazon Route 53)",
+      "Amazon Route 53"
+    ],
+    "id": "f50da89a99a90831e12c5d4a8134600db70fdcfc89d13e5ee290ead176d156ea"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A gaming company runs regional TCP matchmaking services. Players worldwide must connect through the nearest healthy AWS edge location, fail over quickly to another healthy Region without depending on DNS TTL expiry, and use a fixed pair of public IP addresses that can be allow-listed by enterprise customers. Which TWO services or design elements are REQUIRED? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Global Accelerator",
+      "B": "Amazon CloudFront",
+      "C": "Network Load Balancers deployed in each target Region",
+      "D": "Amazon Route 53 latency-based records only",
+      "E": "An internet gateway in each application VPC"
+    },
+    "correct": ["A", "C"],
+    "explanation": "AWS Global Accelerator provides static anycast IP addresses, directs traffic into the nearest healthy AWS edge location, and performs rapid failover without relying on client DNS cache behavior. Regional Network Load Balancers are appropriate endpoints for the TCP matchmaking services. CloudFront is optimized for HTTP/HTTPS content distribution, Route 53 alone still depends on DNS resolution behavior, and an internet gateway is necessary for internet access in a VPC but does not solve the stated global front-door requirements.",
+    "tags": [
+      "Determining the AWS services required to provide a highly available and/or fault-tolerant architecture across AWS Regions or Availability Zones",
+      "Edge networking services with appropriate use cases (for example, Amazon CloudFront, AWS Global Accelerator)",
+      "AWS Global Accelerator"
+    ],
+    "id": "9464ca4fbac689cde2d97bb511d587051df230850891b94ce967ab2617afd561"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A solutions architect is choosing the right cross-Region networking approach for resiliency requirements. Match each requirement to the AWS service or feature that BEST satisfies it. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Route 53 failover routing",
+      "B": "AWS Global Accelerator",
+      "C": "Transit Gateway inter-Region peering",
+      "D": "Inter-Region VPC Peering"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "Internet clients must continue using the same anycast IP addresses while traffic is redirected away from an unhealthy Region within seconds.",
+        "correct": "B"
+      },
+      {
+        "id": "sq2",
+        "prompt": "A public web application can tolerate DNS-based failover and should send traffic to a standby Application Load Balancer only when the primary ALB health check fails.",
+        "correct": "A"
+      },
+      {
+        "id": "sq3",
+        "prompt": "A hub-and-spoke architecture needs private, transitive connectivity between many VPCs in different Regions over the AWS backbone.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "Exactly two VPCs in different Regions need private connectivity, and no transitive hub or third-VPC routing is required.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Global Accelerator is the right option when clients need fixed anycast IPs and rapid regional failover that does not depend on DNS cache expiry. Route 53 failover routing is appropriate for DNS-based active-passive failover. Transit Gateway inter-Region peering supports transitive hub-and-spoke connectivity across Regions on the AWS backbone. Inter-Region VPC peering provides direct connectivity between two VPCs but still does not support transitive routing.",
+    "tags": [
+      "Failover strategies",
+      "Distributed design patterns",
+      "AWS Transit Gateway"
+    ],
+    "id": "7e85d2b273c5d14bb6256bd1965f08d03e864654acba0815e33342855d48f4cf"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A company operates a public HTTPS API in two AWS Regions behind Application Load Balancers. Some enterprise clients cache DNS responses aggressively, so failover must not rely on clients honoring low Route 53 TTLs. The company also wants a single global entry point that automatically routes users to the optimal healthy Region. Which TWO actions BEST meet these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Create an AWS Global Accelerator accelerator with listeners for the API ports.",
+      "B": "Add each regional Application Load Balancer to a Global Accelerator endpoint group and rely on accelerator health checks.",
+      "C": "Replace the ALBs with CloudFront distributions because CloudFront always provides non-DNS failover for dynamic APIs.",
+      "D": "Use Route 53 multivalue answer routing with 0-second TTLs.",
+      "E": "Use Amazon S3 Transfer Acceleration in front of the ALBs."
+    },
+    "correct": ["A", "B"],
+    "explanation": "Global Accelerator provides a single global front door with static anycast IPs and health-aware routing that does not depend on client DNS cache behavior. Registering the regional ALBs in endpoint groups lets Global Accelerator direct traffic to the best healthy Region automatically. Route 53 still depends on DNS lookups and client caching behavior, CloudFront is not a general substitute for this non-cacheable multi-Region API failover requirement, and S3 Transfer Acceleration is unrelated to ALB-based API entry points.",
+    "tags": [
+      "Failover strategies",
+      "Selecting the appropriate load balancing strategy",
+      "AWS Global Accelerator"
+    ],
+    "id": "e645f8329c1de3f4696ebae2502ba654080d1f82063004cc90b7f67ccf50a64e"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A solutions architect is choosing AWS building blocks for different private connectivity topologies. Match each topology requirement to the AWS service or feature that BEST fits. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS Transit Gateway",
+      "B": "VPC Peering",
+      "C": "AWS PrivateLink",
+      "D": "AWS Direct Connect Gateway"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "Hundreds of VPCs across accounts need transitive connectivity through a central hub with simplified route management.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "Two VPCs with non-overlapping CIDR ranges need direct private IP reachability and the simplest possible data path.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "A provider must expose one application privately to consumer VPCs that may have overlapping CIDR ranges, without exposing the rest of the provider VPC.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "One private connection from on-premises must reach VPCs in multiple AWS Regions through associated AWS constructs.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Transit Gateway is the hub-and-spoke service for scalable transitive connectivity across many VPCs. VPC peering is the simplest direct option for point-to-point connectivity between two non-overlapping VPCs. PrivateLink exposes a specific service privately without general network adjacency and works with overlapping CIDRs. A Direct Connect Gateway allows a private Direct Connect connection to reach associated resources in multiple Regions.",
+    "tags": [
+      "Creating a network topology for various architectures (for example, global, hybrid, multi-tier)",
+      "Determining network configurations that can scale to accommodate future needs",
+      "AWS Transit Gateway"
+    ],
+    "id": "8170f78d97c7bae1c12aae82c1fa71a4f5fcf7c304b756d0610757f788d81012"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "An enterprise needs 20 Gbps of private connectivity from its data center into AWS. The design must aggregate bandwidth across multiple physical links, reduce the blast radius of a single port failure, and provide reachability from the data center to application VPCs in several AWS Regions. Which TWO design choices BEST meet these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Create a Link Aggregation Group (LAG) using multiple AWS Direct Connect dedicated connections.",
+      "B": "Use a single AWS Site-to-Site VPN with acceleration enabled.",
+      "C": "Expose each VPC through AWS PrivateLink endpoint services.",
+      "D": "Use an AWS Direct Connect Gateway associated with the required multi-Region attachments.",
+      "E": "Use VPC peering between all Regions and advertise those routes over the Direct Connect public virtual interface."
+    },
+    "correct": ["A", "D"],
+    "explanation": "A Direct Connect Link Aggregation Group combines multiple dedicated connections to increase aggregate bandwidth and reduce dependence on any single physical port. A Direct Connect Gateway lets those private connections reach associated resources across multiple AWS Regions. Site-to-Site VPN does not meet the throughput or private-circuit requirement, PrivateLink exposes services rather than full private network reachability, and public virtual interfaces are not used to advertise private VPC routes.",
+    "tags": [
+      "Determining network configurations that can scale to accommodate future needs",
+      "Selecting the appropriate bandwidth allocation for a network device (for example, a single VPN compared with multiple VPNs, Direct Connect speed)",
+      "AWS Direct Connect"
+    ],
+    "id": "b71952c0c6445c48c397b67554812d89e17dda1cb3734edd7eeffd7282c99cc5"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A company is designing hybrid DNS resolution between on-premises networks and Amazon VPCs. Match each requirement to the Route 53 or Resolver component that BEST satisfies it. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Route 53 Resolver inbound endpoint",
+      "B": "Route 53 Resolver outbound endpoint",
+      "C": "Route 53 private hosted zone",
+      "D": "Route 53 public hosted zone"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "On-premises DNS servers must resolve private names hosted inside a VPC, such as internal application records.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "EC2 instances in a VPC must resolve names hosted on on-premises DNS servers by forwarding specific domains out of the VPC.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "Internal records should resolve only for VPCs explicitly associated to the zone.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "Internet users must resolve the company public domain to a CloudFront distribution.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Resolver inbound endpoints let on-premises resolvers forward DNS queries into AWS for private records. Resolver outbound endpoints let VPC workloads forward selected domain queries to on-premises DNS. Private hosted zones serve records only inside associated VPCs. Public hosted zones publish records to the internet DNS hierarchy for public name resolution.",
+    "tags": [
+      "Creating a network topology for various architectures (for example, global, hybrid, multi-tier)",
+      "Network connection options (for example, AWS VPN, AWS Direct Connect, AWS PrivateLink)",
+      "Amazon Route 53"
+    ],
+    "id": "f33d7ce6d8710da075e86322a868f77c0ecc0ca38bb1052e957d73ae8bc5ad19"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A company runs shared DNS appliances in a central networking account. Application VPCs in many AWS accounts need to resolve selected on-premises namespaces through those appliances, but the company wants to avoid full-mesh VPC peering and keep routing manageable as the environment grows. Which TWO design choices BEST fit these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use AWS Transit Gateway as the hub for VPC attachments and centralized routing.",
+      "B": "Peer every application VPC directly with the shared-services VPC that hosts the DNS appliances.",
+      "C": "Publish the on-premises namespaces in a Route 53 public hosted zone.",
+      "D": "Create Route 53 Resolver outbound endpoints and forwarding rules in the networking account, then share the rules with application accounts by using AWS RAM.",
+      "E": "Create separate NAT gateways in each application VPC so DNS queries can exit to the internet and re-enter the data center."
+    },
+    "correct": ["A", "D"],
+    "explanation": "Transit Gateway gives the environment a scalable hub-and-spoke topology instead of brittle full-mesh peering. Route 53 Resolver outbound endpoints and shared forwarding rules allow centralized hybrid DNS resolution to on-premises namespaces without self-managing DNS forwarding instances in each application VPC. Public hosted zones are not appropriate for private namespaces, and NAT gateways are unrelated to direct private hybrid DNS forwarding.",
+    "tags": [
+      "Creating a network topology for various architectures (for example, global, hybrid, multi-tier)",
+      "Determining network configurations that can scale to accommodate future needs",
+      "Amazon Route 53"
+    ],
+    "id": "0d6c8fc8a5afa163934e0804fc87f0c6c2120ec6666867d5a35a35e275a394f7"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "A solutions architect is optimizing ongoing network cost for several VPC designs. Match each scenario to the MOST cost-appropriate AWS networking option. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Gateway VPC Endpoint",
+      "B": "Interface VPC Endpoint",
+      "C": "Single shared NAT Gateway",
+      "D": "NAT Gateway in each Availability Zone"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "A one-AZ development VPC occasionally needs outbound internet access for private instances, and the business explicitly accepts AZ-level egress failure to minimize hourly cost.",
+        "correct": "C"
+      },
+      {
+        "id": "sq2",
+        "prompt": "A production application runs in three AZs and sends significant outbound internet traffic from private subnets; the design must avoid cross-AZ data processing and preserve zonal resilience.",
+        "correct": "D"
+      },
+      {
+        "id": "sq3",
+        "prompt": "Private workloads need low-cost private access to Amazon S3 and DynamoDB without NAT data processing charges.",
+        "correct": "A"
+      },
+      {
+        "id": "sq4",
+        "prompt": "Private workloads must call AWS Secrets Manager privately from a VPC with no internet route; this service does not support gateway endpoints.",
+        "correct": "B"
+      }
+    ],
+    "explanation": "A single NAT gateway is the lowest-hourly-cost choice for a nonproduction one-AZ environment that accepts egress failure in an AZ outage. NAT gateways in each AZ are more cost-effective for resilient high-volume production designs because they avoid cross-AZ data charges and zonal dependencies. Gateway endpoints provide the lowest-cost private access to S3 and DynamoDB. Interface endpoints are required for private access to services such as Secrets Manager that do not support gateway endpoints.",
+    "tags": [
+      "Configuring appropriate NAT gateway types for a network (for example, a single shared NAT gateway compared with NAT gateways for each Availability Zone)",
+      "Configuring appropriate network routes to minimize network transfer costs (for example, Region to Region, Availability Zone to Availability Zone, private to public, AWS Global Accelerator, VPC endpoints)",
+      "Amazon VPC"
+    ],
+    "id": "b29593dcd95000f8813be47762724f1673ac63518fa04a821061657126c65e7d"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "A batch analytics platform runs in private subnets across two Availability Zones. Instances download large input datasets from Amazon S3 and write job metadata to DynamoDB. The instances also call a third-party HTTPS API, so NAT gateways are still required. NAT data-processing charges are much higher than expected. Which TWO changes will reduce cost MOST directly without sacrificing the current availability model? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Create a gateway VPC endpoint for Amazon S3.",
+      "B": "Create a gateway VPC endpoint for Amazon DynamoDB.",
+      "C": "Replace both NAT gateways with a single NAT gateway in one AZ.",
+      "D": "Create interface VPC endpoints for Amazon S3 and DynamoDB instead of gateway endpoints.",
+      "E": "Move the third-party API behind AWS PrivateLink."
+    },
+    "correct": ["A", "B"],
+    "explanation": "Gateway endpoints for S3 and DynamoDB remove a large share of AWS-bound traffic from the NAT gateways and avoid NAT data-processing charges while preserving the existing multi-AZ NAT design for the remaining third-party internet calls. Collapsing to one NAT gateway would reduce availability and can introduce cross-AZ data transfer, and interface endpoints for S3 and DynamoDB are not the most cost-effective endpoint types for these services.",
+    "tags": [
+      "Configuring appropriate network routes to minimize network transfer costs (for example, Region to Region, Availability Zone to Availability Zone, private to public, AWS Global Accelerator, VPC endpoints)",
+      "NAT gateways (for example, NAT instance costs compared with NAT gateway costs)",
+      "Amazon VPC"
+    ],
+    "id": "883df8c3f04e4fc663b8a6f631cc32ed9ad9ef6026758c5e0f41c5c9ee7ed257"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "A solutions architect is evaluating network optimizations for different traffic patterns. Match each optimization goal to the AWS service or feature that BEST addresses it. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon CloudFront",
+      "B": "AWS Global Accelerator",
+      "C": "Transit Gateway inter-Region peering",
+      "D": "VPC Endpoint"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "Reduce repeated origin fetches and lower data transfer for cacheable HTTPS content consumed globally.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "Improve availability and path selection for a globally distributed, non-cacheable TCP application that needs static anycast IP addresses.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "Keep private traffic flowing between hub VPCs in different Regions over the AWS backbone instead of public internet or VPN overlays.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "Allow workloads in a VPC to reach supported AWS services privately and avoid NAT processing charges.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "CloudFront reduces origin load and internet data transfer for cacheable content by serving it from edge locations. Global Accelerator improves global entry-point availability and routing performance for non-cacheable TCP/UDP or HTTP applications that need static anycast IPs. Transit Gateway inter-Region peering keeps private inter-Region traffic on the AWS backbone between hubs. VPC endpoints provide private access to supported AWS services and can reduce NAT-related charges.",
+    "tags": [
+      "Determining strategic needs for content delivery networks (CDNs) and edge caching",
+      "Configuring appropriate network routes to minimize network transfer costs (for example, Region to Region, Availability Zone to Availability Zone, private to public, AWS Global Accelerator, VPC endpoints)",
+      "Amazon CloudFront"
+    ],
+    "id": "157218216a9f38837188946552e6ba00b1c9dcf35f2e291596776d6fc737e269"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "A company currently maintains dozens of point-to-point VPN connections from branch offices to multiple AWS VPCs. Traffic patterns are steady year-round, several branches regularly push more than 1 Gbps, and leadership wants to lower long-term per-GB networking cost while simplifying topology. Which TWO changes BEST align with these goals? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use AWS Direct Connect for the high-throughput private connectivity.",
+      "B": "Continue with only AWS Site-to-Site VPN because internet-based tunnels are always cheaper at scale.",
+      "C": "Use an AWS Direct Connect Gateway so a smaller number of private connections can reach multiple VPCs across Regions.",
+      "D": "Replace all private connectivity with Amazon CloudFront.",
+      "E": "Use AWS PrivateLink for full branch-to-VPC network connectivity."
+    },
+    "correct": ["A", "C"],
+    "explanation": "For steady high-throughput hybrid traffic, Direct Connect usually provides a better long-term cost and performance profile than maintaining many VPN tunnels over the internet. A Direct Connect Gateway simplifies topology by allowing a smaller set of private connections to reach multiple VPCs across Regions. VPN remains useful for backup or rapid deployment, but it is not the most cost-effective primary model at the stated scale. CloudFront and PrivateLink do not replace general branch-to-VPC connectivity.",
+    "tags": [
+      "Configuring appropriate network connections (for example, AWS Direct Connect compared with VPN compared with internet)",
+      "Selecting the appropriate bandwidth allocation for a network device (for example, a single VPN compared with multiple VPNs, Direct Connect speed)",
+      "AWS Direct Connect"
+    ],
+    "id": "8f84d7e6cb5ccc72a560b7c87b0596acd1fdff2822620dfea9e46f0dfb63a077"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A security architect is selecting the correct AWS network control for several traffic-filtering requirements. Match each requirement to the BEST-FIT control or component. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Security group referencing another security group",
+      "B": "Network ACL explicit deny rule",
+      "C": "Route table with no egress path to the destination",
+      "D": "AWS Network Firewall"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "Only application instances that are members of a specific security group should reach the database on TCP 3306, even if instance IP addresses change frequently.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "A subnet must block a known malicious CIDR range before more general allow rules are evaluated.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "A private subnet must be prevented from reaching the internet simply by ensuring no default route exists to an internet or NAT target.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "The organization needs centralized, stateful inspection with managed rule groups and domain-based filtering for traffic traversing a VPC.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Security groups can reference other security groups, making them ideal for dynamic instance-to-instance policy such as allowing only the application tier to reach the database tier. Network ACLs operate at the subnet boundary and can apply explicit deny rules in order. The absence of an egress route in a route table prevents traffic from leaving for that destination entirely. AWS Network Firewall provides centralized, stateful inspection and advanced rule processing beyond what security groups and NACLs offer.",
+    "tags": [
+      "Designing VPC architectures with security components (for example, security groups, route tables, network ACLs, NAT gateways)",
+      "Control ports, protocols, and network traffic on AWS",
+      "AWS Network Firewall"
+    ],
+    "id": "7ff3718434cf226d16007efce31d22985243250cf2c714e11aca3b99986245a7"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A hybrid environment must support bi-directional DNS resolution: on-premises users need to resolve private records hosted in AWS, and Amazon EC2 instances must resolve a subset of corporate domains hosted on-premises. The company wants to avoid self-managed DNS forwarders. Which TWO components are REQUIRED? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Route 53 Resolver inbound endpoints in the VPCs that host the private records",
+      "B": "Route 53 Resolver outbound endpoints plus forwarding rules for the on-premises domains",
+      "C": "A Route 53 public hosted zone for the internal domains",
+      "D": "NAT gateways so DNS queries can traverse to the internet first",
+      "E": "Amazon CloudFront distributions in front of the DNS servers"
+    },
+    "correct": ["A", "B"],
+    "explanation": "Resolver inbound endpoints are required when on-premises DNS systems must forward queries into AWS for private names. Resolver outbound endpoints with forwarding rules are required when VPC workloads must resolve selected domains hosted on on-premises DNS infrastructure. Public hosted zones are not suitable for private internal domains, and neither NAT gateways nor CloudFront provide managed hybrid DNS forwarding.",
+    "tags": [
+      "Creating a network topology for various architectures (for example, global, hybrid, multi-tier)",
+      "Network connection options (for example, AWS VPN, AWS Direct Connect, AWS PrivateLink)",
+      "Amazon Route 53"
+    ],
+    "id": "6dc18c5a4a2b68b1d52a16398ddf144df464cb4635e683793ea467445840ea3a"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A solutions architect must select the right API exposure pattern for several HTTP services. Match each requirement to the BEST-FIT Amazon API Gateway endpoint type or front-door option. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Edge-optimized API Gateway",
+      "B": "Regional API Gateway",
+      "C": "Private API Gateway",
+      "D": "Application Load Balancer"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "A public API for a global mobile application should use the CloudFront distribution managed by API Gateway to improve edge access without the team building a separate CDN layer.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "A public API will be fronted by a separately managed CloudFront or AWS WAF strategy, so the team wants the API endpoint to remain regional rather than using the API Gateway-managed global edge pattern.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "An API must be reachable only from specific VPCs and from on-premises networks over private connectivity, with no public internet reachability.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "A containerized web service needs host-based and path-based routing across multiple target groups rather than API Gateway features such as usage plans or authorizers.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Edge-optimized API Gateway uses a CloudFront distribution managed by API Gateway for global clients. Regional API Gateway keeps the endpoint regional, which is appropriate when the team wants to manage its own separate edge layer. Private API Gateway is the option for APIs that must stay private to VPC and hybrid callers through interface endpoints. An ALB is the better fit when the requirement is Layer 7 routing to target groups rather than managed API features.",
+    "tags": [
+      "API creation and management (for example, Amazon API Gateway, REST API)",
+      "Selecting the appropriate load balancing strategy",
+      "Amazon API Gateway"
+    ],
+    "id": "54d1a4bd3e9deeedf80102a36b2b614d19494f7e76e293845aa1f051911d77a5"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A healthcare company already has private hybrid connectivity from its data center into an Amazon VPC. It must expose a REST API to workloads in that VPC and to on-premises callers, but the API must never be publicly reachable from the internet. The team wants to minimize self-managed proxy infrastructure and retain API Gateway features such as authorizers and throttling. Which TWO design choices BEST meet these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Create an API Gateway private API.",
+      "B": "Create interface VPC endpoints for execute-api in the VPC and enable private DNS for VPC callers.",
+      "C": "Put an internet-facing Application Load Balancer in public subnets and allow only the data center CIDR ranges.",
+      "D": "Publish the API through Amazon CloudFront with signed URLs.",
+      "E": "Use an edge-optimized API Gateway custom domain."
+    },
+    "correct": ["A", "B"],
+    "explanation": "A private API Gateway endpoint keeps the API off the public internet while preserving API Gateway features such as throttling and authorizers. Interface VPC endpoints for execute-api provide the private network path for VPC callers and can also be reached from on-premises over existing private hybrid connectivity. The public ALB and edge-optimized API choices violate the requirement that the API never be publicly reachable.",
+    "tags": [
+      "Secure application access",
+      "API creation and management (for example, Amazon API Gateway, REST API)",
+      "Amazon API Gateway"
+    ],
+    "id": "960fa7e3aa5671b6076f59cf77106efa9cb439a64b9f0a73c3ef4a2d1242bf48"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A solutions architect is configuring AWS Direct Connect for several distinct traffic patterns. Match each requirement to the Direct Connect interface or connectivity option that BEST fits. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Private virtual interface",
+      "B": "Public virtual interface",
+      "C": "Transit virtual interface",
+      "D": "AWS Site-to-Site VPN"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "A private circuit must reach a single VPC through a virtual private gateway by using private IP space over the Direct Connect connection.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "The data center must reach AWS public services such as Amazon S3 over the Direct Connect connection by using AWS public IP addresses.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "A single Direct Connect connection must reach many VPCs through a Transit Gateway routing domain.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "An encrypted internet-based backup path is needed if the dedicated circuit becomes unavailable.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "A private virtual interface is used for private connectivity to a VPC through a virtual private gateway. A public virtual interface reaches AWS public services such as S3 over the Direct Connect circuit. A transit virtual interface is used with Direct Connect Gateway and Transit Gateway designs to reach many VPCs through a transit routing domain. Site-to-Site VPN is the internet-based encrypted backup path.",
+    "tags": [
+      "Configuring appropriate network connections (for example, AWS Direct Connect compared with VPN compared with internet)",
+      "Determining network configurations that can scale to accommodate future needs",
+      "AWS Direct Connect"
+    ],
+    "id": "a6340a0b81494b36475791141f118e4e35a29fb62caaa450cd8755ce001abc81"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "A media company has a 10 Gbps Direct Connect connection from its data center to AWS. The data center must upload content to an Amazon S3 bucket and also reach application VPCs privately over the same physical circuit. The company wants the correct routing model on that existing connection rather than adding more circuits. Which TWO networking configurations are REQUIRED? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Create a public virtual interface for Amazon S3 and other AWS public service endpoints.",
+      "B": "Create a private virtual interface or a transit virtual interface for VPC connectivity, depending on whether the design uses a VGW or Transit Gateway.",
+      "C": "Use only a private virtual interface because Amazon S3 is inside a VPC.",
+      "D": "Expose Amazon S3 through AWS PrivateLink from the data center.",
+      "E": "Use VPC peering from the data center router to the VPCs."
+    },
+    "correct": ["A", "B"],
+    "explanation": "Amazon S3 is accessed over a Direct Connect public virtual interface because S3 is an AWS public service, even though traffic stays on the AWS network after entering Direct Connect. Private VPC connectivity requires a private virtual interface or a transit virtual interface, depending on whether the target is a virtual private gateway or a Transit Gateway design. S3 is not reached through a private VIF alone, and PrivateLink or VPC peering do not solve the on-premises routing requirement.",
+    "tags": [
+      "Configuring appropriate network connections (for example, AWS Direct Connect compared with VPN compared with internet)",
+      "Configuring appropriate network routes to minimize network transfer costs (for example, Region to Region, Availability Zone to Availability Zone, private to public, AWS Global Accelerator, VPC endpoints)",
+      "AWS Direct Connect"
+    ],
+    "id": "c4de1323e1572b8b2203b602b4a8cc5436a3706449452af0e14b26741b299a02"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "An enterprise wants a more resilient hybrid network. The primary path from on-premises to AWS should be a dedicated private connection, but encrypted connectivity should still exist if that circuit fails. Dynamic routes should fail over automatically without manual route edits. Which TWO design choices BEST meet these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use AWS Direct Connect as the primary path.",
+      "B": "Add AWS Site-to-Site VPN terminating on the same virtual private gateway or Transit Gateway.",
+      "C": "Use Amazon CloudFront as the failover transport for the hybrid private addresses.",
+      "D": "Use static routes only on both connections because BGP cannot be used with AWS-managed connectivity.",
+      "E": "Remove VPN and depend on a second NAT gateway in the VPC."
+    },
+    "correct": ["A", "B"],
+    "explanation": "A common resilient hybrid pattern is to use Direct Connect as the preferred primary path and Site-to-Site VPN as the encrypted backup path. With BGP, AWS can prefer the Direct Connect path and fail to VPN automatically if the dedicated circuit becomes unavailable. CloudFront and NAT gateways are not hybrid network failover mechanisms, and static routes remove the dynamic failover benefit.",
+    "tags": [
+      "Failover strategies",
+      "Configuring appropriate network connections (for example, AWS Direct Connect compared with VPN compared with internet)",
+      "AWS Direct Connect"
+    ],
+    "id": "846e67e0512e0f4653808365ac9ccb44e7e806a22e75a96cc776b3e392b2b11d"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A solutions architect is selecting the correct VPC endpoint or egress pattern for private workloads. Match each requirement to the BEST-FIT option. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Gateway VPC Endpoint",
+      "B": "Interface VPC Endpoint",
+      "C": "Gateway Load Balancer Endpoint",
+      "D": "NAT Gateway"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "Private instances need low-cost private access to Amazon S3 by using route table entries instead of ENI-based endpoints.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "Private instances need ENI-based private connectivity to AWS Secrets Manager with optional private DNS for the standard service hostname.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "Subnet route tables must steer traffic to centralized third-party inspection appliances deployed behind a Gateway Load Balancer.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "Private workloads must reach a public third-party HTTPS API that does not provide any PrivateLink-style connectivity.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Gateway endpoints are the route-table-based option for low-cost private access to S3 and DynamoDB. Interface endpoints provide ENI-based private connectivity and private DNS for many AWS services such as Secrets Manager. Gateway Load Balancer endpoints are used when route tables must steer traffic through centralized inspection appliances. A NAT gateway remains the standard pattern when private IPv4 workloads need outbound access to public third-party services.",
+    "tags": [
+      "Configuring appropriate network routes to minimize network transfer costs (for example, Region to Region, Availability Zone to Availability Zone, private to public, AWS Global Accelerator, VPC endpoints)",
+      "Selecting the appropriate load balancing strategy",
+      "Amazon VPC"
+    ],
+    "id": "ef03b92f81c37fcdbf240b513a064360e6fa283f7aadbbf604da1a017f74bf9c"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A private container platform runs entirely in private subnets with no internet gateway or NAT. Worker nodes must pull container images from Amazon ECR and download layer artifacts from Amazon S3. Which TWO networking changes are REQUIRED for the nodes to operate without internet access? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Create interface VPC endpoints for Amazon ECR API and Amazon ECR DKR.",
+      "B": "Create a gateway VPC endpoint for Amazon S3.",
+      "C": "Create only an interface VPC endpoint for Amazon S3.",
+      "D": "Add an egress-only internet gateway for IPv4 traffic.",
+      "E": "Add an internet-facing Network Load Balancer in the cluster VPC."
+    },
+    "correct": ["A", "B"],
+    "explanation": "ECR image pulls require private connectivity to the ECR API and ECR DKR endpoints, which are provided through interface endpoints. The actual image layer data is stored in S3, so the private subnets also need a gateway endpoint for S3. An egress-only internet gateway is for IPv6 outbound internet traffic, not private AWS service access for IPv4 workloads.",
+    "tags": [
+      "Determining appropriate placement of resources to meet business requirements",
+      "Configuring appropriate network routes to minimize network transfer costs (for example, Region to Region, Availability Zone to Availability Zone, private to public, AWS Global Accelerator, VPC endpoints)",
+      "Amazon VPC"
+    ],
+    "id": "6f41e8b7eee0f7c494561e432a41de6a0201a6a9bb7c06f35d38b470a35694dd"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A company wants employees working remotely to access private application instances without exposing SSH or RDP to the internet. Authentication must be per-user through the company identity provider rather than shared network credentials. Which TWO design choices BEST satisfy these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Deploy AWS Client VPN and federate authentication with the corporate identity provider.",
+      "B": "Allow inbound access to the application instances only from the Client VPN address space or a security group associated with VPN-connected resources.",
+      "C": "Expose the instances through an internet-facing bastion host with a shared key pair.",
+      "D": "Use a Site-to-Site VPN from each employee laptop.",
+      "E": "Assign public IP addresses to all instances and restrict by employee home IP ranges."
+    },
+    "correct": ["A", "B"],
+    "explanation": "AWS Client VPN is the right service for per-user remote access from laptops, including federated authentication. Instance access should then be scoped so only traffic coming from the VPN-connected network can reach the private application instances. A bastion host with shared credentials or public instance exposure weakens the security posture, and Site-to-Site VPN is for network-to-network connectivity rather than individual end users.",
+    "tags": [
+      "Secure application access",
+      "Network connection options (for example, AWS VPN, AWS Direct Connect, AWS PrivateLink)",
+      "AWS Client VPN"
+    ],
+    "id": "f6ecc700653bd32cf07414de1e408e532d319478e1860a2bbbd5d4e27bf925c5"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A solutions architect is fine-tuning Amazon Route 53 policies for a multi-Region design. Match each requirement to the Route 53 routing policy that BEST satisfies it. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Multivalue Answer",
+      "B": "Geoproximity",
+      "C": "Weighted",
+      "D": "Latency-based"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "The DNS response should return up to eight healthy records so clients can distribute requests across multiple healthy endpoints without a load balancer.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "The team wants to bias more traffic toward one Region by using geography-aware traffic flow, even if users are not strictly closest to that Region.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "Exactly 5% of requests should be sent to a canary endpoint while 95% continue to the main endpoint.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "Users should normally reach the healthy endpoint that has the lowest measured network latency from their DNS resolver location.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Multivalue answer routing returns multiple healthy records, allowing simple client-side distribution without a load balancer. Geoproximity routing uses geographic bias to shift traffic toward or away from Regions. Weighted routing is for deliberate percentage-based splits such as canaries. Latency-based routing chooses the endpoint with the best measured latency from the resolver location.",
+    "tags": [
+      "Failover strategies",
+      "AWS global infrastructure (for example, Availability Zones, AWS Regions, Amazon Route 53)",
+      "Amazon Route 53"
+    ],
+    "id": "728e47afe6cae7f51aa1367c41106455d3108e97a89c33dab32eae8cc1e4d7ea"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A company runs several public endpoints without a load balancer and wants Amazon Route 53 to return only healthy IP addresses to clients while still providing simple DNS-level distribution across multiple healthy records. Which TWO features are REQUIRED? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Multivalue answer routing",
+      "B": "Route 53 health checks associated with the records",
+      "C": "Failover routing only",
+      "D": "AWS Global Accelerator",
+      "E": "Geolocation routing"
+    },
+    "correct": ["A", "B"],
+    "explanation": "Multivalue answer routing returns multiple healthy records in DNS responses, but the records must be associated with Route 53 health checks so unhealthy endpoints are removed from responses. Failover routing supports active-passive rather than simple distribution across many healthy records, and Global Accelerator is a different global front-door service.",
+    "tags": [
+      "Failover strategies",
+      "Identifying metrics based on business requirements to deliver a highly available solution",
+      "Amazon Route 53"
+    ],
+    "id": "9ea9fac840894ea640fc8d72cf875cedb4caecc8c9a88d4ef5f840b9992fdd50"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A solutions architect is choosing the right AWS global traffic optimization service for several use cases. Match each requirement to the BEST-FIT service. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Amazon CloudFront",
+      "B": "AWS Global Accelerator",
+      "C": "Amazon Route 53",
+      "D": "S3 Transfer Acceleration"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "Static or cacheable content should be served from edge locations worldwide to reduce origin load and latency.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "A non-cacheable TCP application needs static anycast IP addresses, fast health-based failover, and optimized global path selection.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "DNS-level routing should steer users among regional application endpoints according to policies such as latency or failover.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "Clients around the world must upload objects more quickly into a single Amazon S3 bucket without building custom edge proxies.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "CloudFront is the edge caching and content-delivery service for cacheable content. Global Accelerator is for global front-door optimization and fast failover of non-cacheable applications with static anycast IPs. Route 53 provides DNS-level routing policies among endpoints. S3 Transfer Acceleration speeds uploads and downloads to a single S3 bucket through the AWS edge network.",
+    "tags": [
+      "Edge networking services with appropriate use cases (for example, Amazon CloudFront, AWS Global Accelerator)",
+      "Determining strategic needs for content delivery networks (CDNs) and edge caching",
+      "Amazon CloudFront"
+    ],
+    "id": "2e7cf41e95d9b674ef16fea105ac1552fb91c1b6c3048def2a8d96e8c4952f21"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A solutions architect is mapping hybrid networking roles to AWS constructs. Match each role to the AWS construct that BEST fits. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Customer Gateway",
+      "B": "Virtual Private Gateway",
+      "C": "AWS Transit Gateway",
+      "D": "AWS Direct Connect Gateway"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "Represents the on-premises router or firewall in AWS configuration for a Site-to-Site VPN connection.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "Acts as the VPC-side attachment target for a Site-to-Site VPN connection or a private virtual interface into a single VPC.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "Provides the central routing hub for many VPC attachments and VPNs in a hub-and-spoke network.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "Extends one Direct Connect connection so it can reach associated AWS resources across multiple Regions.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "A Customer Gateway is the AWS-side representation of the on-premises router or firewall for VPN. A Virtual Private Gateway is the VPC-side construct for VPN and private VIF connectivity into a single VPC. Transit Gateway is the hub for many VPCs and VPNs. Direct Connect Gateway extends private Direct Connect reachability across multiple Regions.",
+    "tags": [
+      "Creating a network topology for various architectures (for example, global, hybrid, multi-tier)",
+      "Network connection options (for example, AWS VPN, AWS Direct Connect, AWS PrivateLink)",
+      "AWS Transit Gateway"
+    ],
+    "id": "dfb11c30e3484bd507deb61de8df7e1f22a8a60c6675fb7f6866b4b566f058b7"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A company wants its data center to connect by IPsec VPN into a centralized multi-account hub so on-premises prefixes can reach many VPCs through one routing domain. Dynamic route exchange is required. Which TWO design choices BEST meet these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Attach the VPN to an AWS Transit Gateway.",
+      "B": "Configure BGP between the on-premises device and AWS Site-to-Site VPN.",
+      "C": "Create individual VPC peering connections from the data center to each application VPC.",
+      "D": "Use only static routes because Transit Gateway VPN attachments do not support BGP.",
+      "E": "Replace the VPN with CloudFront."
+    },
+    "correct": ["A", "B"],
+    "explanation": "A Transit Gateway is the correct centralized routing hub when on-premises prefixes must reach many VPCs through one routing domain. Site-to-Site VPN with BGP provides dynamic route exchange to and from the on-premises environment. VPC peering does not connect an on-premises network, and Transit Gateway VPN attachments do support BGP.",
+    "tags": [
+      "Creating a network topology for various architectures (for example, global, hybrid, multi-tier)",
+      "Failover strategies",
+      "AWS Site-to-Site VPN"
+    ],
+    "id": "079057868c198e7fc30c14a330e97166a670a2f92286dfc5615685bd108571dc"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A company must expose a public API with mutual TLS on a custom domain, while the backend services run privately in VPC subnets. The team wants a managed API layer rather than operating internet-facing reverse proxies. Which TWO design choices BEST satisfy these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Use a Regional API Gateway custom domain configured for mutual TLS.",
+      "B": "Integrate the private backend through API Gateway VPC Link to a private Network Load Balancer.",
+      "C": "Use a private API Gateway and expect internet clients to resolve it.",
+      "D": "Put the backend directly on public EC2 instances and terminate mutual TLS there.",
+      "E": "Replace API Gateway with S3 Transfer Acceleration."
+    },
+    "correct": ["A", "B"],
+    "explanation": "Regional API Gateway custom domains support mutual TLS for public API clients without requiring the team to operate its own public reverse proxy layer. VPC Link provides managed private connectivity from API Gateway into a private NLB that fronts backend services in the VPC. A private API Gateway is not publicly reachable by internet clients, and exposing backend instances directly breaks the stated design goal.",
+    "tags": [
+      "Secure application access",
+      "API creation and management (for example, Amazon API Gateway, REST API)",
+      "Amazon API Gateway"
+    ],
+    "id": "96257801e17a3222ef79b1238614798d54e089d9ce44ae60d3819356c8c50247"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "A company serves a global software download portal. Installers and documentation are static and heavily cacheable, but a small set of signed entitlement checks remains dynamic. Regional origin data-transfer cost is rising sharply. Which TWO design choices BEST reduce cost while preserving the dynamic checks? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Serve the static files through Amazon CloudFront.",
+      "B": "Configure cache behaviors so entitlement-check paths bypass caching and are forwarded to the dynamic origin.",
+      "C": "Replace the dynamic origin with AWS Direct Connect.",
+      "D": "Use AWS Global Accelerator instead of CloudFront for the static objects.",
+      "E": "Move all static files behind a NAT gateway."
+    },
+    "correct": ["A", "B"],
+    "explanation": "CloudFront is the correct service for offloading origin traffic and reducing transfer cost for heavily cacheable global content. Separate cache behaviors let the static objects remain cached while entitlement-check paths are forwarded dynamically to the origin. Global Accelerator is not a cache, and the other options do not address CDN offload for static content.",
+    "tags": [
+      "Determining strategic needs for content delivery networks (CDNs) and edge caching",
+      "Configuring appropriate network routes to minimize network transfer costs (for example, Region to Region, Availability Zone to Availability Zone, private to public, AWS Global Accelerator, VPC endpoints)",
+      "Amazon CloudFront"
+    ],
+    "id": "dc8c287a9960e0b025240d20e3231826eb88a0ea94156e95dd4245aeb70b4cd0"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A solutions architect is choosing the appropriate front door or load-balancing option for several application protocols. Match each requirement to the BEST-FIT AWS service. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "API Gateway HTTP API",
+      "B": "Application Load Balancer",
+      "C": "Network Load Balancer",
+      "D": "AWS Global Accelerator"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "A fully managed HTTP API needs native JWT authorizers and pay-per-request pricing instead of permanently running load balancer capacity.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "A containerized web application needs Layer 7 host-based and path-based routing across multiple services.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "A custom TCP protocol requires Layer 4 load balancing with source IP preservation.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "A multi-Region application needs one global entry point with static anycast IP addresses over regional ALB or NLB endpoints.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "HTTP API in API Gateway is the lowest-cost managed API front door with features such as JWT authorizers and per-request pricing. ALB is the Layer 7 routing service for host and path rules. NLB is the Layer 4 service for TCP and source IP preservation. Global Accelerator adds a global entry point with static anycast IPs across regional endpoints.",
+    "tags": [
+      "Selecting the appropriate load balancing strategy",
+      "API creation and management (for example, Amazon API Gateway, REST API)",
+      "Elastic Load Balancing (ELB)"
+    ],
+    "id": "fbf4d710847b4cae2d016df8b48ba66ae339e50809663e3a36f1d1b5a3b3d70f"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "An application in three Availability Zones sends large volumes of Amazon S3 traffic and modest amounts of third-party internet traffic from private subnets. Today all private subnets point to one NAT gateway in a single Availability Zone, causing both NAT processing charges and inter-AZ transfer costs. Which TWO changes MOST directly improve cost efficiency while preserving high availability? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Add a gateway VPC endpoint for Amazon S3.",
+      "B": "Create a NAT gateway in each Availability Zone and route each private subnet to the local NAT gateway.",
+      "C": "Keep the single NAT gateway but increase its size.",
+      "D": "Replace S3 access with CloudFront uploads only.",
+      "E": "Move all subnets into one Availability Zone."
+    },
+    "correct": ["A", "B"],
+    "explanation": "An S3 gateway endpoint removes the largest class of AWS-bound traffic from the NAT gateway entirely, cutting NAT processing charges. NAT gateways in each Availability Zone keep the remaining internet-bound traffic local to its AZ and avoid inter-AZ data transfer while preserving zonal resilience. Changing NAT size does not change the core pricing problem.",
+    "tags": [
+      "Configuring appropriate NAT gateway types for a network (for example, a single shared NAT gateway compared with NAT gateways for each Availability Zone)",
+      "Configuring appropriate network routes to minimize network transfer costs (for example, Region to Region, Availability Zone to Availability Zone, private to public, AWS Global Accelerator, VPC endpoints)",
+      "Amazon VPC"
+    ],
+    "id": "75d5512399342d37c219a80f237881b1cbf94d7e9aafd2449a045a91b17fc375"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A solutions architect must choose the correct AWS service to restrict or expose several application traffic patterns securely. Match each requirement to the BEST-FIT service or feature. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "AWS PrivateLink",
+      "B": "AWS Client VPN",
+      "C": "AWS Network Firewall",
+      "D": "AWS WAF"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "Expose one private service to many consumer VPCs without providing broad network connectivity and while tolerating overlapping CIDR ranges.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "Provide individual remote users with secure access to private VPC resources from laptops.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "Perform centralized, stateful inspection and filtering of traffic traversing a VPC.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "Filter malicious HTTP request patterns such as SQL injection before they hit the application.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "PrivateLink is the secure one-service exposure pattern for many consumer VPCs without broad network adjacency. Client VPN is the per-user remote access service. Network Firewall provides centralized stateful inspection within the network path. WAF filters malicious Layer 7 HTTP requests before they reach the application.",
+    "tags": [
+      "Secure application access",
+      "Control ports, protocols, and network traffic on AWS",
+      "AWS PrivateLink"
+    ],
+    "id": "d97b9c71a6f45eff299ed717bee7e3f027c800da72df76d06dd498560302751f"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A solutions architect is choosing DNS and hybrid name-resolution components for a multi-account environment. Match each requirement to the BEST-FIT AWS capability. Each option is used once.",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Route 53 Resolver rule shared with AWS RAM",
+      "B": "Route 53 private hosted zone associated with multiple VPCs",
+      "C": "Route 53 Resolver inbound endpoint",
+      "D": "Route 53 public hosted zone"
+    },
+    "subquestions": [
+      {
+        "id": "sq1",
+        "prompt": "Multiple application accounts must use the same forwarding rule for selected corporate domains without recreating the rule in every account.",
+        "correct": "A"
+      },
+      {
+        "id": "sq2",
+        "prompt": "Internal application records should resolve privately in more than one VPC under AWS control.",
+        "correct": "B"
+      },
+      {
+        "id": "sq3",
+        "prompt": "On-premises DNS servers must forward queries into AWS so they can resolve private records hosted in a VPC.",
+        "correct": "C"
+      },
+      {
+        "id": "sq4",
+        "prompt": "Internet users must resolve the company public domain to public-facing endpoints.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Shared Resolver rules distributed with AWS RAM let multiple accounts reuse centralized forwarding logic. A private hosted zone can be associated with multiple VPCs for internal records. Resolver inbound endpoints allow on-premises DNS to forward queries into AWS. Public hosted zones publish records to the public internet DNS hierarchy.",
+    "tags": [
+      "Creating a network topology for various architectures (for example, global, hybrid, multi-tier)",
+      "Determining network configurations that can scale to accommodate future needs",
+      "Amazon Route 53"
+    ],
+    "id": "764b03a1a51d36d1e2e433d052896e6e17f0543a40bdcaa2589a06a2330852a8"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A company wants to expose a private service running on Amazon EC2 to many consumer VPCs in other AWS accounts. Consumer VPC CIDR ranges might overlap, and the provider does not want to grant consumers any general access to the rest of the provider VPC. Which TWO design choices BEST meet these requirements? (Select TWO.)",
+    "difficulty": "HARD",
+    "answers": {
+      "A": "Place the service behind a Network Load Balancer in the provider VPC.",
+      "B": "Create an AWS PrivateLink endpoint service backed by that load balancer.",
+      "C": "Peer every consumer VPC with the provider VPC.",
+      "D": "Attach every consumer VPC to a shared AWS Transit Gateway.",
+      "E": "Expose the service through a public Application Load Balancer and restrict source IPs."
+    },
+    "correct": ["A", "B"],
+    "explanation": "PrivateLink endpoint services are exposed through a Network Load Balancer in the provider VPC. This pattern lets many consumer VPCs connect privately to one service, even with overlapping CIDR ranges, without granting general network access to the provider VPC. Peering, Transit Gateway, and public ALB exposure violate one or more stated requirements.",
+    "tags": [
+      "Secure application access",
+      "Creating a network topology for various architectures (for example, global, hybrid, multi-tier)",
+      "AWS PrivateLink"
+    ],
+    "id": "6e3832e2cbaa2c9b373a40cc20623d86276cb6f71225b005cd489f359f795b2c"
   }
 ]
