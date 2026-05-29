@@ -181,6 +181,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
     fontWeight: '500',
+    flex: 1,
+    marginRight: 8,
   },
   difficultyBadge: {
     paddingHorizontal: 8,
@@ -216,6 +218,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     borderWidth: 2,
     borderColor: 'transparent',
+    minWidth: 0,
   },
   selectedAnswer: {
     backgroundColor: '#E3F2FD',
@@ -231,6 +234,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     borderWidth: 2,
     borderColor: '#2196F3',
+    minWidth: 0,
   },
   correctAnswer: {
     backgroundColor: '#E8F5E8',
@@ -246,6 +250,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     borderWidth: 2,
     borderColor: '#4CAF50',
+    minWidth: 0,
   },
   incorrectAnswer: {
     backgroundColor: '#FFEBEE',
@@ -261,6 +266,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     borderWidth: 2,
     borderColor: '#F44336',
+    minWidth: 0,
   },
   answerLabel: {
     fontSize: 16,
@@ -273,6 +279,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
     flex: 1,
+    minWidth: 0,
     lineHeight: 22,
   },
   // MAMCQ checkbox styles
@@ -333,6 +340,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+    maxWidth: '100%',
+    alignSelf: 'flex-start',
   },
   matchOptionSelected: {
     paddingHorizontal: 14,
@@ -343,6 +352,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#E3F2FD',
     alignItems: 'center',
     justifyContent: 'center',
+    maxWidth: '100%',
+    alignSelf: 'flex-start',
   },
   matchOptionCorrect: {
     paddingHorizontal: 14,
@@ -353,6 +364,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#E8F5E8',
     alignItems: 'center',
     justifyContent: 'center',
+    maxWidth: '100%',
+    alignSelf: 'flex-start',
   },
   matchOptionIncorrect: {
     paddingHorizontal: 14,
@@ -363,10 +376,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFEBEE',
     alignItems: 'center',
     justifyContent: 'center',
+    maxWidth: '100%',
+    alignSelf: 'flex-start',
   },
   matchOptionText: {
     fontSize: 13,
     fontWeight: '600',
     color: '#333',
+    flexShrink: 1,
+    textAlign: 'center',
   },
 });

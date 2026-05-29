@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
     alignItems: 'center',
     elevation: 2,
@@ -100,8 +101,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
+    flexGrow: 1,
     flexShrink: 1,
-    marginRight: 8,
+    flexBasis: '100%',
+    marginRight: 0,
+    marginBottom: 8,
     textAlign: 'left',
   },
   navButtons: {
@@ -109,6 +113,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     borderRadius: 8,
     padding: 4,
+    alignSelf: 'flex-start',
   },
   navButton: {
     paddingHorizontal: 16,
