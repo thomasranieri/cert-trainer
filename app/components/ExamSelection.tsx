@@ -92,6 +92,9 @@ const ExamSelection: React.FC = () => {
             <Text style={styles.disclaimerText}>
               See GitHub for more information and known limitations.
             </Text>
+            <Text style={styles.disclaimerText}>
+              Questions and codebase are shared under MIT License.
+            </Text>
           </View>
         </View>
         <SocialFooter isNarrowScreen={isNarrowScreen} />
