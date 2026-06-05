@@ -44812,5 +44812,800 @@
       "D": "Keep the REST API. Enable Amazon API Gateway response streaming for the Lambda integration and update the Lambda function to return a chunked transfer encoding response, forwarding Bedrock token chunks as they arrive through the API Gateway streaming buffer."
     },
     "explanation": "Option C is correct. Amazon API Gateway WebSocket APIs maintain a persistent bidirectional connection between the browser and the backend. The Lambda function invokes Amazon Bedrock's InvokeModelWithResponseStream API, which returns an async stream of token chunks. For each chunk, Lambda calls the API Gateway Management API PostToConnection to push the chunk directly to the browser over the open WebSocket\u2014achieving true token-level streaming with no polling, no additional infrastructure, and no container management. Option A using Fargate and an ALB achieves the streaming goal but requires container management, ECR image maintenance, and ALB configuration, adding significant operational overhead compared to the serverless WebSocket approach. Option B polling every 200 ms is not true streaming\u2014it introduces visible latency between tokens and generates high API call volume; ElastiCache also adds infrastructure management overhead. Option D Amazon API Gateway REST API does not support true server-sent streaming where the server pushes chunks as they are generated; standard Lambda proxy integrations buffer the response until Lambda returns, which is the exact problem being solved. While Lambda response streaming exists as a feature, it requires specific function URL configuration or streaming-enabled integrations, not the standard API Gateway REST proxy integration described."
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A research institute publishes a 90 TB genomics dataset in Amazon S3 for approved university teams. The institute must keep paying for storage, but each university must pay for its own downloads and requests. The teams access the objects directly from their own AWS accounts. Which solution meets these requirements with the least operational overhead?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "tags": [
+      "Access options (for example, an S3 bucket with Requester Pays object storage)",
+      "Selecting the appropriate storage tier"
+    ],
+    "answers": {
+      "A": "Create a CloudFront distribution for the bucket and require each university to use signed URLs issued from its own AWS account.",
+      "B": "Enable Requester Pays on the S3 bucket and grant the approved AWS accounts permission to read the required objects.",
+      "C": "Copy the dataset into one S3 bucket per university account and use S3 Batch Operations to refresh changed objects weekly.",
+      "D": "Use AWS Data Exchange to create a private product and require each university to subscribe before downloading objects."
+    },
+    "explanation": "Option B is correct because S3 Requester Pays keeps storage charges with the bucket owner while charging authenticated requesters for requests and data transfer. Option A centralizes delivery through the institute account, so requester billing is not achieved. Option C duplicates storage and creates synchronization overhead. Option D can distribute datasets commercially, but it adds marketplace workflow and is not the least operational approach for direct S3 account-based access.",
+    "id": "91334e3e0d0f09ef0d9236a1f35f09942177a5415b03c72eb728456893e84c6d"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A media company stores large reference video files in Amazon S3. External production vendors in separate AWS accounts download different subsets several times a month. The company wants vendors to pay download-related S3 costs while the company retains ownership and lifecycle control of the source objects. What should a solutions architect recommend?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "tags": [
+      "Access options (for example, an S3 bucket with Requester Pays object storage)",
+      "Managing S3 object lifecycles"
+    ],
+    "answers": {
+      "A": "Enable Requester Pays on the source bucket and use bucket policies to allow only the approved vendor account principals.",
+      "B": "Create one CloudFront key group per vendor and configure signed cookies for downloads from the source bucket.",
+      "C": "Replicate approved objects to vendor-owned S3 buckets and expire the replicas with lifecycle rules after 30 days.",
+      "D": "Create presigned URLs from an IAM role in the company account and send the URLs to each vendor for download."
+    },
+    "explanation": "Option A is correct because Requester Pays is designed for authenticated requesters to pay S3 request and transfer charges while the bucket owner keeps control of the objects. Option B controls access through CloudFront but does not shift S3 requester charges to vendor accounts. Option C can move costs but duplicates data and requires per-vendor replication management. Option D grants temporary access from the owner account and keeps billing tied to the company account.",
+    "id": "e496967decc7ef5aae5cab7610b3b31e9cdb33ae124bd448175c0468c301c83a"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A retail application uses Amazon RDS for MySQL. Storage grows unpredictably during seasonal promotions, but the team wants to avoid emergency storage changes and does not want to overprovision for the annual peak. Downtime for storage expansion is not acceptable. Which configuration best meets these requirements?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "tags": [
+      "Determining when storage auto scaling is required",
+      "Database capacity planning (for example, capacity units, instance types, Provisioned IOPS)"
+    ],
+    "answers": {
+      "A": "Create a larger RDS read replica before each promotion and promote the replica if free storage drops below the threshold.",
+      "B": "Schedule an AWS Lambda function to increase allocated RDS storage by a fixed amount every Friday during promotions.",
+      "C": "Enable RDS storage autoscaling and set a maximum storage threshold that supports the expected seasonal peak.",
+      "D": "Migrate the database to Amazon EC2 with LVM volumes and extend the filesystem when CloudWatch alarms trigger."
+    },
+    "explanation": "Option C is correct because RDS storage autoscaling increases allocated storage when free space is low, while the maximum threshold prevents uncontrolled growth. Option A adds read capacity, not primary storage capacity. Option B is schedule-based and can miss unpredictable growth or over-expand. Option D increases administration and removes the managed storage scaling capability available in RDS.",
+    "id": "c67b6517841a43f0714bb1269e9d2db85c3a3bb153a3d8b2c854c113b151f25a"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A SaaS company runs tenant metadata in Amazon Aurora MySQL. Some tenants import large historical datasets without notice, causing rapid storage growth. The database must continue accepting writes, and the finance team requires a defined upper limit for storage cost exposure. Which design should the solutions architect choose?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "tags": [
+      "Determining when storage auto scaling is required",
+      "Determining the correct storage size for a workload"
+    ],
+    "answers": {
+      "A": "Preallocate storage for the largest possible tenant import and use Performance Insights to detect abnormal growth patterns.",
+      "B": "Place tenant import files on Amazon EFS and keep only summary records in the Aurora database cluster.",
+      "C": "Create an Aurora read replica in another Availability Zone and route import jobs to the replica endpoint.",
+      "D": "Use Aurora storage autoscaling behavior and configure monitoring and quotas around tenant import workflows and cost limits."
+    },
+    "explanation": "Option D is correct because Aurora storage grows automatically as data increases, and quota plus monitoring controls are needed when imports are unpredictable but cost exposure must be bounded operationally. Option A overprovisions for an occasional peak and does not solve unpredictable growth efficiently. Option B changes the data model and does not address metadata growth requirements. Option C improves read scalability and availability, but imports still write to the primary storage layer.",
+    "id": "8526972aecf0c4e3820708358c1b31ed466b36a3b64ede5ff3ab2fbba6d0a0b1"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "stem": "A company is moving a regulated application from an on-premises data center to Amazon EC2 instances. The security team asks who is responsible for patching the guest operating system and hardening the application packages after migration. Which answer aligns with the AWS shared responsibility model?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "tags": [
+      "The AWS shared responsibility model",
+      "AWS security best practices (for example, the principle of least privilege)"
+    ],
+    "answers": {
+      "A": "The company is responsible for guest operating system patches and application package hardening on the EC2 instances.",
+      "B": "AWS is responsible for guest operating system patches, and the company is responsible only for application code changes.",
+      "C": "AWS and the company share guest operating system patching, with AWS applying critical updates during maintenance windows.",
+      "D": "The company delegates guest operating system patching to AWS by placing the instances in private subnets."
+    },
+    "explanation": "Option A is correct because customers manage security in the cloud for EC2, including guest operating systems and installed software. Option B confuses EC2 with higher-level managed services. Option C suggests an AWS patching role that does not apply to customer-managed EC2 operating systems. Option D changes network exposure but does not transfer patching responsibility.",
+    "id": "66a326415ca377b4d0f087317c0006dd6b5f89d9129a92783df11990ea11c8fd"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "stem": "A company runs a customer portal on Amazon RDS for PostgreSQL and Amazon EC2. An auditor asks which security activities remain the company's responsibility when using this architecture. Which response is correct under the AWS shared responsibility model?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "tags": [
+      "The AWS shared responsibility model",
+      "Data access and governance"
+    ],
+    "answers": {
+      "A": "AWS manages database user permissions, EC2 security groups, and all application-layer access policies for the portal.",
+      "B": "AWS manages the EC2 guest operating system, while the company manages only the RDS database engine version.",
+      "C": "The company manages physical host security, and AWS manages identity policies for application administrators.",
+      "D": "The company manages IAM policies, security group rules, database users, and the EC2 guest operating system."
+    },
+    "explanation": "Option D is correct because the customer controls IAM, network rules, database authorization, and EC2 guest operating systems, while AWS manages the underlying infrastructure and managed database platform. Option A assigns customer-controlled access configuration to AWS. Option B reverses EC2 guest operating system responsibility. Option C assigns physical infrastructure to the customer and identity policies to AWS, which is incorrect.",
+    "id": "b724d5285b116769d32276a3f9526b182022053ed0c1c85dba9e21179f4591e9"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A hospital must migrate 350 TB of archived medical images from an on-premises storage array to Amazon S3 Glacier Flexible Retrieval. The current internet connection is 500 Mbps and is shared with clinical systems. The migration must finish within 3 weeks without disrupting daily operations. Which transfer approach is most cost-effective?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "tags": [
+      "Determining the lowest cost method of transferring data for a workload to AWS storage",
+      "Selecting the appropriate service for data migration to storage services"
+    ],
+    "answers": {
+      "A": "Use AWS DataSync over the existing internet connection and throttle transfers during business hours.",
+      "B": "Order AWS Snow Family devices, copy the archive locally, and import the data into the target S3 bucket.",
+      "C": "Provision a 10 Gbps AWS Direct Connect dedicated connection for the migration and remove it afterward.",
+      "D": "Upload the archive with multipart uploads from several on-premises servers during overnight maintenance windows."
+    },
+    "explanation": "Option B is correct because Snow Family is cost-effective for one-time transfer of hundreds of terabytes when network bandwidth is constrained and operational traffic must not be disrupted. Option A is bandwidth-limited and unlikely to meet the deadline. Option C can work technically but is usually slower to provision and more expensive for a one-time migration. Option D still depends on the shared 500 Mbps link and maintenance windows.",
+    "id": "cad9cce5bedef9627a189988ef1bfc17f9f5a98f6b2b2de58d7eda90de2fd14b"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A manufacturing company sends 8 TB of new machine telemetry files each day from an on-premises facility to Amazon S3. The facility already has a reliable 2 Gbps AWS Direct Connect connection. The company needs incremental transfers, integrity validation, and minimal custom scripting. Which solution should be selected?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "tags": [
+      "Determining the lowest cost method of transferring data for a workload to AWS storage",
+      "Hybrid storage options (for example, AWS DataSync, AWS Transfer Family, AWS Storage Gateway)"
+    ],
+    "answers": {
+      "A": "Ship an AWS Snowball Edge device every week and use S3 Batch Operations to merge the delivered objects.",
+      "B": "Write a scheduled script that runs aws s3 sync from the file server to S3 through the Direct Connect link.",
+      "C": "Deploy AWS DataSync agents on premises and schedule incremental transfers to S3 over the Direct Connect link.",
+      "D": "Create an AWS Site-to-Site VPN over the internet and route all telemetry uploads through the VPN tunnel."
+    },
+    "explanation": "Option C is correct because DataSync provides managed incremental transfer, verification, scheduling, and uses the existing private network path. Option A is inefficient for daily ongoing transfer when Direct Connect capacity already exists. Option B can move data but requires custom operational handling for scheduling, validation, and retries. Option D adds a lower-value internet VPN path instead of using the available Direct Connect connection.",
+    "id": "0f4ca2aa7fbc18a6a64103fc2a2a2b4244db3597e28ae2c081951ad9eb0af0b9"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "stem": "A company uses Microsoft Active Directory on premises for employee identities. The company is adopting AWS Organizations with separate accounts for workloads. Employees need console access to AWS accounts using existing corporate credentials and role-based permissions. Which design best meets the requirement?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "tags": [
+      "Determining when to federate a directory service with IAM roles",
+      "AWS federated access and identity services (for example, IAM, AWS IAM Identity Center)"
+    ],
+    "answers": {
+      "A": "Create matching IAM users in each AWS account and synchronize passwords from Active Directory every hour.",
+      "B": "Create one shared IAM user per job function and store the access credentials in the corporate password vault.",
+      "C": "Join EC2 instances to Active Directory and grant console access through local Windows security groups.",
+      "D": "Configure IAM Identity Center with the corporate directory and assign permission sets to groups across accounts."
+    },
+    "explanation": "Option D is correct because federation through IAM Identity Center lets users authenticate with existing directory identities and assume account roles through permission sets. Option A creates long-lived IAM users and duplicates identity lifecycle management. Option B loses individual accountability and violates credential best practices. Option C joins instances to the domain but does not provide federated AWS console access.",
+    "id": "353c22cadb265f0e38b9ab0fbe4a79b972eb779df1731ff0b97ae49756139d4d"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "stem": "A finance company has contractors who authenticate to an external SAML identity provider. Contractors need temporary access to one AWS account for quarterly audits, and access must be removed automatically when the provider removes group membership. Which approach should a solutions architect recommend?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "tags": [
+      "Determining when to federate a directory service with IAM roles",
+      "Designing a role-based access control strategy (for example, AWS STS, role switching, cross-account access)"
+    ],
+    "answers": {
+      "A": "Create IAM users for the contractors and attach an IAM permissions boundary that expires after the audit period.",
+      "B": "Configure SAML federation to an IAM role and map the provider's audit group to the role session permissions.",
+      "C": "Create an AWS Organizations account for contractors and invite each contractor as a member account administrator.",
+      "D": "Store contractor access keys in AWS Secrets Manager and rotate the keys when the audit group changes."
+    },
+    "explanation": "Option B is correct because SAML federation issues temporary role credentials and ties access to identity provider group membership. Option A uses IAM users and does not automatically follow external group removal. Option C misuses AWS Organizations and grants excessive administrative scope. Option D still relies on long-lived access keys and does not provide identity federation.",
+    "id": "0f62fb32f9799c7f02bea3d31894271c31060a7142cbbd30dff223bd5655626f"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A news website serves static images, short videos, and dynamic article pages to readers worldwide. Origin servers run behind an Application Load Balancer in one AWS Region. The company needs lower latency for global readers, TLS termination at the edge, and protection from common web exploits. Which architecture should be used?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "tags": [
+      "How to appropriately use edge accelerators (for example, content delivery network [CDN])",
+      "Determining strategic needs for content delivery networks (CDNs) and edge caching"
+    ],
+    "answers": {
+      "A": "Place Amazon CloudFront in front of the ALB and S3 origins, use cache behaviors, and associate AWS WAF with the distribution.",
+      "B": "Place AWS Global Accelerator in front of the ALB and use security groups to block common web exploit patterns.",
+      "C": "Deploy one ALB in each major geography and use latency routing in Route 53 to send readers to the nearest ALB.",
+      "D": "Move static assets to Amazon EFS mounted by the web fleet and increase the Auto Scaling group minimum capacity."
+    },
+    "explanation": "Option A is correct because CloudFront is the CDN edge accelerator for cacheable content, dynamic origin routing, edge TLS, and WAF integration. Option B improves network path latency but does not provide CDN caching or WAF pattern inspection through security groups. Option C adds regional infrastructure and operations without edge caching. Option D changes origin storage and capacity but does not reduce global reader latency.",
+    "id": "5e229a83afd4db3f2fe2cb14b83e157376640096234fb790cccb3d496a594e9f"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.4",
+    "stem": "A multiplayer game uses UDP-based matchmaking endpoints hosted in Network Load Balancers in two AWS Regions. Players need static anycast entry points and improved routing over the AWS global network. The traffic is not HTTP and cannot be cached. Which service fits these requirements?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "tags": [
+      "How to appropriately use edge accelerators (for example, content delivery network [CDN])",
+      "Edge networking services with appropriate use cases (for example, Amazon CloudFront, AWS Global Accelerator)"
+    ],
+    "answers": {
+      "A": "Use Amazon CloudFront with an origin group that contains both Regional Network Load Balancers.",
+      "B": "Use Route 53 geolocation routing with low TTL records pointing to each Network Load Balancer.",
+      "C": "Use AWS Global Accelerator with endpoint groups that target the Regional Network Load Balancers.",
+      "D": "Use Amazon API Gateway Regional APIs with private integrations to each Network Load Balancer."
+    },
+    "explanation": "Option C is correct because Global Accelerator provides static anycast IP addresses and routes TCP or UDP traffic over the AWS global network to healthy Regional endpoints. Option A is for HTTP-oriented content delivery and caching, not UDP game traffic. Option B can choose records but does not provide anycast IPs or AWS backbone routing from the edge. Option D is designed for API traffic and does not fit UDP matchmaking endpoints.",
+    "id": "401200095b9de1f757c5a099e5ad770a6e5832be20345e387cc0beffdc2b9867"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "An ecommerce company collects clickstream events from mobile apps. Events must be available to fraud detection and personalization consumers within seconds. Each consumer must process the same events independently, and events for the same user must retain order. Which ingestion service should be used?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "tags": [
+      "Streaming data services with appropriate use cases (for example, Amazon Kinesis)",
+      "Designing data streaming architectures"
+    ],
+    "answers": {
+      "A": "Send events to Amazon SQS standard queues, with one queue shared by both consumer applications.",
+      "B": "Write events to Amazon S3 every minute and trigger both consumers with S3 Event Notifications.",
+      "C": "Publish events to Amazon SNS topics and subscribe both consumers with HTTP endpoints.",
+      "D": "Publish events to Amazon Kinesis Data Streams using the user ID as the partition key for consumers."
+    },
+    "explanation": "Option D is correct because Kinesis Data Streams supports near-real-time processing, multiple independent consumers, and ordering within a partition key such as user ID. Option A with a shared SQS queue distributes messages rather than letting both consumers process every event. Option B introduces batch latency and object-level processing. Option C fanout can deliver to consumers but does not provide ordered stream processing by user key.",
+    "id": "0df809e55bcfd6ee3ac2fc273415e79b470ffcbedb7a1cbe291f63967ffc62aa"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A payments company already runs Apache Kafka producers in several data centers. The company wants to move broker operations to AWS while keeping Kafka client protocol compatibility and avoiding a self-managed broker fleet. Which service should the company use?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "tags": [
+      "Streaming data services with appropriate use cases (for example, Amazon Kinesis)",
+      "Amazon Managed Streaming for Apache Kafka (Amazon MSK)"
+    ],
+    "answers": {
+      "A": "Amazon Kinesis Data Firehose with delivery streams configured for Amazon S3 and OpenSearch Service destinations.",
+      "B": "Amazon Managed Streaming for Apache Kafka with client connectivity from the existing producer applications.",
+      "C": "Amazon SQS FIFO queues with message group IDs mapped to the existing Kafka topic partitions.",
+      "D": "Amazon EventBridge custom event buses with schema discovery enabled for each payment event type."
+    },
+    "explanation": "Option B is correct because Amazon MSK provides managed Kafka clusters while preserving Kafka client protocol compatibility. Option A is managed delivery to destinations but is not a Kafka-compatible broker. Option C offers ordered queues but does not preserve Kafka producer and topic semantics. Option D supports event routing but is not a replacement for Kafka brokers or clients.",
+    "id": "8a893264d27970d763a5de1e295d7a4992d0b0f9e52984c51d4e3217da9f4489"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A logistics company receives nightly files from hundreds of partners. Partners require SFTP access, must not receive AWS access keys, and each partner must be restricted to its own Amazon S3 prefix. The company wants managed authentication and auditing. Which architecture should be used?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "tags": [
+      "Secure access to ingestion access points",
+      "AWS managed services with appropriate use cases (for example, AWS Transfer Family, Amazon SQS, AWS Secrets Manager)"
+    ],
+    "answers": {
+      "A": "Use AWS Transfer Family for SFTP with per-partner identities mapped to IAM roles and logical directories in S3.",
+      "B": "Create IAM users for each partner and require partners to upload files with the AWS CLI to assigned S3 prefixes.",
+      "C": "Run an SFTP server on Amazon EC2 and store partner SSH keys in files on an encrypted EBS volume.",
+      "D": "Create presigned S3 PUT URLs for each partner every night and email the URLs before the transfer window."
+    },
+    "explanation": "Option A is correct because AWS Transfer Family provides managed SFTP endpoints, identity integration, IAM-scoped S3 access, logical directories, and audit logging. Option B exposes AWS credential management to partners. Option C requires operating and securing SFTP servers. Option D can allow uploads but does not provide durable partner identities, SFTP compatibility, or a clean audit model.",
+    "id": "231e138e0491a9041389349b41ec7eeb685ed668ac3d2e01c52561535e36f964"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.5",
+    "stem": "A telemetry platform runs collectors in private subnets. The collectors must deliver records to Amazon Kinesis Data Firehose without traversing the public internet. Security requires least-privilege access to the ingestion endpoint and centralized control of allowed network paths. What should a solutions architect configure?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "tags": [
+      "Secure access to ingestion access points",
+      "Selecting appropriate configurations for ingestion"
+    ],
+    "answers": {
+      "A": "Attach an internet gateway to the VPC and restrict outbound access to Firehose public IP ranges with network ACL rules.",
+      "B": "Place collectors in public subnets and require TLS for all Firehose PutRecordBatch API calls.",
+      "C": "Create an interface VPC endpoint for Kinesis Data Firehose and restrict access with endpoint and IAM policies.",
+      "D": "Route collector traffic through a NAT gateway and allow only TCP port 443 from the private subnet route tables."
+    },
+    "explanation": "Option C is correct because an interface VPC endpoint keeps supported Firehose API traffic on private AWS networking and can be constrained with endpoint and IAM policies. Option A still uses public internet routing and brittle IP controls. Option B exposes collectors directly in public subnets. Option D avoids public IPs on instances but still sends traffic through a NAT path to public service endpoints and provides weaker endpoint-level control.",
+    "id": "90f036b6c4ad54f7328e5e9782bef13dd73f2a04a39f6260a67030457af98257"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "A company connects its headquarters to a VPC for a latency-sensitive ERP migration. The connection must provide predictable private bandwidth for steady database replication, and the company also wants encrypted failover if the primary private circuit is unavailable. Which design meets these requirements?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "tags": [
+      "Network connectivity (for example, private lines, dedicated lines, VPNs)",
+      "Configuring appropriate network connections (for example, AWS Direct Connect compared with VPN compared with internet)"
+    ],
+    "answers": {
+      "A": "Use two AWS Site-to-Site VPN tunnels over the internet and enable equal-cost multipath routing.",
+      "B": "Use VPC peering between the headquarters network and the VPC with static routes for database subnets.",
+      "C": "Use AWS Client VPN for replication servers and configure split-tunnel routing for the ERP subnets.",
+      "D": "Use AWS Direct Connect for primary private connectivity and AWS Site-to-Site VPN as the encrypted backup path."
+    },
+    "explanation": "Option D is correct because Direct Connect provides predictable private bandwidth, while Site-to-Site VPN supplies encrypted backup connectivity. Option A encrypts traffic but uses internet paths and does not provide dedicated bandwidth. Option B connects VPCs, not an on-premises headquarters network. Option C is intended for client access patterns and is not a steady site-to-site replication design.",
+    "id": "61013607b4206d59fe878a019f62e46dba99a925b98080581fe0b49fceef86e2"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.4",
+    "stem": "A startup needs private connectivity from its office to a VPC within 2 days for an upcoming test. Bandwidth needs are modest, traffic must be encrypted, and the team may replace the connection with a dedicated circuit later. Which option should be implemented first?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "tags": [
+      "Network connectivity (for example, private lines, dedicated lines, VPNs)",
+      "Selecting the appropriate bandwidth allocation for a network device (for example, a single VPN compared with multiple VPNs, Direct Connect speed)"
+    ],
+    "answers": {
+      "A": "Create an AWS Site-to-Site VPN connection from the office router to a virtual private gateway or transit gateway.",
+      "B": "Order a new AWS Direct Connect dedicated connection and wait for cross-connect completion at a partner facility.",
+      "C": "Configure VPC peering between the office network and the workload VPC with routes for office CIDR ranges.",
+      "D": "Deploy AWS Global Accelerator and advertise the accelerator addresses as private endpoints to the office router."
+    },
+    "explanation": "Option A is correct because Site-to-Site VPN can be provisioned quickly, supports encrypted connectivity, and fits modest bandwidth needs. Option B may be appropriate later but usually cannot be delivered within 2 days. Option C is only for VPC-to-VPC connectivity, not office networks. Option D improves public endpoint routing and does not create private encrypted site connectivity.",
+    "id": "842921edb13f0659890dd6bbf513a8612efefc1e3cdfd14fc93c1c8c1fa46f0e"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A telecom provider runs a 5G application that must process user-plane requests within single-digit milliseconds of mobile users in specific metro areas. The application uses EC2-compatible compute and must integrate with services in a parent AWS Region. Which deployment option should be selected?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "tags": [
+      "Distributed compute strategies (for example, edge processing)",
+      "AWS Wavelength"
+    ],
+    "answers": {
+      "A": "Deploy the application to multiple Availability Zones in the nearest AWS Region and use Route 53 latency routing.",
+      "B": "Deploy the application on AWS Outposts installed in the telecom provider's central corporate data center.",
+      "C": "Deploy the latency-sensitive components in AWS Wavelength Zones associated with the target metro networks.",
+      "D": "Deploy CloudFront Functions to run the application logic at edge locations closest to mobile users."
+    },
+    "explanation": "Option C is correct because AWS Wavelength places AWS compute and storage services at the 5G network edge for ultra-low-latency mobile applications while linking back to a Region. Option A improves Regional availability but may not meet metro 5G latency targets. Option B supports on-premises low-latency needs but does not place workloads inside carrier metro networks. Option D is limited edge scripting and cannot host EC2-compatible application components.",
+    "id": "55411ca6587c6a4f66e0729f99387c447227cf0e0aec8ed2262ac5f36d91c617"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A factory runs quality-control systems that must keep processing sensor data locally if the WAN connection to AWS is impaired. The systems require AWS-managed infrastructure on site and periodic synchronization with Regional services. Which approach best fits the requirement?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "tags": [
+      "Distributed compute strategies (for example, edge processing)",
+      "AWS Outposts"
+    ],
+    "answers": {
+      "A": "Move the quality-control systems to the nearest AWS Region and cache sensor readings at the factory until the WAN recovers.",
+      "B": "Deploy AWS Outposts at the factory and run the local processing components on Outposts capacity.",
+      "C": "Use AWS Wavelength Zones and route factory sensor traffic through the nearest mobile carrier network.",
+      "D": "Use Amazon CloudFront with Lambda@Edge to process sensor records before forwarding them to Regional services."
+    },
+    "explanation": "Option B is correct because AWS Outposts provides AWS-managed infrastructure at an on-premises site for workloads that need local processing and Regional integration. Option A depends on WAN availability for processing. Option C targets carrier-edge mobile workloads rather than factory on-premises processing. Option D is designed for request processing at CDN edge locations, not local industrial sensor workloads.",
+    "id": "7ccad2c1358d683cbcaa2ca60ab49ba82dadd21aea23d1a4c450db0505895c8f"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A company uses AWS Organizations with 40 accounts. The security team wants one account to triage threat findings from all accounts and automatically include any newly created account without manual enrollment. Which architecture best meets these requirements?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "tags": [
+      "Amazon GuardDuty"
+    ],
+    "answers": {
+      "A": "Create a GuardDuty detector in each account and forward findings to a central Amazon SNS topic by using custom Lambda functions.",
+      "B": "Designate a delegated administrator account for Amazon GuardDuty in Organizations and enable auto-enrollment so new accounts are automatically protected and aggregated.",
+      "C": "Use AWS Security Hub as the delegated administrator and rely on Security Hub to automatically enable GuardDuty across all accounts.",
+      "D": "Create one GuardDuty detector in the management account and grant cross-account IAM read permissions so GuardDuty can scan resources in member accounts."
+    },
+    "explanation": "B is correct because GuardDuty delegated admin with Organizations provides native centralized management and automatic onboarding for new accounts. A is wrong because custom forwarding increases operational overhead and does not centrally manage detectors. C is wrong because Security Hub can aggregate findings but does not replace GuardDuty delegated enablement behavior. D is wrong because GuardDuty protection is account-scoped and requires detectors in member accounts.",
+    "id": "09d579526d1158a87d89d8584d727e40855d3e96e1f05c9462a2143464ee3f45"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "An ecommerce platform runs on Amazon EKS. The security team needs managed threat detection for suspicious Kubernetes API activity and container runtime behavior without deploying third-party agents on worker nodes. Which solution should a solutions architect choose?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "tags": [
+      "Amazon GuardDuty"
+    ],
+    "answers": {
+      "A": "Enable Amazon GuardDuty EKS protection features to analyze EKS audit activity and runtime signals using native managed detection.",
+      "B": "Enable AWS Config managed rules for EKS and use noncompliant resources as direct threat indicators for container compromise.",
+      "C": "Use Amazon CloudWatch Container Insights metrics and alarms as the primary managed threat detection capability.",
+      "D": "Deploy AWS WAF on the cluster ingress and use blocked web requests as the only source of compromise detection."
+    },
+    "explanation": "A is correct because GuardDuty provides managed EKS-focused threat detection for control-plane and runtime-related signals. B is wrong because Config evaluates configuration compliance, not active threat behavior. C is wrong because performance metrics are not equivalent to threat intelligence detections. D is wrong because WAF protects web traffic patterns but does not provide full Kubernetes threat detection coverage.",
+    "id": "ddb0c2ee8e7b9a77699af2259fa6ad7d0f84c6c868f146d7d97f33d82d9c47af"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.2",
+    "stem": "A company stores sensitive documents in Amazon S3 and wants managed detection of anomalous access patterns with low operational overhead. Which actions provide this capability? (Select TWO.)",
+    "correct": [
+      "A",
+      "D"
+    ],
+    "difficulty": "HARD",
+    "tags": [
+      "Amazon GuardDuty"
+    ],
+    "answers": {
+      "A": "Enable Amazon GuardDuty in the account and turn on S3 protection so GuardDuty analyzes S3 data event activity.",
+      "B": "Enable S3 server access logging only and create hourly Athena queries to identify suspicious behavior patterns.",
+      "C": "Enable Amazon Macie only and use classification findings as the sole signal for anomalous S3 access behavior.",
+      "D": "If using Organizations, configure GuardDuty delegated administration and auto-enable protection so new accounts inherit S3 threat detection settings."
+    },
+    "explanation": "A and D are correct because GuardDuty S3 protection provides managed anomaly and threat detections, and delegated admin with auto-enable scales the configuration consistently. B is wrong because logs plus ad hoc queries are not managed threat detection and add operations burden. C is wrong because Macie focuses on sensitive data discovery and policy findings, not broad anomalous access threat detection.",
+    "id": "22edafbecbbbdc610ba64b8e2598dbfcaa21060183b5ef4077307a1c0e48a811"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A retail company needs a search platform for product catalogs with faceted filtering, typo tolerance, and near real-time indexing from event streams. The platform must remain available during node failures across Availability Zones. Which design best meets these requirements?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "tags": [
+      "Amazon OpenSearch Service"
+    ],
+    "answers": {
+      "A": "Store documents in Amazon RDS and implement custom LIKE queries with read replicas across Availability Zones for search resilience.",
+      "B": "Use Amazon ElastiCache for Redis with sorted sets as the source of truth for search and periodically persist snapshots to S3.",
+      "C": "Use Amazon OpenSearch Service with Multi-AZ deployment, dedicated master nodes, and stream indexing updates from the event pipeline.",
+      "D": "Use Amazon S3 Inventory and Athena scheduled queries to rebuild static search indexes every 15 minutes."
+    },
+    "explanation": "C is correct because OpenSearch Service is purpose-built for full-text search, supports near real-time indexing, and Multi-AZ plus dedicated masters improves resilience. A is wrong because relational LIKE queries are not optimized for rich search features at scale. B is wrong because Redis is not a primary search engine for durable catalog search workloads. D is wrong because periodic batch rebuilds do not satisfy near real-time indexing requirements.",
+    "id": "734b245fe449632686792ca22b6cf60a225c2ab68cdd9ea5a54969edf880596e"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A media company runs Amazon OpenSearch Service for log analytics. Query latency increases as data ages, but the last 7 days must stay fast while 180 days remain searchable at lower cost. Which architecture is most appropriate?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "tags": [
+      "Amazon OpenSearch Service"
+    ],
+    "answers": {
+      "A": "Place all indexes on one hot tier and reduce replica count to lower cost while keeping 180 days online.",
+      "B": "Use index lifecycle policies to keep recent data on hot nodes and move older indexes to lower-cost warm or cold tiers for infrequent queries.",
+      "C": "Export indexes older than 7 days to Amazon S3 and delete them from OpenSearch so historical searches run directly against S3 objects.",
+      "D": "Run two independent OpenSearch domains and copy data manually every week from the fast domain to the archive domain."
+    },
+    "explanation": "B is correct because lifecycle tiers align storage cost with access frequency while preserving searchability. A is wrong because a single hot tier is cost-inefficient for long retention. C is wrong because removing older indexes from OpenSearch breaks native historical query behavior. D is wrong because manual dual-domain operations add complexity and inconsistency risk.",
+    "id": "6b05ea3fef03a81f56eae9f0eab9a26701ddfd64c5c2289e23d0c79d665e35fc"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A healthcare company must expose an OpenSearch dashboard to internal analysts only. The cluster must remain private, and users must be authorized by role with least privilege at index level. Which two actions should the architect take? (Select TWO.)",
+    "correct": [
+      "A",
+      "C"
+    ],
+    "difficulty": "HARD",
+    "tags": [
+      "Amazon OpenSearch Service"
+    ],
+    "answers": {
+      "A": "Deploy Amazon OpenSearch Service in a VPC and restrict access through security groups and private networking paths.",
+      "B": "Set a domain access policy to allow anonymous HTTP access, then rely on dashboard login prompts to control usage.",
+      "C": "Enable fine-grained access control and map backend roles to index-level permissions for analyst personas.",
+      "D": "Expose the domain publicly and use network ACL rules alone to enforce analyst-only index permissions."
+    },
+    "explanation": "A and C are correct because VPC deployment provides private network isolation and fine-grained access control enforces least-privilege authorization. B is wrong because anonymous policies violate the internal-only requirement. D is wrong because network ACLs cannot enforce index-level authorization semantics.",
+    "id": "3a8cdf93f0b032ec30132d7a507b61c2fd4a8cea717dbc0aa7eb74343e041053"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A serverless order workflow uses Amazon API Gateway, AWS Lambda, Amazon SQS, and a Lambda consumer. Operations teams cannot trace a single order end-to-end when latency spikes. Which design gives the clearest distributed visibility with the least custom instrumentation effort?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS X-Ray"
+    ],
+    "answers": {
+      "A": "Enable AWS X-Ray tracing on API Gateway and all Lambda functions, and propagate trace context through asynchronous boundaries where supported.",
+      "B": "Create Amazon CloudWatch dashboards for invocation count, duration, and queue depth to identify latency root causes for each order.",
+      "C": "Enable VPC Flow Logs for all subnets and correlate network records with CloudTrail logs to rebuild application call paths.",
+      "D": "Use AWS Config timeline views for each resource and infer per-order transaction paths from configuration snapshots."
+    },
+    "explanation": "A is correct because X-Ray is designed for end-to-end request tracing across distributed components. B is wrong because aggregate metrics do not provide per-request dependency traces. C is wrong because network and API audit logs are not practical substitutes for distributed tracing. D is wrong because Config tracks configuration state, not runtime request paths.",
+    "id": "7ab4721a9b133e2a97f66355e8198d90c08a9f046532b42238f7c3f0677ec06b"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A company has enabled AWS X-Ray on a high-traffic microservices platform. Tracing cost is increasing, but architects still need near-complete visibility for errors and representative coverage for successful requests. Which approach should be used?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS X-Ray"
+    ],
+    "answers": {
+      "A": "Disable X-Ray on all downstream services and keep tracing enabled only on the internet-facing load balancer.",
+      "B": "Trace 100% of requests during business hours and 0% after hours to control monthly tracing cost variability.",
+      "C": "Keep fixed-rate random sampling for all outcomes and rely on retry logs to investigate errors that were not traced.",
+      "D": "Use a sampling strategy with a low baseline for normal requests while configuring rules to retain higher coverage for fault and error responses."
+    },
+    "explanation": "D is correct because tuned sampling preserves diagnostic value for failures while reducing volume from healthy traffic. A is wrong because disabling downstream traces removes the dependency graph needed for root cause analysis. B is wrong because abrupt schedule-based sampling can miss critical events and create blind spots. C is wrong because fixed-rate random sampling can under-sample rare errors.",
+    "id": "37450e60712b73da3618c720aa9f7cefaa0a8dacd4e404be9aaa27f9aa513943"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "A payment pipeline sends events from one microservice to another through Amazon SQS. Teams need coherent AWS X-Ray service maps that preserve request lineage across this asynchronous hop. Which two implementation steps are required? (Select TWO.)",
+    "correct": [
+      "B",
+      "D"
+    ],
+    "difficulty": "HARD",
+    "tags": [
+      "AWS X-Ray"
+    ],
+    "answers": {
+      "A": "Enable X-Ray only on the consumer service because asynchronous queues cannot carry trace context metadata.",
+      "B": "Instrument the producer to include trace context with each queued message so downstream processing can continue the trace.",
+      "C": "Replace SQS with synchronous REST calls to keep a continuous trace because X-Ray supports only synchronous propagation.",
+      "D": "Instrument the consumer to read propagated trace context and create child segments linked to the original request trace."
+    },
+    "explanation": "B and D are correct because asynchronous lineage requires explicit propagation by the producer and continued segment creation by the consumer. A is wrong because tracing only consumers breaks end-to-end lineage. C is wrong because X-Ray can model asynchronous architectures and does not require replacing SQS with synchronous calls.",
+    "id": "e5dfb9bc01094ccb74bffe77a4a4faefcf54a7c87809606f880889aca5dc6ac6"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A financial company must retain audit logs for 7 years, prevent deletion during the retention period, and still allow periodic compliance queries. Access frequency drops sharply after 90 days. Which design is most appropriate?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "tags": [
+      "Data retention policies"
+    ],
+    "answers": {
+      "A": "Store logs on Amazon EFS with lifecycle management and run periodic scans from EC2 instances for compliance reports.",
+      "B": "Store logs in Amazon S3 Standard permanently and use bucket policies that discourage deletion by application roles.",
+      "C": "Store logs in Amazon S3, apply Object Lock retention controls, and transition older objects to archival classes while querying with S3-integrated analytics tools.",
+      "D": "Store logs in Amazon DynamoDB with point-in-time recovery and export table snapshots yearly for historical evidence."
+    },
+    "explanation": "C is correct because S3 Object Lock enforces retention and lifecycle transitions optimize long-term cost while preserving query access paths. A is wrong because EFS is not a cost-optimized immutable archive for seven-year retention. B is wrong because policy-based discouragement is weaker than retention enforcement controls. D is wrong because DynamoDB is not an efficient primary medium for long-term immutable log archiving.",
+    "id": "a82e8297c4a818e2542207f89ebd4356291a3546eb6b4354d3eb2172a829879b"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A company must back up Amazon RDS databases daily and retain backups for 10 years under a policy that prevents administrators from shortening retention after a legal hold is issued. Which architecture best satisfies this requirement?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "tags": [
+      "Data retention policies"
+    ],
+    "answers": {
+      "A": "Use AWS Backup with backup vault immutability controls and retention policies, then copy recovery points to a dedicated vault account for governance separation.",
+      "B": "Use native RDS automated backups only and lock down IAM so DBAs cannot call modify-db-instance on retention settings.",
+      "C": "Export daily snapshots to Amazon S3 and rely on naming conventions to identify snapshots that are under legal hold.",
+      "D": "Replicate RDS instances to another Region and treat the secondary instances as immutable backups for the entire retention period."
+    },
+    "explanation": "A is correct because AWS Backup vault-level immutability and policy controls are designed for governed retention with separation of duties. B is wrong because relying only on instance settings and IAM is less robust for long legal retention controls. C is wrong because naming conventions do not enforce immutability. D is wrong because replication targets are operational systems, not immutable long-term backup controls.",
+    "id": "fdedf664e762d009c49a5596ff289929e773a17bdc2307025be8f8ba60194673"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A SaaS provider stores customer-generated files in Amazon S3. Regulations require deleting customer data within 30 days of account closure, while security logs for the same tenant must be retained for 5 years. Which two design decisions satisfy both requirements? (Select TWO.)",
+    "correct": [
+      "A",
+      "C"
+    ],
+    "difficulty": "HARD",
+    "tags": [
+      "Data retention policies"
+    ],
+    "answers": {
+      "A": "Separate customer content and security logs into different prefixes or buckets with distinct lifecycle and retention policies.",
+      "B": "Store both datasets in one prefix and use a weekly batch process that deletes or retains objects based on filename patterns.",
+      "C": "Apply expiration lifecycle rules to customer content after closure events and apply longer retention controls to log objects.",
+      "D": "Copy all tenant files to Amazon EFS before deletion so operations teams can manually purge objects as needed."
+    },
+    "explanation": "A and C are correct because policy separation by data class enables independent retention and deletion timelines. B is wrong because filename-driven batch logic is brittle and hard to audit. D is wrong because moving to EFS adds operational complexity and does not inherently satisfy retention governance requirements.",
+    "id": "cb2ef17b2015cb90f71b2503bf32614e010c78b82f92febf40360d296c918900"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.1",
+    "stem": "A rendering application on Amazon EC2 needs a shared POSIX file system for thousands of small metadata reads and writes from many instances across multiple Availability Zones. The team wants managed scaling without provisioning file servers. Which storage choice best fits this access pattern?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "tags": [
+      "Storage access patterns"
+    ],
+    "answers": {
+      "A": "Use Amazon S3 with multipart upload and map object keys to paths so instances can emulate POSIX semantics.",
+      "B": "Use Amazon EFS mounted across the fleet to provide managed shared file access and elastic scaling for distributed workers.",
+      "C": "Use one large io2 Amazon EBS volume attached to a single instance and share it with all workers through custom NFS exports.",
+      "D": "Use Amazon DynamoDB for metadata files and binary assets because key-value access always outperforms file storage access."
+    },
+    "explanation": "B is correct because EFS is a managed multi-AZ shared file system with POSIX semantics and elastic scale. A is wrong because S3 is object storage and does not natively provide POSIX file semantics. C is wrong because single-instance attached EBS introduces a bottleneck and failure domain. D is wrong because DynamoDB is not a file system for shared POSIX workloads.",
+    "id": "9e5d27ef0f3c970ea352ba220eb8d215d84f2c86d510740dbfba480588b11549"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.1",
+    "stem": "A genomics workload requires extremely high-throughput, low-latency access to a temporary working set during parallel compute jobs. Source data already resides in Amazon S3, and completed outputs can be persisted back to S3. Which storage architecture is most appropriate?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "tags": [
+      "Storage access patterns"
+    ],
+    "answers": {
+      "A": "Use Amazon EFS Standard because network file storage is always the fastest option for parallel scratch workloads.",
+      "B": "Use S3 Standard directly as the primary file system for random read and write operations from every worker process.",
+      "C": "Use gp3 Amazon EBS volumes attached to one coordinator node and share data to workers over application-level RPC calls.",
+      "D": "Use Amazon FSx for Lustre linked to S3 so jobs process data in a high-performance file system and export results back to S3."
+    },
+    "explanation": "D is correct because FSx for Lustre is optimized for high-performance parallel file workloads and integrates with S3 for staging and export. A is wrong because EFS is general-purpose shared file storage and may not match Lustre-level parallel throughput profiles. B is wrong because object APIs are not ideal as a direct scratch file system. C is wrong because single-node EBS sharing introduces bottlenecks and operational risk.",
+    "id": "f2072cfb7cb9a4694a08d5dceb80b53c98783642b7da58952b84cf9cbfac5d3b"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A startup wants to prevent surprise monthly cloud spend. Engineering leads need immediate notification at 80% of forecasted monthly spend and an automatic control to stop launching new on-demand EC2 instances once 100% is reached. Which solution best meets these requirements?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Budgets"
+    ],
+    "answers": {
+      "A": "Create an AWS Budget with forecasted cost alerts to SNS at 80% and configure a budget action that applies a restrictive policy when actual spend reaches 100%.",
+      "B": "Create a Cost and Usage Report in S3 and run daily Athena queries that email finance when monthly spend exceeds thresholds.",
+      "C": "Use AWS Trusted Advisor service limits checks and manually disable EC2 permissions when the team receives weekly reports.",
+      "D": "Use Amazon CloudWatch billing metrics with one alarm at month end and then rotate IAM access keys for engineering users."
+    },
+    "explanation": "A is correct because AWS Budgets supports forecast alerts and automated budget actions for spend governance. B is wrong because daily analytics are delayed and require custom operations. C is wrong because Trusted Advisor checks are not budget enforcement controls. D is wrong because month-end alarms are too late and key rotation is not targeted cost governance.",
+    "id": "cdd561ec7d969f1e63d6cbcddb23dde22fe0329794f00849cf8506906c894580"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A company operates separate AWS accounts for development, staging, and production. Finance needs budget controls that notify account owners before overspend and also enforce controls only in development when monthly cost exceeds target. Which two actions satisfy this requirement? (Select TWO.)",
+    "correct": [
+      "B",
+      "D"
+    ],
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Budgets"
+    ],
+    "answers": {
+      "A": "Create one organization-wide budget and use a single notification recipient list for all environments to simplify ownership.",
+      "B": "Create account-scoped AWS Budgets with threshold notifications sent to each environment owner distribution list.",
+      "C": "Use only AWS Cost Explorer dashboards and instruct account owners to review charts weekly for potential overages.",
+      "D": "Add a budget action only to the development budget so a restrictive policy is applied when spend exceeds the defined monthly cap."
+    },
+    "explanation": "B and D are correct because per-account budgets align ownership and environment-specific actions allow enforcement only where intended. A is wrong because a single shared budget obscures accountability and can cause inappropriate controls. C is wrong because dashboards are observational and do not provide proactive notifications or automated enforcement.",
+    "id": "44c797061360ac33af9c23db7497dc0eaec46cd42e15f821341ab5c986906dd8"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "A software team runs nightly integration tests on Amazon EC2. The environment must preserve in-memory application state between runs, resume quickly each morning, and minimize idle compute cost overnight. Which scaling strategy is most suitable?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "tags": [
+      "Scaling strategies (for example, auto scaling, hibernation)"
+    ],
+    "answers": {
+      "A": "Terminate all instances nightly with an Auto Scaling scheduled action and rebuild test state from scratch each morning.",
+      "B": "Keep instances running continuously and rely on Savings Plans to reduce the baseline overnight cost profile.",
+      "C": "Use scheduled hibernation-compatible EC2 instances so memory state is preserved while compute charges stop during off hours.",
+      "D": "Move the tests to AWS Lambda and store process memory snapshots in Amazon S3 to resume execution state each morning."
+    },
+    "explanation": "C is correct because EC2 hibernation preserves RAM state and avoids overnight compute runtime charges while enabling fast resume. A is wrong because terminating instances loses in-memory state and increases startup work. B is wrong because always-on compute does not meet the cost minimization goal. D is wrong because Lambda does not support preserving arbitrary in-memory process state across long idle windows in this manner.",
+    "id": "259b6634f45e110c2d72f81c00311801c22e79f83d5668aed8f1509b6a6dde0a"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "An API tier experiences unpredictable bursts that last 10-20 minutes. New instances require 6 minutes to warm up before serving traffic efficiently. Which scaling design best reduces both under-provisioning during bursts and prolonged over-provisioning after bursts?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "tags": [
+      "Scaling strategies (for example, auto scaling, hibernation)"
+    ],
+    "answers": {
+      "A": "Use simple scaling with a large cooldown so the Auto Scaling group changes capacity no more than once per burst window.",
+      "B": "Use target tracking for baseline elasticity and pair it with a step policy on a leading indicator metric to scale out earlier for warm-up time.",
+      "C": "Use scheduled scaling actions every hour because burst timing is unpredictable and hourly schedules minimize manual tuning.",
+      "D": "Scale only when average CPU exceeds 90% for 15 minutes so temporary spikes do not cause unnecessary scale-out activity."
+    },
+    "explanation": "B is correct because combining baseline target tracking with earlier step-based scale-out on leading signals addresses warm-up lag while still scaling in efficiently after demand drops. A is wrong because long cooldowns can delay needed adjustments. C is wrong because scheduled scaling is ineffective for unpredictable bursts. D is wrong because waiting for sustained 90% CPU causes late reactions and user impact.",
+    "id": "21e28a403c2646b549391532189ec9d55a3ac213172200652d0be284eb5e222c"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "A batch video transcoding service is CPU-bound, horizontally scalable, and fully compatible with ARM-based runtimes. The business wants to maximize performance per dollar without changing workload behavior. Which compute choice is most appropriate?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "tags": [
+      "Selecting the appropriate compute options and features (for example, EC2 instance types) to meet business requirements"
+    ],
+    "answers": {
+      "A": "Use compute-optimized AWS Graviton-based instances in an Auto Scaling group to improve price-performance for CPU-heavy processing.",
+      "B": "Use memory-optimized instances because larger RAM always improves transcoding throughput more than CPU selection.",
+      "C": "Use storage-optimized instances so local NVMe throughput compensates for CPU bottlenecks in encoding steps.",
+      "D": "Use general purpose burstable instances with unlimited mode as the default for long-running, consistently CPU-intensive jobs."
+    },
+    "explanation": "A is correct because CPU-bound, ARM-compatible workloads generally benefit from compute-optimized Graviton price-performance. B is wrong because memory optimization does not directly target a CPU bottleneck. C is wrong because storage optimization does not solve primary CPU saturation. D is wrong because burstable models are usually less efficient for sustained high CPU batch processing.",
+    "id": "5474a613e2d8a4f4c9aefe70cdc9e1aae357a2e495f71a8c35f793e4d1c632f0"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "stem": "A real-time fraud detection engine keeps large feature sets in memory and performs moderate CPU processing. Latency SLO violations occur from memory pressure and swapping. Which EC2 sizing strategy best addresses the bottleneck while avoiding unnecessary cost?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "tags": [
+      "Selecting the appropriate compute options and features (for example, EC2 instance types) to meet business requirements"
+    ],
+    "answers": {
+      "A": "Move to compute-optimized instances with fewer GiB per vCPU because CPU clocks are the primary determinant of memory residency.",
+      "B": "Move to storage-optimized instances and cache feature sets on local NVMe to avoid memory upgrades.",
+      "C": "Use smaller burstable instances in larger counts so aggregate memory increases while preserving single-node latency behavior.",
+      "D": "Use memory-optimized instances sized for working-set headroom and monitor memory utilization to right-size over subsequent load tests."
+    },
+    "explanation": "D is correct because the bottleneck is memory pressure, so memory-optimized sizing with iterative right-sizing directly addresses swap-driven latency. A is wrong because compute-optimized families reduce memory per vCPU and can worsen pressure. B is wrong because NVMe is not a substitute for required in-memory working set performance. C is wrong because many small burstable nodes increase coordination overhead and do not guarantee per-request latency improvement.",
+    "id": "fe904cfff964388d960a11b18e1e162278bb57b655eebf2a0b19127436ce6eea"
   }
 ]
