@@ -45607,5 +45607,1029 @@
     },
     "explanation": "D is correct because the bottleneck is memory pressure, so memory-optimized sizing with iterative right-sizing directly addresses swap-driven latency. A is wrong because compute-optimized families reduce memory per vCPU and can worsen pressure. B is wrong because NVMe is not a substitute for required in-memory working set performance. C is wrong because many small burstable nodes increase coordination overhead and do not guarantee per-request latency improvement.",
     "id": "fe904cfff964388d960a11b18e1e162278bb57b655eebf2a0b19127436ce6eea"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.3",
+    "stem": "A regulated company must provide auditors with official AWS compliance reports for ISO and SOC programs, but only a small compliance team should access those documents. Which approach best meets the requirement with minimal operational overhead?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Artifact"
+    ],
+    "answers": {
+      "A": "Enable AWS Config conformance packs and export compliance reports to Amazon S3 for the audit team.",
+      "B": "Use AWS Artifact to download the required AWS compliance reports and control access through least-privilege IAM permissions.",
+      "C": "Open a support case each quarter to request signed compliance letters from the AWS account team.",
+      "D": "Use AWS Audit Manager only and rely on its assessment framework as the authoritative source of AWS-issued certificates."
+    },
+    "explanation": "B is correct because AWS Artifact is the AWS source for on-demand compliance reports and agreements. A is wrong because Config evaluates resource configuration, not official AWS compliance attestations. C is wrong because support requests are not the standard self-service mechanism for recurring report retrieval. D is wrong because Audit Manager helps gather customer evidence but does not replace AWS-issued compliance reports from Artifact.",
+    "id": "4f7938f91e31e71d5603f11851999dec26094520071bc469c0bc43b62d811cf3"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.3",
+    "stem": "A security lead needs to ensure only the governance team can retrieve legal agreements from AWS Artifact across multiple accounts in an organization. Which two controls should be implemented? (Select TWO.)",
+    "correct": [
+      "A",
+      "D"
+    ],
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Artifact"
+    ],
+    "answers": {
+      "A": "Grant explicit least-privilege IAM permissions for Artifact actions only to governance roles and deny broad access elsewhere.",
+      "B": "Allow all developers read-only access to Artifact so each team can self-serve legal documents quickly.",
+      "C": "Store downloaded agreements in public S3 buckets to simplify cross-account retrieval by auditors.",
+      "D": "Use centralized role-assumption patterns so governance users access Artifact through approved cross-account roles with auditing."
+    },
+    "explanation": "A and D are correct because least-privilege IAM plus controlled cross-account role access limits exposure and supports auditable operations. B is wrong because broad access violates the requirement for governance-only retrieval. C is wrong because public buckets create unacceptable data exposure for legal artifacts.",
+    "id": "213a3e874150136fd31027ccfe643462e1d6453f002ce9a0dafad4aa9614960c"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A mobile team releases weekly updates and must validate app behavior across many Android and iOS device and OS combinations without maintaining a physical lab. Which solution is most appropriate?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Device Farm"
+    ],
+    "answers": {
+      "A": "Use Amazon EC2 Auto Scaling groups to emulate mobile devices and run UI tests in Linux containers.",
+      "B": "Use Amazon Inspector to execute mobile UI workflows and report visual regressions by device class.",
+      "C": "Use AWS Device Farm to run automated tests on real hosted devices across required OS and hardware combinations.",
+      "D": "Use AWS CloudFormation drift detection to validate runtime compatibility across mobile platforms."
+    },
+    "explanation": "C is correct because Device Farm provides managed testing on real iOS and Android devices at scale. A is wrong because EC2 cannot emulate the full real-device matrix accurately for this requirement. B is wrong because Inspector is for vulnerability assessment, not mobile UI test execution. D is wrong because CloudFormation drift is unrelated to mobile application behavior testing.",
+    "id": "066985c8f74333f49854f4aad200ac8ebbae966b20e8743365c3818610f33064"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A fintech app team uses CI/CD and wants test failures on specific mobile models to block production deployment automatically. Which two actions best support this outcome? (Select TWO.)",
+    "correct": [
+      "B",
+      "C"
+    ],
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Device Farm"
+    ],
+    "answers": {
+      "A": "Run only manual exploratory sessions in Device Farm and have release managers evaluate screenshots after deployment.",
+      "B": "Integrate AWS Device Farm automated test runs into the pipeline and require pass criteria before promoting artifacts.",
+      "C": "Select representative real-device pools in Device Farm that match high-risk customer models and OS versions.",
+      "D": "Replace mobile tests with CloudWatch synthetic canaries because browser checks cover native app behavior sufficiently."
+    },
+    "explanation": "B and C are correct because pipeline gating with targeted real-device coverage directly enforces release quality. A is wrong because post-deployment manual review does not provide preventive gating. D is wrong because synthetic browser checks do not replace native mobile device testing requirements.",
+    "id": "66cfab7ad29166707805af207e149dd15109cb210e35f97aa2e8727c277c084d"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "stem": "A company wants Windows-integrated authentication for Amazon EC2 instances joined to its existing on-premises Active Directory. The company does not want to replicate directory data into AWS. Which option best meets the requirement?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Directory Service"
+    ],
+    "answers": {
+      "A": "Use AWS Directory Service AD Connector to proxy authentication requests to the existing on-premises Active Directory.",
+      "B": "Use AWS Directory Service Simple AD and trust it as the authoritative source for all corporate identities.",
+      "C": "Use Amazon Cognito user pools and synchronize credentials to domain-joined Windows servers automatically.",
+      "D": "Use IAM Identity Center only and remove all dependency on Active Directory for Windows authentication flows."
+    },
+    "explanation": "A is correct because AD Connector provides directory-aware authentication against existing on-prem AD without storing directory data in AWS. B is wrong because Simple AD creates a separate directory and does not satisfy the no-replication requirement. C is wrong because Cognito is not a drop-in replacement for Windows domain authentication. D is wrong because IAM Identity Center alone does not provide native AD domain join and Kerberos behavior for Windows instances.",
+    "id": "be92283a22af90cba6dc2baaf0e3eeb26bb73d28e8e60b30f87656334341ec67"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "1.1",
+    "stem": "A solutions architect is evaluating identity integration patterns for enterprise workloads on AWS. Match each requirement to the most appropriate directory option.",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Directory Service"
+    ],
+    "answers": {
+      "A": "AD Connector",
+      "B": "AWS Managed Microsoft AD",
+      "C": "Simple AD",
+      "D": "IAM Identity Center"
+    },
+    "subquestions": [
+      {
+        "id": "dir-1",
+        "prompt": "Use existing on-prem Microsoft Active Directory credentials in AWS without storing a copy of directory objects in the cloud.",
+        "correct": "A"
+      },
+      {
+        "id": "dir-2",
+        "prompt": "Need a fully managed Microsoft AD in AWS that supports domain join, Group Policy behavior, and trust relationships.",
+        "correct": "B"
+      },
+      {
+        "id": "dir-3",
+        "prompt": "Need lightweight low-cost directory features for small workloads that do not require advanced enterprise AD capabilities.",
+        "correct": "C"
+      },
+      {
+        "id": "dir-4",
+        "prompt": "Need centralized workforce access to multiple AWS accounts and applications using permission sets and SSO-style access.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "AD Connector proxies to existing AD without directory replication. AWS Managed Microsoft AD is the managed enterprise AD option in AWS. Simple AD is lightweight and limited. IAM Identity Center centralizes workforce access and account/application assignment.",
+    "id": "a3e195de5de613c17388c4789cf2f472f8bd7b3a44fba32a81f5ce20a81a10d5"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A global support platform needs to translate user-submitted tickets into English for triage, then translate agent responses back to the customer language. The workflow must be API-driven and near real time. Which service is the best fit?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "tags": [
+      "Amazon Translate"
+    ],
+    "answers": {
+      "A": "Use Amazon Comprehend to detect entities and sentiment, then infer translated output from extracted intent metadata.",
+      "B": "Use Amazon Polly for speech synthesis and convert generated audio back to text for multilingual response delivery.",
+      "C": "Use Amazon Textract to extract written text and rely on external scripts for all language transformation steps.",
+      "D": "Use Amazon Translate APIs for bidirectional text translation in the request and response workflow."
+    },
+    "explanation": "D is correct because Amazon Translate is purpose-built for neural machine translation through APIs in near real time. A is wrong because Comprehend performs NLP analysis, not full text translation. B is wrong because Polly is text-to-speech, not language translation. C is wrong because Textract extracts text from documents but does not provide translation.",
+    "id": "d5a268a2a40fd89bf1a78af1e562a1d89c8788276b175912978375f8c2be5ba7"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.1",
+    "stem": "A media company localizes product descriptions into many languages before publishing. The team wants managed translation with minimal infrastructure and quality checks before release. Which two design choices are most appropriate? (Select TWO.)",
+    "correct": [
+      "A",
+      "C"
+    ],
+    "difficulty": "HARD",
+    "tags": [
+      "Amazon Translate"
+    ],
+    "answers": {
+      "A": "Use Amazon Translate batch or real-time APIs in the content pipeline to generate localized text artifacts.",
+      "B": "Use Amazon Rekognition label detection to infer product descriptions directly in target languages.",
+      "C": "Add human review checkpoints for sensitive markets after machine translation before final publication.",
+      "D": "Replace localization with CloudFront geolocation headers and present the same source-language content globally."
+    },
+    "explanation": "A and C are correct because managed translation plus review gates balances speed and quality for production localization. B is wrong because Rekognition is for image and video analysis, not direct multilingual text localization. D is wrong because geolocation routing does not perform translation and fails the requirement.",
+    "id": "616e911ac174513fe5e47939b7019542bf4e626df28bac2a8101092bc71bf375"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "An internal audit team must continuously assess whether cloud controls are operating effectively and must collect evidence from AWS services to support periodic reviews. Which service best fits this objective?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Audit Manager"
+    ],
+    "answers": {
+      "A": "AWS Artifact, because it automatically evaluates your account controls and maps your resources to control objectives.",
+      "B": "AWS Audit Manager, because it automates evidence collection and maps it to control frameworks for assessments.",
+      "C": "Amazon GuardDuty, because threat findings provide direct evidence that all governance controls are operating effectively.",
+      "D": "AWS Config only, because configuration snapshots replace the need for assessment workflows and control mapping."
+    },
+    "explanation": "B is correct because Audit Manager is designed for automated evidence gathering and assessment workflows against control frameworks. A is wrong because Artifact provides AWS compliance reports, not customer control assessments. C is wrong because GuardDuty is threat detection, not comprehensive audit evidence management. D is wrong because Config is a useful signal source but does not itself provide full assessment lifecycle capabilities.",
+    "id": "3ea0fbb648181be48f445c88a088459f0c0b4425fe7a23abc4a686f0d416e257"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A company uses AWS Audit Manager for SOC-aligned assessments. Compliance leads want defensible evidence and clear human accountability for control attestations. Which two practices should be implemented? (Select TWO.)",
+    "correct": [
+      "B",
+      "D"
+    ],
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Audit Manager"
+    ],
+    "answers": {
+      "A": "Accept every automatically collected evidence item as final and skip owner review to reduce cycle time.",
+      "B": "Assign control owners to review collected evidence and record assessment rationale for each control status decision.",
+      "C": "Use one shared administrator identity for all control updates to simplify operational access and approval routing.",
+      "D": "Use framework scoping and assessment boundaries that align to business systems so evidence remains relevant and traceable."
+    },
+    "explanation": "B and D are correct because owner accountability and scoped assessments strengthen audit defensibility and traceability. A is wrong because automated collection still requires human validation for many controls. C is wrong because shared identities reduce accountability and weaken audit trails.",
+    "id": "ec8cd28bbe81e6ca8e29370acba9af65d7cab183ce490349297b2359a6654eed"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A governance team is designing an audit workflow in AWS. Match each objective to the most appropriate AWS service.",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Audit Manager"
+    ],
+    "answers": {
+      "A": "AWS Audit Manager",
+      "B": "AWS Artifact",
+      "C": "AWS Config",
+      "D": "AWS CloudTrail"
+    },
+    "subquestions": [
+      {
+        "id": "aud-1",
+        "prompt": "Automate evidence collection and map evidence to control objectives in a structured assessment process.",
+        "correct": "A"
+      },
+      {
+        "id": "aud-2",
+        "prompt": "Retrieve AWS-issued compliance reports and agreements for external review requests.",
+        "correct": "B"
+      },
+      {
+        "id": "aud-3",
+        "prompt": "Track resource configuration state and evaluate conformance against rules over time.",
+        "correct": "C"
+      },
+      {
+        "id": "aud-4",
+        "prompt": "Record API activity history for account operations and support forensic investigation timelines.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Audit Manager supports assessments and evidence workflows. Artifact provides AWS compliance documents. Config tracks configuration compliance state. CloudTrail records API activity for audit and forensics.",
+    "id": "0f8c3ec0d4f4ea46005c83829896c5f36a09e90f37f4cfbfb40b2617b82dd6c8"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A data monetization team wants to publish curated third-party-ready datasets and manage subscriber entitlement through a managed marketplace-style AWS service. Which option is best suited?",
+    "correct": "A",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Data Exchange"
+    ],
+    "answers": {
+      "A": "AWS Data Exchange for publishing and subscribing to curated data products with managed entitlement handling.",
+      "B": "Amazon Kinesis Data Streams for listing data products and distributing subscription contracts to buyers.",
+      "C": "AWS DMS for converting relational tables into external commercial data products with billing integration.",
+      "D": "Amazon EventBridge for dataset listing management and third-party subscriber onboarding control planes."
+    },
+    "explanation": "A is correct because AWS Data Exchange is built for curated data product publishing and subscription workflows. B is wrong because Kinesis is a streaming ingestion service, not a data marketplace entitlement platform. C is wrong because DMS is for migration and replication, not productized data distribution. D is wrong because EventBridge is an event routing service, not a data product marketplace.",
+    "id": "eb98a5d12d0803c2c7d047971285d578c66a5260a0540edec04f442b36a44836"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "An analytics company subscribes to multiple external datasets and needs automated ingestion to internal lake storage with strong data lineage. Which two actions best support this design? (Select TWO.)",
+    "correct": [
+      "A",
+      "D"
+    ],
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Data Exchange"
+    ],
+    "answers": {
+      "A": "Subscribe to products through AWS Data Exchange and automate revision processing into governed storage locations.",
+      "B": "Mirror all provider data manually from emailed CSV files to Amazon S3 and tag files after ad hoc validation.",
+      "C": "Use Amazon SQS queue depth as the primary lineage record for provider revisions and transformation provenance.",
+      "D": "Capture metadata and revision identifiers from each AWS Data Exchange update in the ingestion workflow for traceability."
+    },
+    "explanation": "A and D are correct because managed subscriptions with revision metadata capture provide automation and lineage. B is wrong because manual email-based ingestion is error-prone and not scalable. C is wrong because queue metrics are not a lineage system for dataset provenance.",
+    "id": "9fc481499a10d2908f5dbd89e2f9c9f867dbc063b7f156fffb1443b365b2632f"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A platform architect is comparing data-sharing approaches. Match each requirement to the most suitable AWS service.",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Data Exchange"
+    ],
+    "answers": {
+      "A": "AWS Data Exchange",
+      "B": "AWS DataSync",
+      "C": "AWS DMS",
+      "D": "Amazon Kinesis"
+    },
+    "subquestions": [
+      {
+        "id": "dex-1",
+        "prompt": "Publish and subscribe to third-party or internal data products with managed entitlement and update handling.",
+        "correct": "A"
+      },
+      {
+        "id": "dex-2",
+        "prompt": "Transfer large file datasets between on-premises storage and AWS with managed copy tasks.",
+        "correct": "B"
+      },
+      {
+        "id": "dex-3",
+        "prompt": "Replicate relational database changes to new engines for migration or continuous replication objectives.",
+        "correct": "C"
+      },
+      {
+        "id": "dex-4",
+        "prompt": "Ingest and process high-throughput streaming records for near-real-time event processing pipelines.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "AWS Data Exchange is for curated data product sharing and subscriptions. DataSync is for managed data transfer tasks. DMS is for database migration and replication. Kinesis is for streaming data ingestion and processing patterns.",
+    "id": "d1a7ba66dda560fe8c5d7f1d526a16d44b58e2517888bb21ca07fbdf5ab7eb35"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A media archive team must migrate 700 TB from a site with limited bandwidth in under one month and wants managed transport appliances from AWS. Which service family is the best fit?",
+    "correct": "C",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Snow Family"
+    ],
+    "answers": {
+      "A": "AWS Storage Gateway file gateway with weekly incremental uploads over the existing internet link only.",
+      "B": "AWS DataSync agent with throttled transfers, because physical transfer devices are unnecessary at this scale.",
+      "C": "AWS Snow Family devices to perform bulk offline data transfer to AWS within the project timeline.",
+      "D": "AWS Transfer Family with SFTP endpoints and multipart file uploads to absorb all migration workload quickly."
+    },
+    "explanation": "C is correct because Snow Family is designed for petabyte-scale transfers when network bandwidth is constrained. A and B are network-based options that may miss aggressive timelines at this data volume. D is wrong because Transfer Family provides protocol endpoints, not bulk offline transport appliances.",
+    "id": "b4b78ac6a7178ec362136ef454b582557c63005436d73c87074404f0c35acc98"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "stem": "A solutions architect must choose among migration and transfer options. Match each scenario to the best service.",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Snow Family"
+    ],
+    "answers": {
+      "A": "AWS Snow Family",
+      "B": "AWS DataSync",
+      "C": "AWS Storage Gateway",
+      "D": "AWS Transfer Family"
+    },
+    "subquestions": [
+      {
+        "id": "snow-1",
+        "prompt": "Move hundreds of terabytes from a remote site with limited connectivity using managed physical devices.",
+        "correct": "A"
+      },
+      {
+        "id": "snow-2",
+        "prompt": "Run scheduled online copy jobs between NFS shares and Amazon S3 with bandwidth controls.",
+        "correct": "B"
+      },
+      {
+        "id": "snow-3",
+        "prompt": "Provide local cached access on premises while extending storage workflows to AWS object storage.",
+        "correct": "C"
+      },
+      {
+        "id": "snow-4",
+        "prompt": "Offer managed SFTP/FTPS endpoints for partner file ingestion into AWS-managed storage targets.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Snow Family is for offline large-scale transfers. DataSync is for managed online data movement. Storage Gateway bridges on-premises applications with cloud-backed storage patterns. Transfer Family provides managed file transfer protocol endpoints.",
+    "id": "25ea953a013a58970089db749d0ee2f20c580823f596bd8c34fb3fd1f136b1af"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "During a regional service disruption, leadership wants authoritative AWS service-impact information and event progression updates tied to the account context. Which service should operations check first?",
+    "correct": "B",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Health Dashboard"
+    ],
+    "answers": {
+      "A": "Amazon CloudWatch, because metric alarms always include official cross-service outage communications from AWS.",
+      "B": "AWS Health Dashboard, because it provides account and service-event visibility with status updates from AWS.",
+      "C": "AWS Trusted Advisor, because recommendations include real-time outage timelines for every impacted region.",
+      "D": "AWS Config timeline, because configuration drift events indicate the scope of AWS regional incidents."
+    },
+    "explanation": "B is correct because AWS Health Dashboard is the authoritative source for AWS service health events and account-scoped notifications. A is wrong because CloudWatch metrics are workload signals, not official AWS-wide incident communications. C is wrong because Trusted Advisor provides optimization and best-practice checks, not incident timeline authority. D is wrong because Config tracks resource configuration states, not provider outage status updates.",
+    "id": "7c5da4ad6c718a1daa16cf4af310e3beea3b12ce15f4f5f202dfb32efdc6b322"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "2.2",
+    "stem": "An operations team wants faster incident triage by combining provider event context with internal runbooks. Which two practices improve response quality? (Select TWO.)",
+    "correct": [
+      "A",
+      "C"
+    ],
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Health Dashboard"
+    ],
+    "answers": {
+      "A": "Monitor AWS Health Dashboard events relevant to the accounts and regions where critical workloads run.",
+      "B": "Rely only on application error rates and ignore provider event feeds to avoid false positives during incidents.",
+      "C": "Map AWS Health event categories to incident playbooks so responders can apply predefined mitigations quickly.",
+      "D": "Disable health-event subscriptions and review service status manually after business hours for stability."
+    },
+    "explanation": "A and C are correct because provider event awareness plus mapped playbooks improves triage speed and consistency. B is wrong because ignoring provider context can delay root cause identification. D is wrong because delayed manual review conflicts with timely incident response objectives.",
+    "id": "630c00fa6c6f84e23a954d3d7e1d9fc3743a5fcfc524580875eaca109333980f"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A finance team needs a managed BI experience to build interactive dashboards from governed datasets and share insights with non-technical business users. Which AWS service is the best fit?",
+    "correct": "D",
+    "difficulty": "HARD",
+    "tags": [
+      "Amazon QuickSuite"
+    ],
+    "answers": {
+      "A": "Amazon OpenSearch Service, because search clusters provide dashboard interactivity for business KPI storytelling by default.",
+      "B": "Amazon CloudWatch, because infrastructure monitoring widgets are equivalent to business intelligence semantic dashboards.",
+      "C": "AWS Glue, because ETL job authoring directly satisfies business self-service analytics presentation requirements.",
+      "D": "Amazon QuickSuite, because it is an AWS analytics and visualization service for interactive business dashboards."
+    },
+    "explanation": "D is correct because Amazon QuickSuite is listed in the exam guide as an analytics and visualization service for BI-style dashboarding. A is wrong because OpenSearch dashboards are search and observability oriented, not the primary managed BI service. B is wrong because CloudWatch focuses on operational telemetry rather than business intelligence use cases. C is wrong because Glue handles data transformation, not end-user dashboard experience.",
+    "id": "ff3e5ed8735ee7e0e370eb34a81ad2ea9c43401500b6f1a789ced35776d25acf"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "stem": "A product analytics team is mapping AWS capabilities to reporting needs. Match each need to the best service.",
+    "difficulty": "HARD",
+    "tags": [
+      "Amazon QuickSuite"
+    ],
+    "answers": {
+      "A": "Amazon QuickSuite",
+      "B": "Amazon Athena",
+      "C": "AWS Glue",
+      "D": "Amazon Redshift"
+    },
+    "subquestions": [
+      {
+        "id": "qs-1",
+        "prompt": "Build and share interactive business dashboards for non-technical stakeholders.",
+        "correct": "A"
+      },
+      {
+        "id": "qs-2",
+        "prompt": "Run SQL queries directly against data in Amazon S3 without provisioning database servers.",
+        "correct": "B"
+      },
+      {
+        "id": "qs-3",
+        "prompt": "Create and operate managed ETL jobs and data catalog workflows for transformation pipelines.",
+        "correct": "C"
+      },
+      {
+        "id": "qs-4",
+        "prompt": "Use a managed cloud data warehouse optimized for analytical query workloads at scale.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "QuickSuite is for dashboard visualization. Athena provides serverless SQL on S3. Glue provides ETL and catalog capabilities. Redshift is a managed analytical data warehouse.",
+    "id": "846aecc4f21e047bb556bdbf60d1a604d72fcc0a614298205e4c6c9b8e48a99a"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "difficulty": "HARD",
+    "tags": [
+      "Migration and data transfer"
+    ],
+    "stem": "A media company must move 300 TB from an on-premises archive into Amazon S3, but the WAN is too slow for the cutover window. The team also wants a small ongoing sync path for daily deltas after the bulk move. Which design best balances speed and operational effort?",
+    "correct": "A",
+    "answers": {
+      "A": "Use AWS Snow Family for the initial bulk transfer, then use AWS DataSync for daily incremental updates.",
+      "B": "Use AWS DataSync for both the initial 300 TB and the ongoing daily deltas over the existing WAN.",
+      "C": "Use Amazon S3 Transfer Acceleration for the initial move and keep it enabled for all future deltas.",
+      "D": "Use AWS Storage Gateway as the primary bulk transport mechanism and avoid any separate sync tooling."
+    },
+    "explanation": "A is correct because Snow Family solves the bandwidth-limited bulk seed and DataSync is a good managed choice for recurring deltas. B is wrong because WAN-only transfer is unlikely to meet the initial timeline. C is wrong because Transfer Acceleration helps internet uploads but does not overcome this scale and timeline constraint. D is wrong because Storage Gateway is not the best bulk transfer mechanism for this migration shape.",
+    "id": "b9071290810a024b022037a89234cd986a776d22d3d8d5e033442bf37887c6a9"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "difficulty": "HARD",
+    "tags": [
+      "Migration and data transfer"
+    ],
+    "stem": "A bank is retiring a legacy file platform and must preserve source data for 30 days after cutover while also validating integrity before decommissioning the old environment. Which two actions best support the migration? (Select TWO.)",
+    "correct": [
+      "A",
+      "D"
+    ],
+    "answers": {
+      "A": "Stage the source files in a managed bulk migration workflow and verify checksums after import.",
+      "B": "Delete the source as soon as the first successful copy completes to reduce duplicate storage cost.",
+      "C": "Use an application-layer export script only, with no post-transfer validation.",
+      "D": "Keep the source environment read-only during the retention window so rollback remains possible."
+    },
+    "explanation": "A and D are correct because integrity validation and a read-only retention window support controlled cutover and rollback. B is wrong because immediate source deletion removes rollback safety. C is wrong because unvalidated exports create migration risk.",
+    "id": "a5d58526eae9ddba74ab7140da1cbcab2493f5a27835d72eb24814fef875a661"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "difficulty": "HARD",
+    "tags": [
+      "Migration and data transfer"
+    ],
+    "stem": "Match each migration goal to the AWS service best suited for it.",
+    "answers": {
+      "A": "AWS Snow Family",
+      "B": "AWS DataSync",
+      "C": "AWS Storage Gateway",
+      "D": "AWS DMS"
+    },
+    "subquestions": [
+      {
+        "id": "m1",
+        "prompt": "Move hundreds of terabytes when network throughput is the limiting factor.",
+        "correct": "A"
+      },
+      {
+        "id": "m2",
+        "prompt": "Continuously sync file data with scheduled managed transfers.",
+        "correct": "B"
+      },
+      {
+        "id": "m3",
+        "prompt": "Provide a local caching interface for hybrid storage use cases.",
+        "correct": "C"
+      },
+      {
+        "id": "m4",
+        "prompt": "Replicate database changes during a database migration project.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Snow Family fits constrained-bandwidth bulk transfer, DataSync fits managed recurring file sync, Storage Gateway fits hybrid cached access, and DMS fits database change replication.",
+    "id": "731e8ee043c2c1e7babd76aef3af2848d3b01f9da742b8077c9b43bf222d602c"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "difficulty": "HARD",
+    "tags": [
+      "Migration and data transfer"
+    ],
+    "stem": "A startup is moving 50 TB of branch-office documents to Amazon S3. The application must continue writing new files during migration, and the team wants the lowest-maintenance online option. Which approach is best?",
+    "correct": "C",
+    "answers": {
+      "A": "Copy the files with ad hoc rsync jobs and ask branch staff to stop all writes during the transfer.",
+      "B": "Ship the files through email attachments because the files are already compressed and encrypted.",
+      "C": "Use AWS DataSync to perform incremental online file transfers while the source systems remain active.",
+      "D": "Use AWS Snow Family because every online migration is better served by offline devices."
+    },
+    "explanation": "C is correct because DataSync is designed for managed online file migration with ongoing source activity. A is wrong because manual scripting and write freezes raise operational risk. B is wrong because email is not a viable bulk transfer path. D is wrong because Snow Family is for offline bulk moves, not ongoing online migration.",
+    "id": "88e47da4034ba923a50aa9cf9d977a750f611d5bb1acb3f4dc3160b31839e32c"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Data Exchange"
+    ],
+    "stem": "A data provider wants to sell a monthly curated dataset to several customers and avoid building a custom entitlement portal. The provider also wants automated delivery of new revisions to subscribers. Which service best fits?",
+    "correct": "B",
+    "answers": {
+      "A": "Amazon S3 with pre-signed URLs and a custom billing database.",
+      "B": "AWS Data Exchange for managed subscriptions and revision delivery.",
+      "C": "AWS DMS to replicate the dataset into each subscriber account.",
+      "D": "Amazon EventBridge to route dataset files to customer S3 buckets."
+    },
+    "explanation": "B is correct because Data Exchange is the managed AWS service for curated data product subscriptions and revision handling. A is wrong because custom portals and pre-signed URLs add entitlement overhead. C is wrong because DMS is for database migration, not a data marketplace. D is wrong because EventBridge is an event router, not a subscription platform.",
+    "id": "563777aae928d505aaf5efedf8263611cffba74f12b8060f8accce3be5ba1269"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Data Exchange"
+    ],
+    "stem": "A research team subscribes to third-party datasets and must ensure only approved revisions enter its analytics zone. Which two practices best support this workflow? (Select TWO.)",
+    "correct": [
+      "A",
+      "C"
+    ],
+    "answers": {
+      "A": "Use AWS Data Exchange to receive managed dataset revisions.",
+      "B": "Allow analysts to download raw vendor files directly to laptops and upload them later.",
+      "C": "Validate each revision in an ingestion pipeline before promoting it to curated storage.",
+      "D": "Treat all incoming revisions as production-ready because the provider has already published them."
+    },
+    "explanation": "A and C are correct because managed revision delivery plus downstream validation provide controlled ingestion. B is wrong because laptop-based handling breaks governance. D is wrong because published revisions still need local validation before promotion.",
+    "id": "fc4e5b4eb69924d53b059b8ce3a7202203ab1fe8cd3fd291298957c4706e1fd7"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.2",
+    "difficulty": "HARD",
+    "tags": [
+      "AWS Data Exchange"
+    ],
+    "stem": "Match each data-sharing need to the AWS service that best addresses it.",
+    "answers": {
+      "A": "AWS Data Exchange",
+      "B": "Amazon S3",
+      "C": "AWS DataSync",
+      "D": "Amazon EventBridge"
+    },
+    "subquestions": [
+      {
+        "id": "dx1",
+        "prompt": "Curate and subscribe to commercial data products with revision management.",
+        "correct": "A"
+      },
+      {
+        "id": "dx2",
+        "prompt": "Store raw landing data durably at low cost.",
+        "correct": "B"
+      },
+      {
+        "id": "dx3",
+        "prompt": "Move file data between on-premises storage and AWS on a schedule.",
+        "correct": "C"
+      },
+      {
+        "id": "dx4",
+        "prompt": "Route application events to downstream consumers.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Data Exchange manages curated data subscriptions, S3 stores raw landing data, DataSync transfers file data, and EventBridge routes application events.",
+    "id": "b8a136870487c1a39273cedb940a87b129067aaa6fafae145704078f47493006"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.1",
+    "difficulty": "HARD",
+    "tags": [
+      "Access options (for example, an S3 bucket with Requester Pays object storage)"
+    ],
+    "stem": "A public data archive serves 20 TB of research data to many universities. The archive owner wants to keep bucket governance centralized while shifting transfer costs to the consumers. Which access model is the best fit?",
+    "correct": "D",
+    "answers": {
+      "A": "Replicate the archive into every university account and bill each institution monthly for storage.",
+      "B": "Make the archive bucket public and rely on voluntary usage reporting to estimate transfer cost.",
+      "C": "Force all consumers to use a VPN and pay a flat annual network fee before downloads start.",
+      "D": "Use requester-pays access so consumers are billed for their requests and data transfer."
+    },
+    "explanation": "D is correct because requester-pays shifts transfer and request charges to the consumer while the archive owner keeps governance on the bucket. A is wrong because per-consumer replication multiplies storage and management overhead. B is wrong because public access without cost attribution does not meet the objective. C is wrong because a VPN fee model is unrelated to S3 request economics.",
+    "id": "03f3d6a11f22c7064965b1decd7706336a2f52c60aae7cd63115aa1d5a3c52ff"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.1",
+    "difficulty": "HARD",
+    "tags": [
+      "Access options (for example, an S3 bucket with Requester Pays object storage)"
+    ],
+    "stem": "A consortium shares large S3-hosted datasets and wants members to pay for their own access while the host retains policy control. Which two actions support that model? (Select TWO.)",
+    "correct": [
+      "A",
+      "B"
+    ],
+    "answers": {
+      "A": "Enable requester-pays behavior on the shared dataset bucket.",
+      "B": "Apply least-privilege bucket policies to approve read-only access paths for members.",
+      "C": "Allow anonymous write access so members can correct data on the fly.",
+      "D": "Disable versioning so storage accounting is easier to explain."
+    },
+    "explanation": "A and B are correct because requester-pays handles consumer-billed access and bucket policies preserve governance. C is wrong because anonymous writes violate data integrity. D is wrong because disabling versioning weakens recoverability and does not improve governance.",
+    "id": "094111898686d15b102fd0bbeaf38a1888932d69ad69e331e2a53c83adfc366a"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.1",
+    "difficulty": "HARD",
+    "tags": [
+      "Access options (for example, an S3 bucket with Requester Pays object storage)"
+    ],
+    "stem": "Match each access or transfer pattern to the AWS feature that best fits it.",
+    "answers": {
+      "A": "Requester Pays",
+      "B": "S3 Transfer Acceleration",
+      "C": "S3 Object Lock",
+      "D": "AWS PrivateLink"
+    },
+    "subquestions": [
+      {
+        "id": "acc1",
+        "prompt": "Shift S3 request and transfer charges to the consumer.",
+        "correct": "A"
+      },
+      {
+        "id": "acc2",
+        "prompt": "Improve long-distance S3 upload performance over the internet.",
+        "correct": "B"
+      },
+      {
+        "id": "acc3",
+        "prompt": "Prevent deletion or overwrite of retained objects.",
+        "correct": "C"
+      },
+      {
+        "id": "acc4",
+        "prompt": "Privately access supported AWS services over a VPC endpoint path.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Requester Pays shifts cost, Transfer Acceleration improves long-distance uploads, Object Lock enforces retention, and PrivateLink provides private service access.",
+    "id": "80903a1f2d5545a0406a2d16f8151cc1ca10d429a2906f67c8da6c88072754a9"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.1",
+    "difficulty": "HARD",
+    "tags": [
+      "Access options (for example, an S3 bucket with Requester Pays object storage)"
+    ],
+    "stem": "A university laboratory downloads large scientific datasets from a central S3 bucket in another Region. The downloads are bandwidth-heavy but infrequent, and the lab wants the simplest way to improve transfer performance without changing the data model. Which choice is best?",
+    "correct": "B",
+    "answers": {
+      "A": "Create a new database mirror in the lab Region and export the data back into S3 each week.",
+      "B": "Use S3 Transfer Acceleration for long-distance uploads and downloads to the bucket.",
+      "C": "Move the datasets to Amazon EBS volumes so the lab can mount them directly over the internet.",
+      "D": "Use requester-pays because shifting cost to the consumer automatically improves throughput."
+    },
+    "explanation": "B is correct because Transfer Acceleration is designed to improve long-distance S3 transfer performance with minimal architectural change. A is wrong because database mirroring changes the data model unnecessarily. C is wrong because EBS is not a direct internet-mounted file distribution method. D is wrong because requester-pays affects cost attribution, not throughput.",
+    "id": "6f1c335f537317d01b673aea1612990a425d781dfb86529b6c3be85c412ddee7"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "difficulty": "HARD",
+    "tags": [
+      "Management and governance"
+    ],
+    "stem": "A company has 120 AWS accounts and wants a consistent way to enforce baseline architecture while still letting teams choose their own workload stacks inside approved boundaries. Which governance approach best fits?",
+    "correct": "A",
+    "answers": {
+      "A": "Use centrally defined guardrails and standardized account baselines, then allow teams to build within those constraints.",
+      "B": "Let each team fully self-govern as long as monthly spend remains under budget.",
+      "C": "Require central approval for every console action so no team can diverge from a shared standard.",
+      "D": "Track only incident counts and treat low incident volume as proof that governance is effective."
+    },
+    "explanation": "A is correct because centralized baselines with team autonomy inside guardrails scale governance without blocking delivery. B is wrong because budget alone does not ensure architecture consistency. C is wrong because it creates severe operational bottlenecks. D is wrong because incident counts alone do not measure governance quality.",
+    "id": "eb534d535cd3f5a5bb2304821637cb0a2090e4baddf655c16fdf9f3afa599976"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "difficulty": "HARD",
+    "tags": [
+      "Management and governance"
+    ],
+    "stem": "A platform team wants to reduce drift across accounts without eliminating team autonomy. Which two actions are most effective? (Select TWO.)",
+    "correct": [
+      "A",
+      "D"
+    ],
+    "answers": {
+      "A": "Publish approved baseline templates and reusable patterns for common workloads.",
+      "B": "Allow teams to create their own one-off patterns without shared naming or ownership conventions.",
+      "C": "Suppress noncritical compliance findings so teams focus on feature delivery.",
+      "D": "Automate pre-deployment conformance checks so noncompliant changes fail before production."
+    },
+    "explanation": "A and D are correct because reusable baseline patterns plus pre-deploy conformance checks reduce drift while preserving autonomy. B is wrong because local one-off patterns increase entropy. C is wrong because suppressing findings hides drift rather than correcting it.",
+    "id": "f98f88e527cc79ae364f814d97a0e7f0cfedb7c8a7c7136bd3b5950d43d02d6a"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "difficulty": "HARD",
+    "tags": [
+      "Management and governance"
+    ],
+    "stem": "Match each governance need to the AWS service most directly aligned with it.",
+    "answers": {
+      "A": "AWS Service Catalog",
+      "B": "AWS Artifact",
+      "C": "AWS Trusted Advisor",
+      "D": "AWS Health Dashboard"
+    },
+    "subquestions": [
+      {
+        "id": "gov1",
+        "prompt": "Provide approved products through controlled portfolios.",
+        "correct": "A"
+      },
+      {
+        "id": "gov2",
+        "prompt": "Retrieve AWS compliance reports and agreements.",
+        "correct": "B"
+      },
+      {
+        "id": "gov3",
+        "prompt": "Identify best-practice recommendations and risk checks.",
+        "correct": "C"
+      },
+      {
+        "id": "gov4",
+        "prompt": "See AWS service-impact events relevant to your accounts and Regions.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "Service Catalog governs approved products, Artifact provides reports and agreements, Trusted Advisor provides recommendations, and Health Dashboard provides service-impact events.",
+    "id": "e49ebf015aa1921b1d040c68e67a5d15d0e14627d72334aec6985447b0dba402"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "difficulty": "HARD",
+    "tags": [
+      "Selecting the appropriate resource type and size (for example, the amount of Lambda memory) to meet business requirements"
+    ],
+    "stem": "A serverless API compresses large payloads before sending them to a downstream service. P95 latency is too high, but average utilization is low. The team wants the smallest change that most likely lowers latency without redesigning the service. Which adjustment is most appropriate?",
+    "correct": "C",
+    "answers": {
+      "A": "Lower memory and increase timeout to give each invocation more time to finish.",
+      "B": "Move the function to a scheduled batch job so latency becomes irrelevant.",
+      "C": "Increase Lambda memory so the function gets more CPU and network throughput.",
+      "D": "Disable compression so the function performs fewer calculations per request."
+    },
+    "explanation": "C is correct because Lambda memory size increases CPU and network allocation, often reducing runtime for CPU-heavy or network-sensitive workloads. A is wrong because timeout does not improve performance. B is wrong because batch scheduling changes the service model rather than improving latency. D is wrong because removing compression may increase network cost and does not address the underlying resource bottleneck.",
+    "id": "fec1eda73b93d7b567f2ad89ec0d2fb325e395ea89737bd93744ab9d2c732d2f"
+  },
+  {
+    "type": "MAMCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "difficulty": "HARD",
+    "tags": [
+      "Selecting the appropriate resource type and size (for example, the amount of Lambda memory) to meet business requirements"
+    ],
+    "stem": "A serverless ETL stage runs close to the timeout limit during monthly spikes. Which two actions are most likely to improve reliability while controlling cost? (Select TWO.)",
+    "correct": [
+      "A",
+      "D"
+    ],
+    "answers": {
+      "A": "Right-size the Lambda memory setting by testing several profiles against latency and cost.",
+      "B": "Keep the current memory setting and permanently reserve peak capacity for all runs.",
+      "C": "Move the function to an always-on instance so the timeout limit no longer matters.",
+      "D": "Break the ETL stage into bounded steps so orchestration can manage long-running work safely."
+    },
+    "explanation": "A and D are correct because iterative right-sizing plus bounded-step orchestration address both the resource bottleneck and timeout risk. B is wrong because fixed peak capacity is expensive. C is wrong because switching to an always-on instance is a larger redesign and does not inherently solve the workload shape.",
+    "id": "9c7a199579319dde2efb72b66a5bdecd64bcdc7bae26b8cb8d6ae3342f70fd89"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "difficulty": "HARD",
+    "tags": [
+      "Selecting the appropriate compute options and features (for example, EC2 instance types) to meet business requirements"
+    ],
+    "stem": "Match each workload shape to the sizing or compute choice that best fits it.",
+    "answers": {
+      "A": "Increase Lambda memory",
+      "B": "Memory-optimized EC2",
+      "C": "Compute-optimized EC2",
+      "D": "Burstable EC2"
+    },
+    "subquestions": [
+      {
+        "id": "size1",
+        "prompt": "CPU-sensitive Lambda function with long serialization time.",
+        "correct": "A"
+      },
+      {
+        "id": "size2",
+        "prompt": "In-memory analytics service limited by RAM.",
+        "correct": "B"
+      },
+      {
+        "id": "size3",
+        "prompt": "Parallel batch encoder that is mostly CPU-bound.",
+        "correct": "C"
+      },
+      {
+        "id": "size4",
+        "prompt": "Long-running heavy processing job that should avoid CPU credits.",
+        "correct": "C"
+      }
+    ],
+    "explanation": "Lambda memory tuning improves CPU/network allocation, memory-optimized EC2 fits RAM-bound systems, compute-optimized EC2 fits CPU-bound batch work, and burstable EC2 is generally a poor fit for sustained heavy processing.",
+    "id": "6dedf4097b6131a7af16e9051a47b06082c1ab5316d0d093a4bca51532903015"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "difficulty": "HARD",
+    "tags": [
+      "Selecting the appropriate resource type and size (for example, the amount of Lambda memory) to meet business requirements"
+    ],
+    "stem": "A team is trying to lower the cost of a Lambda-heavy event pipeline. They can tolerate a slight increase in code complexity but want the best cost-performance outcome. Which action is most likely to help?",
+    "correct": "B",
+    "answers": {
+      "A": "Reduce memory aggressively and accept longer execution time to save money.",
+      "B": "Profile the workload, then choose the smallest memory setting that meets both runtime and cost goals.",
+      "C": "Move everything to one giant container instance so the pipeline never scales out.",
+      "D": "Disable retries to reduce the number of billed invocations."
+    },
+    "explanation": "B is correct because workload profiling and iterative right-sizing usually produces the best cost-performance point. A is wrong because too little memory can increase runtime and total cost. C is wrong because centralizing the pipeline harms elasticity. D is wrong because removing retries reduces reliability and does not address resource efficiency.",
+    "id": "c32dc3a032762787066071cc3fc4181d6bf037dfe72b59e67d140f69ee42e126"
+  },
+  {
+    "type": "MATCH",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "3.2",
+    "difficulty": "HARD",
+    "tags": [
+      "Selecting the appropriate resource type and size (for example, the amount of Lambda memory) to meet business requirements"
+    ],
+    "stem": "Match each performance symptom to the most appropriate first tuning step.",
+    "answers": {
+      "A": "Increase Lambda memory",
+      "B": "Move to memory-optimized EC2",
+      "C": "Move to compute-optimized EC2",
+      "D": "Split the workload into bounded steps"
+    },
+    "subquestions": [
+      {
+        "id": "sym1",
+        "prompt": "Lambda invocations are CPU-starved during decompression.",
+        "correct": "A"
+      },
+      {
+        "id": "sym2",
+        "prompt": "An in-memory service is swapping under load.",
+        "correct": "B"
+      },
+      {
+        "id": "sym3",
+        "prompt": "A batch job is primarily limited by CPU throughput.",
+        "correct": "C"
+      },
+      {
+        "id": "sym4",
+        "prompt": "A near-timeout serverless job needs safer execution boundaries.",
+        "correct": "D"
+      }
+    ],
+    "explanation": "The first tuning step should match the observed bottleneck: more Lambda memory for CPU-starved functions, memory-optimized EC2 for swapping, compute-optimized EC2 for CPU-bound batch jobs, and workload decomposition when timeouts threaten reliability.",
+    "id": "cf24a047c6b57287236d21ed0f20ff58e4db88921a5fedff55a49efa89340380"
+  },
+  {
+    "type": "MCQ",
+    "exam": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "taskStatement": "4.1",
+    "difficulty": "HARD",
+    "tags": [
+      "Management and governance"
+    ],
+    "stem": "A platform team wants to let application teams move quickly while ensuring every new workload follows a standard account baseline and approved security pattern. The governance team also wants exceptions to expire automatically. Which approach best fits?",
+    "correct": "C",
+    "answers": {
+      "A": "Require all changes to be approved manually by a central committee before deployment.",
+      "B": "Allow each team to create its own controls and review them only after incidents occur.",
+      "C": "Use centrally managed baselines with time-bound exception workflows and automated enforcement in the delivery path.",
+      "D": "Track only monthly spend and consider budgets sufficient evidence of governance."
+    },
+    "explanation": "C is correct because central baselines with expiring exceptions and automated checks provide control without eliminating team agility. A is wrong because manual approval becomes a bottleneck. B is wrong because post-incident review is too late. D is wrong because cost controls do not establish governance or security conformance.",
+    "id": "26d6ac21859e3403da11c9011b1b0c6b6f2af563123a33448c0db1edc100270d"
   }
 ]
